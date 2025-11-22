@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unicore - Ryuhuustore</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --success: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #0f172a;
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Animasi Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0f172a, #1e293b, #334155);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            background: rgba(236, 72, 153, 0.2);
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 70%;
+            left: 80%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 2s;
+            background: rgba(245, 158, 11, 0.2);
+        }
+        
+        .floating-element:nth-child(3) {
+            top: 30%;
+            left: 85%;
+            width: 50px;
+            height: 50px;
+            animation-delay: 4s;
+        }
+        
+        .floating-element:nth-child(4) {
+            top: 80%;
+            left: 15%;
+            width: 70px;
+            height: 70px;
+            animation-delay: 6s;
+            background: rgba(16, 185, 129, 0.2);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+        
+        /* Header */
+        header {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--light);
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cart-icon {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Product Detail */
+        .product-detail {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .product-image {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+        }
+        
+        .features {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .features h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .features ul {
+            list-style: none;
+        }
+        
+        .features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .product-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .product-category {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .product-description {
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #cbd5e1;
+        }
+        
+        /* Order Form */
+        .order-form {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .order-form h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .service-options {
+            margin-bottom: 2rem;
+        }
+        
+        .service-options h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .service-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .service-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-item.active {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .service-duration {
+            font-weight: 600;
+        }
+        
+        .service-price {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        
+        .service-select {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .service-select:hover {
+            background: var(--primary-dark);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .contact-note {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-top: 0.5rem;
+        }
+        
+        .order-summary {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .cart-button, .checkout-button {
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .cart-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .cart-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .checkout-button {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+        
+        .checkout-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+        
+        /* Related Products */
+        .related-products {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .card-image {
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+        }
+        
+        .card-info {
+            padding: 1.5rem;
+        }
+        
+        .card-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .card-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .view-details {
+            display: block;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .view-details:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .product-name {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo img {
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="../index.html" class="logo">
+                <img src="../logo.png" alt="Ryuhuustore Logo">
+                Ryuhuustore
+            </a>
+            <div class="nav-links">
+                <a href="../index.html">Beranda</a>
+                <a href="../tutorial.html">Tutorial</a>
+                <a href="../keranjang.html" class="cart-icon">
+                    Keranjang <span class="cart-count">0</span>
+                </a>
+                <a href="#kontak">Kontak</a>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../index.html">Beranda</a> > <a href="../index.html#produk">Produk</a> > <span>Unicore</span>
+    </div>
+    
+    <!-- Product Detail -->
+    <section class="product-detail">
+        <div class="product-left">
+            <div class="product-image">
+                <h2 class="product-name">Unicore</h2>
+            </div>
+            
+            <div class="features">
+                <h3>Fitur Utama:</h3>
+                <ul>
+                    <li>Core engine yang stabil dan aman</li>
+                    <li>Anti-detection system terbaru</li>
+                    <li>Customizable settings lengkap</li>
+                    <li>24/7 customer support</li>
+                    <li>Regular updates dan maintenance</li>
+                    <li>Multi-platform support</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="product-right">
+            <span class="product-category">Genshin Impact</span>
+            <h1 class="product-name">Unicore</h1>
+            
+            <p class="product-description">
+                Unicore adalah produk premium dengan core engine yang sangat stabil dan aman. 
+                Dibangun dengan teknologi terbaru untuk memberikan performa maksimal dalam game Genshin Impact. 
+                Tersedia dalam berbagai pilihan durasi mulai dari 2 hari hingga Lifetime untuk pengalaman gaming yang tak terbatas.
+            </p>
+            
+            <div class="order-form">
+                <h3>Form Pemesanan</h3>
+                <form id="orderForm">
+                    <div class="service-options">
+                        <h4>Pilih Layanan:</h4>
+                        <div class="service-list">
+                            <div class="service-item active">
+                                <div class="service-duration">2 Hari</div>
+                                <div class="service-price">Rp 45.000</div>
+                                <button type="button" class="service-select" data-duration="2 Hari" data-price="45000">Pilih</button>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-duration">7 Hari</div>
+                                <div class="service-price">Rp 110.000</div>
+                                <button type="button" class="service-select" data-duration="7 Hari" data-price="110000">Pilih</button>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-duration">30 Hari</div>
+                                <div class="service-price">Rp 260.000</div>
+                                <button type="button" class="service-select" data-duration="30 Hari" data-price="260000">Pilih</button>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-duration">Lifetime</div>
+                                <div class="service-price">Rp 4.600.000</div>
+                                <button type="button" class="service-select" data-duration="Lifetime" data-price="4600000">Pilih</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact">Nickname Discord / Nomor WhatsApp:</label>
+                        <input type="text" id="contact" required placeholder="Contoh: user123#4567 atau 08123456789">
+                        <div class="contact-note">Kami akan menghubungi Anda melalui Discord atau WhatsApp untuk konfirmasi pesanan</div>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <div class="summary-item">
+                            <span>Produk:</span>
+                            <span>Unicore</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Durasi:</span>
+                            <span id="summary-duration">2 Hari</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Game:</span>
+                            <span>Genshin Impact</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total:</span>
+                            <span id="summary-total">Rp 45.000</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button type="button" class="cart-button" id="cartButton">Tambah ke Keranjang</button>
+                        <button type="button" class="checkout-button" id="checkoutButton">Checkout Langsung</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Related Products -->
+    <section class="related-products">
+        <h2 class="section-title">Produk Lainnya</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="card-image">
+                    <h3 class="card-name">Slash</h3>
+                </div>
+                <div class="card-info">
+                    <span class="card-category">Genshin Impact</span>
+                    <div class="card-price">Mulai dari Rp 40.000</div>
+                    <a href="slash.html" class="view-details">Lihat Detail</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="card-image">
+                    <h3 class="card-name">Shika</h3>
+                </div>
+                <div class="card-info">
+                    <span class="card-category">Genshin Impact</span>
+                    <div class="card-price">Mulai dari Rp 80.000</div>
+                    <a href="shika.html" class="view-details">Lihat Detail</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="card-image">
+                    <h3 class="card-name">Antiaddict</h3>
+                </div>
+                <div class="card-info">
+                    <span class="card-category">Genshin Impact</span>
+                    <div class="card-price">Mulai dari Rp 45.000</div>
+                    <a href="antiaddict.html" class="view-details">Lihat Detail</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="kontak">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Ryuhuustore</h3>
+                <p>Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">FB</a>
+                    <a href="#" class="social-link">IG</a>
+                    <a href="#" class="social-link">TW</a>
+                    <a href="#" class="social-link">YT</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Produk</h3>
+                <ul class="footer-links">
+                    <li><a href="../index.html#produk">Genshin Impact</a></li>
+                    <li><a href="../index.html#produk">Wuthering Waves</a></li>
+                    <li><a href="../index.html#produk">Solo Leveling Arise</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Bantuan</h3>
+                <ul class="footer-links">
+                    <li><a href="../tutorial.html">Cara Pembelian</a></li>
+                    <li><a href="../tutorial.html">Cara Penggunaan</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Kontak</h3>
+                <ul class="footer-links">
+                    <li>Email: support@ryuhuustore.com</li>
+                    <li>WhatsApp: +62 812-3456-7890</li>
+                    <li>Telegram: @ryuhuustore</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Ryuhuustore. All rights reserved.
+        </div>
+    </footer>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span>✓</span>
+        <span id="notification-text">Produk berhasil ditambahkan ke keranjang!</span>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Service selection
+            const serviceItems = document.querySelectorAll('.service-item');
+            const serviceSelectButtons = document.querySelectorAll('.service-select');
+            const summaryDuration = document.getElementById('summary-duration');
+            const summaryTotal = document.getElementById('summary-total');
+            const cartButton = document.getElementById('cartButton');
+            const checkoutButton = document.getElementById('checkoutButton');
+            const orderForm = document.getElementById('orderForm');
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            const cartCount = document.querySelector('.cart-count');
+            
+            // Set default selected service
+            let selectedDuration = '2 Hari';
+            let selectedPrice = '45000';
+            
+            // Service selection functionality
+            serviceSelectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const duration = this.getAttribute('data-duration');
+                    const price = this.getAttribute('data-price');
+                    
+                    // Update selected service
+                    selectedDuration = duration;
+                    selectedPrice = price;
+                    
+                    // Update UI
+                    serviceItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    this.parentElement.classList.add('active');
+                    
+                    // Update summary
+                    updateOrderSummary();
+                });
+            });
+            
+            // Update order summary
+            function updateOrderSummary() {
+                summaryDuration.textContent = selectedDuration;
+                summaryTotal.textContent = `Rp ${parseInt(selectedPrice).toLocaleString('id-ID')}`;
+            }
+            
+            // Show notification
+            function showNotification(message) {
+                notificationText.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Get cart from localStorage - FIXED VERSION
+            function getCart() {
+                try {
+                    const cartData = localStorage.getItem('cart');
+                    console.log('Cart data from localStorage:', cartData);
+                    
+                    if (!cartData) {
+                        return [];
+                    }
+                    
+                    const parsedCart = JSON.parse(cartData);
+                    console.log('Parsed cart:', parsedCart);
+                    
+                    // Ensure it's an array
+                    return Array.isArray(parsedCart) ? parsedCart : [];
+                } catch (error) {
+                    console.error('Error reading cart from localStorage:', error);
+                    return [];
+                }
+            }
+            
+            // Update cart count
+            function updateCartCount() {
+                const cart = getCart();
+                console.log('Cart count update:', cart.length);
+                cartCount.textContent = cart.length;
+            }
+            
+            // Initialize cart count
+            updateCartCount();
+            
+            // Function to add item to cart - FIXED VERSION
+            function addToCart() {
+                // Simple form validation
+                const contactInput = document.getElementById('contact');
+                if (!contactInput.value.trim()) {
+                    alert('Harap masukkan nickname Discord atau nomor WhatsApp!');
+                    return false;
+                }
+                
+                const contact = contactInput.value.trim();
+                
+                // Create cart item with proper structure
+                const cartItem = {
+                    id: 'unicore-' + Date.now(),
+                    product: 'Unicore',
+                    duration: selectedDuration,
+                    price: parseInt(selectedPrice),
+                    game: 'Genshin Impact',
+                    contact: contact
+                };
+                
+                console.log('Adding item to cart:', cartItem);
+                
+                // Get current cart
+                const cart = getCart();
+                
+                // Add item to cart
+                cart.push(cartItem);
+                
+                // Save cart to localStorage
+                try {
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    console.log('Cart saved to localStorage:', cart);
+                } catch (error) {
+                    console.error('Error saving cart to localStorage:', error);
+                    return false;
+                }
+                
+                // Update cart count
+                updateCartCount();
+                
+                return true;
+            }
+            
+            // Add to cart functionality
+            cartButton.addEventListener('click', function() {
+                if (addToCart()) {
+                    showNotification('Produk berhasil ditambahkan ke keranjang!');
+                    
+                    // Clear form after successful add
+                    document.getElementById('contact').value = '';
+                }
+            });
+            
+            // Checkout functionality - FIXED VERSION
+            checkoutButton.addEventListener('click', function() {
+                if (addToCart()) {
+                    showNotification('Produk berhasil ditambahkan ke keranjang!');
+                    
+                    // Clear form
+                    document.getElementById('contact').value = '';
+                    
+                    // Redirect to keranjang.html after a short delay
+                    setTimeout(() => {
+                        window.location.href = '../keranjang.html';
+                    }, 1000);
+                }
+            });
+            
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = `fadeInUp 0.6s ease-out ${entry.target.dataset.delay || '0s'} forwards`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            document.querySelectorAll('.product-image, .features, .product-right, .product-card').forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.dataset.delay = `${index * 0.1}s`;
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
