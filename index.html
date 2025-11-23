@@ -393,7 +393,7 @@
         
         .product-image {
             height: 180px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: rgba(30, 41, 59, 0.9);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -401,14 +401,10 @@
             overflow: hidden;
         }
         
-        .product-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+        .product-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
         }
         
         .product-name {
@@ -819,7 +815,7 @@
             <!-- Genshin Impact Products -->
             <div class="product-card" data-category="genshin">
                 <div class="product-image">
-                    <h3 class="product-name">Slash</h3>
+                    <img src="produk/slash.png" alt="Slash" class="product-img">
                 </div>
                 <div class="product-info">
                     <span class="product-category">Genshin Impact</span>
@@ -835,7 +831,7 @@
             
             <div class="product-card" data-category="genshin">
                 <div class="product-image">
-                    <h3 class="product-name">Shika</h3>
+                    <img src="produk/shika.png" alt="Shika" class="product-img">
                 </div>
                 <div class="product-info">
                     <span class="product-category">Genshin Impact</span>
@@ -850,7 +846,7 @@
             
             <div class="product-card" data-category="genshin">
                 <div class="product-image">
-                    <h3 class="product-name">Unicore</h3>
+                    <img src="produk/unicore.png" alt="Unicore" class="product-img">
                 </div>
                 <div class="product-info">
                     <span class="product-category">Genshin Impact</span>
@@ -867,7 +863,7 @@
             
             <div class="product-card" data-category="genshin">
                 <div class="product-image">
-                    <h3 class="product-name">Antiaddict</h3>
+                    <img src="produk/antiaddict.png" alt="Antiaddict" class="product-img">
                 </div>
                 <div class="product-info">
                     <span class="product-category">Genshin Impact</span>
@@ -885,7 +881,7 @@
             <!-- Wuthering Waves Products -->
             <div class="product-card" data-category="wuthering">
                 <div class="product-image">
-                    <h3 class="product-name">Slash</h3>
+                    <img src="produk/slash.png" alt="Slash" class="product-img">
                 </div>
                 <div class="product-info">
                     <span class="product-category">Wuthering Waves</span>
@@ -901,7 +897,7 @@
             
             <div class="product-card" data-category="wuthering">
                 <div class="product-image">
-                    <h3 class="product-name">Uniwaves</h3>
+                    <img src="produk/uniwaves.png" alt="Uniwaves" class="product-img">
                 </div>
                 <div class="product-info">
                     <span class="product-category">Wuthering Waves</span>
@@ -919,7 +915,7 @@
             <!-- Solo Leveling Arise Products -->
             <div class="product-card" data-category="solo">
                 <div class="product-image">
-                    <h3 class="product-name">Slash</h3>
+                    <img src="produk/slash.png" alt="Slash" class="product-img">
                 </div>
                 <div class="product-info">
                     <span class="product-category">Solo Leveling Arise</span>
@@ -1174,6 +1170,7 @@
             const categoryTabs = document.querySelectorAll('.category-tab');
             const productCards = document.querySelectorAll('.product-card');
             const cartCount = document.querySelector('.cart-count');
+            const productImages = document.querySelectorAll('.product-img');
             
             // Update cart count from localStorage
             function updateCartCount() {
@@ -1193,6 +1190,41 @@
             
             // Initialize cart count
             updateCartCount();
+            
+            // Function to create a placeholder image
+            function createPlaceholderImage(element, productName) {
+                const canvas = document.createElement('canvas');
+                canvas.width = 200;
+                canvas.height = 150;
+                const ctx = canvas.getContext('2d');
+                
+                // Background
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(0, 0, 200, 150);
+                
+                // Border
+                ctx.strokeStyle = '#6366f1';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(0, 0, 200, 150);
+                
+                // Text
+                ctx.fillStyle = '#f8fafc';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(productName, 100, 75);
+                
+                // Replace broken image with canvas
+                element.parentNode.replaceChild(canvas, element);
+            }
+            
+            // Check if product images loaded correctly
+            productImages.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.error('Gambar produk tidak ditemukan:', this.alt);
+                    createPlaceholderImage(this, this.alt);
+                });
+            });
             
             categoryTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
