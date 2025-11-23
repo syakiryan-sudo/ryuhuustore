@@ -227,7 +227,7 @@
         }
         
         .product-image {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: rgba(30, 41, 59, 0.7);
             border-radius: 15px;
             height: 400px;
             display: flex;
@@ -236,16 +236,14 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .product-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+        .product-image img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            object-fit: contain;
         }
         
         .features {
@@ -261,22 +259,72 @@
             font-size: 1.3rem;
         }
         
-        .features ul {
-            list-style: none;
+        .feature-category {
+            margin-bottom: 1.5rem;
         }
         
-        .features li {
-            padding: 0.5rem 0;
+        .feature-category h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+        
+        .feature-list li {
+            padding: 0.3rem 0;
             position: relative;
             padding-left: 1.5rem;
+            font-size: 0.9rem;
         }
         
-        .features li::before {
+        .feature-list li::before {
             content: '✓';
             position: absolute;
             left: 0;
             color: var(--success);
             font-weight: bold;
+        }
+        
+        .feature-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .feature-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .feature-tab.active {
+            background: var(--primary);
+        }
+        
+        .feature-tab:hover {
+            background: rgba(99, 102, 241, 0.5);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
         }
         
         .product-name {
@@ -469,6 +517,50 @@
             box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
         }
         
+        /* Gameplay Section */
+        .gameplay-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-top: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(30, 41, 59, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .video-placeholder {
+            text-align: center;
+            color: #94a3b8;
+            padding: 2rem;
+        }
+        
+        .video-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
         /* Related Products */
         .related-products {
             max-width: 1200px;
@@ -517,7 +609,7 @@
         
         .card-image {
             height: 150px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: rgba(30, 41, 59, 0.9);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -525,14 +617,10 @@
             overflow: hidden;
         }
         
-        .card-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+        .card-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
         }
         
         .card-info {
@@ -579,7 +667,7 @@
         /* Footer */
         footer {
             background: rgba(15, 23, 42, 0.9);
-            padding: 3rem 2rem;
+            padding: 4rem 2rem 2rem;
             margin-top: 4rem;
         }
         
@@ -588,7 +676,7 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
         }
         
         .footer-section h3 {
@@ -613,22 +701,44 @@
         
         .footer-links li {
             margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links li i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
         }
         
         .footer-links a {
             color: #cbd5e1;
             text-decoration: none;
             transition: color 0.3s;
+            display: flex;
+            align-items: center;
         }
         
         .footer-links a:hover {
             color: var(--primary);
         }
         
+        .contact-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-link:hover {
+            color: var(--primary);
+        }
+        
         .social-links {
             display: flex;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
         
         .social-link {
@@ -650,8 +760,8 @@
         
         .copyright {
             text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #94a3b8;
         }
@@ -722,8 +832,17 @@
             .logo img {
                 height: 35px;
             }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-tabs {
+                flex-direction: column;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Background Animation -->
@@ -762,19 +881,123 @@
     <section class="product-detail">
         <div class="product-left">
             <div class="product-image">
-                <h2 class="product-name">Unicore</h2>
+                <img src="unicore.png" alt="Unicore Logo" id="product-image">
             </div>
             
             <div class="features">
                 <h3>Fitur Utama:</h3>
-                <ul>
-                    <li>Core engine yang stabil dan aman</li>
-                    <li>Anti-detection system terbaru</li>
-                    <li>Customizable settings lengkap</li>
-                    <li>24/7 customer support</li>
-                    <li>Regular updates dan maintenance</li>
-                    <li>Multi-platform support</li>
-                </ul>
+                <div class="feature-tabs">
+                    <button class="feature-tab active" data-tab="map">🧭 Interactive Map</button>
+                    <button class="feature-tab" data-tab="combat">⚔️ Combat</button>
+                    <button class="feature-tab" data-tab="player">👤 Player</button>
+                    <button class="feature-tab" data-tab="teleports">🗺️ Teleports</button>
+                    <button class="feature-tab" data-tab="utility">⚙️ Utility</button>
+                </div>
+                
+                <div class="tab-content active" id="map">
+                    <div class="feature-category">
+                        <h4>🧭 Interactive Map</h4>
+                        <ul class="feature-list">
+                            <li>Image Scale</li>
+                            <li>Config (Load Items / Save Items)</li>
+                            <li>Landmarks Filter</li>
+                            <li>Waypoints Filter</li>
+                            <li>Puzzle Chest Filter</li>
+                            <li>Animals Filter</li>
+                            <li>Local Specialities Filter</li>
+                            <li>Ores Filter</li>
+                            <li>Wood Filter</li>
+                            <li>Chests Filter</li>
+                            <li>Fishing Filter</li>
+                            <li>Special Items Filter</li>
+                            <li>Enemies Filter</li>
+                            <li>Experience Filter</li>
+                            <li>Inventory / Materials Filter</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="combat">
+                    <div class="feature-category">
+                        <h4>⚔️ Combat Features</h4>
+                        <ul class="feature-list">
+                            <li>Kill Aura</li>
+                            <li>Damage Multiplier (0–30)</li>
+                            <li>Max Distance (0–20)</li>
+                            <li>Rapid-Fire</li>
+                            <li>Attack Multiplier (0–100)</li>
+                            <li>Monsters / Animals / Ores Targeting</li>
+                            <li>AOE Damage</li>
+                            <li>Cool Down Reducer (0.1 – 0.9)</li>
+                            <li>Infinite Ultimate</li>
+                            <li>Magnetizer</li>
+                            <li>Visible Only Option</li>
+                            <li>Freeze Enemy</li>
+                            <li>Enemy Won't Attack</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="player">
+                    <div class="feature-category">
+                        <h4>👤 Player Features</h4>
+                        <ul class="feature-list">
+                            <li>Infinite Stamina</li>
+                            <li>Mode: Override / Lock</li>
+                            <li>Noclip</li>
+                            <li>Speed Control (0 – 2.0)</li>
+                            <li>Godmode</li>
+                            <li>No Fall Damage</li>
+                            <li>Character Transparency</li>
+                            <li>Filters List</li>
+                            <li>Visible Only Option</li>
+                            <li>Max Distance (29m)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="teleports">
+                    <div class="feature-category">
+                        <h4>🗺️ Teleports Features</h4>
+                        <ul class="feature-list">
+                            <li>Mouse Teleport</li>
+                            <li>Draw Circle</li>
+                            <li>Max Distance (1000m)</li>
+                            <li>Quest Teleport</li>
+                            <li>Draw Target to TP</li>
+                            <li>Target Selection via FOV / Distance (0–500)</li>
+                            <li>Config (Load Items / Save Items)</li>
+                            <li>Teleport Points List</li>
+                            <li>Create New Teleport Points</li>
+                            <li>Draw Points</li>
+                            <li>Loop Mode (Auto Teleport)</li>
+                            <li>Delay Between TP (0–60)</li>
+                            <li>Start from First Object</li>
+                            <li>Start from Selected Object</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="utility">
+                    <div class="feature-category">
+                        <h4>⚙️ Utility Features</h4>
+                        <ul class="feature-list">
+                            <li>Auto Dialogs (Auto-Skip + Auto-Choice)</li>
+                            <li>Speedup Dialogs</li>
+                            <li>Skip Cutscenes</li>
+                            <li>FPS Unlocker</li>
+                            <li>Custom Time</li>
+                            <li>Remove Fog</li>
+                            <li>Auto Seelies (Max Distance 29m)</li>
+                            <li>UID / Name / Adventure Level Editor</li>
+                            <li>World Level Editor</li>
+                            <li>Birthday / Signature Editor</li>
+                            <li>Create New</li>
+                            <li>Create From Clipboard</li>
+                            <li>Refresh</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -850,6 +1073,27 @@
             </div>
         </div>
     </section>
+
+    <!-- Gameplay Section -->
+    <section class="gameplay-section">
+        <h2 class="section-title">Demo Unicore</h2>
+        <div class="video-container">
+            <div class="video-placeholder">
+                <i class="fab fa-youtube"></i>
+                <h3>Video Demo Akan Segera Hadir</h3>
+                <p>Nantikan video demo Unicore yang akan diupload segera</p>
+            </div>
+            <!-- 
+            UNCOMMENT DAN GANTI VIDEO_ID DENGAN ID YOUTUBE ANDA:
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID" 
+                    title="Demo Unicore" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+            -->
+        </div>
+    </section>
     
     <!-- Related Products -->
     <section class="related-products">
@@ -857,10 +1101,11 @@
         <div class="products-grid">
             <div class="product-card">
                 <div class="card-image">
-                    <h3 class="card-name">Slash</h3>
+                    <img src="slash.png" alt="Slash" class="related-product-img">
                 </div>
                 <div class="card-info">
-                    <span class="card-category">Genshin Impact</span>
+                    <span class="card-category">Multi-Game</span>
+                    <h3 class="card-name">Slash</h3>
                     <div class="card-price">Mulai dari Rp 40.000</div>
                     <a href="slash.html" class="view-details">Lihat Detail</a>
                 </div>
@@ -868,10 +1113,11 @@
             
             <div class="product-card">
                 <div class="card-image">
-                    <h3 class="card-name">Shika</h3>
+                    <img src="shika.png" alt="Shika" class="related-product-img">
                 </div>
                 <div class="card-info">
                     <span class="card-category">Genshin Impact</span>
+                    <h3 class="card-name">Shika</h3>
                     <div class="card-price">Mulai dari Rp 80.000</div>
                     <a href="shika.html" class="view-details">Lihat Detail</a>
                 </div>
@@ -879,10 +1125,11 @@
             
             <div class="product-card">
                 <div class="card-image">
-                    <h3 class="card-name">Antiaddict</h3>
+                    <img src="antiaddict.png" alt="Antiaddict" class="related-product-img">
                 </div>
                 <div class="card-info">
                     <span class="card-category">Genshin Impact</span>
+                    <h3 class="card-name">Antiaddict</h3>
                     <div class="card-price">Mulai dari Rp 45.000</div>
                     <a href="antiaddict.html" class="view-details">Lihat Detail</a>
                 </div>
@@ -895,40 +1142,57 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Ryuhuustore</h3>
-                <p>Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif.</p>
+                <p>Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif. Kami berkomitmen memberikan pengalaman berbelanja terbaik untuk para gamer.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link">FB</a>
-                    <a href="#" class="social-link">IG</a>
-                    <a href="#" class="social-link">TW</a>
-                    <a href="#" class="social-link">YT</a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
             <div class="footer-section">
                 <h3>Produk</h3>
                 <ul class="footer-links">
-                    <li><a href="../index.html#produk">Genshin Impact</a></li>
-                    <li><a href="../index.html#produk">Wuthering Waves</a></li>
-                    <li><a href="../index.html#produk">Solo Leveling Arise</a></li>
+                    <li><a href="../index.html#produk"><i class="fas fa-gamepad"></i> Genshin Impact</a></li>
+                    <li><a href="../index.html#produk"><i class="fas fa-gamepad"></i> Wuthering Waves</a></li>
+                    <li><a href="../index.html#produk"><i class="fas fa-gamepad"></i> Solo Leveling Arise</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h3>Bantuan</h3>
                 <ul class="footer-links">
-                    <li><a href="../tutorial.html">Cara Pembelian</a></li>
-                    <li><a href="../tutorial.html">Cara Penggunaan</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="../tutorial.html"><i class="fas fa-shopping-cart"></i> Cara Pembelian</a></li>
+                    <li><a href="../tutorial.html"><i class="fas fa-info-circle"></i> Cara Penggunaan</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-shield-alt"></i> Kebijakan Privasi</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h3>Kontak</h3>
                 <ul class="footer-links">
-                    <li>Email: support@ryuhuustore.com</li>
-                    <li>WhatsApp: +62 812-3456-7890</li>
-                    <li>Telegram: @ryuhuustore</li>
+                    <li>
+                        <a href="mailto:ryuhuustore@gmail.com" class="contact-link">
+                            <i class="fas fa-envelope"></i> ryuhuustore@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/6285117065033" target="_blank" class="contact-link">
+                            <i class="fab fa-whatsapp"></i> +62 851-1706-5033
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://t.me/ryuhuuz" target="_blank" class="contact-link">
+                            <i class="fab fa-telegram"></i> @ryuhuuz
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://discord.com/users/1120396377839648780" target="_blank" class="contact-link">
+                            <i class="fab fa-discord"></i> ryuhuu.
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -957,6 +1221,8 @@
             const notification = document.getElementById('notification');
             const notificationText = document.getElementById('notification-text');
             const cartCount = document.querySelector('.cart-count');
+            const featureTabs = document.querySelectorAll('.feature-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
             
             // Set default selected service
             let selectedDuration = '2 Hari';
@@ -984,6 +1250,21 @@
                 });
             });
             
+            // Feature tabs functionality
+            featureTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    featureTabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
             // Update order summary
             function updateOrderSummary() {
                 summaryDuration.textContent = selectedDuration;
@@ -1004,14 +1285,12 @@
             function getCart() {
                 try {
                     const cartData = localStorage.getItem('cart');
-                    console.log('Cart data from localStorage:', cartData);
                     
                     if (!cartData) {
                         return [];
                     }
                     
                     const parsedCart = JSON.parse(cartData);
-                    console.log('Parsed cart:', parsedCart);
                     
                     // Ensure it's an array
                     return Array.isArray(parsedCart) ? parsedCart : [];
@@ -1024,7 +1303,6 @@
             // Update cart count
             function updateCartCount() {
                 const cart = getCart();
-                console.log('Cart count update:', cart.length);
                 cartCount.textContent = cart.length;
             }
             
@@ -1052,8 +1330,6 @@
                     contact: contact
                 };
                 
-                console.log('Adding item to cart:', cartItem);
-                
                 // Get current cart
                 const cart = getCart();
                 
@@ -1063,7 +1339,6 @@
                 // Save cart to localStorage
                 try {
                     localStorage.setItem('cart', JSON.stringify(cart));
-                    console.log('Cart saved to localStorage:', cart);
                 } catch (error) {
                     console.error('Error saving cart to localStorage:', error);
                     return false;
@@ -1100,6 +1375,51 @@
                 }
             });
             
+            // Handle image loading errors
+            const productImage = document.getElementById('product-image');
+            const relatedImages = document.querySelectorAll('.related-product-img');
+            
+            // Function to create a placeholder image
+            function createPlaceholderImage(element, productName) {
+                const canvas = document.createElement('canvas');
+                canvas.width = 200;
+                canvas.height = 200;
+                const ctx = canvas.getContext('2d');
+                
+                // Background
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(0, 0, 200, 200);
+                
+                // Border
+                ctx.strokeStyle = '#6366f1';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(0, 0, 200, 200);
+                
+                // Text
+                ctx.fillStyle = '#f8fafc';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(productName, 100, 100);
+                
+                // Replace broken image with canvas
+                element.parentNode.replaceChild(canvas, element);
+            }
+            
+            // Check if main product image loaded correctly
+            productImage.addEventListener('error', function() {
+                console.error('Gambar produk Unicore tidak ditemukan');
+                createPlaceholderImage(this, 'Unicore');
+            });
+            
+            // Check if related product images loaded correctly
+            relatedImages.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.error('Gambar produk terkait tidak ditemukan:', this.alt);
+                    createPlaceholderImage(this, this.alt);
+                });
+            });
+            
             // Add scroll animations
             const observerOptions = {
                 threshold: 0.1,
@@ -1116,7 +1436,7 @@
             }, observerOptions);
             
             // Observe elements for animation
-            document.querySelectorAll('.product-image, .features, .product-right, .product-card').forEach((el, index) => {
+            document.querySelectorAll('.product-image, .features, .product-right, .product-card, .video-container').forEach((el, index) => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.dataset.delay = `${index * 0.1}s`;
