@@ -238,6 +238,13 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
         
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
         .product-image::after {
             content: '';
             position: absolute;
@@ -261,22 +268,102 @@
             font-size: 1.3rem;
         }
         
-        .features ul {
-            list-style: none;
+        .feature-category {
+            margin-bottom: 1.5rem;
         }
         
-        .features li {
-            padding: 0.5rem 0;
+        .feature-category h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+        
+        .feature-list li {
+            padding: 0.3rem 0;
             position: relative;
             padding-left: 1.5rem;
+            font-size: 0.9rem;
         }
         
-        .features li::before {
+        .feature-list li::before {
             content: '✓';
             position: absolute;
             left: 0;
             color: var(--success);
             font-weight: bold;
+        }
+        
+        .feature-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .feature-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .feature-tab.active {
+            background: var(--primary);
+        }
+        
+        .feature-tab:hover {
+            background: rgba(99, 102, 241, 0.5);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .supported-games {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .supported-games h4 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+        
+        .game-list li {
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .game-list li::before {
+            content: '🎮';
+            position: absolute;
+            left: 0;
         }
         
         .product-name {
@@ -469,6 +556,33 @@
             box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
         }
         
+        /* Gameplay Section */
+        .gameplay-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-top: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
         /* Related Products */
         .related-products {
             max-width: 1200px;
@@ -579,7 +693,7 @@
         /* Footer */
         footer {
             background: rgba(15, 23, 42, 0.9);
-            padding: 3rem 2rem;
+            padding: 4rem 2rem 2rem;
             margin-top: 4rem;
         }
         
@@ -588,7 +702,7 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
         }
         
         .footer-section h3 {
@@ -613,22 +727,44 @@
         
         .footer-links li {
             margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links li i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
         }
         
         .footer-links a {
             color: #cbd5e1;
             text-decoration: none;
             transition: color 0.3s;
+            display: flex;
+            align-items: center;
         }
         
         .footer-links a:hover {
             color: var(--primary);
         }
         
+        .contact-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-link:hover {
+            color: var(--primary);
+        }
+        
         .social-links {
             display: flex;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
         
         .social-link {
@@ -650,8 +786,8 @@
         
         .copyright {
             text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #94a3b8;
         }
@@ -722,8 +858,21 @@
             .logo img {
                 height: 35px;
             }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-tabs {
+                flex-direction: column;
+            }
+            
+            .game-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Background Animation -->
@@ -762,30 +911,180 @@
     <section class="product-detail">
         <div class="product-left">
             <div class="product-image">
-                <h2 class="product-name">Slash</h2>
+                <img src="slash.png" alt="Slash Logo">
             </div>
             
             <div class="features">
                 <h3>Fitur Utama:</h3>
-                <ul>
-                    <li>Auto-farm dengan AI canggih</li>
-                    <li>Anti-detection system</li>
-                    <li>Customizable settings</li>
-                    <li>24/7 customer support</li>
-                    <li>Regular updates</li>
-                    <li>Multi-platform support</li>
-                </ul>
+                <div class="feature-tabs">
+                    <button class="feature-tab active" data-tab="wuthering">Wuthering Waves</button>
+                    <button class="feature-tab" data-tab="solo">Solo Leveling</button>
+                    <button class="feature-tab" data-tab="other">Game Lainnya</button>
+                </div>
+                
+                <div class="tab-content active" id="wuthering">
+                    <div class="feature-category">
+                        <h4>🔥 Player</h4>
+                        <ul class="feature-list">
+                            <li>God Mode</li>
+                            <li>Auto Revive</li>
+                            <li>No Cooldown</li>
+                            <li>Infinite Stamina</li>
+                            <li>Infinite Special Energy</li>
+                            <li>Infinite Ultimate</li>
+                            <li>Infinite Intro Outro</li>
+                            <li>No Fall Damage</li>
+                            <li>Auto Dodge Dash</li>
+                            <li>Auto Dodge Jump</li>
+                            <li>Auto Parry Basic Attack</li>
+                            <li>Auto Parry Intro Skill</li>
+                            <li>Reduce Stamina While Dodge or Parry</li>
+                            <li>Fly</li>
+                            <li>No Clip</li>
+                            <li>Fly Speed</li>
+                            <li>Player Speed</li>
+                            <li>Weapon and Skin Changer</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>⚙️ Character Attributes</h4>
+                        <ul class="feature-list">
+                            <li>Character Resonance Chain 6 Unlock</li>
+                            <li>Signature Weapon Rank 5 Replicate</li>
+                            <li>Flight Everywhere</li>
+                            <li>100% Critical</li>
+                            <li>High Echo Attack</li>
+                            <li>Increase Coin, Material and Echo Rate</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>📊 Stats Editor</h4>
+                        <ul class="feature-list">
+                            <li>Attack Modifier</li>
+                            <li>Defend Modifier</li>
+                            <li>HP Modifier</li>
+                            <li>Crit Rate Modifier</li>
+                            <li>Crit Damage Modifier</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>👹 Enemy</h4>
+                        <ul class="feature-list">
+                            <li>Enemy Vacuum</li>
+                            <li>Kill Aura 1</li>
+                            <li>Kill Aura 2</li>
+                            <li>Exclude Quest Monster</li>
+                            <li>Kill Aura Animal</li>
+                            <li>Kill Aura Counter Attack</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🌍 World</h4>
+                        <ul class="feature-list">
+                            <li>Auto Loot Collect</li>
+                            <li>Auto Loot Chest</li>
+                            <li>Auto Absorb Echo</li>
+                            <li>Auto Destroy</li>
+                            <li>Auto Puzzle</li>
+                            <li>No Restrict Area</li>
+                            <li>World Speed</li>
+                            <li>Fishing Boat Speed</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🏆 Dungeon & Farm</h4>
+                        <ul class="feature-list">
+                            <li>Farm Tracked Enemy</li>
+                            <li>Auto Restart Dungeon</li>
+                            <li>Auto Challenge Boss / Tacet</li>
+                            <li>Auto Claim Reward</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🔭 ESP</h4>
+                        <ul class="feature-list">
+                            <li>Monster</li>
+                            <li>Collect</li>
+                            <li>Chest</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🧭 Teleport</h4>
+                        <ul class="feature-list">
+                            <li>JSON File Custom Teleport</li>
+                            <li>Track Icon To Teleport</li>
+                            <li>Quest Teleport</li>
+                            <li>Map Mark Teleport</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🧩 MISC</h4>
+                        <ul class="feature-list">
+                            <li>FOV</li>
+                            <li>Pause In Game Time</li>
+                            <li>Unlock FPS</li>
+                            <li>Auto Claim Trophies</li>
+                            <li>Cook & Craft No Animation</li>
+                            <li>Plot Skip</li>
+                            <li>Auto Plot Skip</li>
+                            <li>Hide UID</li>
+                            <li>Show FPS</li>
+                            <li>Change UID</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="solo">
+                    <div class="feature-category">
+                        <h4>📌 SLASH — Solo Leveling Cheetos</h4>
+                        <ul class="feature-list">
+                            <li>Shadow Attack Modifier</li>
+                            <li>Shadow Cooldown Reduction</li>
+                            <li>x2 Move Speed</li>
+                            <li>Set Monster HP</li>
+                            <li>Set Monster Damage</li>
+                            <li>Auto Break Shield</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="other">
+                    <div class="feature-category">
+                        <h4>📌 SLASH — Supported Games</h4>
+                        <ul class="game-list">
+                            <li>GLF 2 Haoplay & Sunborn</li>
+                            <li>Rememento White Shadow</li>
+                            <li>Genshin Shika Bypass</li>
+                            <li>ZZZ Bypass</li>
+                            <li>Etheria Restart</li>
+                            <li>Crystal Of Atlan</li>
+                            <li>Blue Archive</li>
+                            <li>Stella Sora</li>
+                            <li>Duet Night Abyss</li>
+                        </ul>
+                        <p><em>Note: Cek di server untuk fitur lengkapnya</em></p>
+                    </div>
+                </div>
             </div>
         </div>
         
         <div class="product-right">
-            <span class="product-category">Genshin Impact • Wuthering Waves • Solo Leveling Arise</span>
+            <span class="product-category">Wuthering Waves • Solo Leveling Arise • Multi-Game</span>
             <h1 class="product-name">Slash</h1>
             
             <p class="product-description">
-                Slash adalah produk premium yang memberikan pengalaman gaming terbaik dengan fitur-fitur canggih 
-                untuk meningkatkan performa permainan Anda. Dapatkan keunggulan kompetitif dengan menggunakan 
-                Slash di game favorit Anda.
+                Slash adalah produk premium dengan fitur-fitur canggih yang mendukung berbagai game populer. 
+                Dapatkan pengalaman gaming terbaik dengan kemampuan modifikasi yang luas dan sistem anti-detection 
+                yang membuat akun Anda tetap aman. Slash kompatibel dengan Wuthering Waves, Solo Leveling Arise, 
+                dan berbagai game lainnya.
             </p>
             
             <div class="order-form">
@@ -890,40 +1189,57 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Ryuhuustore</h3>
-                <p>Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif.</p>
+                <p>Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif. Kami berkomitmen memberikan pengalaman berbelanja terbaik untuk para gamer.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link">FB</a>
-                    <a href="#" class="social-link">IG</a>
-                    <a href="#" class="social-link">TW</a>
-                    <a href="#" class="social-link">YT</a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
             <div class="footer-section">
                 <h3>Produk</h3>
                 <ul class="footer-links">
-                    <li><a href="../index.html#produk">Genshin Impact</a></li>
-                    <li><a href="../index.html#produk">Wuthering Waves</a></li>
-                    <li><a href="../index.html#produk">Solo Leveling Arise</a></li>
+                    <li><a href="../index.html#produk"><i class="fas fa-gamepad"></i> Genshin Impact</a></li>
+                    <li><a href="../index.html#produk"><i class="fas fa-gamepad"></i> Wuthering Waves</a></li>
+                    <li><a href="../index.html#produk"><i class="fas fa-gamepad"></i> Solo Leveling Arise</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h3>Bantuan</h3>
                 <ul class="footer-links">
-                    <li><a href="../tutorial.html">Cara Pembelian</a></li>
-                    <li><a href="../tutorial.html">Cara Penggunaan</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="../tutorial.html"><i class="fas fa-shopping-cart"></i> Cara Pembelian</a></li>
+                    <li><a href="../tutorial.html"><i class="fas fa-info-circle"></i> Cara Penggunaan</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-shield-alt"></i> Kebijakan Privasi</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h3>Kontak</h3>
                 <ul class="footer-links">
-                    <li>Email: support@ryuhuustore.com</li>
-                    <li>WhatsApp: +62 812-3456-7890</li>
-                    <li>Telegram: @ryuhuustore</li>
+                    <li>
+                        <a href="mailto:ryuhuustore@gmail.com" class="contact-link">
+                            <i class="fas fa-envelope"></i> ryuhuustore@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/6285117065033" target="_blank" class="contact-link">
+                            <i class="fab fa-whatsapp"></i> +62 851-1706-5033
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://t.me/ryuhuuz" target="_blank" class="contact-link">
+                            <i class="fab fa-telegram"></i> @ryuhuuz
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://discord.com/users/1120396377839648780" target="_blank" class="contact-link">
+                            <i class="fab fa-discord"></i> ryuhuu.
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -952,6 +1268,8 @@
             const notification = document.getElementById('notification');
             const notificationText = document.getElementById('notification-text');
             const cartCount = document.querySelector('.cart-count');
+            const featureTabs = document.querySelectorAll('.feature-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
             
             // Set default selected service
             let selectedDuration = '3 Hari';
@@ -976,6 +1294,21 @@
                     
                     // Update summary
                     updateOrderSummary();
+                });
+            });
+            
+            // Feature tabs functionality
+            featureTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    featureTabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
                 });
             });
             
