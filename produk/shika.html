@@ -242,6 +242,7 @@
             max-width: 100%;
             max-height: 100%;
             border-radius: 10px;
+            object-fit: cover;
         }
         
         .product-image::after {
@@ -530,29 +531,24 @@
             padding: 0 2rem;
         }
         
-        .gameplay-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .gameplay-item {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s;
-        }
-        
-        .gameplay-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        .gameplay-item img {
+        .video-container {
+            position: relative;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-top: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         
         /* Related Products */
@@ -875,7 +871,7 @@
     <section class="product-detail">
         <div class="product-left">
             <div class="product-image">
-                <img src="https://via.placeholder.com/400x300/6366f1/ffffff?text=Shika+Logo" alt="Shika Logo">
+                <img src="shika.png" alt="Shika Logo">
             </div>
             
             <div class="features">
@@ -1077,19 +1073,14 @@
     <!-- Gameplay Section -->
     <section class="gameplay-section">
         <h2 class="section-title">Gameplay Shika</h2>
-        <div class="gameplay-gallery">
-            <div class="gameplay-item">
-                <img src="https://via.placeholder.com/400x300/6366f1/ffffff?text=Gameplay+1" alt="Gameplay Shika 1">
-            </div>
-            <div class="gameplay-item">
-                <img src="https://via.placeholder.com/400x300/ec4899/ffffff?text=Gameplay+2" alt="Gameplay Shika 2">
-            </div>
-            <div class="gameplay-item">
-                <img src="https://via.placeholder.com/400x300/f59e0b/ffffff?text=Gameplay+3" alt="Gameplay Shika 3">
-            </div>
-            <div class="gameplay-item">
-                <img src="https://via.placeholder.com/400x300/10b981/ffffff?text=Gameplay+4" alt="Gameplay Shika 4">
-            </div>
+        <div class="video-container">
+            <!-- Ganti URL YouTube dengan video gameplay Anda -->
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+                    title="Gameplay Shika" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
         </div>
     </section>
     
@@ -1392,7 +1383,7 @@
             }, observerOptions);
             
             // Observe elements for animation
-            document.querySelectorAll('.product-image, .features, .product-right, .product-card, .gameplay-item').forEach((el, index) => {
+            document.querySelectorAll('.product-image, .features, .product-right, .product-card, .video-container').forEach((el, index) => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.dataset.delay = `${index * 0.1}s`;
