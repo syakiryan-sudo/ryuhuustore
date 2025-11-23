@@ -227,7 +227,7 @@
         }
         
         .product-image {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: rgba(30, 41, 59, 0.7);
             border-radius: 15px;
             height: 400px;
             display: flex;
@@ -236,23 +236,14 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .product-image img {
-            max-width: 100%;
-            max-height: 100%;
+            max-width: 90%;
+            max-height: 90%;
             border-radius: 10px;
-            object-fit: cover;
-        }
-        
-        .product-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+            object-fit: contain;
         }
         
         .features {
@@ -572,6 +563,23 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(30, 41, 59, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .video-placeholder {
+            text-align: center;
+            color: #94a3b8;
+            padding: 2rem;
+        }
+        
+        .video-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
         }
         
         .video-container iframe {
@@ -631,7 +639,7 @@
         
         .card-image {
             height: 150px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: rgba(30, 41, 59, 0.9);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -639,14 +647,10 @@
             overflow: hidden;
         }
         
-        .card-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+        .card-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
         }
         
         .card-info {
@@ -1144,6 +1148,27 @@
             </div>
         </div>
     </section>
+
+    <!-- Gameplay Section -->
+    <section class="gameplay-section">
+        <h2 class="section-title">Gameplay Slash</h2>
+        <div class="video-container">
+            <div class="video-placeholder">
+                <i class="fab fa-youtube"></i>
+                <h3>Video Gameplay Akan Segera Hadir</h3>
+                <p>Nantikan video gameplay Slash yang akan diupload segera</p>
+            </div>
+            <!-- 
+            UNCOMMENT DAN GANTI VIDEO_ID DENGAN ID YOUTUBE ANDA:
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID" 
+                    title="Gameplay Slash" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+            -->
+        </div>
+    </section>
     
     <!-- Related Products -->
     <section class="related-products">
@@ -1151,10 +1176,11 @@
         <div class="products-grid">
             <div class="product-card">
                 <div class="card-image">
-                    <h3 class="card-name">Shika</h3>
+                    <img src="shika.png" alt="Shika">
                 </div>
                 <div class="card-info">
                     <span class="card-category">Genshin Impact</span>
+                    <h3 class="card-name">Shika</h3>
                     <div class="card-price">Mulai dari Rp 80.000</div>
                     <a href="shika.html" class="view-details">Lihat Detail</a>
                 </div>
@@ -1162,10 +1188,11 @@
             
             <div class="product-card">
                 <div class="card-image">
-                    <h3 class="card-name">Unicore</h3>
+                    <img src="unicore.png" alt="Unicore">
                 </div>
                 <div class="card-info">
                     <span class="card-category">Genshin Impact</span>
+                    <h3 class="card-name">Unicore</h3>
                     <div class="card-price">Mulai dari Rp 45.000</div>
                     <a href="unicore.html" class="view-details">Lihat Detail</a>
                 </div>
@@ -1173,10 +1200,11 @@
             
             <div class="product-card">
                 <div class="card-image">
-                    <h3 class="card-name">Uniwaves</h3>
+                    <img src="uniwaves.png" alt="Uniwaves">
                 </div>
                 <div class="card-info">
                     <span class="card-category">Wuthering Waves</span>
+                    <h3 class="card-name">Uniwaves</h3>
                     <div class="card-price">Mulai dari Rp 45.000</div>
                     <a href="uniwaves.html" class="view-details">Lihat Detail</a>
                 </div>
@@ -1444,7 +1472,7 @@
             }, observerOptions);
             
             // Observe elements for animation
-            document.querySelectorAll('.product-image, .features, .product-right, .product-card').forEach((el, index) => {
+            document.querySelectorAll('.product-image, .features, .product-right, .product-card, .video-container').forEach((el, index) => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.dataset.delay = `${index * 0.1}s`;
