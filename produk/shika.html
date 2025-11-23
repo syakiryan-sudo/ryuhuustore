@@ -238,6 +238,12 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
         
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+        
         .product-image::after {
             content: '';
             position: absolute;
@@ -261,22 +267,70 @@
             font-size: 1.3rem;
         }
         
-        .features ul {
-            list-style: none;
+        .feature-category {
+            margin-bottom: 1.5rem;
         }
         
-        .features li {
-            padding: 0.5rem 0;
+        .feature-category h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+        
+        .feature-list li {
+            padding: 0.3rem 0;
             position: relative;
             padding-left: 1.5rem;
+            font-size: 0.9rem;
         }
         
-        .features li::before {
+        .feature-list li::before {
             content: '✓';
             position: absolute;
             left: 0;
             color: var(--success);
             font-weight: bold;
+        }
+        
+        .feature-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+        
+        .feature-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .feature-tab.active {
+            background: var(--primary);
+        }
+        
+        .feature-tab:hover {
+            background: rgba(99, 102, 241, 0.5);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
         }
         
         .product-name {
@@ -469,6 +523,38 @@
             box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
         }
         
+        /* Gameplay Section */
+        .gameplay-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .gameplay-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .gameplay-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .gameplay-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gameplay-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
         /* Related Products */
         .related-products {
             max-width: 1200px;
@@ -579,7 +665,7 @@
         /* Footer */
         footer {
             background: rgba(15, 23, 42, 0.9);
-            padding: 3rem 2rem;
+            padding: 4rem 2rem 2rem;
             margin-top: 4rem;
         }
         
@@ -588,7 +674,7 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
         }
         
         .footer-section h3 {
@@ -613,22 +699,44 @@
         
         .footer-links li {
             margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links li i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
         }
         
         .footer-links a {
             color: #cbd5e1;
             text-decoration: none;
             transition: color 0.3s;
+            display: flex;
+            align-items: center;
         }
         
         .footer-links a:hover {
             color: var(--primary);
         }
         
+        .contact-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-link:hover {
+            color: var(--primary);
+        }
+        
         .social-links {
             display: flex;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
         
         .social-link {
@@ -650,8 +758,8 @@
         
         .copyright {
             text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #94a3b8;
         }
@@ -722,8 +830,13 @@
             .logo img {
                 height: 35px;
             }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Background Animation -->
@@ -762,19 +875,139 @@
     <section class="product-detail">
         <div class="product-left">
             <div class="product-image">
-                <h2 class="product-name">Shika</h2>
+                <img src="https://via.placeholder.com/400x300/6366f1/ffffff?text=Shika+Logo" alt="Shika Logo">
             </div>
             
             <div class="features">
                 <h3>Fitur Utama:</h3>
-                <ul>
-                    <li>AI canggih untuk farming otomatis</li>
-                    <li>Anti-detection system terbaru</li>
-                    <li>Pengaturan yang dapat disesuaikan</li>
-                    <li>Support 24/7</li>
-                    <li>Update reguler</li>
-                    <li>Kompatibel dengan berbagai platform</li>
-                </ul>
+                <div class="feature-tabs">
+                    <button class="feature-tab active" data-tab="beta">Shika Beta</button>
+                    <button class="feature-tab" data-tab="alpha">Shika Alpha</button>
+                </div>
+                
+                <div class="tab-content active" id="beta">
+                    <div class="feature-category">
+                        <h4>⚔️ Combat & Gameplay</h4>
+                        <ul class="feature-list">
+                            <li>Attack Effects (Custom Element, Extra Hit)</li>
+                            <li>God Mode</li>
+                            <li>Infinite Energy</li>
+                            <li>Infinite Stamina</li>
+                            <li>Infinite Wanderer Stamina</li>
+                            <li>Infinite Phlogiston</li>
+                            <li>Infinite Nightsoul</li>
+                            <li>Infinite Mavuika Stamina</li>
+                            <li>No Clip</li>
+                            <li>No Skill Cooldown</li>
+                            <li>No Avatar Change Cooldown</li>
+                            <li>No Avatar Combat</li>
+                            <li>No Hide Weapon</li>
+                            <li>Instant Bow Charge</li>
+                            <li>No Sprint Cooldown</li>
+                            <li>No Vehicle Skill Cooldown</li>
+                            <li>Player Speed Modifier</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🤖 Auto System</h4>
+                        <ul class="feature-list">
+                            <li>Auto Challenge</li>
+                            <li>Auto Destroy</li>
+                            <li>Auto Loot</li>
+                            <li>Auto Seelie</li>
+                            <li>Auto Talk</li>
+                            <li>Auto Music Game</li>
+                            <li>Auto Team Open</li>
+                            <li>Skip Cutscenes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🗺️ World & Farming</h4>
+                        <ul class="feature-list">
+                            <li>Dumb Enemies</li>
+                            <li>Permanent Elemental Sight</li>
+                            <li>Fake Time</li>
+                            <li>Fast Combine</li>
+                            <li>Freeze Enemies</li>
+                            <li>Kill Aura</li>
+                            <li>Mob Vacuum</li>
+                            <li>Chest Teleport</li>
+                            <li>Map Teleport</li>
+                            <li>Oculi Teleport</li>
+                            <li>Quest Teleport</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🔍 Visuals</h4>
+                        <ul class="feature-list">
+                            <li>ESP</li>
+                            <li>Camera Zoom</li>
+                            <li>No Censorship</li>
+                            <li>FOV Changer</li>
+                            <li>GM Icon</li>
+                            <li>Graphics Changer</li>
+                            <li>Hide Damage</li>
+                            <li>Hide Reaction</li>
+                            <li>Hide UI</li>
+                            <li>No Fog</li>
+                            <li>No Grass</li>
+                            <li>No Map Fog</li>
+                            <li>Paimon Follow</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🔧 Misc</h4>
+                        <ul class="feature-list">
+                            <li>Profile Changer</li>
+                            <li>Unlock FPS</li>
+                            <li>Instant Exit</li>
+                            <li>Gacha URL Fetcher</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="alpha">
+                    <p><strong>Shika Alpha berisi semua fitur Beta, ditambah:</strong></p>
+                    
+                    <div class="feature-category">
+                        <h4>⚔️ Combat Extra</h4>
+                        <ul class="feature-list">
+                            <li>Crit Chance Modifier (Attack Effects versi lanjut)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>⚡ Movement Upgrade</h4>
+                        <ul class="feature-list">
+                            <li>Run on Water</li>
+                            <li>Run Boost</li>
+                            <li>Jump Boost</li>
+                            <li>Fly Boost</li>
+                            <li>Swim Boost</li>
+                            <li>Dive Boost</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🤖 Auto System Tambahan</h4>
+                        <ul class="feature-list">
+                            <li>Auto Activate Teleport</li>
+                            <li>Auto Fish</li>
+                            <li>Auto Claim Achievements</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-category">
+                        <h4>🗺️ Teleport Pro</h4>
+                        <ul class="feature-list">
+                            <li>Custom Teleport (untuk auto-farm)</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -841,6 +1074,25 @@
         </div>
     </section>
     
+    <!-- Gameplay Section -->
+    <section class="gameplay-section">
+        <h2 class="section-title">Gameplay Shika</h2>
+        <div class="gameplay-gallery">
+            <div class="gameplay-item">
+                <img src="https://via.placeholder.com/400x300/6366f1/ffffff?text=Gameplay+1" alt="Gameplay Shika 1">
+            </div>
+            <div class="gameplay-item">
+                <img src="https://via.placeholder.com/400x300/ec4899/ffffff?text=Gameplay+2" alt="Gameplay Shika 2">
+            </div>
+            <div class="gameplay-item">
+                <img src="https://via.placeholder.com/400x300/f59e0b/ffffff?text=Gameplay+3" alt="Gameplay Shika 3">
+            </div>
+            <div class="gameplay-item">
+                <img src="https://via.placeholder.com/400x300/10b981/ffffff?text=Gameplay+4" alt="Gameplay Shika 4">
+            </div>
+        </div>
+    </section>
+    
     <!-- Related Products -->
     <section class="related-products">
         <h2 class="section-title">Produk Lainnya</h2>
@@ -885,40 +1137,57 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Ryuhuustore</h3>
-                <p>Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif.</p>
+                <p>Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif. Kami berkomitmen memberikan pengalaman berbelanja terbaik untuk para gamer.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link">FB</a>
-                    <a href="#" class="social-link">IG</a>
-                    <a href="#" class="social-link">TW</a>
-                    <a href="#" class="social-link">YT</a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
             <div class="footer-section">
                 <h3>Produk</h3>
                 <ul class="footer-links">
-                    <li><a href="../index.html#produk">Genshin Impact</a></li>
-                    <li><a href="../index.html#produk">Wuthering Waves</a></li>
-                    <li><a href="../index.html#produk">Solo Leveling Arise</a></li>
+                    <li><a href="../index.html#produk"><i class="fas fa-gamepad"></i> Genshin Impact</a></li>
+                    <li><a href="../index.html#produk"><i class="fas fa-gamepad"></i> Wuthering Waves</a></li>
+                    <li><a href="../index.html#produk"><i class="fas fa-gamepad"></i> Solo Leveling Arise</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h3>Bantuan</h3>
                 <ul class="footer-links">
-                    <li><a href="../tutorial.html">Cara Pembelian</a></li>
-                    <li><a href="../tutorial.html">Cara Penggunaan</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="../tutorial.html"><i class="fas fa-shopping-cart"></i> Cara Pembelian</a></li>
+                    <li><a href="../tutorial.html"><i class="fas fa-info-circle"></i> Cara Penggunaan</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-shield-alt"></i> Kebijakan Privasi</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h3>Kontak</h3>
                 <ul class="footer-links">
-                    <li>Email: support@ryuhuustore.com</li>
-                    <li>WhatsApp: +62 812-3456-7890</li>
-                    <li>Telegram: @ryuhuustore</li>
+                    <li>
+                        <a href="mailto:ryuhuustore@gmail.com" class="contact-link">
+                            <i class="fas fa-envelope"></i> ryuhuustore@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/6285117065033" target="_blank" class="contact-link">
+                            <i class="fab fa-whatsapp"></i> +62 851-1706-5033
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://t.me/ryuhuuz" target="_blank" class="contact-link">
+                            <i class="fab fa-telegram"></i> @ryuhuuz
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://discord.com/users/1120396377839648780" target="_blank" class="contact-link">
+                            <i class="fab fa-discord"></i> ryuhuu.
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -947,6 +1216,8 @@
             const notification = document.getElementById('notification');
             const notificationText = document.getElementById('notification-text');
             const cartCount = document.querySelector('.cart-count');
+            const featureTabs = document.querySelectorAll('.feature-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
             
             // Set default selected service
             let selectedDuration = 'Beta';
@@ -971,6 +1242,21 @@
                     
                     // Update summary
                     updateOrderSummary();
+                });
+            });
+            
+            // Feature tabs functionality
+            featureTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    featureTabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
                 });
             });
             
@@ -1106,7 +1392,7 @@
             }, observerOptions);
             
             // Observe elements for animation
-            document.querySelectorAll('.product-image, .features, .product-right, .product-card').forEach((el, index) => {
+            document.querySelectorAll('.product-image, .features, .product-right, .product-card, .gameplay-item').forEach((el, index) => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.dataset.delay = `${index * 0.1}s`;
