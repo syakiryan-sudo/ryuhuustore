@@ -13,6 +13,7 @@
             --dark: #1e293b;
             --light: #f8fafc;
             --success: #10b981;
+            --discount: #ef4444;
         }
         
         * {
@@ -216,6 +217,52 @@
             text-decoration: underline;
         }
         
+        /* Discount Banner */
+        .discount-banner {
+            background: linear-gradient(45deg, #ef4444, #f97316, #f59e0b);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            animation: discountPulse 2s infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes discountPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .discount-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        .discount-banner span {
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
         /* Product Detail */
         .product-detail {
             max-width: 1200px;
@@ -388,6 +435,23 @@
             border-radius: 15px;
             padding: 2rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .order-form::before {
+            content: '🔥 DISKON AKHIR TAHUN 🔥';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(45deg, #ef4444, #f97316);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 0 15px 0 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1;
         }
         
         .order-form h3 {
@@ -418,6 +482,28 @@
             border-radius: 10px;
             transition: all 0.3s;
             border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .service-item.best-value {
+            border: 2px solid var(--accent);
+            background: rgba(245, 158, 11, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .service-item.best-value::before {
+            content: '⭐ TERBAIK';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent);
+            color: #1e293b;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 0 10px 0 5px;
         }
         
         .service-item:hover {
@@ -429,30 +515,70 @@
         .service-item.active {
             border-color: var(--primary);
             background: rgba(99, 102, 241, 0.1);
+            position: relative;
+        }
+        
+        .service-item.active::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--success);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .service-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex: 1;
         }
         
         .service-duration {
             font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .service-savings {
+            font-size: 0.8rem;
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+            width: fit-content;
         }
         
         .service-price {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.3rem;
+        }
+        
+        .price-old {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            text-decoration: line-through;
+            position: relative;
+        }
+        
+        .price-amount {
             font-weight: 700;
             color: var(--accent);
             font-size: 1.1rem;
         }
         
-        .service-select {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .service-select:hover {
-            background: var(--primary-dark);
+        .price-per-day {
+            font-size: 0.8rem;
+            color: #94a3b8;
         }
         
         .form-group {
@@ -874,6 +1000,16 @@
             .game-list {
                 grid-template-columns: 1fr;
             }
+            
+            .order-form::before {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+            
+            .service-item.best-value::before {
+                font-size: 0.6rem;
+                padding: 3px 8px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -886,6 +1022,11 @@
         <div class="floating-element"></div>
         <div class="floating-element"></div>
         <div class="floating-element"></div>
+    </div>
+    
+    <!-- Discount Banner -->
+    <div class="discount-banner">
+        <span>🎉 DISKON AKHIR TAHUN! Hemat hingga 40% untuk semua produk! 🎉</span>
     </div>
     
     <!-- Header -->
@@ -1095,22 +1236,51 @@
                 <h3>Form Pemesanan</h3>
                 <form id="orderForm">
                     <div class="service-options">
-                        <h4>Pilih Layanan:</h4>
+                        <h4>Pilih Layanan: <span style="color: var(--accent); font-size: 0.9rem;">(Diskon Akhir Tahun!)</span></h4>
                         <div class="service-list">
-                            <div class="service-item active">
-                                <div class="service-duration">3 Hari</div>
-                                <div class="service-price">Rp 40.000</div>
-                                <button type="button" class="service-select" data-duration="3 Hari" data-price="40000">Pilih</button>
+                            <div class="service-item active" data-duration="3 Hari" data-price="35000" data-old-price="40000">
+                                <div class="service-info">
+                                    <div class="service-duration">3 Hari</div>
+                                    <div class="service-savings">Hemat 12%</div>
+                                </div>
+                                <div class="service-price">
+                                    <div class="price-old">Rp 40.000</div>
+                                    <div class="price-amount">Rp 35.000</div>
+                                    <div class="price-per-day">Rp 11.667/hari</div>
+                                </div>
                             </div>
-                            <div class="service-item">
-                                <div class="service-duration">7 Hari</div>
-                                <div class="service-price">Rp 60.000</div>
-                                <button type="button" class="service-select" data-duration="7 Hari" data-price="60000">Pilih</button>
+                            <div class="service-item" data-duration="7 Hari" data-price="55000" data-old-price="60000">
+                                <div class="service-info">
+                                    <div class="service-duration">7 Hari</div>
+                                    <div class="service-savings">Hemat 21%</div>
+                                </div>
+                                <div class="service-price">
+                                    <div class="price-old">Rp 60.000</div>
+                                    <div class="price-amount">Rp 55.000</div>
+                                    <div class="price-per-day">Rp 7.857/hari</div>
+                                </div>
                             </div>
-                            <div class="service-item">
-                                <div class="service-duration">30 Hari</div>
-                                <div class="service-price">Rp 120.000</div>
-                                <button type="button" class="service-select" data-duration="30 Hari" data-price="120000">Pilih</button>
+                            <div class="service-item best-value" data-duration="30 Hari" data-price="110000" data-old-price="120000">
+                                <div class="service-info">
+                                    <div class="service-duration">30 Hari</div>
+                                    <div class="service-savings">Hemat 33%</div>
+                                </div>
+                                <div class="service-price">
+                                    <div class="price-old">Rp 120.000</div>
+                                    <div class="price-amount">Rp 110.000</div>
+                                    <div class="price-per-day">Rp 3.667/hari</div>
+                                </div>
+                            </div>
+                            <div class="service-item" data-duration="120 Hari" data-price="430000" data-old-price="480000">
+                                <div class="service-info">
+                                    <div class="service-duration">120 Hari</div>
+                                    <div class="service-savings">Hemat 40%</div>
+                                </div>
+                                <div class="service-price">
+                                    <div class="price-old">Rp 480.000</div>
+                                    <div class="price-amount">Rp 430.000</div>
+                                    <div class="price-per-day">Rp 3.583/hari</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1131,12 +1301,20 @@
                             <span id="summary-duration">3 Hari</span>
                         </div>
                         <div class="summary-item">
+                            <span>Harga Lama:</span>
+                            <span id="summary-old-price" style="text-decoration: line-through; color: #94a3b8;">Rp 40.000</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Diskon:</span>
+                            <span id="summary-discount" style="color: var(--success);">12%</span>
+                        </div>
+                        <div class="summary-item">
                             <span>Game:</span>
                             <span>Semua Game Tersedia</span>
                         </div>
                         <div class="summary-total">
                             <span>Total:</span>
-                            <span id="summary-total">Rp 40.000</span>
+                            <span id="summary-total">Rp 35.000</span>
                         </div>
                     </div>
                     
@@ -1158,15 +1336,6 @@
                 <h3>Video Gameplay Akan Segera Hadir</h3>
                 <p>Nantikan video gameplay Slash yang akan diupload segera</p>
             </div>
-            <!-- 
-            UNCOMMENT DAN GANTI VIDEO_ID DENGAN ID YOUTUBE ANDA:
-            <iframe src="https://www.youtube.com/embed/VIDEO_ID" 
-                    title="Gameplay Slash" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-            </iframe>
-            -->
         </div>
     </section>
     
@@ -1287,9 +1456,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Service selection
             const serviceItems = document.querySelectorAll('.service-item');
-            const serviceSelectButtons = document.querySelectorAll('.service-select');
             const summaryDuration = document.getElementById('summary-duration');
             const summaryTotal = document.getElementById('summary-total');
+            const summaryOldPrice = document.getElementById('summary-old-price');
+            const summaryDiscount = document.getElementById('summary-discount');
             const cartButton = document.getElementById('cartButton');
             const checkoutButton = document.getElementById('checkoutButton');
             const orderForm = document.getElementById('orderForm');
@@ -1301,24 +1471,34 @@
             
             // Set default selected service
             let selectedDuration = '3 Hari';
-            let selectedPrice = '40000';
+            let selectedPrice = '35000';
+            let selectedOldPrice = '40000';
+            let selectedDiscount = '12%';
             
-            // Service selection functionality
-            serviceSelectButtons.forEach(button => {
-                button.addEventListener('click', function() {
+            // Service selection functionality - klik pada seluruh area service-item
+            serviceItems.forEach(item => {
+                item.addEventListener('click', function() {
                     const duration = this.getAttribute('data-duration');
                     const price = this.getAttribute('data-price');
+                    const oldPrice = this.getAttribute('data-old-price');
+                    
+                    // Calculate discount percentage
+                    const priceNum = parseInt(price);
+                    const oldPriceNum = parseInt(oldPrice);
+                    const discountPercent = Math.round((1 - priceNum / oldPriceNum) * 100);
                     
                     // Update selected service
                     selectedDuration = duration;
                     selectedPrice = price;
+                    selectedOldPrice = oldPrice;
+                    selectedDiscount = `${discountPercent}%`;
                     
                     // Update UI
                     serviceItems.forEach(item => {
                         item.classList.remove('active');
                     });
                     
-                    this.parentElement.classList.add('active');
+                    this.classList.add('active');
                     
                     // Update summary
                     updateOrderSummary();
@@ -1344,6 +1524,8 @@
             function updateOrderSummary() {
                 summaryDuration.textContent = selectedDuration;
                 summaryTotal.textContent = `Rp ${parseInt(selectedPrice).toLocaleString('id-ID')}`;
+                summaryOldPrice.textContent = `Rp ${parseInt(selectedOldPrice).toLocaleString('id-ID')}`;
+                summaryDiscount.textContent = selectedDiscount;
             }
             
             // Show notification
@@ -1356,18 +1538,16 @@
                 }, 3000);
             }
             
-            // Get cart from localStorage - FIXED VERSION
+            // Get cart from localStorage
             function getCart() {
                 try {
                     const cartData = localStorage.getItem('cart');
-                    console.log('Cart data from localStorage:', cartData);
                     
                     if (!cartData) {
                         return [];
                     }
                     
                     const parsedCart = JSON.parse(cartData);
-                    console.log('Parsed cart:', parsedCart);
                     
                     // Ensure it's an array
                     return Array.isArray(parsedCart) ? parsedCart : [];
@@ -1380,14 +1560,13 @@
             // Update cart count
             function updateCartCount() {
                 const cart = getCart();
-                console.log('Cart count update:', cart.length);
                 cartCount.textContent = cart.length;
             }
             
             // Initialize cart count
             updateCartCount();
             
-            // Function to add item to cart - FIXED VERSION
+            // Function to add item to cart
             function addToCart() {
                 // Simple form validation
                 const contactInput = document.getElementById('contact');
@@ -1398,17 +1577,22 @@
                 
                 const contact = contactInput.value.trim();
                 
+                // Calculate discount percentage
+                const priceNum = parseInt(selectedPrice);
+                const oldPriceNum = parseInt(selectedOldPrice);
+                const discountPercent = Math.round((1 - priceNum / oldPriceNum) * 100);
+                
                 // Create cart item with proper structure
                 const cartItem = {
                     id: 'slash-' + Date.now(),
                     product: 'Slash',
                     duration: selectedDuration,
-                    price: parseInt(selectedPrice),
+                    price: priceNum,
+                    oldPrice: oldPriceNum,
+                    discount: discountPercent,
                     game: 'Semua Game Tersedia',
                     contact: contact
                 };
-                
-                console.log('Adding item to cart:', cartItem);
                 
                 // Get current cart
                 const cart = getCart();
@@ -1419,7 +1603,6 @@
                 // Save cart to localStorage
                 try {
                     localStorage.setItem('cart', JSON.stringify(cart));
-                    console.log('Cart saved to localStorage:', cart);
                 } catch (error) {
                     console.error('Error saving cart to localStorage:', error);
                     return false;
@@ -1441,7 +1624,7 @@
                 }
             });
             
-            // Checkout functionality - FIXED VERSION
+            // Checkout functionality
             checkoutButton.addEventListener('click', function() {
                 if (addToCart()) {
                     showNotification('Produk berhasil ditambahkan ke keranjang!');
