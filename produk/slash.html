@@ -217,9 +217,9 @@
             text-decoration: underline;
         }
         
-        /* Discount Banner */
-        .discount-banner {
-            background: linear-gradient(45deg, #ef4444, #f97316, #f59e0b);
+        /* Natal Banner */
+        .christmas-banner {
+            background: linear-gradient(45deg, #dc2626, #16a34a, #0ea5e9);
             color: white;
             text-align: center;
             padding: 0.8rem;
@@ -235,7 +235,7 @@
             50% { opacity: 0.8; }
         }
         
-        .discount-banner::before {
+        .christmas-banner::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -257,7 +257,7 @@
             100% { transform: translateX(100%) rotate(30deg); }
         }
         
-        .discount-banner span {
+        .christmas-banner span {
             position: relative;
             z-index: 1;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -440,11 +440,11 @@
         }
         
         .order-form::before {
-            content: '🔥 DISKON AKHIR TAHUN 🔥';
+            content: '🎄 PROMO NATAL 🎄';
             position: absolute;
             top: 0;
             right: 0;
-            background: linear-gradient(45deg, #ef4444, #f97316);
+            background: linear-gradient(45deg, #dc2626, #16a34a);
             color: white;
             padding: 8px 15px;
             font-size: 0.8rem;
@@ -671,6 +671,38 @@
         .checkout-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+        
+        /* Discount Notice */
+        .discount-notice {
+            background: linear-gradient(45deg, #dc2626, #16a34a);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            animation: discountPulse 2s infinite;
+        }
+        
+        .discount-notice h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: white;
+        }
+        
+        .discount-notice p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .discount-code {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 0 0.3rem;
+            color: white;
+            border: 1px dashed rgba(255, 255, 255, 0.5);
         }
         
         /* Gameplay Section */
@@ -1024,9 +1056,9 @@
         <div class="floating-element"></div>
     </div>
     
-    <!-- Discount Banner -->
-    <div class="discount-banner">
-        <span>🎉 DISKON AKHIR TAHUN! Hemat hingga 40% untuk semua produk! 🎉</span>
+    <!-- Christmas Banner -->
+    <div class="christmas-banner">
+        <span>🎄 DISKON NATAL & TAHUN BARU! Gunakan kode <strong>CHRISTMAS12</strong> saat checkout untuk mendapatkan diskon 12%! 🎅</span>
     </div>
     
     <!-- Header -->
@@ -1235,51 +1267,49 @@
             <div class="order-form">
                 <h3>Form Pemesanan</h3>
                 <form id="orderForm">
+                    <!-- Discount Notice -->
+                    <div class="discount-notice">
+                        <h4>🎅 PROMO NATAL & TAHUN BARU!</h4>
+                        <p>Gunakan kode <span class="discount-code">CHRISTMAS12</span> saat checkout di keranjang untuk mendapatkan <strong>diskon 12%</strong>!</p>
+                    </div>
+                    
                     <div class="service-options">
-                        <h4>Pilih Layanan: <span style="color: var(--accent); font-size: 0.9rem;">(Diskon Akhir Tahun!)</span></h4>
+                        <h4>Pilih Layanan:</h4>
                         <div class="service-list">
-                            <div class="service-item active" data-duration="3 Hari" data-price="35000" data-old-price="40000">
+                            <div class="service-item active" data-duration="3 Hari" data-price="40000" data-old-price="40000">
                                 <div class="service-info">
                                     <div class="service-duration">3 Hari</div>
-                                    <div class="service-savings">Hemat 12%</div>
                                 </div>
                                 <div class="service-price">
-                                    <div class="price-old">Rp 40.000</div>
-                                    <div class="price-amount">Rp 35.000</div>
-                                    <div class="price-per-day">Rp 11.667/hari</div>
+                                    <div class="price-amount">Rp 40.000</div>
+                                    <div class="price-per-day">Rp 13.333/hari</div>
                                 </div>
                             </div>
-                            <div class="service-item" data-duration="7 Hari" data-price="55000" data-old-price="60000">
+                            <div class="service-item" data-duration="7 Hari" data-price="60000" data-old-price="60000">
                                 <div class="service-info">
                                     <div class="service-duration">7 Hari</div>
-                                    <div class="service-savings">Hemat 21%</div>
                                 </div>
                                 <div class="service-price">
-                                    <div class="price-old">Rp 60.000</div>
-                                    <div class="price-amount">Rp 55.000</div>
-                                    <div class="price-per-day">Rp 7.857/hari</div>
+                                    <div class="price-amount">Rp 60.000</div>
+                                    <div class="price-per-day">Rp 8.571/hari</div>
                                 </div>
                             </div>
-                            <div class="service-item best-value" data-duration="30 Hari" data-price="110000" data-old-price="120000">
+                            <div class="service-item best-value" data-duration="30 Hari" data-price="120000" data-old-price="120000">
                                 <div class="service-info">
                                     <div class="service-duration">30 Hari</div>
-                                    <div class="service-savings">Hemat 33%</div>
                                 </div>
                                 <div class="service-price">
-                                    <div class="price-old">Rp 120.000</div>
-                                    <div class="price-amount">Rp 110.000</div>
-                                    <div class="price-per-day">Rp 3.667/hari</div>
+                                    <div class="price-amount">Rp 120.000</div>
+                                    <div class="price-per-day">Rp 4.000/hari</div>
                                 </div>
                             </div>
-                            <div class="service-item" data-duration="120 Hari" data-price="430000" data-old-price="480000">
+                            <div class="service-item" data-duration="120 Hari" data-price="480000" data-old-price="480000">
                                 <div class="service-info">
                                     <div class="service-duration">120 Hari</div>
-                                    <div class="service-savings">Hemat 40%</div>
                                 </div>
                                 <div class="service-price">
-                                    <div class="price-old">Rp 480.000</div>
-                                    <div class="price-amount">Rp 430.000</div>
-                                    <div class="price-per-day">Rp 3.583/hari</div>
+                                    <div class="price-amount">Rp 480.000</div>
+                                    <div class="price-per-day">Rp 4.000/hari</div>
                                 </div>
                             </div>
                         </div>
@@ -1301,12 +1331,12 @@
                             <span id="summary-duration">3 Hari</span>
                         </div>
                         <div class="summary-item">
-                            <span>Harga Lama:</span>
-                            <span id="summary-old-price" style="text-decoration: line-through; color: #94a3b8;">Rp 40.000</span>
+                            <span>Harga Normal:</span>
+                            <span id="summary-price">Rp 40.000</span>
                         </div>
                         <div class="summary-item">
-                            <span>Diskon:</span>
-                            <span id="summary-discount" style="color: var(--success);">12%</span>
+                            <span>Potongan Diskon:</span>
+                            <span id="summary-discount" style="color: var(--success);">Rp 0</span>
                         </div>
                         <div class="summary-item">
                             <span>Game:</span>
@@ -1314,7 +1344,12 @@
                         </div>
                         <div class="summary-total">
                             <span>Total:</span>
-                            <span id="summary-total">Rp 35.000</span>
+                            <span id="summary-total">Rp 40.000</span>
+                        </div>
+                        <div class="summary-item">
+                            <span style="color: #16a34a; font-size: 0.9rem;">
+                                <i class="fas fa-gift"></i> Gunakan kode <strong>CHRISTMAS12</strong> saat checkout untuk diskon 12%
+                            </span>
                         </div>
                     </div>
                     
@@ -1458,7 +1493,7 @@
             const serviceItems = document.querySelectorAll('.service-item');
             const summaryDuration = document.getElementById('summary-duration');
             const summaryTotal = document.getElementById('summary-total');
-            const summaryOldPrice = document.getElementById('summary-old-price');
+            const summaryPrice = document.getElementById('summary-price');
             const summaryDiscount = document.getElementById('summary-discount');
             const cartButton = document.getElementById('cartButton');
             const checkoutButton = document.getElementById('checkoutButton');
@@ -1471,27 +1506,17 @@
             
             // Set default selected service
             let selectedDuration = '3 Hari';
-            let selectedPrice = '35000';
-            let selectedOldPrice = '40000';
-            let selectedDiscount = '12%';
+            let selectedPrice = '40000';
             
             // Service selection functionality - klik pada seluruh area service-item
             serviceItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const duration = this.getAttribute('data-duration');
                     const price = this.getAttribute('data-price');
-                    const oldPrice = this.getAttribute('data-old-price');
-                    
-                    // Calculate discount percentage
-                    const priceNum = parseInt(price);
-                    const oldPriceNum = parseInt(oldPrice);
-                    const discountPercent = Math.round((1 - priceNum / oldPriceNum) * 100);
                     
                     // Update selected service
                     selectedDuration = duration;
                     selectedPrice = price;
-                    selectedOldPrice = oldPrice;
-                    selectedDiscount = `${discountPercent}%`;
                     
                     // Update UI
                     serviceItems.forEach(item => {
@@ -1522,10 +1547,11 @@
             
             // Update order summary
             function updateOrderSummary() {
+                const priceNum = parseInt(selectedPrice);
                 summaryDuration.textContent = selectedDuration;
-                summaryTotal.textContent = `Rp ${parseInt(selectedPrice).toLocaleString('id-ID')}`;
-                summaryOldPrice.textContent = `Rp ${parseInt(selectedOldPrice).toLocaleString('id-ID')}`;
-                summaryDiscount.textContent = selectedDiscount;
+                summaryPrice.textContent = `Rp ${priceNum.toLocaleString('id-ID')}`;
+                summaryTotal.textContent = `Rp ${priceNum.toLocaleString('id-ID')}`;
+                summaryDiscount.textContent = `Rp 0`;
             }
             
             // Show notification
@@ -1577,19 +1603,12 @@
                 
                 const contact = contactInput.value.trim();
                 
-                // Calculate discount percentage
-                const priceNum = parseInt(selectedPrice);
-                const oldPriceNum = parseInt(selectedOldPrice);
-                const discountPercent = Math.round((1 - priceNum / oldPriceNum) * 100);
-                
                 // Create cart item with proper structure
                 const cartItem = {
                     id: 'slash-' + Date.now(),
                     product: 'Slash',
                     duration: selectedDuration,
-                    price: priceNum,
-                    oldPrice: oldPriceNum,
-                    discount: discountPercent,
+                    price: parseInt(selectedPrice),
                     game: 'Semua Game Tersedia',
                     contact: contact
                 };
@@ -1617,7 +1636,7 @@
             // Add to cart functionality
             cartButton.addEventListener('click', function() {
                 if (addToCart()) {
-                    showNotification('Produk berhasil ditambahkan ke keranjang!');
+                    showNotification('Produk berhasil ditambahkan ke keranjang! Jangan lupa gunakan kode CHRISTMAS12 saat checkout untuk diskon 12%!');
                     
                     // Clear form after successful add
                     document.getElementById('contact').value = '';
@@ -1627,7 +1646,7 @@
             // Checkout functionality
             checkoutButton.addEventListener('click', function() {
                 if (addToCart()) {
-                    showNotification('Produk berhasil ditambahkan ke keranjang!');
+                    showNotification('Produk berhasil ditambahkan ke keranjang! Jangan lupa gunakan kode CHRISTMAS12 saat checkout untuk diskon 12%!');
                     
                     // Clear form
                     document.getElementById('contact').value = '';
