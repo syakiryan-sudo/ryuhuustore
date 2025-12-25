@@ -13,7 +13,10 @@
             --dark: #1e293b;
             --light: #f8fafc;
             --success: #10b981;
-            --danger: #ef4444;
+            --danger: #dc2626;
+            --christmas-red: #dc2626;
+            --christmas-green: #059669;
+            --christmas-gold: #fbbf24;
             --coming-soon: #6b7280;
             --info: #3b82f6;
             --warning: #f97316;
@@ -392,7 +395,7 @@
         }
         
         .remove-item:hover {
-            background: #dc2626;
+            background: #b91c1c;
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
         }
@@ -431,15 +434,15 @@
         .coupon-section {
             margin: 1.5rem 0;
             padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(5, 150, 105, 0.1));
             border-radius: 10px;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border: 1px dashed rgba(220, 38, 38, 0.3);
         }
         
         .coupon-section h4 {
             margin-bottom: 0.8rem;
             font-size: 1rem;
-            color: var(--accent);
+            color: var(--christmas-red);
         }
         
         .coupon-input {
@@ -459,11 +462,11 @@
         
         .coupon-input input:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--christmas-red);
         }
         
         .apply-coupon {
-            background: var(--secondary);
+            background: var(--christmas-red);
             color: white;
             border: none;
             padding: 0.7rem 1.2rem;
@@ -475,8 +478,9 @@
         }
         
         .apply-coupon:hover {
-            background: #db2777;
+            background: #b91c1c;
             transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(220, 38, 38, 0.4);
         }
         
         .coupon-message {
@@ -1461,14 +1465,14 @@
                 
                 <!-- Coupon Section -->
                 <div class="coupon-section">
-                    <h4><i class="fas fa-tag"></i> Kode Kupon</h4>
+                    <h4><i class="fas fa-gift"></i> Diskon Spesial Natal</h4>
                     <div class="coupon-input">
-                        <input type="text" id="couponCode" placeholder="Masukkan kode kupon">
+                        <input type="text" id="couponCode" placeholder="Masukkan kode diskon">
                         <button type="button" id="applyCoupon" class="apply-coupon">Terapkan</button>
                     </div>
                     <div id="couponMessage" class="coupon-message"></div>
                     <div class="donation-note">
-                        <i class="fas fa-lightbulb"></i> Kode kupon tersedia: <strong>ryuhuu1212</strong> untuk diskon Rp 1.212
+                        <i class="fas fa-lightbulb"></i> Gunakan kode: <strong>CHRISTMAS12</strong> untuk diskon 12%
                     </div>
                 </div>
                 
@@ -1627,8 +1631,8 @@
                             <span id="invoiceSubtotal">Rp 0</span>
                         </div>
                         <div class="breakdown-item">
-                            <span>Diskon:</span>
-                            <span id="invoiceDiscount" style="color: var(--success);">- Rp 1.212</span>
+                            <span>Diskon Natal 12%:</span>
+                            <span id="invoiceDiscount" style="color: var(--success);">- Rp 0</span>
                         </div>
                         <div class="breakdown-item">
                             <span>Donasi:</span>
@@ -1792,8 +1796,8 @@
             let currentDiscountAmount = 0;
             let currentDonation = 0;
 
-            // Valid coupon code - HANYA ryuhuu1212
-            const validCoupon = 'ryuhuu1212';
+            // Valid coupon code - CHRISTMAS12
+            const validCoupon = 'CHRISTMAS12';
 
             // Generate random order ID
             function generateOrderId() {
@@ -1904,7 +1908,7 @@
                 const cart = getCart();
                 let subtotal = cart.reduce((sum, item) => sum + (parseInt(item.price) || 0), 0);
                 
-                // Calculate discount
+                // Calculate discount (12% jika kode CHRISTMAS12 digunakan)
                 let discountAmount = currentDiscountAmount || 0;
                 
                 // Calculate donation
@@ -1935,7 +1939,7 @@
                     const discountEl = document.createElement('div');
                     discountEl.className = 'summary-item';
                     discountEl.innerHTML = `
-                        <span>Diskon Khusus</span>
+                        <span>Diskon Natal 12%</span>
                         <span style="color: var(--success);">- ${formatCurrency(discountAmount)}</span>
                     `;
                     summaryItems.appendChild(discountEl);
@@ -1997,32 +2001,37 @@
                 }, 1000);
             }
             
-            // Apply coupon code - DISKON TETAP Rp 1.212
+            // Apply coupon code - DISKON 12%
             function applyCouponCode() {
-                const code = couponCode.value.trim();
+                const code = couponCode.value.trim().toUpperCase();
                 
                 if (!code) {
-                    couponMessage.textContent = 'Silakan masukkan kode kupon';
+                    couponMessage.textContent = 'Silakan masukkan kode diskon';
                     couponMessage.className = 'coupon-message coupon-error';
                     return;
                 }
                 
                 // Check if coupon is valid
                 if (code === validCoupon) {
-                    // Set diskon tetap Rp 1.212
-                    currentDiscountAmount = 1212;
-                    couponMessage.textContent = `Kode ${code} berhasil diterapkan! Diskon Rp 1.212`;
+                    // Hitung subtotal
+                    const cart = getCart();
+                    const subtotal = cart.reduce((sum, item) => sum + (parseInt(item.price) || 0), 0);
+                    
+                    // Hitung diskon 12%
+                    currentDiscountAmount = Math.round(subtotal * 0.12);
+                    
+                    couponMessage.textContent = `Kode ${code} berhasil diterapkan! Diskon 12% (${formatCurrency(currentDiscountAmount)})`;
                     couponMessage.className = 'coupon-message coupon-success';
-                    showNotification('Diskon Rp 1.212 berhasil diterapkan!', 'success');
+                    showNotification(`Diskon 12% senilai ${formatCurrency(currentDiscountAmount)} berhasil diterapkan!`, 'success');
                     
                     updateOrderSummary();
                     
                 } else {
                     currentDiscountAmount = 0;
-                    couponMessage.textContent = 'Kode kupon tidak valid. Hanya kode "ryuhuu1212" yang tersedia.';
+                    couponMessage.textContent = 'Kode diskon tidak valid. Hanya kode "CHRISTMAS12" yang tersedia.';
                     couponMessage.className = 'coupon-message coupon-error';
                     updateOrderSummary();
-                    showNotification('Kode kupon tidak valid', 'error');
+                    showNotification('Kode diskon tidak valid', 'error');
                 }
             }
             
@@ -2166,7 +2175,7 @@
                 const grandTotal = subtotal - discountAmount + donationAmount;
                 
                 invoiceSubtotal.textContent = formatCurrency(subtotal);
-                invoiceDiscount.textContent = `- ${formatCurrency(discountAmount)}`;
+                invoiceDiscount.textContent = `- ${formatCurrency(discountAmount)} (Diskon Natal 12%)`;
                 invoiceDonation.textContent = `+ ${formatCurrency(donationAmount)}`;
                 invoiceTotal.textContent = formatCurrency(grandTotal);
                 invoiceGrandTotal.textContent = formatCurrency(grandTotal);
@@ -2305,7 +2314,7 @@
                 doc.text(`Subtotal: ${formatCurrency(subtotal)}`, 20, yPos);
                 yPos += 7;
                 if (discountAmount > 0) {
-                    doc.text(`Diskon: -${formatCurrency(discountAmount)}`, 20, yPos);
+                    doc.text(`Diskon Natal 12%: -${formatCurrency(discountAmount)}`, 20, yPos);
                     yPos += 7;
                 }
                 if (donationAmount > 0) {
