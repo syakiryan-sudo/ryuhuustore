@@ -13,7 +13,8 @@
             --dark: #1e293b;
             --light: #f8fafc;
             --success: #10b981;
-            --discount: #ef4444;
+            --discount: #dc2626;
+            --discount-bg: rgba(220, 38, 38, 0.1);
         }
         
         * {
@@ -440,7 +441,7 @@
         }
         
         .order-form::before {
-            content: '🎄 PROMO NATAL 🎄';
+            content: '🎄 DISKON 12% 🎄';
             position: absolute;
             top: 0;
             right: 0;
@@ -548,12 +549,13 @@
         
         .service-savings {
             font-size: 0.8rem;
-            color: var(--success);
-            background: rgba(16, 185, 129, 0.2);
+            color: var(--discount);
+            background: var(--discount-bg);
             padding: 2px 8px;
             border-radius: 10px;
             display: inline-block;
             width: fit-content;
+            font-weight: 600;
         }
         
         .service-price {
@@ -681,6 +683,8 @@
             margin-bottom: 1.5rem;
             text-align: center;
             animation: discountPulse 2s infinite;
+            position: relative;
+            overflow: hidden;
         }
         
         .discount-notice h4 {
@@ -703,6 +707,42 @@
             margin: 0 0.3rem;
             color: white;
             border: 1px dashed rgba(255, 255, 255, 0.5);
+            animation: codePulse 1.5s infinite;
+        }
+        
+        @keyframes codePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Price Comparison */
+        .price-comparison {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+        
+        .original-price {
+            color: #94a3b8;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+        }
+        
+        .discounted-price {
+            color: var(--discount);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .discount-badge {
+            background: var(--discount-bg);
+            color: var(--discount);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 5px;
         }
         
         /* Gameplay Section */
@@ -1042,6 +1082,12 @@
                 font-size: 0.6rem;
                 padding: 3px 8px;
             }
+            
+            .price-comparison {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.2rem;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1058,7 +1104,7 @@
     
     <!-- Christmas Banner -->
     <div class="christmas-banner">
-        <span>🎄 DISKON NATAL & TAHUN BARU! Gunakan kode <strong>CHRISTMAS12</strong> saat checkout untuk mendapatkan diskon 12%! 🎅</span>
+        <span>🎄 PROMO NATAL & TAHUN BARU! Diskon 12% untuk semua produk! Gunakan kode <strong>CHRISTMAS12</strong> saat checkout 🎅</span>
     </div>
     
     <!-- Header -->
@@ -1274,38 +1320,62 @@
                     </div>
                     
                     <div class="service-options">
-                        <h4>Pilih Layanan:</h4>
+                        <h4>Pilih Layanan: <span style="color: var(--discount); font-size: 0.9rem;">(Diskon Natal 12% berlaku di keranjang!)</span></h4>
                         <div class="service-list">
-                            <div class="service-item active" data-duration="3 Hari" data-price="40000" data-old-price="40000">
+                            <div class="service-item active" data-duration="3 Hari" data-price="40000" data-discounted-price="35200">
                                 <div class="service-info">
                                     <div class="service-duration">3 Hari</div>
+                                    <div class="service-savings">Hemat 12% dengan kode</div>
+                                    <div class="price-comparison">
+                                        <span class="original-price">Rp 40.000</span>
+                                        <span class="discounted-price">Rp 35.200</span>
+                                        <span class="discount-badge">-12%</span>
+                                    </div>
                                 </div>
                                 <div class="service-price">
                                     <div class="price-amount">Rp 40.000</div>
                                     <div class="price-per-day">Rp 13.333/hari</div>
                                 </div>
                             </div>
-                            <div class="service-item" data-duration="7 Hari" data-price="60000" data-old-price="60000">
+                            <div class="service-item" data-duration="7 Hari" data-price="60000" data-discounted-price="52800">
                                 <div class="service-info">
                                     <div class="service-duration">7 Hari</div>
+                                    <div class="service-savings">Hemat 12% dengan kode</div>
+                                    <div class="price-comparison">
+                                        <span class="original-price">Rp 60.000</span>
+                                        <span class="discounted-price">Rp 52.800</span>
+                                        <span class="discount-badge">-12%</span>
+                                    </div>
                                 </div>
                                 <div class="service-price">
                                     <div class="price-amount">Rp 60.000</div>
                                     <div class="price-per-day">Rp 8.571/hari</div>
                                 </div>
                             </div>
-                            <div class="service-item best-value" data-duration="30 Hari" data-price="120000" data-old-price="120000">
+                            <div class="service-item best-value" data-duration="30 Hari" data-price="120000" data-discounted-price="105600">
                                 <div class="service-info">
                                     <div class="service-duration">30 Hari</div>
+                                    <div class="service-savings">Hemat 12% dengan kode</div>
+                                    <div class="price-comparison">
+                                        <span class="original-price">Rp 120.000</span>
+                                        <span class="discounted-price">Rp 105.600</span>
+                                        <span class="discount-badge">-12%</span>
+                                    </div>
                                 </div>
                                 <div class="service-price">
                                     <div class="price-amount">Rp 120.000</div>
                                     <div class="price-per-day">Rp 4.000/hari</div>
                                 </div>
                             </div>
-                            <div class="service-item" data-duration="120 Hari" data-price="480000" data-old-price="480000">
+                            <div class="service-item" data-duration="120 Hari" data-price="480000" data-discounted-price="422400">
                                 <div class="service-info">
                                     <div class="service-duration">120 Hari</div>
+                                    <div class="service-savings">Hemat 12% dengan kode</div>
+                                    <div class="price-comparison">
+                                        <span class="original-price">Rp 480.000</span>
+                                        <span class="discounted-price">Rp 422.400</span>
+                                        <span class="discount-badge">-12%</span>
+                                    </div>
                                 </div>
                                 <div class="service-price">
                                     <div class="price-amount">Rp 480.000</div>
@@ -1335,20 +1405,24 @@
                             <span id="summary-price">Rp 40.000</span>
                         </div>
                         <div class="summary-item">
-                            <span>Potongan Diskon:</span>
-                            <span id="summary-discount" style="color: var(--success);">Rp 0</span>
+                            <span>Diskon (dengan kode):</span>
+                            <span id="summary-discount" style="color: var(--discount);">Rp 4.800 (-12%)</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Harga Setelah Diskon:</span>
+                            <span id="summary-discounted-price" style="color: var(--success); font-weight: 600;">Rp 35.200</span>
                         </div>
                         <div class="summary-item">
                             <span>Game:</span>
                             <span>Semua Game Tersedia</span>
                         </div>
                         <div class="summary-total">
-                            <span>Total:</span>
+                            <span>Total (sebelum diskon):</span>
                             <span id="summary-total">Rp 40.000</span>
                         </div>
-                        <div class="summary-item">
+                        <div class="summary-item" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed rgba(255, 255, 255, 0.1);">
                             <span style="color: #16a34a; font-size: 0.9rem;">
-                                <i class="fas fa-gift"></i> Gunakan kode <strong>CHRISTMAS12</strong> saat checkout untuk diskon 12%
+                                <i class="fas fa-gift"></i> Harga akan menjadi <strong>Rp 35.200</strong> setelah menggunakan kode <strong>CHRISTMAS12</strong> di keranjang
                             </span>
                         </div>
                     </div>
@@ -1495,6 +1569,7 @@
             const summaryTotal = document.getElementById('summary-total');
             const summaryPrice = document.getElementById('summary-price');
             const summaryDiscount = document.getElementById('summary-discount');
+            const summaryDiscountedPrice = document.getElementById('summary-discounted-price');
             const cartButton = document.getElementById('cartButton');
             const checkoutButton = document.getElementById('checkoutButton');
             const orderForm = document.getElementById('orderForm');
@@ -1507,16 +1582,19 @@
             // Set default selected service
             let selectedDuration = '3 Hari';
             let selectedPrice = '40000';
+            let selectedDiscountedPrice = '35200';
             
             // Service selection functionality - klik pada seluruh area service-item
             serviceItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const duration = this.getAttribute('data-duration');
                     const price = this.getAttribute('data-price');
+                    const discountedPrice = this.getAttribute('data-discounted-price');
                     
                     // Update selected service
                     selectedDuration = duration;
                     selectedPrice = price;
+                    selectedDiscountedPrice = discountedPrice;
                     
                     // Update UI
                     serviceItems.forEach(item => {
@@ -1548,10 +1626,15 @@
             // Update order summary
             function updateOrderSummary() {
                 const priceNum = parseInt(selectedPrice);
+                const discountedNum = parseInt(selectedDiscountedPrice);
+                const discountAmount = priceNum - discountedNum;
+                const discountPercent = Math.round((discountAmount / priceNum) * 100);
+                
                 summaryDuration.textContent = selectedDuration;
                 summaryPrice.textContent = `Rp ${priceNum.toLocaleString('id-ID')}`;
                 summaryTotal.textContent = `Rp ${priceNum.toLocaleString('id-ID')}`;
-                summaryDiscount.textContent = `Rp 0`;
+                summaryDiscount.textContent = `Rp ${discountAmount.toLocaleString('id-ID')} (-${discountPercent}%)`;
+                summaryDiscountedPrice.textContent = `Rp ${discountedNum.toLocaleString('id-ID')}`;
             }
             
             // Show notification
@@ -1603,14 +1686,23 @@
                 
                 const contact = contactInput.value.trim();
                 
+                // Calculate discount
+                const priceNum = parseInt(selectedPrice);
+                const discountedNum = parseInt(selectedDiscountedPrice);
+                const discountAmount = priceNum - discountedNum;
+                const discountPercent = Math.round((discountAmount / priceNum) * 100);
+                
                 // Create cart item with proper structure
                 const cartItem = {
                     id: 'slash-' + Date.now(),
                     product: 'Slash',
                     duration: selectedDuration,
-                    price: parseInt(selectedPrice),
+                    price: priceNum, // Harga normal
+                    discountedPrice: discountedNum, // Harga setelah diskon
+                    discount: discountPercent,
                     game: 'Semua Game Tersedia',
-                    contact: contact
+                    contact: contact,
+                    discountCode: 'CHRISTMAS12' // Menyimpan info kode diskon
                 };
                 
                 // Get current cart
@@ -1636,7 +1728,9 @@
             // Add to cart functionality
             cartButton.addEventListener('click', function() {
                 if (addToCart()) {
-                    showNotification('Produk berhasil ditambahkan ke keranjang! Jangan lupa gunakan kode CHRISTMAS12 saat checkout untuk diskon 12%!');
+                    const priceNum = parseInt(selectedPrice);
+                    const discountedNum = parseInt(selectedDiscountedPrice);
+                    showNotification(`Produk berhasil ditambahkan ke keranjang! Harga: Rp ${priceNum.toLocaleString('id-ID')} → Rp ${discountedNum.toLocaleString('id-ID')} dengan kode CHRISTMAS12`);
                     
                     // Clear form after successful add
                     document.getElementById('contact').value = '';
@@ -1646,7 +1740,9 @@
             // Checkout functionality
             checkoutButton.addEventListener('click', function() {
                 if (addToCart()) {
-                    showNotification('Produk berhasil ditambahkan ke keranjang! Jangan lupa gunakan kode CHRISTMAS12 saat checkout untuk diskon 12%!');
+                    const priceNum = parseInt(selectedPrice);
+                    const discountedNum = parseInt(selectedDiscountedPrice);
+                    showNotification(`Produk berhasil ditambahkan ke keranjang! Harga: Rp ${priceNum.toLocaleString('id-ID')} → Rp ${discountedNum.toLocaleString('id-ID')} dengan kode CHRISTMAS12`);
                     
                     // Clear form
                     document.getElementById('contact').value = '';
