@@ -6,50 +6,69 @@
     <title>Ryuhuustore - Top Up Game Terpercaya</title>
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --accent: #f59e0b;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --success: #10b981;
-            --coming-soon: #6b7280;
-            --info: #3b82f6;
-            --warning: #f97316;
+            /* Rumus Warna 60-30-10 Elegan */
+            --color-60: #0f172a;          /* 60%: Background utama - Navy Blue Elegant */
+            --color-30: #1e293b;          /* 30%: Konten & Kartu - Slate Blue */
+            --color-10: #8b5cf6;          /* 10%: Aksen & Call-to-Action - Vibrant Purple */
+            
+            /* Warna Pendukung Elegant */
+            --accent-secondary: #ec4899;  /* Pink untuk highlight */
+            --accent-warm: #f59e0b;       /* Gold untuk rating & harga */
+            --success: #10b981;           /* Emerald untuk sukses */
+            --warning: #f97316;           /* Orange untuk perhatian */
+            --info: #3b82f6;              /* Blue untuk info */
+            --muted: #6b7280;             /* Gray untuk coming soon */
+            
+            /* Warna Teks */
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            /* Border & Effects */
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.25);
+            
+            /* Animations */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
+        /* Reset & Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
         
         body {
-            background-color: #0f172a;
-            color: var(--light);
+            background-color: var(--color-60);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
             overflow-x: hidden;
         }
         
-        .bg-animation {
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Background Elegant */
+        .bg-gradient {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background: linear-gradient(45deg, #0f172a, #1e293b, #334155);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--color-60) 0%, #111827 100%);
         }
         
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .floating-elements {
+        /* Glowing Orbs */
+        .glowing-orbs {
             position: fixed;
             top: 0;
             left: 0;
@@ -57,58 +76,51 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
+            overflow: hidden;
         }
         
-        .floating-element {
+        .orb {
             position: absolute;
-            width: 40px;
-            height: 40px;
-            background: rgba(99, 102, 241, 0.2);
             border-radius: 50%;
-            animation: float 15s infinite ease-in-out;
+            filter: blur(40px);
+            opacity: 0.15;
+            animation: floatOrb 20s infinite ease-in-out;
         }
         
-        .floating-element:nth-child(1) {
-            top: 10%;
-            left: 10%;
-            width: 60px;
-            height: 60px;
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--color-10);
+            top: -100px;
+            left: -100px;
             animation-delay: 0s;
-            background: rgba(236, 72, 153, 0.2);
         }
         
-        .floating-element:nth-child(2) {
-            top: 70%;
-            left: 80%;
-            width: 80px;
-            height: 80px;
-            animation-delay: 2s;
-            background: rgba(245, 158, 11, 0.2);
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-secondary);
+            top: 40%;
+            right: -100px;
+            animation-delay: 5s;
         }
         
-        .floating-element:nth-child(3) {
-            top: 30%;
-            left: 85%;
-            width: 50px;
-            height: 50px;
-            animation-delay: 4s;
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent-warm);
+            bottom: -50px;
+            left: 30%;
+            animation-delay: 10s;
         }
         
-        .floating-element:nth-child(4) {
-            top: 80%;
-            left: 15%;
-            width: 70px;
-            height: 70px;
-            animation-delay: 6s;
-            background: rgba(16, 185, 129, 0.2);
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            33% { transform: translateY(-30px) rotate(120deg); }
-            66% { transform: translateY(20px) rotate(240deg); }
-        }
-        
+        /* Payment Notifications - Gen-Z Style */
         .payment-notifications {
             position: fixed;
             top: 100px;
@@ -116,24 +128,20 @@
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            max-width: 300px;
+            gap: 12px;
+            max-width: 320px;
         }
         
         .payment-notification {
-            background: rgba(30, 41, 59, 0.95);
-            border-radius: 10px;
-            padding: 15px;
-            border-left: 4px solid var(--info);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: var(--color-30);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--card-shadow);
             animation: slideInRight 0.5s ease-out;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-        
-        .payment-notification.warning {
-            border-left-color: var(--warning);
         }
         
         .payment-notification::before {
@@ -141,98 +149,103 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 4px;
             height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transform: translateX(-100%);
+            background: var(--color-10);
         }
         
-        .payment-notification.active::before {
-            animation: shine 2s infinite;
+        .payment-notification.en::before {
+            background: var(--info);
         }
         
-        @keyframes shine {
-            100% {
-                transform: translateX(100%);
-            }
+        .close-notification {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-muted);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            transition: var(--transition);
+        }
+        
+        .close-notification:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
         }
         
         .notification-content {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
+            gap: 12px;
         }
         
         .notification-icon {
-            font-size: 1.2rem;
-            color: var(--info);
-            margin-top: 2px;
+            background: rgba(139, 92, 246, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-10);
+            font-size: 16px;
+            flex-shrink: 0;
         }
         
-        .notification-icon.warning {
-            color: var(--warning);
+        .notification-icon.en {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--info);
         }
         
         .notification-text {
             flex: 1;
-            font-size: 0.85rem;
+        }
+        
+        .notification-text p {
+            margin-bottom: 8px;
+            font-size: 14px;
             line-height: 1.4;
         }
         
-        .notification-highlight {
-            color: var(--accent);
-            font-weight: 600;
-        }
-        
-        .notification-pointer {
-            display: flex;
+        .notification-cta {
+            display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             margin-top: 8px;
-            color: var(--primary);
-            font-size: 0.8rem;
+            color: var(--color-10);
             font-weight: 500;
+            font-size: 14px;
+            padding: 6px 12px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(139, 92, 246, 0.2);
         }
         
-        .pointer-arrow {
-            animation: pointLeft 1.5s infinite;
+        .notification-cta:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateX(4px);
+            border-color: rgba(139, 92, 246, 0.4);
         }
         
-        @keyframes pointLeft {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(-5px); }
+        .notification-cta.en {
+            color: var(--info);
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.2);
         }
         
-        .pointer-arrow.right {
-            animation: pointRight 1.5s infinite;
-        }
-        
-        @keyframes pointRight {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(5px); }
-        }
-        
-        .close-notification {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: none;
-            border: none;
-            color: #94a3b8;
-            cursor: pointer;
-            font-size: 0.8rem;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-        
-        .close-notification:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--light);
+        .notification-cta.en:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.4);
         }
         
         @keyframes slideInRight {
@@ -257,139 +270,68 @@
             }
         }
         
-        .language-selector {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            animation: fadeInUp 1s ease-out 0.6s both;
-            position: relative;
-        }
-        
-        .language-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #cbd5e1;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-        }
-        
-        .language-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            animation: pulseGlow 2s infinite;
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% {
-                box-shadow: 0 0 5px rgba(99, 102, 241, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 15px rgba(99, 102, 241, 0.8);
-            }
-        }
-        
-        .language-btn:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .language-highlight {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 25px;
-            height: 25px;
-            background: var(--warning);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.7rem;
-            font-weight: bold;
-            animation: bounce 2s infinite;
-            z-index: 1;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        
+        /* Header Elegant */
         header {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
         }
         
         nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
         }
         
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--light);
-            text-decoration: none;
         }
         
         .logo img {
             height: 40px;
-            width: auto;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
         }
         
         .nav-links {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
         
         .nav-links a {
-            color: var(--light);
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
             position: relative;
-            transition: color 0.3s;
+            transition: var(--transition);
         }
         
         .nav-links a:hover {
-            color: var(--primary);
+            color: var(--text-primary);
         }
         
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -4px;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
+            background: var(--color-10);
+            transition: width 0.3s ease;
         }
         
         .nav-links a:hover::after {
@@ -404,266 +346,517 @@
             position: absolute;
             top: -8px;
             right: -8px;
-            background: var(--secondary);
+            background: var(--accent-secondary);
             color: white;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            width: 18px;
-            height: 18px;
             font-size: 0.7rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 600;
         }
         
+        /* Hero Section - Ultra Elegant */
         .hero {
-            padding: 6rem 2rem;
-            text-align: center;
-            max-width: 1200px;
-            margin: 0 auto;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
             position: relative;
+            overflow: hidden;
         }
         
         .hero-content {
             max-width: 800px;
-            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fadeInUp 1s ease-out;
-            line-height: 1.2;
+            background-clip: text;
         }
         
-        .hero p {
-            font-size: 1.3rem;
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--color-10);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
             margin: 0 auto 3rem;
-            color: #cbd5e1;
-            animation: fadeInUp 1s ease-out 0.2s both;
-            max-width: 700px;
             line-height: 1.6;
         }
         
         .cta-buttons {
             display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 0.4s both;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-            transition: all 0.3s;
-            font-size: 1.1rem;
-        }
-        
-        .cta-button.secondary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
-        }
-        
-        .cta-button.secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
-        }
-        
-        .features {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .feature-card {
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-        
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .feature-card p {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-        
-        .categories {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 2px;
-        }
-        
-        .category-tabs {
-            display: flex;
-            justify-content: center;
             gap: 1rem;
-            margin-bottom: 3rem;
+            justify-content: center;
             flex-wrap: wrap;
-            overflow-x: auto;
-            padding: 1rem 0;
+            margin-bottom: 3rem;
         }
         
-        .category-tab {
-            background: rgba(30, 41, 59, 0.7);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
             border: 2px solid transparent;
-            font-weight: 500;
-            white-space: nowrap;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
-        .category-tab.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+        .btn-primary {
+            background: var(--color-10);
+            color: white;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
         }
         
-        .category-tab:hover:not(.active) {
-            border-color: var(--primary);
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+            background: rgba(139, 92, 246, 0.9);
         }
         
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--color-10);
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
             margin-top: 2rem;
         }
         
-        .product-card {
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: fadeIn 0.5s ease-out;
-            position: relative;
+        .lang-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-weight: 500;
             cursor: pointer;
+            transition: var(--transition);
             display: flex;
-            flex-direction: column;
-            height: 100%;
-            text-decoration: none;
-            color: inherit;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
         }
         
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border-color: var(--primary);
-        }
-        
-        .product-card::before {
+        .lang-btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
         }
         
-        .product-card:hover::before {
+        .lang-btn:hover::before {
+            animation: shine 1.5s infinite;
+        }
+        
+        .lang-btn.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--color-10);
+            color: var(--text-primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+        
+        @keyframes shine {
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Features Section - PERKECIL & LEBIH ELEGANT */
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-10), var(--accent-secondary));
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .feature-card {
+            background: var(--color-30);
+            border-radius: 14px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(139, 92, 246, 0.03), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--color-10);
+            box-shadow: 0 15px 30px -5px rgba(139, 92, 246, 0.15);
+        }
+        
+        .feature-card:hover::before {
             opacity: 1;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--color-10);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-icon {
+            background: rgba(139, 92, 246, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Category Tabs dengan Icon - UPDATED */
+        .category-tabs {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+            padding: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Icon untuk setiap kategori game */
+        .category-tab[data-category="all"]::before {
+            content: '🎮';
+            font-size: 1.1rem;
+        }
+        
+        .category-tab[data-category="genshin"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/genshin-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="wuthering"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/wuthering-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="solo"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/solo-leveling-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="star-rail"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/star-rail-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="zenless"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/zenless-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="marvel"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/marvel-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="gta"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/gta-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="duet"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/duet-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="where-winds"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/where-winds-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="stella"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/stella-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="blue"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/blue-archive-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="crystal"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/crystal-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="ethernia"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/ethernia-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab[data-category="gfl2"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/gfl2-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .category-tab:hover {
+            color: var(--text-primary);
+            border-color: var(--color-10);
+            background: rgba(139, 92, 246, 0.05);
+        }
+        
+        .category-tab.active {
+            background: var(--color-10);
+            color: white;
+            border-color: var(--color-10);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+        
+        .category-tab.active::before {
+            filter: brightness(0) invert(1);
+        }
+        
+        /* PRODUCTS GRID - OPTIMIZED FOR 5 CARDS PER ROW */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 cards per row */
+            gap: 1.2rem;
+        }
+        
+        .product-card {
+            background: var(--color-30);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-10);
+            box-shadow: var(--hover-shadow);
         }
         
         .product-badge {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: var(--secondary);
-            color: white;
             padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+            border-radius: 15px;
             font-size: 0.7rem;
             font-weight: 600;
             z-index: 2;
         }
         
-        .coming-soon-badge {
-            background: var(--coming-soon);
-            animation: pulse-glow 2s infinite;
+        .badge-popular {
+            background: var(--color-10);
+            color: white;
         }
         
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 0 0 5px rgba(107, 114, 128, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 15px rgba(107, 114, 128, 0.8);
-            }
+        .badge-coming-soon {
+            background: var(--muted);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
         .product-image {
-            height: 180px;
-            background: rgba(30, 41, 59, 0.9);
+            height: 140px; /* Reduced height */
+            background: linear-gradient(135deg, var(--color-60) 0%, var(--color-30) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
+            padding: 1.5rem;
         }
         
         .product-image img {
@@ -677,106 +870,77 @@
             transform: scale(1.05);
         }
         
-        .product-info {
-            padding: 1.5rem;
-            position: relative;
-            z-index: 2;
+        .product-content {
+            padding: 1.2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
         
         .product-category {
-            color: var(--primary);
-            font-size: 0.8rem;
+            color: var(--color-10);
+            font-size: 0.75rem;
+            font-weight: 600;
             margin-bottom: 0.4rem;
-            display: block;
-            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .product-name {
-            font-size: 1.3rem;
+            font-size: 1rem;
             font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: white;
-            line-height: 1.2;
+            margin-bottom: 0.6rem;
+            color: var(--text-primary);
+            line-height: 1.3;
         }
         
         .product-rating {
             display: flex;
             align-items: center;
-            margin-bottom: 1rem;
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
         }
         
         .stars {
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-right: 0.5rem;
+            display: flex;
+            gap: 1px;
+        }
+        
+        .stars .fa-star,
+        .stars .fa-star-half-alt {
+            color: var(--accent-warm);
+            font-size: 0.8rem;
+        }
+        
+        .stars .fa-star-o {
+            color: var(--text-muted);
+            font-size: 0.8rem;
         }
         
         .rating-value {
-            color: #cbd5e1;
-            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
         }
         
         .price-container {
-            position: relative;
-            height: 60px;
-            overflow: hidden;
-            margin-bottom: 1rem;
+            margin: 0.8rem 0;
         }
         
-        .price-idr, .price-global {
-            position: absolute;
-            width: 100%;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        
-        .price-idr {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .price-global {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        body[data-lang="en"] .price-idr {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        
-        body[data-lang="en"] .price-global {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        body[data-lang="id"] .price-idr {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        body[data-lang="id"] .price-global {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        .local-price {
-            font-size: 1.4rem;
+        .price {
+            font-size: 1.1rem;
             font-weight: 700;
-            color: var(--accent);
+            color: var(--accent-warm);
         }
         
-        .global-price-tag {
-            font-size: 1.4rem;
+        .global-price {
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #10b981;
+            color: var(--success);
         }
         
         .product-features {
             list-style: none;
-            margin-bottom: 1.5rem;
+            margin: 0.8rem 0;
             flex-grow: 1;
         }
         
@@ -784,77 +948,62 @@
             display: flex;
             align-items: center;
             padding: 0.3rem 0;
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            line-height: 1.4;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            line-height: 1.3;
         }
         
         .product-features li::before {
             content: '✓';
             color: var(--success);
-            margin-right: 0.5rem;
+            margin-right: 0.4rem;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
         
-        .product-action {
+        .product-footer {
+            margin-top: auto;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .product-price-label {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
         }
         
         .product-price-label .currency {
-            color: #10b981;
+            color: var(--success);
             font-weight: 600;
         }
         
-        .view-details {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.5rem 1rem;
+        .btn-view {
+            padding: 0.4rem 0.8rem;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--color-10);
+            border: 1px solid rgba(139, 92, 246, 0.3);
             border-radius: 6px;
-            text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s;
-            font-size: 0.85rem;
-            text-align: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            white-space: nowrap;
         }
         
-        .view-details:hover {
-            background: var(--primary-dark);
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
-            transform: translateY(-2px);
+        .btn-view:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateY(-1px);
         }
         
-        .multi-game-badge {
-            background: linear-gradient(45deg, #6366f1, #ec4899);
-            color: white;
-            padding: 0.2rem 0.8rem;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 0.3rem;
-        }
-        
+        /* Testimonials */
         .testimonials {
-            padding: 5rem 2rem;
-            max-width: 1200px;
+            padding: 6rem 2rem;
+            max-width: 1400px;
             margin: 0 auto;
-            position: relative;
-            overflow: hidden;
         }
         
         .testimonials-container {
@@ -870,35 +1019,23 @@
         }
         
         .testimonial-card {
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 15px;
+            background: var(--color-30);
+            border-radius: 16px;
             padding: 2rem;
             min-width: 300px;
-            flex-shrink: 0;
-            transition: transform 0.3s;
+            border: 1px solid var(--border-color);
         }
         
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        .testimonial-rating {
+            color: var(--accent-warm);
+            margin-bottom: 1rem;
         }
         
         .testimonial-content {
             font-style: italic;
+            color: var(--text-secondary);
             margin-bottom: 1.5rem;
             line-height: 1.6;
-            color: #cbd5e1;
-        }
-        
-        .testimonial-rating {
-            display: flex;
-            margin-bottom: 1rem;
-        }
-        
-        .star {
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin-right: 2px;
         }
         
         .testimonial-author {
@@ -908,43 +1045,42 @@
         }
         
         .author-avatar {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--color-10), var(--accent-secondary));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            color: white;
         }
         
         .author-info h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
         }
         
         .author-info p {
-            color: #94a3b8;
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
         
         @keyframes scrollTestimonials {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(calc(-300px * 8 - 2rem * 8));
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-300px * 8 - 2rem * 8)); }
         }
         
+        /* Footer */
         footer {
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.95);
             padding: 4rem 2rem 2rem;
             margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
         }
         
         .footer-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -952,19 +1088,11 @@
         }
         
         .footer-section h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
             margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: var(--primary);
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--color-10);
         }
         
         .footer-links {
@@ -972,39 +1100,34 @@
         }
         
         .footer-links li {
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .footer-links li i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
+            margin-bottom: 0.75rem;
         }
         
         .footer-links a {
-            color: #cbd5e1;
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: var(--transition);
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
         
         .footer-links a:hover {
-            color: var(--primary);
+            color: var(--color-10);
+            transform: translateX(4px);
         }
         
         .contact-link {
-            color: #cbd5e1;
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: var(--transition);
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
         
         .contact-link:hover {
-            color: var(--primary);
+            color: var(--color-10);
         }
         
         .social-links {
@@ -1014,19 +1137,22 @@
         }
         
         .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transition: all 0.3s;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            text-decoration: none;
         }
         
         .social-link:hover {
-            background: var(--primary);
+            background: var(--color-10);
+            color: white;
             transform: translateY(-3px);
         }
         
@@ -1034,53 +1160,101 @@
             text-align: center;
             margin-top: 4rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
+        /* RESPONSIVE DESIGN - OPTIMIZED FOR MORE CARDS */
+        @media (max-width: 1400px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+                gap: 1rem;
             }
         }
         
         @media (max-width: 1200px) {
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+            }
+            
+            .product-image {
+                height: 130px;
+                padding: 1.2rem;
+            }
+            
+            .product-content {
+                padding: 1rem;
+            }
+            
+            .product-name {
+                font-size: 0.95rem;
+            }
+            
+            .price, .global-price {
+                font-size: 1rem;
+            }
+            
+            .product-features li {
+                font-size: 0.7rem;
+            }
+            
+            /* Features section responsive */
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.2rem;
+            }
+            
+            .feature-card {
+                padding: 1.2rem;
+            }
+            
+            .feature-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .feature-card h3 {
+                font-size: 1rem;
+            }
+            
+            .feature-card p {
+                font-size: 0.85rem;
             }
         }
         
         @media (max-width: 992px) {
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
             }
             
-            .category-tabs {
-                justify-content: flex-start;
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            /* Features untuk tablet */
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
             }
             
             .nav-links {
-                display: none;
+                gap: 1.5rem;
             }
             
             .cta-buttons {
@@ -1088,62 +1262,13 @@
                 align-items: center;
             }
             
-            .cta-button {
+            .btn-primary, .btn-secondary {
                 width: 100%;
                 max-width: 300px;
             }
             
-            .section-title {
-                font-size: 2rem;
-            }
-            
             .category-tabs {
-                gap: 0.5rem;
-            }
-            
-            .category-tab {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-            }
-            
-            .testimonial-card {
-                min-width: 280px;
-            }
-            
-            @keyframes scrollTestimonials {
-                0% {
-                    transform: translateX(0);
-                }
-                100% {
-                    transform: translateX(calc(-280px * 8 - 2rem * 8));
-                }
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 1.5rem;
-            }
-            
-            .product-image {
-                height: 160px;
-            }
-            
-            .product-info {
-                padding: 1.2rem;
-            }
-            
-            .product-name {
-                font-size: 1.2rem;
-            }
-            
-            .local-price, .global-price-tag {
-                font-size: 1.3rem;
-            }
-            
-            .product-action {
-                flex-direction: column;
-                gap: 0.8rem;
-                align-items: flex-start;
+                justify-content: flex-start;
             }
             
             .payment-notifications {
@@ -1153,53 +1278,109 @@
                 max-width: none;
             }
             
-            .payment-notification {
-                max-width: 100%;
+            .testimonial-card {
+                min-width: 280px;
+            }
+            
+            @keyframes scrollTestimonials {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(calc(-280px * 8 - 2rem * 8)); }
+            }
+            
+            /* Features untuk mobile */
+            .features-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
             }
         }
         
         @media (max-width: 576px) {
             .products-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .product-image {
+                height: 150px;
+            }
+            
+            .product-content {
+                padding: 1.2rem;
+            }
+            
+            .product-name {
+                font-size: 1.1rem;
+            }
+            
+            .price, .global-price {
+                font-size: 1.2rem;
+            }
+            
+            .product-features li {
+                font-size: 0.8rem;
             }
             
             .hero {
-                padding: 4rem 1rem;
-            }
-            
-            .features, .categories, .testimonials {
                 padding: 3rem 1rem;
             }
             
-            .product-card {
-                max-width: 100%;
-                margin: 0 auto;
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features, .products-section, .testimonials {
+                padding: 4rem 1rem;
+            }
+            
+            nav {
+                padding: 1rem;
             }
             
             .language-selector {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .lang-btn {
+                width: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .category-tabs {
                 gap: 0.5rem;
             }
             
-            .language-btn {
-                width: 180px;
-                justify-content: center;
+            .category-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .category-tab::before {
+                width: 16px;
+                height: 16px;
             }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body data-lang="id">
-    <div class="bg-animation"></div>
-    <div class="floating-elements">
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
+    <!-- Background Elements -->
+    <div class="bg-gradient"></div>
+    <div class="glowing-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
     
+    <!-- Gen-Z Notifications -->
     <div class="payment-notifications">
         <div class="payment-notification active" id="notification-id">
             <button class="close-notification" onclick="hideNotification('id')">
@@ -1210,35 +1391,39 @@
                     <i class="fas fa-qrcode"></i>
                 </div>
                 <div class="notification-text">
-                    <span class="notification-highlight">Pembayaran QRIS</span> tersedia di <span class="notification-highlight">Bahasa Indonesia</span>
-                    <div class="notification-pointer">
-                        <span class="pointer-arrow">←</span> Pilih tombol di sebelah kiri
-                    </div>
+                    <p>Gas bang! 🚀 QRIS tersedia nih buat kalian yang pengen transaksi lebih cepet!</p>
+                    <a href="#" class="notification-cta">
+                        <span>Klik sini buat bayar pake QRIS</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
         
-        <div class="payment-notification warning" id="notification-en" style="display: none;">
+        <div class="payment-notification en" id="notification-en" style="display: none;">
             <button class="close-notification" onclick="hideNotification('en')">
                 <i class="fas fa-times"></i>
             </button>
             <div class="notification-content">
-                <div class="notification-icon warning">
+                <div class="notification-icon en">
                     <i class="fas fa-globe"></i>
                 </div>
                 <div class="notification-text">
-                    <span class="notification-highlight">Paypal, Crypto, Visa/CC</span> available in <span class="notification-highlight">English</span>
-                    <div class="notification-pointer">
-                        Select the right button <span class="pointer-arrow right">→</span>
-                    </div>
+                    <p>Hey gamers! 🎮 PayPal, Crypto & Cards ready for you!</p>
+                    <a href="#" class="notification-cta en">
+                        <span>Click here for global payments</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- Header - LOGO TETAP MENGGUNAKAN logo.png -->
     <header>
         <nav>
             <a href="index.html" class="logo">
+                <!-- LOGO ASLI TIDAK DIUBAH -->
                 <img src="logo.png" alt="Ryuhuustore Logo">
                 Ryuhuustore
             </a>
@@ -1253,29 +1438,38 @@
         </nav>
     </header>
     
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1 id="hero-title-id">Official Ryuhuu Store</h1>
-            <h1 id="hero-subtitle-id">Cepat • Aman • Support 24/7</h1>
-            <p id="hero-desc-id">Official reseller penyedia tools premium dengan lisensi dan akses update langsung dari source terbaik</p>
+            <div class="hero-subtitle" id="hero-subtitle-id">Cepat • Aman • Support 24/7</div>
+            <p class="hero-description" id="hero-desc-id">Official reseller penyedia tools premium dengan lisensi dan akses update langsung dari source terbaik</p>
+            
             <div class="cta-buttons">
-                <a href="#produk" class="cta-button" id="cta-button-id">Beli Cheetoss</a>
-                <a href="tutorial.html" class="cta-button secondary" id="tutorial-button-id">Tutorial Pasang</a>
+                <a href="#produk" class="btn-primary" id="cta-button-id">
+                    <i class="fas fa-bolt"></i>
+                    Beli Cheetoss
+                </a>
+                <a href="tutorial.html" class="btn-secondary" id="tutorial-button-id">
+                    <i class="fas fa-graduation-cap"></i>
+                    Tutorial Pasang
+                </a>
             </div>
             
             <div class="language-selector">
-                <button class="language-btn active" data-lang="id" id="btn-id">
-                    <i class="fas fa-language"></i> Bahasa Indonesia
-                    <div class="language-highlight">!</div>
+                <button class="lang-btn active" data-lang="id" id="btn-id">
+                    <i class="fas fa-language"></i>
+                    Bahasa Indonesia
                 </button>
-                <button class="language-btn" data-lang="en" id="btn-en">
-                    <i class="fas fa-globe"></i> English
-                    <div class="language-highlight" style="background: var(--info);">$</div>
+                <button class="lang-btn" data-lang="en" id="btn-en">
+                    <i class="fas fa-globe"></i>
+                    English
                 </button>
             </div>
         </div>
     </section>
     
+    <!-- Features Section - DIKECILKAN & LEBIH ELEGANT -->
     <section class="features">
         <h2 class="section-title" id="features-title-id">Kenapa Memilih Kami?</h2>
         <div class="features-grid">
@@ -1302,9 +1496,11 @@
         </div>
     </section>
     
-    <section class="categories" id="produk">
+    <!-- Products Section -->
+    <section class="products-section" id="produk">
         <h2 class="section-title" id="products-title-id">Produk Kami</h2>
         
+        <!-- Category Tabs dengan ICON -->
         <div class="category-tabs">
             <div class="category-tab active" data-category="all">Semua</div>
             <div class="category-tab" data-category="genshin">Genshin Impact</div>
@@ -1324,187 +1520,31 @@
         </div>
         
         <div class="products-grid" id="productsContainer">
-            <!-- Produk akan dimuat melalui JavaScript -->
+            <!-- Products will be loaded here via JavaScript -->
         </div>
     </section>
     
+    <!-- Testimonials Section -->
     <section class="testimonials">
         <h2 class="section-title" id="testimonials-title-id">Apa Kata Pelanggan Kami?</h2>
         <div class="testimonials-container">
             <div class="testimonials-track">
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <div class="testimonial-content" id="testimonial1-id">
-                        "Prosesnya cepat banget! Baru bayar 5 menit langsung diproses. Produknya juga work tanpa kendala. Recommended banget!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">R*</div>
-                        <div class="author-info">
-                            <h4>R**** S****</h4>
-                            <p>Pengguna Unicore</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <div class="testimonial-content" id="testimonial2-id">
-                        "Supportnya ramah dan responsif. Sempat ada kendala teknis tapi dibantu sampai selesai. Pelayanan emang top!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">A*</div>
-                        <div class="author-info">
-                            <h4>A**** D****</h4>
-                            <p>Pengguna Slash</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <div class="testimonial-content" id="testimonial3-id">
-                        "Harganya kompetitif dan kualitasnya premium. Udah coba beberapa produk dan semuanya memuaskan. Bakal langganan di sini!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">S*</div>
-                        <div class="author-info">
-                            <h4>S**** M****</h4>
-                            <p>Pengguna Antiaddict</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <div class="testimonial-content" id="testimonial4-id">
-                        "Pertama kali beli di sini dan langsung puas. Prosesnya mudah, pembayaran cepat, dan produk sesuai. Pasti akan repeat order!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">F*</div>
-                        <div class="author-info">
-                            <h4>F**** A****</h4>
-                            <p>Pengguna Uniwaves</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <div class="testimonial-content" id="testimonial5-id">
-                        "Layanan customer service sangat membantu. Respon cepat dan solutif. Pengalaman belanja yang menyenangkan!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">D*</div>
-                        <div class="author-info">
-                            <h4>D**** P****</h4>
-                            <p>Pengguna Shika</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <div class="testimonial-content" id="testimonial6-id">
-                        "Baru pertama kali top up game online dan ternyata mudah banget. Panduannya jelas, proses cepat. Terima kasih Ryuhuustore!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">M*</div>
-                        <div class="author-info">
-                            <h4>M**** R****</h4>
-                            <p>Pengguna Unicore</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <div class="testimonial-content" id="testimonial7-id">
-                        "Dibanding toko lain, Ryuhuustore memang lebih terpercaya. Produk selalu update dan harganya terjangkau. Recommended!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">B*</div>
-                        <div class="author-info">
-                            <h4>B**** W****</h4>
-                            <p>Pengguna Slash</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <div class="testimonial-content" id="testimonial8-id">
-                        "Sudah belanja berkali-kali di sini dan selalu puas. Proses cepat, produk berkualitas, dan support responsif. Terbaik!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">H*</div>
-                        <div class="author-info">
-                            <h4>H**** L****</h4>
-                            <p>Pengguna Antiaddict</p>
-                        </div>
-                    </div>
-                </div>
+                <!-- Testimonial cards will be generated via JavaScript -->
             </div>
         </div>
     </section>
     
+    <!-- Footer -->
     <footer id="kontak">
         <div class="footer-content">
             <div class="footer-section">
                 <h3 id="footer-about-title-id">Ryuhuustore</h3>
                 <p id="footer-about-desc-id">Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif. Kami berkomitmen memberikan pengalaman berbelanja terbaik untuk para gamer.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
@@ -1557,14 +1597,13 @@
         </div>
         
         <div class="copyright">
-            &copy; 2023 Ryuhuustore. <span id="copyright-text-id">All rights reserved.</span>
+            &copy; 2024 Ryuhuustore. <span id="copyright-text-id">All rights reserved.</span>
         </div>
     </footer>
-    
+
     <script>
-        // DATA PRODUK DARI FILE EXCEL
+        // Data Produk
         const productsData = [
-            // PRODUK SLASH - Hanya untuk game yang punya slash di Excel
             {
                 id: "slash",
                 name: "Slash",
@@ -1575,12 +1614,10 @@
                 localPrice: "40.000",
                 globalPrice: "$4",
                 badge: "🔥 POPULER",
-                rating: "4.9",
+                rating: 4.9,
                 features: ["Auto Farm & Quest", "Multi-account Support", "Anti-Detection System", "Auto Daily Mission"],
                 availableGames: 11
             },
-            
-            // GENSHIN IMPACT
             {
                 id: "shika",
                 name: "Shika",
@@ -1591,7 +1628,7 @@
                 localPrice: "80.000",
                 globalPrice: "$5",
                 badge: "💎 PREMIUM",
-                rating: "4.8",
+                rating: 4.8,
                 features: ["Advanced Features", "Priority Support", "Regular Updates", "Beta Access"]
             },
             {
@@ -1604,7 +1641,7 @@
                 localPrice: "45.000",
                 globalPrice: "$2.5",
                 badge: "✨ TERBARU",
-                rating: "4.9",
+                rating: 4.9,
                 features: ["Interactive Map", "Advanced Combat", "Auto Systems", "Teleport Waypoint"]
             },
             {
@@ -1617,11 +1654,9 @@
                 localPrice: "45.000",
                 globalPrice: "$2.5",
                 badge: "🚀 POWERFUL",
-                rating: "4.7",
+                rating: 4.7,
                 features: ["Complete Feature Set", "User-Friendly Interface", "Stable Performance", "Anti-Ban System"]
             },
-            
-            // WUTHERING WAVES
             {
                 id: "uniwaves",
                 name: "Uniwaves",
@@ -1632,11 +1667,9 @@
                 localPrice: "45.000",
                 globalPrice: "$2.5",
                 badge: "✨ TERBARU",
-                rating: "4.6",
+                rating: 4.6,
                 features: ["Wave-specific Features", "Optimized Performance", "Regular Updates", "Auto Resonance"]
             },
-            
-            // STAR RAIL (tidak ada slash di Excel)
             {
                 id: "unistar",
                 name: "Unistar",
@@ -1647,11 +1680,9 @@
                 localPrice: "81.000",
                 globalPrice: "$5",
                 badge: "💎 PREMIUM",
-                rating: "4.7",
+                rating: 4.7,
                 features: ["Rail-specific Features", "Optimized Performance", "Regular Updates", "Auto Battle"]
             },
-            
-            // ZENLESS ZONE ZERO
             {
                 id: "unizone",
                 name: "Unizone",
@@ -1662,11 +1693,9 @@
                 localPrice: "45.000",
                 globalPrice: "$3",
                 badge: "✨ TERBARU",
-                rating: "4.5",
+                rating: 4.5,
                 features: ["Zone-specific Features", "Optimized Performance", "Regular Updates", "Proxy Support"]
             },
-            
-            // MARVEL RIVALS (tidak ada slash di Excel)
             {
                 id: "unirivals",
                 name: "Unirivals",
@@ -1677,11 +1706,9 @@
                 localPrice: "65.000",
                 globalPrice: "$5",
                 badge: "🦸 SUPER",
-                rating: "4.4",
+                rating: 4.4,
                 features: ["Marvel-specific Features", "Optimized Performance", "Regular Updates", "Auto Aim"]
             },
-            
-            // GTA V FIVEM (tidak ada slash di Excel)
             {
                 id: "unitheft",
                 name: "Unitheft",
@@ -1692,11 +1719,9 @@
                 localPrice: "40.000",
                 globalPrice: "$2.5",
                 badge: "🚗 FAST",
-                rating: "4.3",
+                rating: 4.3,
                 features: ["Fivem-specific Features", "Optimized Performance", "Regular Updates", "Money Drop"]
             },
-            
-            // DUET NIGHT ABYSS
             {
                 id: "unidna",
                 name: "Unidna",
@@ -1707,28 +1732,26 @@
                 localPrice: "42.000",
                 globalPrice: "$3",
                 badge: "🌙 NIGHT",
-                rating: "4.5",
+                rating: 4.5,
                 features: ["Abyss-specific Features", "Optimized Performance", "Regular Updates", "Auto Dungeon"]
             },
-            
-            // COMING SOON
             {
                 id: "predator",
-                name: "S*****s",
+                name: "Secret Tool",
                 categories: ["all"],
                 game: "Multi-Game",
                 image: "produk/predator.png",
                 page: "#",
                 localPrice: "Segera Hadir",
-                globalPrice: "$0",
+                globalPrice: "Coming Soon",
                 badge: "🚀 COMING SOON",
-                rating: "0",
+                rating: 0,
                 features: ["Revolutionary Features", "Next-Gen Technology", "Multi-Platform Support", "AI-Powered"],
                 comingSoon: true
             }
         ];
-        
-        // TERJEMAHAN BAHASA
+
+        // Terjemahan Bahasa
         const translations = {
             id: {
                 "hero-title": "Official Ryuhuu Store",
@@ -1865,355 +1888,260 @@
                 "global-price": "Global Price"
             }
         };
-        
-        // FUNGSI UTAMA
+
+        // Testimonials Data
+        const testimonialsData = [
+            { id: 1, author: "R* S****", game: "Unicore", initial: "R" },
+            { id: 2, author: "A**** D****", game: "Slash", initial: "A" },
+            { id: 3, author: "S**** M****", game: "Antiaddict", initial: "S" },
+            { id: 4, author: "F**** A****", game: "Uniwaves", initial: "F" },
+            { id: 5, author: "D**** P****", game: "Shika", initial: "D" },
+            { id: 6, author: "M**** R****", game: "Unicore", initial: "M" },
+            { id: 7, author: "B**** W****", game: "Slash", initial: "B" },
+            { id: 8, author: "H**** L****", game: "Antiaddict", initial: "H" }
+        ];
+
         document.addEventListener('DOMContentLoaded', function() {
-            const categoryTabs = document.querySelectorAll('.category-tab');
-            const productsContainer = document.getElementById('productsContainer');
-            const cartCount = document.querySelector('.cart-count');
-            const languageBtns = document.querySelectorAll('.language-btn');
+            // Initialize
+            loadProducts();
+            loadTestimonials();
+            updateCartCount();
+            setupEventListeners();
             
-            // Update cart count
-            function updateCartCount() {
-                try {
-                    const cartData = localStorage.getItem('cart');
-                    if (cartData) {
-                        const cart = JSON.parse(cartData);
-                        cartCount.textContent = cart.length;
-                    } else {
-                        cartCount.textContent = '0';
-                    }
-                } catch (error) {
-                    console.error('Error reading cart:', error);
-                    cartCount.textContent = '0';
+            // Auto-hide notifications after 10 seconds
+            setTimeout(autoHideNotifications, 10000);
+            
+            function generateStarRating(rating) {
+                let starsHTML = '';
+                const fullStars = Math.floor(rating);
+                const hasHalfStar = rating % 1 >= 0.5;
+                
+                // Full stars
+                for (let i = 0; i < fullStars; i++) {
+                    starsHTML += '<i class="fas fa-star"></i>';
                 }
+                
+                // Half star
+                if (hasHalfStar) {
+                    starsHTML += '<i class="fas fa-star-half-alt"></i>';
+                }
+                
+                // Empty stars
+                const emptyStars = 5 - Math.ceil(rating);
+                for (let i = 0; i < emptyStars; i++) {
+                    starsHTML += '<i class="far fa-star"></i>';
+                }
+                
+                return starsHTML;
             }
             
-            // Initialize cart count
-            updateCartCount();
+            function loadProducts(category = 'all') {
+                const container = document.getElementById('productsContainer');
+                container.innerHTML = '';
+                
+                const filteredProducts = category === 'all' 
+                    ? productsData 
+                    : productsData.filter(product => 
+                        product.categories.includes(category) || product.categories.includes("all")
+                    );
+                
+                filteredProducts.forEach((product, index) => {
+                    const card = createProductCard(product);
+                    container.appendChild(card);
+                });
+            }
             
-            // Function to create product card
             function createProductCard(product) {
                 const card = document.createElement('a');
                 card.className = 'product-card';
-                card.setAttribute('data-id', product.id);
+                card.href = product.comingSoon ? '#' : product.page;
                 
-                // Tentukan link berdasarkan bahasa
-                let link = product.page;
-                const currentLang = document.body.getAttribute('data-lang');
-                
-                // Jika bahasa Inggris dan bukan coming soon, arahkan ke mysellauth
-                if (currentLang === 'en' && !product.comingSoon) {
-                    link = 'https://ryuhuu.mysellauth.com/#products';
-                }
-                
-                card.href = link;
+                // Handle image error
+                card.innerHTML = `
+                    <div class="product-badge ${product.comingSoon ? 'badge-coming-soon' : 'badge-popular'}">
+                        ${product.badge}
+                    </div>
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x180/1e293b/8b5cf6?text=${encodeURIComponent(product.name)}'">
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">${product.game}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-rating">
+                            <div class="stars">
+                                ${generateStarRating(product.rating)}
+                            </div>
+                            <div class="rating-value">${product.rating}/5.0</div>
+                        </div>
+                        <div class="price-container">
+                            ${product.comingSoon ? 
+                                `<div class="price">${product.localPrice}</div>` :
+                                `<div class="price">Rp ${product.localPrice}</div>
+                                 <div class="global-price">${product.globalPrice}</div>`
+                            }
+                        </div>
+                        ${product.availableGames ? 
+                            `<div class="product-badge" style="position: static; margin: 0.5rem 0; background: rgba(139, 92, 246, 0.2); color: var(--color-10);">
+                                ${product.availableGames} Games Supported
+                            </div>` : ''
+                        }
+                        <ul class="product-features">
+                            ${product.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                        <div class="product-footer">
+                            <div class="product-price-label">
+                                <span class="currency">${product.comingSoon ? '-' : product.globalPrice}</span>
+                                <span class="price-label-text">${product.comingSoon ? '' : 'Global Price'}</span>
+                            </div>
+                            <a href="${product.comingSoon ? '#' : product.page}" class="btn-view">
+                                ${product.comingSoon ? 'Coming Soon' : 'View Details'}
+                            </a>
+                        </div>
+                    </div>
+                `;
                 
                 if (product.comingSoon) {
-                    card.innerHTML = `
-                        <div class="product-badge coming-soon-badge">${product.badge}</div>
-                        <div class="product-image">
-                            <img src="${product.image}" alt="${product.name}" class="product-img" onerror="this.src='https://via.placeholder.com/300x160/1e293b/ffffff?text=Coming+Soon'">
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;">
-                                <div style="color: white; font-weight: bold; font-size: 1.2rem;">COMING SOON</div>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">${product.game}</span>
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-rating">
-                                <div class="stars">- - - - -</div>
-                                <div class="rating-value">-/-</div>
-                            </div>
-                            <div class="price-container">
-                                <div class="price-idr">
-                                    <div class="local-price" style="color: var(--coming-soon);">${product.localPrice}</div>
-                                </div>
-                                <div class="price-global">
-                                    <div class="global-price-tag">${product.globalPrice}</div>
-                                </div>
-                            </div>
-                            ${product.availableGames ? `<div class="multi-game-badge" data-games="${product.availableGames}">${product.availableGames} Games Supported</div>` : ''}
-                            <ul class="product-features">
-                                ${product.features.map(feature => `<li>${feature}</li>`).join('')}
-                            </ul>
-                            <div class="product-action">
-                                <div class="product-price-label">
-                                    <span class="currency">${product.globalPrice}</span> <span class="price-label-text">Global Price</span>
-                                </div>
-                                <div class="view-details coming-soon-btn" style="background: var(--coming-soon); cursor: not-allowed;">Coming Soon</div>
-                            </div>
-                        </div>
-                    `;
-                    card.addEventListener('click', function(e) {
-                        e.preventDefault();
-                    });
-                } else {
-                    card.innerHTML = `
-                        ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
-                        <div class="product-image">
-                            <img src="${product.image}" alt="${product.name}" class="product-img" onerror="this.src='https://via.placeholder.com/300x160/1e293b/ffffff?text=No+Image'">
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">${product.game}</span>
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-rating">
-                                <div class="stars">${'★'.repeat(Math.floor(parseFloat(product.rating))) + '☆'.repeat(5-Math.floor(parseFloat(product.rating)))}</div>
-                                <div class="rating-value">${product.rating}/5.0</div>
-                            </div>
-                            <div class="price-container">
-                                <div class="price-idr">
-                                    <div class="local-price">Rp ${product.localPrice}</div>
-                                </div>
-                                <div class="price-global">
-                                    <div class="global-price-tag">${product.globalPrice}</div>
-                                </div>
-                            </div>
-                            ${product.availableGames ? `<div class="multi-game-badge" data-games="${product.availableGames}">${product.availableGames} Games Supported</div>` : ''}
-                            <ul class="product-features">
-                                ${product.features.map(feature => `<li>${feature}</li>`).join('')}
-                            </ul>
-                            <div class="product-action">
-                                <div class="product-price-label">
-                                    <span class="currency">${product.globalPrice}</span> <span class="price-label-text">Global Price</span>
-                                </div>
-                                <div class="view-details">View Details</div>
-                            </div>
-                        </div>
-                    `;
+                    card.addEventListener('click', e => e.preventDefault());
                 }
                 
                 return card;
             }
             
-            // Load products based on category
-            function loadProducts(category = 'all') {
-                productsContainer.innerHTML = '';
+            function loadTestimonials() {
+                const track = document.querySelector('.testimonials-track');
+                track.innerHTML = '';
                 
-                const filteredProducts = category === 'all' 
-                    ? productsData 
-                    : productsData.filter(product => {
-                        // Check if product has this category in its categories array
-                        // Or if it's "all" category product
-                        if (product.categories.includes("all")) return true;
-                        return product.categories.includes(category);
-                    });
-                
-                filteredProducts.forEach((product, index) => {
-                    const card = createProductCard(product);
-                    card.style.animationDelay = `${index * 0.1}s`;
-                    productsContainer.appendChild(card);
+                // Duplicate testimonials for seamless loop
+                [...testimonialsData, ...testimonialsData].forEach(testimonial => {
+                    const lang = document.body.getAttribute('data-lang');
+                    const content = translations[lang][`testimonial${testimonial.id}`];
+                    
+                    const card = document.createElement('div');
+                    card.className = 'testimonial-card';
+                    card.innerHTML = `
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="testimonial-content">${content}</div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">${testimonial.initial}</div>
+                            <div class="author-info">
+                                <h4>${testimonial.author}</h4>
+                                <p>Pengguna ${testimonial.game}</p>
+                            </div>
+                        </div>
+                    `;
+                    track.appendChild(card);
                 });
-                
-                // Update multi-game badge text
-                updateMultiGameBadges();
-                
-                // Update price label text
-                updatePriceLabels();
             }
             
-            // Category filtering
-            categoryTabs.forEach(tab => {
-                tab.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Remove active class from all tabs
-                    categoryTabs.forEach(t => t.classList.remove('active'));
-                    // Add active class to clicked tab
-                    this.classList.add('active');
-                    
-                    const category = this.getAttribute('data-category');
-                    loadProducts(category);
-                    
-                    // Scroll to products section
-                    document.getElementById('produk').scrollIntoView({ behavior: 'smooth' });
-                });
-            });
+            function updateCartCount() {
+                try {
+                    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    document.querySelector('.cart-count').textContent = cart.length;
+                } catch {
+                    document.querySelector('.cart-count').textContent = '0';
+                }
+            }
             
-            // Language switching
-            languageBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    languageBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    const lang = this.getAttribute('data-lang');
-                    changeLanguage(lang);
+            function setupEventListeners() {
+                // Category tabs
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        loadProducts(this.dataset.category);
+                    });
                 });
-            });
-            
-            // Update multi-game badges text
-            function updateMultiGameBadges() {
-                const currentLang = document.body.getAttribute('data-lang');
-                const trans = translations[currentLang];
                 
-                document.querySelectorAll('.multi-game-badge').forEach(badge => {
-                    const gamesCount = badge.getAttribute('data-games');
-                    if (gamesCount) {
-                        badge.textContent = `${trans['available-games']} ${gamesCount} ${trans['games-text']}`;
+                // Language buttons
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        changeLanguage(this.dataset.lang);
+                    });
+                });
+            }
+            
+            function changeLanguage(lang) {
+                // Update body attribute
+                document.body.setAttribute('data-lang', lang);
+                
+                // Update active button
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.lang === lang);
+                });
+                
+                // Update all text content
+                const trans = translations[lang];
+                Object.keys(trans).forEach(key => {
+                    const elements = document.querySelectorAll(`[id*="${key}"]`);
+                    elements.forEach(el => {
+                        if (el.id.includes(key)) {
+                            el.textContent = trans[key];
+                        }
+                    });
+                });
+                
+                // Update button texts
+                document.querySelectorAll('.btn-view').forEach(btn => {
+                    if (btn.textContent.includes('View Details') || btn.textContent.includes('Lihat Detail')) {
+                        btn.textContent = trans['view-details'];
+                    } else if (btn.textContent.includes('Coming Soon') || btn.textContent.includes('Segera Hadir')) {
+                        btn.textContent = trans['coming-soon'];
                     }
                 });
-            }
-            
-            // Update price labels text
-            function updatePriceLabels() {
-                const currentLang = document.body.getAttribute('data-lang');
-                const trans = translations[currentLang];
                 
+                // Update notifications
+                updateNotifications(lang);
+                
+                // Reload testimonials with new language
+                loadTestimonials();
+                
+                // Update price labels
                 document.querySelectorAll('.price-label-text').forEach(label => {
                     label.textContent = trans['global-price'];
                 });
             }
             
-            // Change language function
-            function changeLanguage(lang) {
-                // Update body attribute for CSS
-                document.body.setAttribute('data-lang', lang);
-                
-                const trans = translations[lang];
-                
-                // Update hero section
-                document.getElementById('hero-title-id').textContent = trans['hero-title'];
-                document.getElementById('hero-subtitle-id').textContent = trans['hero-subtitle'];
-                document.getElementById('hero-desc-id').textContent = trans['hero-desc'];
-                document.getElementById('cta-button-id').textContent = trans['cta-button'];
-                document.getElementById('tutorial-button-id').textContent = trans['tutorial-button'];
-                
-                // Update features
-                document.getElementById('features-title-id').textContent = trans['features-title'];
-                document.getElementById('feature1-title-id').textContent = trans['feature1-title'];
-                document.getElementById('feature1-desc-id').textContent = trans['feature1-desc'];
-                document.getElementById('feature2-title-id').textContent = trans['feature2-title'];
-                document.getElementById('feature2-desc-id').textContent = trans['feature2-desc'];
-                document.getElementById('feature3-title-id').textContent = trans['feature3-title'];
-                document.getElementById('feature3-desc-id').textContent = trans['feature3-desc'];
-                document.getElementById('feature4-title-id').textContent = trans['feature4-title'];
-                document.getElementById('feature4-desc-id').textContent = trans['feature4-desc'];
-                
-                // Update products title
-                document.getElementById('products-title-id').textContent = trans['products-title'];
-                
-                // Update category tabs
-                document.querySelectorAll('.category-tab').forEach(tab => {
-                    const category = tab.getAttribute('data-category');
-                    if (trans[`category-${category}`]) {
-                        tab.textContent = trans[`category-${category}`];
-                    }
-                });
-                
-                // Update testimonials
-                document.getElementById('testimonials-title-id').textContent = trans['testimonials-title'];
-                for (let i = 1; i <= 8; i++) {
-                    document.getElementById(`testimonial${i}-id`).textContent = trans[`testimonial${i}`];
-                }
-                
-                // Update footer
-                document.getElementById('footer-about-title-id').textContent = trans['footer-about-title'];
-                document.getElementById('footer-about-desc-id').textContent = trans['footer-about-desc'];
-                document.getElementById('footer-products-title-id').textContent = trans['footer-products-title'];
-                document.getElementById('footer-game1-id').textContent = trans['footer-game1'];
-                document.getElementById('footer-game2-id').textContent = trans['footer-game2'];
-                document.getElementById('footer-game3-id').textContent = trans['footer-game3'];
-                document.getElementById('footer-game4-id').textContent = trans['footer-game4'];
-                document.getElementById('footer-game5-id').textContent = trans['footer-game5'];
-                document.getElementById('footer-help-title-id').textContent = trans['footer-help-title'];
-                document.getElementById('footer-help1-id').textContent = trans['footer-help1'];
-                document.getElementById('footer-help2-id').textContent = trans['footer-help2'];
-                document.getElementById('footer-help3-id').textContent = trans['footer-help3'];
-                document.getElementById('footer-help4-id').textContent = trans['footer-help4'];
-                document.getElementById('footer-contact-title-id').textContent = trans['footer-contact-title'];
-                document.getElementById('copyright-text-id').textContent = trans['copyright-text'];
-                
-                // Update UI elements
-                updateMultiGameBadges();
-                updatePriceLabels();
-                
-                // Update "View Details" buttons
-                document.querySelectorAll('.view-details:not(.coming-soon-btn)').forEach(btn => {
-                    btn.textContent = trans['view-details'];
-                });
-                
-                // Update "Coming Soon" buttons
-                document.querySelectorAll('.coming-soon-btn').forEach(btn => {
-                    btn.textContent = trans['coming-soon'];
-                });
-                
-                // PERUBAHAN PENTING: Update semua link produk berdasarkan bahasa
-                const productCards = document.querySelectorAll('.product-card:not([href="#"])');
-                productCards.forEach(card => {
-                    const productId = card.getAttribute('data-id');
-                    const product = productsData.find(p => p.id === productId);
-                    
-                    if (product && !product.comingSoon) {
-                        if (lang === 'en') {
-                            card.href = 'https://ryuhuu.mysellauth.com/#products';
-                        } else {
-                            card.href = product.page;
-                        }
-                    }
-                });
-                
-                // Update payment notifications
-                updatePaymentNotifications(lang);
-            }
-            
-            // Update payment notifications
-            function updatePaymentNotifications(lang) {
+            function updateNotifications(lang) {
                 const notificationId = document.getElementById('notification-id');
                 const notificationEn = document.getElementById('notification-en');
                 
                 if (lang === 'id') {
                     notificationId.style.display = 'block';
-                    notificationId.classList.add('active');
                     notificationEn.style.display = 'none';
-                    
-                    document.getElementById('btn-id').classList.add('active');
-                    document.getElementById('btn-en').classList.remove('active');
                 } else {
                     notificationId.style.display = 'none';
                     notificationEn.style.display = 'block';
-                    notificationEn.classList.add('active');
-                    
-                    document.getElementById('btn-en').classList.add('active');
-                    document.getElementById('btn-id').classList.remove('active');
                 }
             }
             
-            // Hide notification function
-            window.hideNotification = function(lang) {
-                const notification = document.getElementById(`notification-${lang}`);
-                notification.style.animation = 'slideOutRight 0.5s ease-out forwards';
-                
-                setTimeout(() => {
-                    notification.style.display = 'none';
-                    notification.style.animation = '';
-                }, 500);
-            };
-            
-            // Auto-hide notifications after 10 seconds
-            setTimeout(() => {
+            function autoHideNotifications() {
                 document.querySelectorAll('.payment-notification').forEach(notification => {
-                    if (notification.style.display !== 'none') {
+                    if (window.getComputedStyle(notification).display !== 'none') {
                         notification.style.animation = 'slideOutRight 0.5s ease-out forwards';
-                        
                         setTimeout(() => {
                             notification.style.display = 'none';
-                            notification.style.animation = '';
                         }, 500);
                     }
                 });
-            }, 10000);
+            }
             
-            // Initialize with all products
-            loadProducts();
+            window.hideNotification = function(lang) {
+                const notification = document.getElementById(`notification-${lang}`);
+                notification.style.animation = 'slideOutRight 0.5s ease-out forwards';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 500);
+            };
             
-            // Function to filter products from footer links
             window.filterProducts = function(category) {
                 const tab = document.querySelector(`.category-tab[data-category="${category}"]`);
-                if (tab) {
-                    tab.click();
-                }
+                if (tab) tab.click();
             };
         });
     </script>
