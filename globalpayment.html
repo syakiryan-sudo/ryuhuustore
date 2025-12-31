@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Methods - Ryuhuustore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .payment-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .payment-card {
+            background: var(--dark-light);
+            border-radius: 12px;
+            padding: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .payment-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .badge-instant {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-discord {
+            background: #5865F2;
+            color: white;
+        }
+
+        /* Custom colors for payment methods */
+        .paypal .payment-icon { background: #003087; }
+        .bitcoin .payment-icon { background: #f7931a; }
+        .qris .payment-icon { background: #00a859; }
+        .creditcard .payment-icon { background: #2a4b8d; }
+        .gcash .payment-icon { background: #0047ab; }
+        .alipay .payment-icon { background: #009fe3; }
+        .giftcard .payment-icon { background: linear-gradient(135deg, #ff6b6b, #ffd93d); }
+        .binance .payment-icon { background: #f0b90b; }
+        .redotpay .payment-icon { background: linear-gradient(135deg, #ff416c, #ff4b2b); }
+        .googlepay .payment-icon { background: #4285f4; }
+        .revolut .payment-icon { background: #0033cc; }
+        .paysafe .payment-icon { background: #0d6efd; }
+        .neteller .payment-icon { background: #fe5c00; }
+        .skrill .payment-icon { background: #7b00ff; }
+
+        .info-box {
+            background: var(--dark-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .info-box h3 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--light);
+        }
+
+        .info-box p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-light);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--light);
+        }
+
+        @media (max-width: 768px) {
+            .payment-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 0.75rem;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .container {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .payment-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="index.html" class="logo">Ryuhuu<span>store</span></a>
+            <h1>Payment Methods</h1>
+            <p>Multiple payment options available for your convenience</p>
+        </div>
+
+        <!-- Instant Checkout Section -->
+        <div class="payment-section">
+            <div class="section-title">
+                <i class="fas fa-bolt"></i>
+                Instant Checkout
+            </div>
+            <div class="payment-grid">
+                <a href="https://ryuhuu.mysellauth.com/#products" target="_blank" class="payment-card paypal" data-method="PayPal">
+                    <div class="payment-icon">
+                        <i class="fab fa-paypal"></i>
+                    </div>
+                    <div class="payment-name">PayPal</div>
+                    <div class="payment-badge badge-instant">Instant</div>
+                </a>
+
+                <a href="https://ryuhuu.mysellauth.com/#products" target="_blank" class="payment-card bitcoin" data-method="Bitcoin">
+                    <div class="payment-icon">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <div class="payment-name">Bitcoin</div>
+                    <div class="payment-badge badge-instant">Instant</div>
+                </a>
+
+                <a href="https://www.ryuhuustore.com/#produk" target="_blank" class="payment-card qris" data-method="QRIS">
+                    <div class="payment-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="payment-name">QRIS</div>
+                    <div class="payment-badge badge-instant">Instant</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Discord Payment Section -->
+        <div class="payment-section">
+            <div class="section-title">
+                <i class="fab fa-discord"></i>
+                Via Discord (DM Required)
+            </div>
+            <div class="payment-grid">
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card creditcard" data-method="Credit/Debit Card">
+                    <div class="payment-icon">
+                        <i class="far fa-credit-card"></i>
+                    </div>
+                    <div class="payment-name">Card</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card gcash" data-method="Gcash">
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="payment-name">Gcash</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card giftcard" data-method="Gift Card">
+                    <div class="payment-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="payment-name">Gift Card</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card binance" data-method="Binance">
+                    <div class="payment-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="payment-name">Binance</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card alipay" data-method="Alipay">
+                    <div class="payment-icon">
+                        <i class="fab fa-alipay"></i>
+                    </div>
+                    <div class="payment-name">Alipay</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card redotpay" data-method="RedotPay">
+                    <div class="payment-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="payment-name">RedotPay</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card googlepay" data-method="Google Pay">
+                    <div class="payment-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="payment-name">Google Pay</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card revolut" data-method="Revolut">
+                    <div class="payment-icon">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <div class="payment-name">Revolut</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card paysafe" data-method="Paysafe">
+                    <div class="payment-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="payment-name">Paysafe</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card neteller" data-method="Neteller">
+                    <div class="payment-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="payment-name">Neteller</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" class="payment-card skrill" data-method="Skrill">
+                    <div class="payment-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="payment-name">Skrill</div>
+                    <div class="payment-badge badge-discord">Discord</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <h3>Important Information</h3>
+            <p>
+                • <strong>Instant Checkout:</strong> Direct payment, no confirmation needed<br>
+                • <strong>Via Discord:</strong> Contact @ryuhuu on Discord first before payment<br>
+                • All transactions are encrypted and secure<br>
+                • We don't store your card information
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="tutorial.html">Tutorial</a>
+                <a href="https://wa.me/6285117065033" target="_blank">WhatsApp</a>
+                <a href="https://discord.com/users/1120396377839648780" target="_blank">Discord</a>
+                <a href="https://t.me/ryuhuuz" target="_blank">Telegram</a>
+            </div>
+            <p>&copy; 2024 Ryuhuustore. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentCards = document.querySelectorAll('.payment-card');
+            
+            paymentCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const method = this.getAttribute('data-method');
+                    
+                    // For Discord payments, show confirmation
+                    if (this.querySelector('.badge-discord')) {
+                        e.preventDefault();
+                        const confirmed = confirm(`For ${method} payment, please DM @ryuhuu on Discord first before proceeding. Click OK to open Discord.`);
+                        
+                        if (confirmed) {
+                            window.open('https://discord.com/users/1120396377839648780', '_blank');
+                        }
+                    }
+                    // Instant payments open directly (no confirmation)
+                });
+            });
+        });
+    </script>
+</body>
+</html>
