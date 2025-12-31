@@ -53,6 +53,190 @@
             scroll-behavior: smooth;
         }
         
+        /* IKLAN DISKON NATAL - SELALU MUNCUL */
+        .natal-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #b91c1c 0%, #dc2626 50%, #b91c1c 100%);
+            color: white;
+            padding: 12px 20px;
+            z-index: 10000;
+            box-shadow: 0 4px 20px rgba(185, 28, 28, 0.4);
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            animation: pulseNatal 2s infinite;
+            border-bottom: 2px solid #fbbf24;
+        }
+        
+        .natal-banner .icon {
+            font-size: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        .natal-banner .kode-promo {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 2px dashed #fbbf24;
+            font-family: monospace;
+            margin: 0 5px;
+            letter-spacing: 1px;
+        }
+        
+        .natal-banner .close-btn {
+            position: absolute;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        
+        .natal-banner .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        /* NOTIFIKASI NATAL */
+        .natal-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #1a472a 0%, #0f172a 100%);
+            border-radius: 12px;
+            padding: 15px;
+            border: 2px solid #b91c1c;
+            box-shadow: 0 8px 32px rgba(185, 28, 28, 0.4);
+            max-width: 300px;
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        .natal-notification .content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .natal-notification .icon {
+            background: linear-gradient(135deg, #b91c1c, #dc2626);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .natal-notification .text {
+            flex: 1;
+        }
+        
+        .natal-notification .text p {
+            margin: 0;
+            color: white;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .natal-notification .text strong {
+            color: #fbbf24;
+        }
+        
+        .natal-notification .close-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--color-60);
+            border: 2px solid #b91c1c;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: var(--transition);
+        }
+        
+        .natal-notification .close-btn:hover {
+            background: #b91c1c;
+        }
+        
+        /* ANIMATIONS */
+        @keyframes pulseNatal {
+            0% {
+                box-shadow: 0 4px 20px rgba(185, 28, 28, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(185, 28, 28, 0.6);
+            }
+            100% {
+                box-shadow: 0 4px 20px rgba(185, 28, 28, 0.4);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        /* Adjust header position for banner */
+        header {
+            position: sticky;
+            top: 60px; /* Height of natal banner */
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
         /* Background Elegant */
         .bg-gradient {
             position: fixed;
@@ -248,38 +432,7 @@
             border-color: rgba(59, 130, 246, 0.4);
         }
         
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-        
         /* Header Elegant */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-        }
-        
         nav {
             max-width: 1400px;
             margin: 0 auto;
@@ -1287,6 +1440,32 @@
                 100% { transform: translateX(calc(-280px * 8 - 2rem * 8)); }
             }
             
+            /* Natal Banner Responsive */
+            .natal-banner {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+            
+            .natal-banner .icon {
+                font-size: 16px;
+            }
+            
+            .natal-banner .kode-promo {
+                font-size: 13px;
+                padding: 3px 8px;
+            }
+            
+            .natal-notification {
+                bottom: 15px;
+                right: 15px;
+                left: 15px;
+                max-width: none;
+            }
+            
+            header {
+                top: 55px;
+            }
+            
             /* Features untuk mobile */
             .features-grid {
                 grid-template-columns: 1fr;
@@ -1346,6 +1525,47 @@
             .lang-btn {
                 width: 200px;
             }
+            
+            /* Natal Banner Mobile */
+            .natal-banner {
+                font-size: 12px;
+                padding: 8px 10px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            
+            .natal-banner .text-container {
+                flex: 1;
+                text-align: center;
+            }
+            
+            .natal-banner .close-btn {
+                position: static;
+                order: 2;
+            }
+            
+            .natal-banner .icon {
+                order: 0;
+                margin-right: 5px;
+            }
+            
+            header {
+                top: 50px;
+            }
+            
+            .natal-notification {
+                padding: 12px;
+            }
+            
+            .natal-notification .icon {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .natal-notification .text p {
+                font-size: 12px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1366,12 +1586,44 @@
                 width: 16px;
                 height: 16px;
             }
+            
+            .natal-banner {
+                font-size: 11px;
+            }
+            
+            .natal-banner .kode-promo {
+                font-size: 11px;
+                padding: 2px 6px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body data-lang="id">
+    <!-- Iklan Diskon Natal - SELALU MUNCUL -->
+    <div class="natal-banner" id="natalBanner">
+        <div class="icon">🎄</div>
+        <div class="text-container">
+            <span class="text">DISKON NATAL 12%</span>
+            <span class="kode-promo">CHRISTMAS12</span>
+            <span class="text">Jangan sampai kehabisan!</span>
+        </div>
+        <button class="close-btn" id="closeNatalBanner">✕</button>
+    </div>
+
+    <!-- Notifikasi Natal -->
+    <div class="natal-notification" id="natalNotification">
+        <div class="content">
+            <div class="icon">🎁</div>
+            <div class="text">
+                <p><strong>Diskon Natal Spesial!</strong> Dapatkan 12% off dengan kode <strong>CHRISTMAS12</strong></p>
+                <p style="font-size: 12px; opacity: 0.8; margin-top: 5px;">Berlaku hingga 1 Januari 2026</p>
+            </div>
+        </div>
+        <button class="close-btn" id="closeNatalNotification">✕</button>
+    </div>
+    
     <!-- Background Elements -->
     <div class="bg-gradient"></div>
     <div class="glowing-orbs">
@@ -1410,7 +1662,7 @@
                 </div>
                 <div class="notification-text">
                     <p>Hey gamers! 🎮 PayPal, Crypto & Cards ready for you!</p>
-                    <a href="#" class="notification-cta en">
+                    <a href="globalpayment.html" class="notification-cta en">
                         <span>Click here for global payments</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1611,9 +1863,10 @@
                 game: "Multi-Game Support",
                 image: "produk/slash.png",
                 page: "produk/slash.html",
+                globalPage: "globalpayment.html",
                 localPrice: "40.000",
                 globalPrice: "$4",
-                badge: "🔥 POPULER",
+                badge: "🔥 POPULAR",
                 rating: 4.9,
                 features: ["Auto Farm & Quest", "Multi-account Support", "Anti-Detection System", "Auto Daily Mission"],
                 availableGames: 11
@@ -1625,6 +1878,7 @@
                 game: "Genshin Impact",
                 image: "produk/shika.png",
                 page: "produk/shika.html",
+                globalPage: "globalpayment.html",
                 localPrice: "80.000",
                 globalPrice: "$5",
                 badge: "💎 PREMIUM",
@@ -1638,9 +1892,10 @@
                 game: "Genshin Impact",
                 image: "produk/unicore.png",
                 page: "produk/unicore.html",
+                globalPage: "globalpayment.html",
                 localPrice: "45.000",
                 globalPrice: "$2.5",
-                badge: "✨ TERBARU",
+                badge: "✨ LATEST",
                 rating: 4.9,
                 features: ["Interactive Map", "Advanced Combat", "Auto Systems", "Teleport Waypoint"]
             },
@@ -1651,6 +1906,7 @@
                 game: "Genshin Impact",
                 image: "produk/antiaddict.png",
                 page: "produk/antiaddict.html",
+                globalPage: "globalpayment.html",
                 localPrice: "45.000",
                 globalPrice: "$2.5",
                 badge: "🚀 POWERFUL",
@@ -1664,9 +1920,10 @@
                 game: "Wuthering Waves",
                 image: "produk/uniwaves.png",
                 page: "produk/uniwaves.html",
+                globalPage: "globalpayment.html",
                 localPrice: "45.000",
                 globalPrice: "$2.5",
-                badge: "✨ TERBARU",
+                badge: "✨ LATEST",
                 rating: 4.6,
                 features: ["Wave-specific Features", "Optimized Performance", "Regular Updates", "Auto Resonance"]
             },
@@ -1677,6 +1934,7 @@
                 game: "Star Rail",
                 image: "produk/unistar.png",
                 page: "produk/unistar.html",
+                globalPage: "globalpayment.html",
                 localPrice: "81.000",
                 globalPrice: "$5",
                 badge: "💎 PREMIUM",
@@ -1690,9 +1948,10 @@
                 game: "Zenless Zone Zero",
                 image: "produk/unizone.png",
                 page: "produk/unizone.html",
+                globalPage: "globalpayment.html",
                 localPrice: "45.000",
                 globalPrice: "$3",
-                badge: "✨ TERBARU",
+                badge: "✨ LATEST",
                 rating: 4.5,
                 features: ["Zone-specific Features", "Optimized Performance", "Regular Updates", "Proxy Support"]
             },
@@ -1703,6 +1962,7 @@
                 game: "Marvel Rivals",
                 image: "produk/unirivals.png",
                 page: "produk/unirivals.html",
+                globalPage: "globalpayment.html",
                 localPrice: "65.000",
                 globalPrice: "$5",
                 badge: "🦸 SUPER",
@@ -1716,6 +1976,7 @@
                 game: "GTA V Fivem",
                 image: "produk/unitheft.png",
                 page: "produk/unitheft.html",
+                globalPage: "globalpayment.html",
                 localPrice: "40.000",
                 globalPrice: "$2.5",
                 badge: "🚗 FAST",
@@ -1729,6 +1990,7 @@
                 game: "Duet Night Abyss",
                 image: "produk/unidna.png",
                 page: "produk/unidna.html",
+                globalPage: "globalpayment.html",
                 localPrice: "42.000",
                 globalPrice: "$3",
                 badge: "🌙 NIGHT",
@@ -1742,7 +2004,8 @@
                 game: "Multi-Game",
                 image: "produk/predator.png",
                 page: "#",
-                localPrice: "Segera Hadir",
+                globalPage: "#",
+                localPrice: "Coming Soon",
                 globalPrice: "Coming Soon",
                 badge: "🚀 COMING SOON",
                 rating: 0,
@@ -1818,7 +2081,9 @@
                 "available-games": "Tersedia untuk",
                 "games-text": "Game",
                 "price-label": "Harga",
-                "global-price": "Harga Global"
+                "global-price": "Harga Global",
+                
+                "natal-banner": "🎄 DISKON NATAL 12% - Gunakan kode: <strong>CHRISTMAS12</strong> - Jangan sampai kehabisan! 🎅"
             },
             en: {
                 "hero-title": "Official Ryuhuu Store",
@@ -1885,7 +2150,9 @@
                 "available-games": "Available for",
                 "games-text": "Games",
                 "price-label": "Price",
-                "global-price": "Global Price"
+                "global-price": "Global Price",
+                
+                "natal-banner": "🎄 CHRISTMAS DISCOUNT 12% - Use code: <strong>CHRISTMAS12</strong> - Don't miss out! 🎅"
             }
         };
 
@@ -1902,7 +2169,54 @@
         ];
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize
+            // Initialize Natal Banner
+            const natalBanner = document.getElementById('natalBanner');
+            const closeNatalBanner = document.getElementById('closeNatalBanner');
+            const natalNotification = document.getElementById('natalNotification');
+            const closeNatalNotification = document.getElementById('closeNatalNotification');
+            
+            // Close Natal Banner
+            if (closeNatalBanner) {
+                closeNatalBanner.addEventListener('click', function() {
+                    natalBanner.style.display = 'none';
+                    document.querySelector('header').style.top = '0';
+                    localStorage.setItem('natalBannerClosed', 'true');
+                });
+            }
+            
+            // Close Natal Notification
+            if (closeNatalNotification) {
+                closeNatalNotification.addEventListener('click', function() {
+                    natalNotification.style.animation = 'slideOutRight 0.5s ease-out forwards';
+                    setTimeout(() => {
+                        natalNotification.style.display = 'none';
+                    }, 500);
+                    localStorage.setItem('natalNotificationClosed', 'true');
+                });
+            }
+            
+            // Auto-hide notification after 15 seconds
+            setTimeout(() => {
+                if (natalNotification && natalNotification.style.display !== 'none') {
+                    natalNotification.style.animation = 'slideOutRight 0.5s ease-out forwards';
+                    setTimeout(() => {
+                        natalNotification.style.display = 'none';
+                    }, 500);
+                }
+            }, 15000);
+            
+            // Check if user has closed banner before
+            if (localStorage.getItem('natalBannerClosed') === 'true') {
+                natalBanner.style.display = 'none';
+                document.querySelector('header').style.top = '0';
+            }
+            
+            // Check if user has closed notification before
+            if (localStorage.getItem('natalNotificationClosed') === 'true') {
+                natalNotification.style.display = 'none';
+            }
+            
+            // Initialize original functions
             loadProducts();
             loadTestimonials();
             updateCartCount();
@@ -1954,7 +2268,12 @@
             function createProductCard(product) {
                 const card = document.createElement('a');
                 card.className = 'product-card';
-                card.href = product.comingSoon ? '#' : product.page;
+                
+                // Tentukan halaman berdasarkan bahasa
+                const lang = document.body.getAttribute('data-lang');
+                const pageUrl = lang === 'en' && product.globalPage ? product.globalPage : product.page;
+                
+                card.href = product.comingSoon ? '#' : pageUrl;
                 
                 // Handle image error
                 card.innerHTML = `
@@ -1993,7 +2312,7 @@
                                 <span class="currency">${product.comingSoon ? '-' : product.globalPrice}</span>
                                 <span class="price-label-text">${product.comingSoon ? '' : 'Global Price'}</span>
                             </div>
-                            <a href="${product.comingSoon ? '#' : product.page}" class="btn-view">
+                            <a href="${product.comingSoon ? '#' : pageUrl}" class="btn-view">
                                 ${product.comingSoon ? 'Coming Soon' : 'View Details'}
                             </a>
                         </div>
@@ -2105,6 +2424,22 @@
                 document.querySelectorAll('.price-label-text').forEach(label => {
                     label.textContent = trans['global-price'];
                 });
+                
+                // Reload products with new language links
+                const activeCategory = document.querySelector('.category-tab.active');
+                if (activeCategory) {
+                    loadProducts(activeCategory.dataset.category);
+                }
+                
+                // Update CTA button link for English
+                const ctaButton = document.getElementById('cta-button-id');
+                if (ctaButton) {
+                    if (lang === 'en') {
+                        ctaButton.href = 'globalpayment.html';
+                    } else {
+                        ctaButton.href = '#produk';
+                    }
+                }
             }
             
             function updateNotifications(lang) {
