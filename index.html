@@ -53,190 +53,6 @@
             scroll-behavior: smooth;
         }
         
-        /* IKLAN DISKON NATAL - SELALU MUNCUL */
-        .natal-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(90deg, #b91c1c 0%, #dc2626 50%, #b91c1c 100%);
-            color: white;
-            padding: 12px 20px;
-            z-index: 10000;
-            box-shadow: 0 4px 20px rgba(185, 28, 28, 0.4);
-            text-align: center;
-            font-weight: bold;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            animation: pulseNatal 2s infinite;
-            border-bottom: 2px solid #fbbf24;
-        }
-        
-        .natal-banner .icon {
-            font-size: 20px;
-            animation: bounce 2s infinite;
-        }
-        
-        .natal-banner .kode-promo {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 4px 12px;
-            border-radius: 20px;
-            border: 2px dashed #fbbf24;
-            font-family: monospace;
-            margin: 0 5px;
-            letter-spacing: 1px;
-        }
-        
-        .natal-banner .close-btn {
-            position: absolute;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            transition: var(--transition);
-        }
-        
-        .natal-banner .close-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-        
-        /* NOTIFIKASI NATAL */
-        .natal-notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            background: linear-gradient(135deg, #1a472a 0%, #0f172a 100%);
-            border-radius: 12px;
-            padding: 15px;
-            border: 2px solid #b91c1c;
-            box-shadow: 0 8px 32px rgba(185, 28, 28, 0.4);
-            max-width: 300px;
-            animation: slideInRight 0.5s ease-out;
-        }
-        
-        .natal-notification .content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .natal-notification .icon {
-            background: linear-gradient(135deg, #b91c1c, #dc2626);
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: white;
-            flex-shrink: 0;
-        }
-        
-        .natal-notification .text {
-            flex: 1;
-        }
-        
-        .natal-notification .text p {
-            margin: 0;
-            color: white;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-        
-        .natal-notification .text strong {
-            color: #fbbf24;
-        }
-        
-        .natal-notification .close-btn {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--color-60);
-            border: 2px solid #b91c1c;
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            transition: var(--transition);
-        }
-        
-        .natal-notification .close-btn:hover {
-            background: #b91c1c;
-        }
-        
-        /* ANIMATIONS */
-        @keyframes pulseNatal {
-            0% {
-                box-shadow: 0 4px 20px rgba(185, 28, 28, 0.4);
-            }
-            50% {
-                box-shadow: 0 4px 30px rgba(185, 28, 28, 0.6);
-            }
-            100% {
-                box-shadow: 0 4px 20px rgba(185, 28, 28, 0.4);
-            }
-        }
-        
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-        
-        /* Adjust header position for banner */
-        header {
-            position: sticky;
-            top: 60px; /* Height of natal banner */
-            z-index: 100;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-        }
-        
         /* Background Elegant */
         .bg-gradient {
             position: fixed;
@@ -307,7 +123,7 @@
         /* Payment Notifications - Gen-Z Style */
         .payment-notifications {
             position: fixed;
-            top: 100px;
+            top: 20px;
             right: 20px;
             z-index: 1000;
             display: flex;
@@ -432,7 +248,38 @@
             border-color: rgba(59, 130, 246, 0.4);
         }
         
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
         /* Header Elegant */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
         nav {
             max-width: 1400px;
             margin: 0 auto;
@@ -1439,39 +1286,6 @@
                 0% { transform: translateX(0); }
                 100% { transform: translateX(calc(-280px * 8 - 2rem * 8)); }
             }
-            
-            /* Natal Banner Responsive */
-            .natal-banner {
-                font-size: 14px;
-                padding: 10px 15px;
-            }
-            
-            .natal-banner .icon {
-                font-size: 16px;
-            }
-            
-            .natal-banner .kode-promo {
-                font-size: 13px;
-                padding: 3px 8px;
-            }
-            
-            .natal-notification {
-                bottom: 15px;
-                right: 15px;
-                left: 15px;
-                max-width: none;
-            }
-            
-            header {
-                top: 55px;
-            }
-            
-            /* Features untuk mobile */
-            .features-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin: 0 auto;
-            }
         }
         
         @media (max-width: 576px) {
@@ -1525,47 +1339,6 @@
             .lang-btn {
                 width: 200px;
             }
-            
-            /* Natal Banner Mobile */
-            .natal-banner {
-                font-size: 12px;
-                padding: 8px 10px;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-            
-            .natal-banner .text-container {
-                flex: 1;
-                text-align: center;
-            }
-            
-            .natal-banner .close-btn {
-                position: static;
-                order: 2;
-            }
-            
-            .natal-banner .icon {
-                order: 0;
-                margin-right: 5px;
-            }
-            
-            header {
-                top: 50px;
-            }
-            
-            .natal-notification {
-                padding: 12px;
-            }
-            
-            .natal-notification .icon {
-                width: 35px;
-                height: 35px;
-                font-size: 16px;
-            }
-            
-            .natal-notification .text p {
-                font-size: 12px;
-            }
         }
         
         @media (max-width: 480px) {
@@ -1586,44 +1359,12 @@
                 width: 16px;
                 height: 16px;
             }
-            
-            .natal-banner {
-                font-size: 11px;
-            }
-            
-            .natal-banner .kode-promo {
-                font-size: 11px;
-                padding: 2px 6px;
-            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body data-lang="id">
-    <!-- Iklan Diskon Natal - SELALU MUNCUL -->
-    <div class="natal-banner" id="natalBanner">
-        <div class="icon">🎄</div>
-        <div class="text-container">
-            <span class="text">DISKON NATAL 12%</span>
-            <span class="kode-promo">CHRISTMAS12</span>
-            <span class="text">Jangan sampai kehabisan!</span>
-        </div>
-        <button class="close-btn" id="closeNatalBanner">✕</button>
-    </div>
-
-    <!-- Notifikasi Natal -->
-    <div class="natal-notification" id="natalNotification">
-        <div class="content">
-            <div class="icon">🎁</div>
-            <div class="text">
-                <p><strong>Diskon Natal Spesial!</strong> Dapatkan 12% off dengan kode <strong>CHRISTMAS12</strong></p>
-                <p style="font-size: 12px; opacity: 0.8; margin-top: 5px;">Berlaku hingga 1 Januari 2026</p>
-            </div>
-        </div>
-        <button class="close-btn" id="closeNatalNotification">✕</button>
-    </div>
-    
     <!-- Background Elements -->
     <div class="bg-gradient"></div>
     <div class="glowing-orbs">
@@ -2081,9 +1822,7 @@
                 "available-games": "Tersedia untuk",
                 "games-text": "Game",
                 "price-label": "Harga",
-                "global-price": "Harga Global",
-                
-                "natal-banner": "🎄 DISKON NATAL 12% - Gunakan kode: <strong>CHRISTMAS12</strong> - Jangan sampai kehabisan! 🎅"
+                "global-price": "Harga Global"
             },
             en: {
                 "hero-title": "Official Ryuhuu Store",
@@ -2150,9 +1889,7 @@
                 "available-games": "Available for",
                 "games-text": "Games",
                 "price-label": "Price",
-                "global-price": "Global Price",
-                
-                "natal-banner": "🎄 CHRISTMAS DISCOUNT 12% - Use code: <strong>CHRISTMAS12</strong> - Don't miss out! 🎅"
+                "global-price": "Global Price"
             }
         };
 
@@ -2169,53 +1906,6 @@
         ];
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Natal Banner
-            const natalBanner = document.getElementById('natalBanner');
-            const closeNatalBanner = document.getElementById('closeNatalBanner');
-            const natalNotification = document.getElementById('natalNotification');
-            const closeNatalNotification = document.getElementById('closeNatalNotification');
-            
-            // Close Natal Banner
-            if (closeNatalBanner) {
-                closeNatalBanner.addEventListener('click', function() {
-                    natalBanner.style.display = 'none';
-                    document.querySelector('header').style.top = '0';
-                    localStorage.setItem('natalBannerClosed', 'true');
-                });
-            }
-            
-            // Close Natal Notification
-            if (closeNatalNotification) {
-                closeNatalNotification.addEventListener('click', function() {
-                    natalNotification.style.animation = 'slideOutRight 0.5s ease-out forwards';
-                    setTimeout(() => {
-                        natalNotification.style.display = 'none';
-                    }, 500);
-                    localStorage.setItem('natalNotificationClosed', 'true');
-                });
-            }
-            
-            // Auto-hide notification after 15 seconds
-            setTimeout(() => {
-                if (natalNotification && natalNotification.style.display !== 'none') {
-                    natalNotification.style.animation = 'slideOutRight 0.5s ease-out forwards';
-                    setTimeout(() => {
-                        natalNotification.style.display = 'none';
-                    }, 500);
-                }
-            }, 15000);
-            
-            // Check if user has closed banner before
-            if (localStorage.getItem('natalBannerClosed') === 'true') {
-                natalBanner.style.display = 'none';
-                document.querySelector('header').style.top = '0';
-            }
-            
-            // Check if user has closed notification before
-            if (localStorage.getItem('natalNotificationClosed') === 'true') {
-                natalNotification.style.display = 'none';
-            }
-            
             // Initialize original functions
             loadProducts();
             loadTestimonials();
