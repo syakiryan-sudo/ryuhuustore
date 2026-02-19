@@ -438,6 +438,19 @@
             color: var(--text-primary);
         }
         
+        .ramadan-badge {
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
         .service-list {
             display: grid;
             gap: 0.8rem;
@@ -525,15 +538,17 @@
             gap: 0.2rem;
         }
         
+        .original-price {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        
         .price-amount {
             font-weight: 800;
             color: var(--accent-warm);
             font-size: 1.1rem;
-        }
-        
-        .price-per-day {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            line-height: 1.2;
         }
         
         .form-group {
@@ -955,7 +970,7 @@
             opacity: 1;
         }
         
-        /* Animations */
+        /* Animations - dipercepat (0.4s) dan semua elemen utama langsung muncul */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -965,6 +980,18 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+        
+        /* Elemen yang akan dianimasikan otomatis saat load */
+        .product-image,
+        .features,
+        .product-right,
+        .product-card,
+        .video-container {
+            opacity: 0; /* initial state */
+            transform: translateY(20px);
+            animation: fadeInUp 0.4s ease-out forwards;
+            /* tanpa delay agar semua muncul bersamaan */
         }
         
         /* Responsive Design */
@@ -1288,42 +1315,45 @@
                 <h3>Form Pemesanan</h3>
                 <form id="orderForm">
                     <div class="service-options">
+                        <div class="ramadan-badge">
+                            🌙 Diskon Spesial Ramadhan! Harga sudah termasuk diskon.
+                        </div>
                         <h4>Pilih Layanan:</h4>
                         <div class="service-list">
-                            <div class="service-item active" data-duration="3 Hari" data-price="40000">
+                            <div class="service-item active" data-duration="3 Hari" data-price="45000">
                                 <div class="service-info">
                                     <div class="service-duration">3 Hari</div>
                                 </div>
                                 <div class="service-price">
-                                    <div class="price-amount">Rp 40.000</div>
-                                    <div class="price-per-day">Rp 13.333/hari</div>
+                                    <span class="original-price">Rp 60.000</span>
+                                    <div class="price-amount">Rp 45.000</div>
                                 </div>
                             </div>
-                            <div class="service-item" data-duration="7 Hari" data-price="60000">
+                            <div class="service-item" data-duration="7 Hari" data-price="55000">
                                 <div class="service-info">
                                     <div class="service-duration">7 Hari</div>
                                 </div>
                                 <div class="service-price">
-                                    <div class="price-amount">Rp 60.000</div>
-                                    <div class="price-per-day">Rp 8.571/hari</div>
+                                    <span class="original-price">Rp 80.000</span>
+                                    <div class="price-amount">Rp 55.000</div>
                                 </div>
                             </div>
-                            <div class="service-item best-value" data-duration="30 Hari" data-price="120000">
+                            <div class="service-item best-value" data-duration="30 Hari" data-price="110000">
                                 <div class="service-info">
                                     <div class="service-duration">30 Hari</div>
                                 </div>
                                 <div class="service-price">
-                                    <div class="price-amount">Rp 120.000</div>
-                                    <div class="price-per-day">Rp 4.000/hari</div>
+                                    <span class="original-price">Rp 150.000</span>
+                                    <div class="price-amount">Rp 110.000</div>
                                 </div>
                             </div>
-                            <div class="service-item" data-duration="120 Hari" data-price="480000">
+                            <div class="service-item" data-duration="120 Hari" data-price="420000">
                                 <div class="service-info">
                                     <div class="service-duration">120 Hari</div>
                                 </div>
                                 <div class="service-price">
-                                    <div class="price-amount">Rp 480.000</div>
-                                    <div class="price-per-day">Rp 4.000/hari</div>
+                                    <span class="original-price">Rp 500.000</span>
+                                    <div class="price-amount">Rp 420.000</div>
                                 </div>
                             </div>
                         </div>
@@ -1346,7 +1376,7 @@
                         </div>
                         <div class="summary-item">
                             <span>Harga:</span>
-                            <span id="summary-price">Rp 40.000</span>
+                            <span id="summary-price">Rp 45.000</span>
                         </div>
                         <div class="summary-item">
                             <span>Game:</span>
@@ -1354,7 +1384,7 @@
                         </div>
                         <div class="summary-total">
                             <span>Total:</span>
-                            <span id="summary-total">Rp 40.000</span>
+                            <span id="summary-total">Rp 45.000</span>
                         </div>
                     </div>
                     
@@ -1524,7 +1554,7 @@
             
             // Set default selected service
             let selectedDuration = '3 Hari';
-            let selectedPrice = '40000';
+            let selectedPrice = '45000';
             
             // Service selection functionality - klik pada seluruh area service-item
             serviceItems.forEach(item => {
@@ -1679,28 +1709,7 @@
                 }
             });
             
-            // Add scroll animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animation = `fadeInUp 0.6s ease-out ${entry.target.dataset.delay || '0s'} forwards`;
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe elements for animation
-            document.querySelectorAll('.product-image, .features, .product-right, .product-card, .video-container').forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.dataset.delay = `${index * 0.1}s`;
-                observer.observe(el);
-            });
+            // Tidak ada IntersectionObserver, semua animasi sudah diatur via CSS
         });
     </script>
 </body>
