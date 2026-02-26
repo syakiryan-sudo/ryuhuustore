@@ -922,21 +922,7 @@
             font-size: 0.8rem;
         }
         
-        .price-container {
-            margin: 0.8rem 0;
-        }
-        
-        .price {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--accent-warm);
-        }
-        
-        .global-price {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--success);
-        }
+        /* Harga dihapus */
         
         .product-features {
             list-style: none;
@@ -966,22 +952,12 @@
             padding-top: 0.8rem;
             border-top: 1px solid var(--border-color);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .product-price-label {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-        }
-        
-        .product-price-label .currency {
-            color: var(--success);
-            font-weight: 600;
+            justify-content: center; /* Pusatkan tombol */
         }
         
         .btn-view {
-            padding: 0.4rem 0.8rem;
+            display: inline-block;
+            padding: 0.5rem 1rem;
             background: rgba(139, 92, 246, 0.1);
             color: var(--color-10);
             border: 1px solid rgba(139, 92, 246, 0.3);
@@ -992,6 +968,8 @@
             transition: var(--transition);
             text-decoration: none;
             white-space: nowrap;
+            width: 100%; /* Lebar penuh */
+            text-align: center;
         }
         
         .btn-view:hover {
@@ -1191,14 +1169,6 @@
                 font-size: 0.95rem;
             }
             
-            .price, .global-price {
-                font-size: 1rem;
-            }
-            
-            .product-features li {
-                font-size: 0.7rem;
-            }
-            
             /* Features section responsive */
             .features-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1305,14 +1275,6 @@
             
             .product-name {
                 font-size: 1.1rem;
-            }
-            
-            .price, .global-price {
-                font-size: 1.2rem;
-            }
-            
-            .product-features li {
-                font-size: 0.8rem;
             }
             
             .hero {
@@ -1595,7 +1557,7 @@
     </footer>
 
     <script>
-        // Data Produk
+        // Data Produk (termasuk Shibal)
         const productsData = [
             {
                 id: "slash",
@@ -1605,7 +1567,7 @@
                 image: "produk/slash.png",
                 page: "produk/slash.html",
                 globalPage: "globalpayment.html",
-                localPrice: "40.000",
+                localPrice: "40.000", // tetap ada untuk keperluan internal, tidak ditampilkan
                 globalPrice: "$4",
                 badge: "🔥 POPULAR",
                 rating: 4.9,
@@ -1737,6 +1699,21 @@
                 badge: "🌙 NIGHT",
                 rating: 4.5,
                 features: ["Abyss-specific Features", "Optimized Performance", "Regular Updates", "Auto Dungeon"]
+            },
+            {
+                id: "shibal", // Produk Shibal ditambahkan
+                name: "Shibal",
+                categories: ["genshin"],
+                game: "Genshin Impact",
+                image: "produk/shibal.png",
+                page: "produk/shibal.html",
+                globalPage: "globalpayment.html",
+                localPrice: "75.000",
+                globalPrice: "$5",
+                badge: "✨ INVITE CODE",
+                rating: 4.8,
+                features: ["Invite Code Premium", "Akses Fitur Lengkap", "Update Rutin", "Support 24/7"],
+                availableGames: 1
             },
             {
                 id: "predator",
@@ -1965,7 +1942,7 @@
                 
                 card.href = product.comingSoon ? '#' : pageUrl;
                 
-                // Handle image error
+                // Buat HTML tanpa harga
                 card.innerHTML = `
                     <div class="product-badge ${product.comingSoon ? 'badge-coming-soon' : 'badge-popular'}">
                         ${product.badge}
@@ -1982,13 +1959,6 @@
                             </div>
                             <div class="rating-value">${product.rating}/5.0</div>
                         </div>
-                        <div class="price-container">
-                            ${product.comingSoon ? 
-                                `<div class="price">${product.localPrice}</div>` :
-                                `<div class="price">Rp ${product.localPrice}</div>
-                                 <div class="global-price">${product.globalPrice}</div>`
-                            }
-                        </div>
                         ${product.availableGames ? 
                             `<div class="product-badge" style="position: static; margin: 0.5rem 0; background: rgba(139, 92, 246, 0.2); color: var(--color-10);">
                                 ${product.availableGames} Games Supported
@@ -1998,12 +1968,8 @@
                             ${product.features.map(feature => `<li>${feature}</li>`).join('')}
                         </ul>
                         <div class="product-footer">
-                            <div class="product-price-label">
-                                <span class="currency">${product.comingSoon ? '-' : product.globalPrice}</span>
-                                <span class="price-label-text">${product.comingSoon ? '' : 'Global Price'}</span>
-                            </div>
                             <a href="${product.comingSoon ? '#' : pageUrl}" class="btn-view">
-                                ${product.comingSoon ? 'Coming Soon' : 'View Details'}
+                                ${product.comingSoon ? 'Coming Soon' : (lang === 'id' ? 'Lihat Detail' : 'View Details')}
                             </a>
                         </div>
                     </div>
@@ -2109,11 +2075,6 @@
                 
                 // Reload testimonials with new language
                 loadTestimonials();
-                
-                // Update price labels
-                document.querySelectorAll('.price-label-text').forEach(label => {
-                    label.textContent = trans['global-price'];
-                });
                 
                 // Reload products with new language links
                 const activeCategory = document.querySelector('.category-tab.active');
