@@ -683,7 +683,7 @@
             border: none;
         }
         
-        /* Related Products */
+        /* Related Products - tanpa harga, link seluruh kartu */
         .related-products {
             max-width: 1200px;
             margin: 3rem auto;
@@ -697,6 +697,7 @@
         }
         
         .product-card {
+            display: block; /* agar link */
             background: var(--color-30);
             border-radius: 12px;
             overflow: hidden;
@@ -705,8 +706,6 @@
             text-decoration: none;
             color: inherit;
             height: 100%;
-            display: flex;
-            flex-direction: column;
         }
         
         .product-card:hover {
@@ -738,9 +737,6 @@
         
         .card-info {
             padding: 1.2rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
         }
         
         .card-name {
@@ -758,32 +754,7 @@
             font-weight: 600;
         }
         
-        .card-price {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--accent-warm);
-            margin-bottom: 0.8rem;
-        }
-        
-        .view-details {
-            display: block;
-            text-align: center;
-            background: rgba(139, 92, 246, 0.1);
-            color: var(--color-10);
-            padding: 0.7rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            margin-top: auto;
-            font-size: 0.85rem;
-        }
-        
-        .view-details:hover {
-            background: rgba(139, 92, 246, 0.2);
-            border-color: var(--color-10);
-        }
+        /* Harga dihapus, tidak ada .card-price */
         
         /* Footer */
         footer {
@@ -1305,7 +1276,7 @@
         </div>
     </section>
     
-    <!-- Related Products -->
+    <!-- Related Products (tanpa harga, link seluruh kartu) -->
     <section class="related-products">
         <h2 class="section-title">Produk Lainnya</h2>
         <div class="products-grid">
@@ -1316,8 +1287,7 @@
                 <div class="card-info">
                     <span class="card-category">Multi-Game</span>
                     <h3 class="card-name">Slash</h3>
-                    <div class="card-price">Rp 40.000</div>
-                    <span class="view-details">Lihat Detail</span>
+                    <!-- Harga dihapus -->
                 </div>
             </a>
             
@@ -1328,8 +1298,7 @@
                 <div class="card-info">
                     <span class="card-category">Genshin Impact</span>
                     <h3 class="card-name">Shika</h3>
-                    <div class="card-price">Rp 80.000</div>
-                    <span class="view-details">Lihat Detail</span>
+                    <!-- Harga dihapus -->
                 </div>
             </a>
             
@@ -1340,8 +1309,7 @@
                 <div class="card-info">
                     <span class="card-category">Genshin Impact</span>
                     <h3 class="card-name">Antiaddict</h3>
-                    <div class="card-price">Rp 45.000</div>
-                    <span class="view-details">Lihat Detail</span>
+                    <!-- Harga dihapus -->
                 </div>
             </a>
             
@@ -1352,8 +1320,7 @@
                 <div class="card-info">
                     <span class="card-category">Genshin Impact</span>
                     <h3 class="card-name">Shibal</h3>
-                    <div class="card-price">Rp 75.000</div>
-                    <span class="view-details">Lihat Detail</span>
+                    <!-- Harga dihapus -->
                 </div>
             </a>
         </div>
