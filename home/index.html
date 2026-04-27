@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryuhuu Store - Cheat, Akun, Topup, Joki & Apps Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0a0e14;
+            --bg-card: #131820;
+            --bg-card-hover: #1a1f2b;
+            --accent: #448aff;
+            --accent-dark: #1e3a8a;
+            --accent-2: #ff4081;
+            --text-primary: #e0e0e0;
+            --text-secondary: #9e9e9e;
+            --border: #1e2633;
+            --gradient-1: linear-gradient(135deg, #0a0e14 0%, #131820 100%);
+            --gradient-hero: linear-gradient(160deg, #0a0e14 0%, #1a1a2e 40%, #0f0f1a 100%);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 30px rgba(68, 138, 255, 0.15);
+            --radius: 14px;
+            --radius-sm: 8px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(ellipse at 20% 20%, rgba(68, 138, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 60%, rgba(255, 64, 129, 0.03) 0%, transparent 50%);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            background: rgba(19, 24, 32, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .navbar .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+        .navbar .logo span { color: var(--accent); }
+        .navbar .logo i { margin-right: 6px; color: var(--accent); }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+            padding-bottom: 4px;
+            white-space: nowrap;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .lang-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        .lang-toggle:hover { color: #fff; border-color: var(--accent); }
+        .nav-cta .btn-nav {
+            padding: 10px 22px;
+            background: var(--accent);
+            color: #000;
+            font-weight: 600;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-cta .btn-nav:hover {
+            box-shadow: 0 0 25px rgba(68, 138, 255, 0.45);
+            transform: translateY(-2px);
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #fff;
+            background: none;
+            border: none;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 70px 24px 60px;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -80px; left: 50%;
+            transform: translateX(-50%);
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(68, 138, 255, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: rgba(68, 138, 255, 0.1);
+            color: var(--accent);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 14px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.25;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero .hero-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-primary, .btn-secondary {
+            padding: 13px 28px;
+            border-radius: 28px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            letter-spacing: 0.2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary { background: var(--accent); color: #000; }
+        .btn-primary:hover { box-shadow: 0 0 30px rgba(68, 138, 255, 0.5); transform: translateY(-3px); }
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--accent); background: rgba(68, 138, 255, 0.05); transform: translateY(-3px); }
+
+        /* Features strip */
+        .features-strip {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 30px 24px;
+            max-width: 1000px;
+            margin: 0 auto 20px;
+            text-align: center;
+        }
+        .features-strip .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .features-strip .feature-item i { color: var(--accent); font-size: 1.1rem; }
+
+        /* Services */
+        .services-section {
+            padding: 60px 24px 70px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-header .label {
+            display: inline-block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .section-header h2 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .section-header .subtitle { color: var(--text-secondary); font-size: 0.95rem; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 22px;
+        }
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px 24px 24px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .service-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+        }
+        .service-card .icon-circle {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 1.6rem;
+            transition: var(--transition);
+        }
+        .service-card:nth-child(1) .icon-circle { background: rgba(255,64,129,0.12); color: #ff4081; }
+        .service-card:nth-child(2) .icon-circle { background: rgba(68,138,255,0.12); color: var(--accent); }
+        .service-card:nth-child(3) .icon-circle { background: rgba(68,138,255,0.12); color: var(--accent); }
+        .service-card:nth-child(4) .icon-circle { background: rgba(0,229,255,0.12); color: #00e5ff; }
+        .service-card:nth-child(5) .icon-circle { background: rgba(255,145,0,0.12); color: #ff9100; }
+
+        .service-card h3 { font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 6px; }
+        .service-card p { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px; }
+        .service-card .card-link {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+        .service-card .card-link i { transition: var(--transition); }
+        .service-card:hover .card-link i { transform: translateX(4px); }
+        .service-card .card-link:hover { opacity: 0.8; }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 24px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            max-width: 800px;
+            margin: 30px auto 0;
+        }
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        .contact-btn.discord { background: #5865F2; }
+        .contact-btn.whatsapp { background: #25D366; }
+        .contact-btn.telegram { background: #0088cc; }
+        .contact-btn.facebook { background: #1877F2; }
+        .contact-btn.email { background: #EA4335; }
+        .contact-btn:hover { filter: brightness(1.15); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+        .footer a { color: var(--accent); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+        .fab-main {
+            width: 56px; height: 56px;
+            background: var(--accent);
+            border: none;
+            border-radius: 50%;
+            color: #000;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(68,138,255,0.4);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fab-main:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(68,138,255,0.6); }
+        .fab-options {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: 0.3s ease;
+        }
+        .fab-options.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .fab-option {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: var(--transition);
+        }
+        .fab-option.discord { background: #5865F2; }
+        .fab-option.whatsapp { background: #25D366; }
+        .fab-option.telegram { background: #0088cc; }
+        .fab-option.facebook { background: #1877F2; }
+        .fab-option.email { background: #EA4335; }
+        .fab-option:hover { transform: scale(1.1); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar { padding: 14px 20px; }
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 10px;
+                background: var(--bg-card);
+                padding: 16px;
+                border-radius: var(--radius-sm);
+                margin-top: 10px;
+            }
+            .nav-links.show { display: flex; }
+            .hamburger { display: block; }
+            .nav-right { margin-left: auto; }
+            .hero { padding: 50px 20px 40px; }
+            .services-section { padding: 40px 16px 50px; }
+            .features-strip { gap: 20px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.7rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .navbar { gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">
+            <i class="fa-solid fa-gamepad"></i> Ryuhuu<span>Store</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" class="active" data-lang-key="navHome">Home</a></li>
+            <li><a href="#layanan" data-lang-key="navLayanan">Layanan</a></li>
+            <li><a href="#kontak" data-lang-key="navKontak">Hubungi Kami</a></li>
+        </ul>
+        <div class="nav-right">
+            <button class="lang-toggle" id="langToggle">
+                <i class="fa-solid fa-globe"></i> <span id="langLabel">ID</span>
+            </button>
+            <a href="#kontak" class="nav-cta">
+                <span class="btn-nav" data-lang-key="btnChatAdmin"><i class="fa-solid fa-address-book"></i> Hubungi Kami</span>
+            </a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="badge" data-lang-key="badge">🚀 Toko Game Terpercaya</div>
+        <h1 data-lang-key="heroTitle">Level Up <span class="highlight">Gaming</span> Kamu Sekarang</h1>
+        <p data-lang-key="heroDesc">
+            Cheat aman, akun murah, topup instan, joki terpercaya, dan akses apps premium — semua dalam satu tempat.
+            Harga bersahabat, proses cepat, garansi terjamin.
+        </p>
+        <div class="hero-buttons">
+            <a href="#layanan" class="btn-primary" data-lang-key="btnLayanan"><i class="fa-solid fa-fire"></i> Lihat Layanan</a>
+            <a href="https://wa.me/6281234567890" class="btn-secondary" target="_blank" rel="noopener" data-lang-key="btnOrder">
+                <i class="fa-brands fa-whatsapp"></i> Order Langsung
+            </a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <div class="features-strip">
+        <div class="feature-item"><i class="fa-solid fa-shield-halved"></i> <span data-lang-key="feature1">Garansi Uang Kembali</span></div>
+        <div class="feature-item"><i class="fa-solid fa-bolt"></i> <span data-lang-key="feature2">Proses Instan</span></div>
+        <div class="feature-item"><i class="fa-solid fa-headset"></i> <span data-lang-key="feature3">Support 24/7</span></div>
+        <div class="feature-item"><i class="fa-solid fa-lock"></i> <span data-lang-key="feature4">Pembayaran Aman</span></div>
+    </div>
+
+    <!-- Services -->
+    <section class="services-section" id="layanan">
+        <div class="section-header">
+            <span class="label" data-lang-key="sectionLabel">Layanan Kami</span>
+            <h2 data-lang-key="sectionTitle">Pilih Kebutuhan Kamu</h2>
+            <p class="subtitle" data-lang-key="sectionSub">Klik kartu untuk detail lebih lanjut</p>
+        </div>
+
+        <div class="services-grid">
+            <a href="#" class="service-card">
+                <div class="icon-circle"><i class="fa-solid fa-crosshairs"></i></div>
+                <h3 data-lang-key="cheatTitle">Beli Cheat</h3>
+                <p data-lang-key="cheatDesc">Cheat game terbaru & anti-banned. Tersedia untuk berbagai game populer.</p>
+                <span class="card-link"><span data-lang-key="cheatLink">Lihat Cheat</span> <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="#" class="service-card">
+                <div class="icon-circle"><i class="fa-solid fa-user-gear"></i></div>
+                <h3 data-lang-key="akunTitle">Beli Akun</h3>
+                <p data-lang-key="akunDesc">Akun game level tinggi, skin lengkap, rank tinggi — siap pakai.</p>
+                <span class="card-link"><span data-lang-key="akunLink">Lihat Akun</span> <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="#" class="service-card">
+                <div class="icon-circle"><i class="fa-solid fa-wallet"></i></div>
+                <h3 data-lang-key="topupTitle">Topup Game</h3>
+                <p data-lang-key="topupDesc">Isi diamond, UC, Genesis Crystal, & lainnya. Proses cepat & harga murah.</p>
+                <span class="card-link"><span data-lang-key="topupLink">Topup Sekarang</span> <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="#" class="service-card">
+                <div class="icon-circle"><i class="fa-solid fa-rocket"></i></div>
+                <h3 data-lang-key="jokiTitle">Joki Game</h3>
+                <p data-lang-key="jokiDesc">Joki rank, level, event, & mission game. Aman, cepat, dan terpercaya.</p>
+                <span class="card-link"><span data-lang-key="jokiLink">Pesan Joki</span> <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="#" class="service-card">
+                <div class="icon-circle"><i class="fa-solid fa-crown"></i></div>
+                <h3 data-lang-key="appsTitle">Apps Premium</h3>
+                <p data-lang-key="appsDesc">Spotify, Netflix, Canva, YouTube Premium & lainnya. Akses murah meriah.</p>
+                <span class="card-link"><span data-lang-key="appsLink">Lihat Apps</span> <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="kontak">
+        <div class="section-header">
+            <span class="label" data-lang-key="contactLabel">Hubungi Kami</span>
+            <h2 data-lang-key="contactTitle">Pilih Platform</h2>
+            <p class="subtitle" data-lang-key="contactSub">Klik ikon untuk menghubungi admin kami</p>
+        </div>
+        <div class="contact-buttons">
+            <a href="https://discord.gg/yourlink" target="_blank" class="contact-btn discord"><i class="fa-brands fa-discord"></i> Discord</a>
+            <a href="https://wa.me/6281234567890" target="_blank" class="contact-btn whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://t.me/yourusername" target="_blank" class="contact-btn telegram"><i class="fa-brands fa-telegram"></i> Telegram</a>
+            <a href="https://facebook.com/yourpage" target="_blank" class="contact-btn facebook"><i class="fa-brands fa-facebook"></i> Facebook</a>
+            <a href="mailto:admin@ryuhuu.com" class="contact-btn email"><i class="fa-solid fa-envelope"></i> Email</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            <span data-lang-key="footerText">© 2025 Ryuhuu Store. All rights reserved.</span> |
+            <a href="https://wa.me/6281234567890" target="_blank" rel="noopener">
+                <i class="fa-brands fa-whatsapp"></i> <span data-lang-key="footerWA">WhatsApp</span>
+            </a>
+        </p>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <div class="fab" id="fab">
+        <button class="fab-main" id="fabMain"><i class="fa-solid fa-comments"></i></button>
+        <div class="fab-options" id="fabOptions">
+            <a href="https://discord.gg/yourlink" target="_blank" class="fab-option discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="https://wa.me/6281234567890" target="_blank" class="fab-option whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://t.me/yourusername" target="_blank" class="fab-option telegram" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+            <a href="https://facebook.com/yourpage" target="_blank" class="fab-option facebook" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="mailto:admin@ryuhuu.com" class="fab-option email" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </div>
+
+    <script>
+        // Bahasa
+        const translations = {
+            id: {
+                navHome: 'Home', navLayanan: 'Layanan', navKontak: 'Hubungi Kami',
+                badge: '🚀 Toko Game Terpercaya',
+                heroTitle: 'Level Up <span class="highlight">Gaming</span> Kamu Sekarang',
+                heroDesc: 'Cheat aman, akun murah, topup instan, joki terpercaya, dan akses apps premium — semua dalam satu tempat. Harga bersahabat, proses cepat, garansi terjamin.',
+                btnLayanan: '<i class="fa-solid fa-fire"></i> Lihat Layanan',
+                btnOrder: '<i class="fa-brands fa-whatsapp"></i> Order Langsung',
+                feature1: 'Garansi Uang Kembali', feature2: 'Proses Instan', feature3: 'Support 24/7', feature4: 'Pembayaran Aman',
+                sectionLabel: 'Layanan Kami', sectionTitle: 'Pilih Kebutuhan Kamu', sectionSub: 'Klik kartu untuk detail lebih lanjut',
+                cheatTitle: 'Beli Cheat', cheatDesc: 'Cheat game terbaru & anti-banned. Tersedia untuk berbagai game populer.',
+                cheatLink: 'Lihat Cheat',
+                akunTitle: 'Beli Akun', akunDesc: 'Akun game level tinggi, skin lengkap, rank tinggi — siap pakai.',
+                akunLink: 'Lihat Akun',
+                topupTitle: 'Topup Game', topupDesc: 'Isi diamond, UC, Genesis Crystal, & lainnya. Proses cepat & harga murah.',
+                topupLink: 'Topup Sekarang',
+                jokiTitle: 'Joki Game', jokiDesc: 'Joki rank, level, event, & mission game. Aman, cepat, dan terpercaya.',
+                jokiLink: 'Pesan Joki',
+                appsTitle: 'Apps Premium', appsDesc: 'Spotify, Netflix, Canva, YouTube Premium & lainnya. Akses murah meriah.',
+                appsLink: 'Lihat Apps',
+                contactLabel: 'Hubungi Kami', contactTitle: 'Pilih Platform', contactSub: 'Klik ikon untuk menghubungi admin kami',
+                footerText: '© 2025 Ryuhuu Store. All rights reserved.', footerWA: 'WhatsApp',
+                btnChatAdmin: '<i class="fa-solid fa-address-book"></i> Hubungi Kami'
+            },
+            en: {
+                navHome: 'Home', navLayanan: 'Services', navKontak: 'Contact Us',
+                badge: '🚀 Trusted Game Store',
+                heroTitle: 'Level Up Your <span class="highlight">Gaming</span> Now',
+                heroDesc: 'Safe cheats, cheap accounts, instant topup, trusted boosting, and premium apps access — all in one place. Affordable prices, fast process, guaranteed.',
+                btnLayanan: '<i class="fa-solid fa-fire"></i> View Services',
+                btnOrder: '<i class="fa-brands fa-whatsapp"></i> Order Now',
+                feature1: 'Money Back Guarantee', feature2: 'Instant Process', feature3: '24/7 Support', feature4: 'Secure Payment',
+                sectionLabel: 'Our Services', sectionTitle: 'Choose Your Needs', sectionSub: 'Click card for more details',
+                cheatTitle: 'Buy Cheats', cheatDesc: 'Latest game cheats & anti-banned. Available for various popular games.',
+                cheatLink: 'View Cheats',
+                akunTitle: 'Buy Accounts', akunDesc: 'High-level game accounts, full skins, high rank — ready to use.',
+                akunLink: 'View Accounts',
+                topupTitle: 'Game Topup', topupDesc: 'Refill diamonds, UC, Genesis Crystal, & more. Fast process & cheap prices.',
+                topupLink: 'Topup Now',
+                jokiTitle: 'Game Boosting', jokiDesc: 'Rank boosting, level, events, & missions. Safe, fast, and reliable.',
+                jokiLink: 'Order Boosting',
+                appsTitle: 'Premium Apps', appsDesc: 'Spotify, Netflix, Canva, YouTube Premium & more. Affordable access.',
+                appsLink: 'View Apps',
+                contactLabel: 'Contact Us', contactTitle: 'Choose Platform', contactSub: 'Click icon to contact our admin',
+                footerText: '© 2025 Ryuhuu Store. All rights reserved.', footerWA: 'WhatsApp',
+                btnChatAdmin: '<i class="fa-solid fa-address-book"></i> Contact Us'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'id';
+        const langToggle = document.getElementById('langToggle');
+        const langLabel = document.getElementById('langLabel');
+
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang][key] !== undefined) {
+                    if (key === 'heroTitle' || key.startsWith('btn') || key === 'cheatLink' || key === 'akunLink' || key === 'topupLink' || key === 'jokiLink' || key === 'appsLink' || key === 'cheatDesc' || key === 'akunDesc' || key === 'topupDesc' || key === 'jokiDesc' || key === 'appsDesc' || key === 'heroDesc' || key === 'sectionSub' || key === 'contactSub' || key === 'footerText' || key === 'footerWA' || key === 'feature1' || key === 'feature2' || key === 'feature3' || key === 'feature4' || key === 'badge' || key === 'sectionLabel' || key === 'sectionTitle' || key === 'contactLabel' || key === 'contactTitle') {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.innerText = translations[lang][key];
+                    }
+                }
+            });
+            // Update tombol highlight khusus jika ada
+            const heroTitle = document.querySelector('[data-lang-key="heroTitle"]');
+            if (heroTitle) heroTitle.innerHTML = translations[lang].heroTitle;
+
+            langLabel.textContent = lang.toUpperCase();
+            localStorage.setItem('lang', lang);
+            currentLang = lang;
+        }
+
+        langToggle.addEventListener('click', () => {
+            const newLang = currentLang === 'id' ? 'en' : 'id';
+            applyLanguage(newLang);
+        });
+
+        // Terapkan bahasa saat load
+        applyLanguage(currentLang);
+
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => navLinks.classList.toggle('show'));
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('show')));
+
+        // Floating button
+        const fabMain = document.getElementById('fabMain');
+        const fabOptions = document.getElementById('fabOptions');
+        fabMain.addEventListener('click', () => fabOptions.classList.toggle('show'));
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.fab')) fabOptions.classList.remove('show');
+        });
+    </script>
+</body>
+</html>
