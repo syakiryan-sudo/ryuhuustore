@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryuhuu Cheats • Private Game Cheats</title>
+
+    <!-- ==================== FONT ==================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+
+    <!-- ==================== CSS ==================== -->
+    <style>
+        *,
+        *::before,
+        *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        :root {
+            --bg-primary: #0a0a12;
+            --bg-secondary: #11111e;
+            --bg-tertiary: #181828;
+            --bg-category: #1a1a2e;
+            --text-primary: #eaeaf2;
+            --text-secondary: #9e9eb8;
+            --text-muted: #65657e;
+            --accent: #ff2e63;
+            --accent-hover: #ff4d7a;
+            --accent-glow: rgba(255, 46, 99, 0.3);
+            --border: #26263d;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-card: 0 4px 24px rgba(0,0,0,0.6);
+            --shadow-hover: 0 12px 32px rgba(255,46,99,0.28);
+            --transition: 0.28s cubic-bezier(0.4,0,0.2,1);
+            --font-main: 'Inter', sans-serif;
+            --work-color: #00e676;
+            --risk-low: #ffb400;
+            --risk-medium: #ff9100;
+            --risk-high: #ff3d3d;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-image:
+                radial-gradient(ellipse at 15% 15%, rgba(255,46,99,0.06) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 75%, rgba(0,180,255,0.03) 0%, transparent 55%);
+            background-attachment: fixed;
+        }
+
+        ::-webkit-scrollbar { height:6px; width:6px; }
+        ::-webkit-scrollbar-track { background:transparent; }
+        ::-webkit-scrollbar-thumb { background:var(--border); border-radius:10px; }
+        ::-webkit-scrollbar-thumb:hover { background:#3a3a58; }
+
+        /* HEADER */
+        .header {
+            background: rgba(17,17,30,0.85);
+            border-bottom:1px solid var(--border);
+            padding:14px 0;
+            position:sticky;
+            top:0; z-index:100;
+            backdrop-filter:blur(14px);
+            -webkit-backdrop-filter:blur(14px);
+        }
+        .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+        .header .container {
+            display:flex; align-items:center; justify-content:space-between;
+            flex-wrap:wrap; gap:12px;
+        }
+        .header__logo {
+            display:flex; align-items:center; gap:10px;
+            font-size:1.6rem; font-weight:700; color:var(--text-primary);
+            text-decoration:none; letter-spacing:-0.3px; cursor:pointer;
+        }
+        .header__logo-icon {
+            width:40px; height:40px; background:var(--accent); border-radius:var(--radius-sm);
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.3rem; color:#0a0a12; font-weight:800;
+        }
+        .header__badge {
+            background:rgba(255,46,99,0.1); color:var(--accent);
+            font-size:0.78rem; padding:5px 14px; border-radius:20px;
+            font-weight:600; border:1px solid rgba(255,46,99,0.4); letter-spacing:0.3px;
+        }
+
+        /* SEARCH */
+        .search-section { padding:24px 0 0; }
+        .search-wrapper { position:relative; max-width:500px; margin:0 auto; }
+        .search-input {
+            width:100%; padding:12px 48px 12px 20px; border-radius:50px;
+            border:2px solid var(--border); background:var(--bg-tertiary);
+            color:var(--text-primary); font-size:0.95rem; font-family:var(--font-main);
+            transition:var(--transition); outline:none;
+        }
+        .search-input::placeholder { color:var(--text-muted); }
+        .search-input:focus { border-color:var(--accent); box-shadow:0 0 0 4px var(--accent-glow); }
+        .search-icon {
+            position:absolute; right:16px; top:50%; transform:translateY(-50%);
+            font-size:1.1rem; color:var(--text-muted); pointer-events:none;
+        }
+        .search-clear {
+            position:absolute; right:44px; top:50%; transform:translateY(-50%);
+            background:none; border:none; color:var(--text-muted);
+            cursor:pointer; font-size:1.2rem; display:none; padding:4px 8px;
+            border-radius:50%; transition:var(--transition-fast); line-height:1;
+        }
+        .search-clear.visible { display:block; }
+        .search-clear:hover { color:var(--text-primary); background:var(--border); }
+
+        /* CATEGORY CHIPS */
+        .category-section { padding:20px 0 8px; }
+        .category-scroll {
+            display:flex; gap:12px; overflow-x:auto; padding-bottom:10px;
+            scroll-behavior:smooth; -webkit-overflow-scrolling:touch; white-space:nowrap;
+        }
+        .category-chip {
+            flex-shrink:0; padding:10px 24px; background:#14142a;
+            border:1.5px solid var(--border); border-radius:30px; cursor:pointer;
+            font-size:0.85rem; font-weight:500; color:var(--text-secondary);
+            transition:var(--transition); user-select:none; white-space:nowrap;
+            font-family:var(--font-main);
+        }
+        .category-chip:hover {
+            background:var(--bg-tertiary); color:#fff;
+            border-color:var(--accent); transform:translateY(-2px);
+            box-shadow:var(--shadow-hover);
+        }
+        .category-chip--active {
+            background:var(--accent); color:#0a0a12;
+            border-color:var(--accent); font-weight:700;
+            box-shadow:0 0 28px var(--accent-glow);
+        }
+        .category-chip--active:hover { background:var(--accent-hover); }
+
+        .filter-info { padding:8px 0 22px; font-size:0.8rem; color:var(--text-muted); }
+        .filter-info span { color:var(--accent); font-weight:700; }
+
+        /* FEATURED SECTION */
+        .featured-section { padding:0 0 20px; }
+        .section-header {
+            display:flex; align-items:center; justify-content:space-between;
+            margin-bottom:16px; flex-wrap:wrap; gap:12px;
+        }
+        .section-header h2 { font-size:1rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-muted); font-weight:600; }
+        .featured-scroll-container { position:relative; display:flex; align-items:center; }
+        .featured-scroll {
+            display:flex; gap:14px; overflow-x:auto; scroll-behavior:smooth;
+            padding:8px 4px 16px; scroll-snap-type:x mandatory;
+            -webkit-overflow-scrolling:touch; flex:1;
+            scrollbar-width:none; -ms-overflow-style:none;
+        }
+        .featured-scroll::-webkit-scrollbar { display:none; }
+        .featured-card {
+            flex:0 0 auto; width:185px; scroll-snap-align:start;
+            background:var(--bg-secondary); border:1px solid var(--border);
+            border-radius:var(--radius-md); padding:0 0 14px 0; cursor:pointer;
+            transition:var(--transition); position:relative; overflow:hidden;
+            background:linear-gradient(145deg, #11111e 0%, #16162a 100%);
+        }
+        .featured-card::before {
+            content:''; position:absolute; top:0; left:0; right:0; height:2px;
+            background:var(--accent); opacity:0; transition:var(--transition); z-index:2;
+        }
+        .featured-card:hover {
+            transform:translateY(-6px); box-shadow:var(--shadow-hover);
+            border-color:rgba(255,46,99,0.45);
+        }
+        .featured-card:hover::before { opacity:1; }
+        .featured-card img {
+            width:100%; height:110px; object-fit:cover; display:block;
+            transition:transform 0.35s ease;
+        }
+        .featured-card:hover img { transform:scale(1.03); }
+        .featured-card__content { padding:10px 12px 0; display:flex; flex-direction:column; gap:4px; }
+        .featured-card__badge {
+            font-size:0.65rem; background:rgba(255,46,99,0.15); color:var(--accent);
+            padding:2px 8px; border-radius:12px; font-weight:700; align-self:flex-start;
+        }
+        .featured-card__name { font-size:0.85rem; font-weight:600; color:var(--text-primary); line-height:1.3; }
+        .featured-card__meta { font-size:0.7rem; color:var(--text-muted); }
+        .scroll-btn {
+            flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+            border:1px solid var(--border); background:var(--bg-tertiary);
+            color:var(--text-primary); cursor:pointer; font-size:1.1rem;
+            display:flex; align-items:center; justify-content:center;
+            transition:var(--transition); z-index:5;
+        }
+        .scroll-btn:hover { background:var(--accent); color:#0a0a12; border-color:var(--accent); box-shadow:0 0 18px var(--accent-glow); }
+        .scroll-btn-left { margin-right:4px; }
+        .scroll-btn-right { margin-left:4px; }
+
+        /* GAMES GRID */
+        .product-section { padding:0 0 60px; }
+        .product-grid {
+            display:grid; grid-template-columns:repeat(4, 1fr); gap:18px;
+        }
+        .game-card {
+            background:var(--bg-secondary); border:1px solid var(--border);
+            border-radius:var(--radius-md); padding:0 0 18px 0; cursor:pointer;
+            transition:var(--transition); position:relative; overflow:hidden;
+            background:linear-gradient(145deg, #11111e 0%, #16162a 100%);
+            display:flex; flex-direction:column;
+        }
+        .game-card::before {
+            content:''; position:absolute; top:0; left:0; right:0; height:2px;
+            background:var(--accent); opacity:0; transition:var(--transition); z-index:2;
+        }
+        .game-card:hover {
+            transform:translateY(-6px); box-shadow:var(--shadow-hover);
+            border-color:rgba(255,46,99,0.45);
+        }
+        .game-card:hover::before { opacity:1; }
+        .game-card img {
+            width:100%; height:150px; object-fit:cover; display:block;
+            transition:transform 0.35s ease;
+        }
+        .game-card:hover img { transform:scale(1.03); }
+        .game-card__content {
+            padding:10px 16px 0; flex:1; display:flex; flex-direction:column; gap:6px;
+        }
+        .game-card__label {
+            font-size:0.65rem; text-transform:uppercase; letter-spacing:1px;
+            color:var(--accent); font-weight:700; background:rgba(255,46,99,0.1);
+            padding:3px 10px; border-radius:20px; align-self:flex-start;
+        }
+        .game-card__name { font-size:1rem; font-weight:600; color:var(--text-primary); }
+        .game-card__meta {
+            display:flex; align-items:center; justify-content:space-between;
+            margin-top:auto; font-size:0.7rem; color:var(--text-muted);
+        }
+        .game-card__cheat-count { font-weight:600; color:var(--accent); }
+        .empty-state {
+            grid-column:1 / -1; text-align:center; padding:60px 20px;
+            color:var(--text-muted);
+        }
+        .empty-state__icon { font-size:3rem; margin-bottom:12px; opacity:0.6; }
+
+        /* DETAIL VIEW */
+        .view { display:none; }
+        .view.active { display:block; }
+        .detail-view { padding:30px 0 40px; }
+        .detail-back {
+            display:inline-flex; align-items:center; gap:8px;
+            padding:10px 22px; background:var(--bg-tertiary);
+            border:1px solid var(--border); border-radius:30px;
+            color:var(--text-primary); cursor:pointer; font-size:0.85rem;
+            font-weight:600; transition:var(--transition); margin-bottom:24px;
+            font-family:var(--font-main);
+        }
+        .detail-back:hover { background:var(--accent); color:#0a0a12; border-color:var(--accent); }
+        .detail-hero {
+            display:flex; align-items:center; gap:18px; margin-bottom:28px;
+            flex-wrap:wrap;
+        }
+        .detail-hero img {
+            width:120px; height:80px; object-fit:cover; border-radius:var(--radius-md);
+            border:1px solid var(--border);
+        }
+        .detail-hero h1 { font-size:1.8rem; font-weight:700; }
+        .game-desc {
+            font-size:0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Provider card (di detail) */
+        .products-grid {
+            display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:18px;
+        }
+        .provider-card {
+            background:var(--bg-secondary); border:1px solid var(--border);
+            border-radius:var(--radius-md); padding:0 0 18px 0; transition:var(--transition);
+            position:relative; overflow:hidden;
+            background:linear-gradient(145deg, #11111e 0%, #16162a 100%);
+            display:flex; flex-direction:column;
+        }
+        .provider-card::before {
+            content:''; position:absolute; top:0; left:0; right:0; height:2px;
+            background:var(--accent); opacity:0; transition:var(--transition); z-index:2;
+        }
+        .provider-card:hover {
+            transform:translateY(-4px); box-shadow:var(--shadow-hover);
+            border-color:rgba(255,46,99,0.45);
+        }
+        .provider-card:hover::before { opacity:1; }
+        .provider-card img {
+            width:100%; height:130px; object-fit:cover; display:block;
+        }
+        .provider-card__content {
+            padding:12px 16px 0; flex:1; display:flex; flex-direction:column; gap:6px;
+        }
+
+        /* Badge status risiko */
+        .badge-risk {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+        .badge-low-risk {
+            background: rgba(0, 230, 118, 0.12);
+            color: #34d399;
+            border: 1px solid rgba(0, 230, 118, 0.4);
+        }
+        .badge-medium-risk {
+            background: rgba(255, 180, 0, 0.12);
+            color: #fbbf24;
+            border: 1px solid rgba(255, 180, 0, 0.4);
+        }
+        .badge-high-risk {
+            background: rgba(255, 61, 61, 0.12);
+            color: #f87171;
+            border: 1px solid rgba(255, 61, 61, 0.4);
+        }
+
+        .provider-card__name { font-weight:700; font-size:1rem; color:var(--text-primary); }
+        .provider-card__desc { font-size:0.8rem; color:var(--text-secondary); flex-grow:1; }
+
+        /* Bagian rating & sold */
+        .provider-meta {
+            display:flex; align-items:center; justify-content:space-between;
+            margin-top:12px; font-size:0.85rem;
+        }
+        .provider-rating {
+            display:flex; align-items:center; gap:4px;
+            color: #ffb400; font-weight:700;
+        }
+        .provider-sold {
+            display:flex; align-items:center; gap:4px;
+            color: var(--text-muted); font-weight:600;
+        }
+        .provider-sold span { color: var(--text-primary); }
+
+        /* Badge WORK transparan di kanan atas */
+        .badge-work-corner {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 230, 118, 0.2);
+            color: #00e676;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border: 1px solid rgba(0, 230, 118, 0.5);
+            box-shadow: 0 0 8px rgba(0, 230, 118, 0.15);
+            z-index: 3;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .btn-order {
+            width:100%; padding:12px 0; background:transparent;
+            border:1.5px solid var(--accent); color:var(--accent);
+            border-radius:30px; cursor:pointer; font-weight:700; font-size:0.85rem;
+            font-family:var(--font-main); transition:var(--transition);
+            text-transform:uppercase; letter-spacing:0.5px;
+            margin-top: 12px;
+        }
+        .btn-order:hover {
+            background:var(--accent); color:#0a0a12;
+            box-shadow:0 0 30px var(--accent-glow); transform:scale(1.03);
+        }
+
+        /* TOAST */
+        .toast {
+            position:fixed; bottom:30px; left:50%;
+            transform:translateX(-50%) translateY(120px);
+            background:#1a1a2e; color:var(--text-primary);
+            padding:14px 30px; border-radius:30px; font-size:0.85rem;
+            font-weight:500; z-index:200; border:1px solid var(--accent);
+            box-shadow:0 0 30px var(--accent-glow);
+            pointer-events:none; opacity:0;
+            transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+        }
+        .toast--visible { transform:translateX(-50%) translateY(0); opacity:1; }
+
+        .footer {
+            text-align:center; padding:24px; color:var(--text-muted);
+            font-size:0.75rem; border-top:1px solid var(--border); margin-top:20px;
+        }
+        .footer a { color:var(--accent); text-decoration:none; }
+
+        @media (max-width:900px) {
+            .product-grid { grid-template-columns:repeat(2, 1fr); gap:14px; }
+        }
+        @media (max-width:520px) {
+            .product-grid { grid-template-columns:1fr; gap:12px; }
+            .category-chip { padding:8px 16px; font-size:0.8rem; }
+            .featured-card { width:150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="header">
+        <div class="container">
+            <a class="header__logo" onclick="navigateToHome()">
+                <span class="header__logo-icon">⛨</span>
+                RYUH&#95;U CHEATS
+            </a>
+            <span class="header__badge">🔰 PROVIDER TERVERIFIKASI</span>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN CONTAINER ==================== -->
+    <div class="container">
+
+        <!-- HOME VIEW -->
+        <div id="view-home" class="view active">
+            <!-- Search -->
+            <section class="search-section">
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Cari game atau provider..." autocomplete="off">
+                    <button id="searchClearBtn" class="search-clear">✕</button>
+                    <span class="search-icon">🔍</span>
+                </div>
+            </section>
+
+            <!-- Category chips -->
+            <section class="category-section">
+                <div class="category-scroll" id="categoryScroll"></div>
+            </section>
+
+            <p class="filter-info" id="filterInfo">Menampilkan <span id="filterCount">0</span> game</p>
+
+            <!-- Featured Games Scroll -->
+            <section class="featured-section">
+                <div class="section-header">
+                    <h2>⭐ Unggulan</h2>
+                </div>
+                <div class="featured-scroll-container">
+                    <button class="scroll-btn scroll-btn-left" onclick="scrollFeatured(-1)">◀</button>
+                    <div id="featuredScroll" class="featured-scroll"></div>
+                    <button class="scroll-btn scroll-btn-right" onclick="scrollFeatured(1)">▶</button>
+                </div>
+            </section>
+
+            <!-- All Games Grid -->
+            <div class="product-grid" id="productGrid"></div>
+        </div>
+
+        <!-- DETAIL VIEW -->
+        <div id="view-detail" class="view detail-view">
+            <button class="detail-back" onclick="navigateToHome()">← Kembali ke Beranda</button>
+            <div id="detailContent"></div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <footer class="footer">
+        <div class="container">
+            © 2026 <strong>RYUH&#95;U CHEATS</strong> — Private cheat providers. #StayUndetected
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        (function() {
+            // ---------- DATA CHEAT PROVIDER ----------
+            const games = [
+                {
+                    id: 'genshin', name: 'Genshin Impact', icon: '✨', category: 'Open World', isFeatured: true,
+                    providers: [
+                        { name: 'Slash (Bypass)', risk: 'LOW', desc: 'Private bypass cheat, undetected.' },
+                        { name: 'Shika', risk: 'MEDIUM', desc: 'All-in-one tool with ESP & aimbot.' },
+                        { name: 'Antiaddict', risk: 'MEDIUM', desc: 'Fitur anti-banned & auto farm.' },
+                        { name: 'Shibal', risk: 'HIGH', desc: 'High risk, damage multiplier.' },
+                        { name: 'Unicore', risk: 'LOW', desc: 'Core bypass with stamina hack.' }
+                    ]
+                },
+                {
+                    id: 'wuwa', name: 'Wuthering Waves', icon: '🌊', category: 'Open World', isFeatured: true,
+                    providers: [
+                        { name: 'Slash', risk: 'LOW', desc: 'Premium bypass & teleport.' },
+                        { name: 'Private B', risk: 'MEDIUM', desc: 'Invite-only, very safe.' },
+                        { name: 'Uniwaves', risk: 'LOW', desc: 'Undetected auto-farm.' }
+                    ]
+                },
+                {
+                    id: 'sla', name: 'Solo Leveling Arise', icon: '🗡️', category: 'RPG', isFeatured: true,
+                    providers: [
+                        { name: 'Slash', risk: 'LOW', desc: 'Fast leveling & damage hack.' },
+                        { name: 'Private B', risk: 'MEDIUM', desc: 'Private build, limited slot.' },
+                        { name: 'Lumen: SLA', risk: 'MEDIUM', desc: 'Lumen series for SLA.' }
+                    ]
+                },
+                {
+                    id: 'hsr', name: 'Honkai: Star Rail', icon: '🚂', category: 'RPG', isFeatured: true,
+                    providers: [
+                        { name: 'Slash (Bypass)', risk: 'LOW', desc: 'Bypass with speedhack.' },
+                        { name: 'Shibal', risk: 'HIGH', desc: 'Damage multiplier & free pull.' },
+                        { name: 'Unistar', risk: 'MEDIUM', desc: 'Auto battle & chest teleport.' },
+                        { name: 'Minty-SR', risk: 'LOW', desc: 'Undetected daily farm.' }
+                    ]
+                },
+                {
+                    id: 'zzz', name: 'Zenless Zone Zero', icon: '🎸', category: 'Action', isFeatured: true,
+                    providers: [
+                        { name: 'Slash (Bypass)', risk: 'LOW', desc: 'Premium bypass, very safe.' },
+                        { name: 'Unizone', risk: 'MEDIUM', desc: 'Auto clear & damage hack.' },
+                        { name: 'Minty-ZZZ', risk: 'LOW', desc: 'Farm materials easily.' }
+                    ]
+                },
+                {
+                    id: 'wwm', name: 'Where Winds Meet', icon: '🍃', category: 'RPG', isFeatured: false,
+                    providers: [
+                        { name: 'Lumen: WWM', risk: 'MEDIUM', desc: 'Lumen series, stable.' }
+                    ]
+                },
+                {
+                    id: 'msd', name: 'Mongil: Star Dive', icon: '⭐', category: 'Action', isFeatured: false,
+                    providers: [
+                        { name: 'Slash', risk: 'LOW', desc: 'Premium bypass.' },
+                        { name: 'Lumen-MSD', risk: 'MEDIUM', desc: 'Lumen for Star Dive.' },
+                        { name: 'Unistardive', risk: 'MEDIUM', desc: 'Auto farm & god mode.' }
+                    ]
+                },
+                {
+                    id: 'valorant', name: 'Valorant', icon: '🎯', category: 'FPS', isFeatured: true,
+                    providers: [
+                        { name: 'Hooked', risk: 'HIGH', desc: 'Aimbot & ESP, private build.' }
+                    ]
+                },
+                {
+                    id: 'marvelrivals', name: 'Marvel Rivals', icon: '🦸', category: 'FPS', isFeatured: true,
+                    providers: [
+                        { name: 'Predator', risk: 'MEDIUM', desc: 'ESP & silent aim.' }
+                    ]
+                },
+                {
+                    id: 'stellasora', name: 'Stella Sora Global', icon: '🌌', category: 'RPG', isFeatured: false,
+                    providers: [
+                        { name: 'Slash', risk: 'LOW', desc: 'Bypass + auto play.' },
+                        { name: 'Soroka', risk: 'MEDIUM', desc: 'Custom cheat.' }
+                    ]
+                },
+                {
+                    id: 'bluearchive', name: 'Blue Archive', icon: '📘', category: 'RPG', isFeatured: false,
+                    providers: [
+                        { name: 'Slash', risk: 'LOW', desc: 'Bypass anti-cheat.' },
+                        { name: 'Private B', risk: 'MEDIUM', desc: 'Invite-only, very limited.' }
+                    ]
+                },
+                {
+                    id: 'strinova', name: 'Strinova', icon: '🔫', category: 'FPS', isFeatured: false,
+                    providers: [
+                        { name: 'Private B', risk: 'MEDIUM', desc: 'Private provider.' }
+                    ]
+                },
+                {
+                    id: 'etheria', name: 'Etheria Restart', icon: '🌐', category: 'RPG', isFeatured: false,
+                    providers: [
+                        { name: 'Unietheria', risk: 'MEDIUM', desc: 'Uni series, safe.' }
+                    ]
+                },
+                {
+                    id: 'gfl2', name: 'GFL 2', icon: '🔫', category: 'Strategy', isFeatured: false,
+                    providers: [
+                        { name: 'Slash', risk: 'LOW', desc: 'Auto clear & damage.' }
+                    ]
+                },
+                {
+                    id: 'tof', name: 'Tower of Fantasy', icon: '🗼', category: 'Open World', isFeatured: false,
+                    providers: [
+                        { name: 'Toofli', risk: 'HIGH', desc: 'High risk cheat.' }
+                    ]
+                },
+                {
+                    id: 'gtav', name: 'GTA V Fivem', icon: '🚗', category: 'FPS', isFeatured: false,
+                    providers: [
+                        { name: 'Unitheft', risk: 'MEDIUM', desc: 'Cheat for FiveM.' }
+                    ]
+                },
+                {
+                    id: 'overfield', name: 'Overfield', icon: '⚔️', category: 'Action', isFeatured: false,
+                    providers: [
+                        { name: 'Korobka', risk: 'LOW', desc: 'New provider, safe.' }
+                    ]
+                },
+                {
+                    id: 'arknightendfield', name: 'Arknights: Endfield', icon: '🏹', category: 'Strategy', isFeatured: false,
+                    providers: [
+                        { name: 'Slash', risk: 'LOW', desc: 'Bypass + auto deploy.' },
+                        { name: 'Shibal', risk: 'HIGH', desc: 'Damage & god mode.' }
+                    ]
+                },
+                {
+                    id: '7dsorigin', name: 'Seven Deadly Sins: Origin', icon: '⚔️', category: 'RPG', isFeatured: false,
+                    providers: [
+                        { name: 'Lumen-DS', risk: 'MEDIUM', desc: 'Lumen series.' },
+                        { name: 'Private B', risk: 'MEDIUM', desc: 'Private provider.' }
+                    ]
+                },
+                {
+                    id: 'bpstar', name: 'Blue Protocol: Star Resonance', icon: '🌠', category: 'RPG', isFeatured: false,
+                    providers: [
+                        { name: 'Lumen: BP', risk: 'MEDIUM', desc: 'Lumen for Blue Protocol.' }
+                    ]
+                },
+                {
+                    id: 'slao', name: 'Solo Leveling Arise OVERDRIVE', icon: '💥', category: 'RPG', isFeatured: false,
+                    providers: [
+                        { name: 'Lumen: SLAO', risk: 'MEDIUM', desc: 'Overdrive version.' }
+                    ]
+                },
+                {
+                    id: 'snowbreak', name: 'Snowbreak: Containment Zone', icon: '❄️', category: 'FPS', isFeatured: false,
+                    providers: [
+                        { name: 'Unisnowbreak', risk: 'LOW', desc: 'Undetected aimbot.' },
+                        { name: 'Private B', risk: 'MEDIUM', desc: 'Private provider.' }
+                    ]
+                },
+                {
+                    id: 'mhur', name: 'My Hero Ultra Rumble', icon: '💪', category: 'Battle Royale', isFeatured: false,
+                    providers: [
+                        { name: 'Lumen-MHUR', risk: 'MEDIUM', desc: 'Lumen series.' },
+                        { name: 'Private B', risk: 'MEDIUM', desc: 'Private provider.' }
+                    ]
+                },
+                {
+                    id: 'infinitynikki', name: 'Infinity Nikki', icon: '👗', category: 'Adventure', isFeatured: false,
+                    providers: [
+                        { name: 'Private A', risk: 'LOW', desc: 'Very safe, invite-only.' }
+                    ]
+                },
+                {
+                    id: 'duetnightabyss', name: 'Duet Night Abyss', icon: '🌑', category: 'Action', isFeatured: false,
+                    providers: [
+                        { name: 'Slash', risk: 'LOW', desc: 'Premium bypass.' },
+                        { name: 'Private B', risk: 'MEDIUM', desc: 'Private provider.' }
+                    ]
+                },
+                {
+                    id: 'cs2', name: 'Counter Strike 2', icon: '💣', category: 'FPS', isFeatured: true,
+                    providers: [
+                        { name: 'Predator', risk: 'HIGH', desc: 'Aimbot & wallhack.' },
+                        { name: 'Nixware', risk: 'MEDIUM', desc: 'Legit cheat provider.' }
+                    ]
+                },
+                {
+                    id: 'sf2', name: 'Special Force 2', icon: '🔫', category: 'FPS', isFeatured: false,
+                    providers: [
+                        { name: 'Private B', risk: 'MEDIUM', desc: 'Private provider.' }
+                    ]
+                },
+                {
+                    id: 'avatarstar', name: 'Avatar Star', icon: '⭐', category: 'Casual', isFeatured: false,
+                    providers: [
+                        { name: 'Private B', risk: 'LOW', desc: 'Safe cheat.' }
+                    ]
+                },
+                {
+                    id: 'identityv', name: 'Identity V', icon: '🕵️', category: 'Horror', isFeatured: false,
+                    providers: [
+                        { name: 'Uni-Identity', risk: 'MEDIUM', desc: 'Uni series for IDV.' }
+                    ]
+                }
+            ];
+
+            // ---------- STATE ----------
+            let state = {
+                view: 'home',
+                currentGameId: null,
+                searchQuery: '',
+                activeCategory: 'semua'
+            };
+
+            // ---------- DOM ELEMENTS ----------
+            const viewHome = document.getElementById('view-home');
+            const viewDetail = document.getElementById('view-detail');
+            const searchInput = document.getElementById('searchInput');
+            const searchClearBtn = document.getElementById('searchClearBtn');
+            const categoryScroll = document.getElementById('categoryScroll');
+            const productGrid = document.getElementById('productGrid');
+            const filterCount = document.getElementById('filterCount');
+            const featuredScroll = document.getElementById('featuredScroll');
+            const detailContent = document.getElementById('detailContent');
+            const toast = document.getElementById('toast');
+
+            // ---------- HELPERS ----------
+            function generateRatingSold(str) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    hash = (hash << 5) - hash + str.charCodeAt(i);
+                    hash |= 0;
+                }
+                const rating = (4.0 + (Math.abs(hash % 100) / 100)).toFixed(1);
+                const sold = Math.abs(hash % 4500) + 500;
+                return { rating, sold };
+            }
+
+            function formatSold(sold) {
+                if (sold >= 1000) return (sold / 1000).toFixed(1).replace(/\.0$/, '') + 'rb';
+                return sold.toString();
+            }
+
+            function getRiskLabel(risk) {
+                switch(risk.toUpperCase()) {
+                    case 'LOW': return '🟢 LOW RISK';
+                    case 'MEDIUM': return '🟡 MEDIUM RISK';
+                    case 'HIGH': return '🔴 HIGH RISK';
+                    default: return '⚪ UNKNOWN';
+                }
+            }
+
+            function getFilteredGames() {
+                let result = games;
+                if (state.activeCategory !== 'semua') {
+                    result = result.filter(g => g.category.toLowerCase() === state.activeCategory);
+                }
+                if (state.searchQuery.trim()) {
+                    const q = state.searchQuery.trim().toLowerCase();
+                    result = result.filter(g =>
+                        g.name.toLowerCase().includes(q) ||
+                        g.category.toLowerCase().includes(q) ||
+                        g.providers.some(p => p.name.toLowerCase().includes(q))
+                    );
+                }
+                return result;
+            }
+
+            // ---------- CATEGORY CHIPS ----------
+            function getAllCategories() {
+                const cats = new Set(games.map(g => g.category));
+                return Array.from(cats).sort();
+            }
+
+            function renderCategoryChips() {
+                const categories = getAllCategories();
+                categoryScroll.innerHTML = '';
+                const allChip = document.createElement('button');
+                allChip.className = 'category-chip' + (state.activeCategory === 'semua' ? ' category-chip--active' : '');
+                allChip.textContent = '⚡ Semua';
+                allChip.addEventListener('click', () => setActiveCategory('semua'));
+                categoryScroll.appendChild(allChip);
+                categories.forEach(cat => {
+                    const chip = document.createElement('button');
+                    chip.className = 'category-chip' + (state.activeCategory === cat.toLowerCase() ? ' category-chip--active' : '');
+                    chip.textContent = cat;
+                    chip.addEventListener('click', () => setActiveCategory(cat.toLowerCase()));
+                    categoryScroll.appendChild(chip);
+                });
+            }
+
+            function setActiveCategory(cat) {
+                state.activeCategory = cat;
+                renderCategoryChips();
+                renderAllGames();
+                updateFilterInfo();
+            }
+
+            // ---------- FEATURED ----------
+            function renderFeaturedGames() {
+                const featured = games.filter(g => g.isFeatured);
+                featuredScroll.innerHTML = featured.map(g => {
+                    return `
+                    <div class="featured-card" onclick="navigateToDetail('${g.id}')">
+                        <img src="https://picsum.photos/seed/${g.id}/400/250" alt="${g.name}" loading="lazy"
+                             onerror="this.style.display='none'">
+                        <div class="featured-card__content">
+                            <span class="featured-card__badge">HOT</span>
+                            <span class="featured-card__name">${g.name}</span>
+                            <span class="featured-card__meta">${g.providers.length} provider</span>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+
+            // ---------- ALL GAMES ----------
+            function renderAllGames() {
+                const filtered = getFilteredGames();
+                productGrid.innerHTML = '';
+                if (filtered.length === 0) {
+                    productGrid.innerHTML = `<div class="empty-state"><div class="empty-state__icon">🎮</div><p>Tidak ada game yang cocok.</p></div>`;
+                    return;
+                }
+                filtered.forEach(g => {
+                    const card = document.createElement('div');
+                    card.className = 'game-card';
+                    card.onclick = () => navigateToDetail(g.id);
+                    card.innerHTML = `
+                        <img src="https://picsum.photos/seed/${g.id}/400/250" alt="${g.name}" loading="lazy"
+                             onerror="this.style.display='none'">
+                        <div class="game-card__content">
+                            <span class="game-card__label">${g.category}</span>
+                            <h3 class="game-card__name">${g.name}</h3>
+                            <div class="game-card__meta">
+                                <span class="game-card__cheat-count">${g.providers.length} cheat</span>
+                            </div>
+                        </div>`;
+                    productGrid.appendChild(card);
+                });
+            }
+
+            function updateFilterInfo() {
+                filterCount.textContent = getFilteredGames().length;
+            }
+
+            // ---------- NAVIGATION ----------
+            function navigateToHome() {
+                state.view = 'home';
+                viewHome.classList.add('active');
+                viewDetail.classList.remove('active');
+                detailContent.innerHTML = '';
+                window.scrollTo({top:0, behavior:'smooth'});
+                renderAllGames();
+                updateFilterInfo();
+                searchInput.value = state.searchQuery;
+                if (state.searchQuery) searchClearBtn.classList.add('visible');
+                else searchClearBtn.classList.remove('visible');
+            }
+
+            function navigateToDetail(gameId) {
+                const game = games.find(g => g.id === gameId);
+                if (!game) return;
+                state.view = 'detail';
+                state.currentGameId = gameId;
+                viewHome.classList.remove('active');
+                viewDetail.classList.add('active');
+                window.scrollTo({top:0, behavior:'smooth'});
+                renderDetail(game);
+            }
+
+            function renderDetail(game) {
+                const providerCards = game.providers.map(p => {
+                    const { rating, sold } = generateRatingSold(game.id + p.name);
+                    const riskClass = 'badge-' + (p.risk === 'LOW' ? 'low-risk' : p.risk === 'MEDIUM' ? 'medium-risk' : 'high-risk');
+                    const riskLabel = getRiskLabel(p.risk);
+                    const escapedName = p.name.replace(/'/g, "\\'");
+                    return `
+                    <div class="provider-card">
+                        <span class="badge-work-corner">WORK</span>
+                        <img src="https://picsum.photos/seed/prod${encodeURIComponent(p.name)}/400/250" alt="${p.name}" loading="lazy"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22250%22%3E%3Crect width=%22400%22 height=%22250%22 fill=%22%231a1a2e%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23ff2e63%22%3E${p.name}%3C/text%3E%3C/svg%3E';">
+                        <div class="provider-card__content">
+                            <span class="badge-risk ${riskClass}">${riskLabel}</span>
+                            <h3 class="provider-card__name">${p.name}</h3>
+                            <p class="provider-card__desc">${p.desc || 'Private cheat provider.'}</p>
+                            <div class="provider-meta">
+                                <div class="provider-rating">★ ${rating}</div>
+                                <div class="provider-sold">🛒 <span>${formatSold(sold)}+</span></div>
+                            </div>
+                            <button class="btn-order" onclick="handleOrder('${game.id}','${escapedName}')">Lihat Detail</button>
+                        </div>
+                    </div>`;
+                }).join('');
+
+                detailContent.innerHTML = `
+                    <div class="detail-hero">
+                        <img src="https://picsum.photos/seed/${game.id}/400/250" alt="${game.name}" onerror="this.style.display='none'">
+                        <div>
+                            <h1>${game.name}</h1>
+                            <p class="game-desc">Private cheat untuk ${game.name} – ${game.category}</p>
+                        </div>
+                    </div>
+                    <div class="products-grid">${providerCards}</div>
+                `;
+            }
+
+            // ---------- HANDLE ORDER ----------
+            function handleOrder(gameId, providerName) {
+                const game = games.find(g => g.id === gameId);
+                if (game) {
+                    showToast(`🔰 Provider ${providerName} (${game.name}) dipilih. Hubungi admin.`);
+                }
+            }
+
+            // ---------- TOAST ----------
+            let toastTimer;
+            function showToast(msg) {
+                if (toastTimer) clearTimeout(toastTimer);
+                toast.textContent = msg;
+                toast.classList.add('toast--visible');
+                toastTimer = setTimeout(() => toast.classList.remove('toast--visible'), 2800);
+            }
+
+            // ---------- EVENT LISTENERS ----------
+            searchInput.addEventListener('input', function() {
+                state.searchQuery = this.value;
+                if (state.searchQuery) searchClearBtn.classList.add('visible');
+                else searchClearBtn.classList.remove('visible');
+                renderAllGames();
+                updateFilterInfo();
+            });
+            searchClearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                state.searchQuery = '';
+                searchClearBtn.classList.remove('visible');
+                renderAllGames();
+                updateFilterInfo();
+            });
+            document.querySelector('.header__logo').addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateToHome();
+            });
+
+            window.scrollFeatured = function(direction) {
+                featuredScroll.scrollBy({ left: direction * 220, behavior: 'smooth' });
+            };
+
+            window.navigateToHome = navigateToHome;
+            window.navigateToDetail = navigateToDetail;
+            window.handleOrder = handleOrder;
+
+            // ---------- INIT ----------
+            renderCategoryChips();
+            renderFeaturedGames();
+            renderAllGames();
+            updateFilterInfo();
+
+            console.log('🎮 Ryuhuu Cheats loaded. Total games:', games.length);
+        })();
+    </script>
+</body>
+</html>
