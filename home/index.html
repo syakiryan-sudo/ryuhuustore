@@ -1,676 +1,628 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryuhuu Store - Cheat, Akun, Topup, Joki & Apps Premium</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <title>Ryuhuu Store | Premium Gaming Enhancements</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards',
+                        'slide-up': 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         :root {
-            --bg-dark: #0a0e14;
-            --bg-card: #131820;
-            --bg-card-hover: #1a1f2b;
-            --accent: #448aff;
-            --accent-dark: #1e3a8a;
-            --accent-2: #ff4081;
-            --text-primary: #e0e0e0;
-            --text-secondary: #9e9e9e;
-            --border: #1e2633;
-            --gradient-1: linear-gradient(135deg, #0a0e14 0%, #131820 100%);
-            --gradient-hero: linear-gradient(160deg, #0a0e14 0%, #1a1a2e 40%, #0f0f1a 100%);
-            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
-            --shadow-glow: 0 0 30px rgba(68, 138, 255, 0.15);
-            --radius: 14px;
-            --radius-sm: 8px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-color: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.05);
+            --panel-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        .dark {
+            --bg-color: #030712;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --panel-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
-            min-height: 100vh;
-            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.5s, color 0.5s;
             overflow-x: hidden;
-            background-image:
-                radial-gradient(ellipse at 20% 20%, rgba(68, 138, 255, 0.03) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 60%, rgba(255, 64, 129, 0.03) 0%, transparent 50%);
         }
-
-        /* Navbar */
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 40px;
-            background: rgba(19, 24, 32, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .navbar .logo {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.5px;
-            white-space: nowrap;
-        }
-        .navbar .logo span { color: var(--accent); }
-        .navbar .logo i { margin-right: 6px; color: var(--accent); }
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 28px;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            position: relative;
-            padding-bottom: 4px;
-            white-space: nowrap;
-        }
-        .nav-links a:hover, .nav-links a.active { color: #fff; }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 2px;
-            background: var(--accent);
-            transition: var(--transition);
-            border-radius: 2px;
-        }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .lang-toggle {
-            background: none;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: var(--transition);
-        }
-        .lang-toggle:hover { color: #fff; border-color: var(--accent); }
-        .nav-cta .btn-nav {
-            padding: 10px 22px;
-            background: var(--accent);
-            color: #000;
-            font-weight: 600;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            white-space: nowrap;
-            letter-spacing: 0.3px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .nav-cta .btn-nav:hover {
-            box-shadow: 0 0 25px rgba(68, 138, 255, 0.45);
-            transform: translateY(-2px);
-        }
-        .hamburger {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #fff;
-            background: none;
-            border: none;
-        }
-
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 70px 24px 60px;
-            background: var(--gradient-hero);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -80px; left: 50%;
-            transform: translateX(-50%);
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(68, 138, 255, 0.06) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero .badge {
-            display: inline-block;
-            background: rgba(68, 138, 255, 0.1);
-            color: var(--accent);
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            margin-bottom: 18px;
-            position: relative;
-            z-index: 1;
-        }
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.2rem);
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 14px;
-            position: relative;
-            z-index: 1;
-            line-height: 1.25;
-        }
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero p {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 30px;
-            position: relative;
-            z-index: 1;
-        }
-        .hero .hero-buttons {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-        }
-        .btn-primary, .btn-secondary {
-            padding: 13px 28px;
-            border-radius: 28px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            letter-spacing: 0.2px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-primary { background: var(--accent); color: #000; }
-        .btn-primary:hover { box-shadow: 0 0 30px rgba(68, 138, 255, 0.5); transform: translateY(-3px); }
-        .btn-secondary {
-            background: transparent;
-            color: #fff;
-            border: 2px solid var(--border);
-        }
-        .btn-secondary:hover { border-color: var(--accent); background: rgba(68, 138, 255, 0.05); transform: translateY(-3px); }
-
-        /* Features strip */
-        .features-strip {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            padding: 30px 24px;
-            max-width: 1000px;
-            margin: 0 auto 20px;
-            text-align: center;
-        }
-        .features-strip .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .features-strip .feature-item i { color: var(--accent); font-size: 1.1rem; }
-
-        /* Services */
-        .services-section {
-            padding: 60px 24px 70px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .section-header .label {
-            display: inline-block;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .section-header h2 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
-        .section-header .subtitle { color: var(--text-secondary); font-size: 0.95rem; }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 22px;
-        }
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 30px 24px 24px;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        .service-card:hover {
-            background: var(--bg-card-hover);
-            border-color: rgba(255,255,255,0.15);
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-card), var(--shadow-glow);
-        }
-        .service-card .icon-circle {
-            width: 64px; height: 64px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 18px;
-            font-size: 1.6rem;
-            transition: var(--transition);
-        }
-        .service-card:nth-child(1) .icon-circle { background: rgba(255,64,129,0.12); color: #ff4081; }
-        .service-card:nth-child(2) .icon-circle { background: rgba(68,138,255,0.12); color: var(--accent); }
-        .service-card:nth-child(3) .icon-circle { background: rgba(68,138,255,0.12); color: var(--accent); }
-        .service-card:nth-child(4) .icon-circle { background: rgba(0,229,255,0.12); color: #00e5ff; }
-        .service-card:nth-child(5) .icon-circle { background: rgba(255,145,0,0.12); color: #ff9100; }
-
-        .service-card h3 { font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 6px; }
-        .service-card p { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px; }
-        .service-card .card-link {
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--accent);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: var(--transition);
-        }
-        .service-card .card-link i { transition: var(--transition); }
-        .service-card:hover .card-link i { transform: translateX(4px); }
-        .service-card .card-link:hover { opacity: 0.8; }
-
-        /* Contact Section */
-        .contact-section {
-            padding: 60px 24px;
-            background: var(--bg-card);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-        .contact-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 18px;
-            max-width: 800px;
-            margin: 30px auto 0;
-        }
-        .contact-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: 30px;
-            color: #fff;
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-        .contact-btn.discord { background: #5865F2; }
-        .contact-btn.whatsapp { background: #25D366; }
-        .contact-btn.telegram { background: #0088cc; }
-        .contact-btn.facebook { background: #1877F2; }
-        .contact-btn.email { background: #EA4335; }
-        .contact-btn:hover { filter: brightness(1.15); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-        .footer a { color: var(--accent); text-decoration: none; }
-        .footer a:hover { text-decoration: underline; }
-
-        /* Floating Action Button */
-        .fab {
+        .ambient-light {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 999;
-        }
-        .fab-main {
-            width: 56px; height: 56px;
-            background: var(--accent);
-            border: none;
             border-radius: 50%;
-            color: #000;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(68,138,255,0.4);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.5;
+            transition: opacity 0.5s;
         }
-        .fab-main:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(68,138,255,0.6); }
-        .fab-options {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: 0.3s ease;
+        .dark .ambient-light { opacity: 0.15; }
+        .light-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #3b82f6; }
+        .light-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: #8b5cf6; }
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--panel-shadow);
         }
-        .fab-options.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        .fab-option {
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: var(--transition);
+        .glass-input {
+            background: rgba(15, 23, 42, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
         }
-        .fab-option.discord { background: #5865F2; }
-        .fab-option.whatsapp { background: #25D366; }
-        .fab-option.telegram { background: #0088cc; }
-        .fab-option.facebook { background: #1877F2; }
-        .fab-option.email { background: #EA4335; }
-        .fab-option:hover { transform: scale(1.1); }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .navbar { padding: 14px 20px; }
-            .nav-links {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                gap: 10px;
-                background: var(--bg-card);
-                padding: 16px;
-                border-radius: var(--radius-sm);
-                margin-top: 10px;
-            }
-            .nav-links.show { display: flex; }
-            .hamburger { display: block; }
-            .nav-right { margin-left: auto; }
-            .hero { padding: 50px 20px 40px; }
-            .services-section { padding: 40px 16px 50px; }
-            .features-strip { gap: 20px; }
-        }
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 1.7rem; }
-            .services-grid { grid-template-columns: 1fr; }
-            .navbar { gap: 10px; }
-        }
+        .dark .glass-input { background: rgba(255, 255, 255, 0.03); }
+        .glass-input:focus { outline: none; border-color: #3b82f6; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hidden-view { display: none !important; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+        .status-undetected { background-color: #10b981; box-shadow: 0 0 10px #10b981; }
+        .tab-content-fade { animation: fadeIn 0.2s ease-out; }
     </style>
 </head>
-<body>
+<body class="antialiased min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
 
-    <!-- Navbar -->
-    <nav class="navbar" id="navbar">
-        <a href="#" class="logo">
-            <i class="fa-solid fa-gamepad"></i> Ryuhuu<span>Store</span>
-        </a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#" class="active" data-lang-key="navHome">Home</a></li>
-            <li><a href="#layanan" data-lang-key="navLayanan">Layanan</a></li>
-            <li><a href="#kontak" data-lang-key="navKontak">Hubungi Kami</a></li>
-        </ul>
-        <div class="nav-right">
-            <button class="lang-toggle" id="langToggle">
-                <i class="fa-solid fa-globe"></i> <span id="langLabel">ID</span>
-            </button>
-            <a href="#kontak" class="nav-cta">
-                <span class="btn-nav" data-lang-key="btnChatAdmin"><i class="fa-solid fa-address-book"></i> Hubungi Kami</span>
-            </a>
+    <div class="ambient-light light-1 animate-blob"></div>
+    <div class="ambient-light light-2 animate-blob"></div>
+
+    <nav class="fixed top-0 w-full z-50 px-4 py-4 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto glass-panel rounded-full px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">R</div>
+                <span class="font-semibold text-lg tracking-tight">Ryuhuu</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[var(--text-muted)]">
+                <a href="#" onclick="navigate('home'); return false;" class="hover:text-[var(--text-main)] transition-colors">Store</a>
+                <a href="#games" class="hover:text-[var(--text-main)] transition-colors">Games</a>
+                <a href="#faq" class="hover:text-[var(--text-main)] transition-colors">FAQ</a>
+                <a href="#" class="hover:text-[var(--text-main)] transition-colors flex items-center gap-2"><i class="fab fa-discord text-[#5865F2]"></i> Community</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleRegion()" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-white/10 transition-colors text-sm font-bold" id="region-toggle-btn">🇮🇩</button>
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                    <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                </button>
+                <button onclick="toggleCart()" class="relative w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 bg-blue-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button onclick="navigate('admin')" class="hidden md:block px-4 py-2 rounded-full bg-[var(--text-main)] text-[var(--bg-color)] text-sm font-semibold hover:opacity-90 transition-opacity">Admin</button>
+            </div>
         </div>
-        <button class="hamburger" id="hamburger" aria-label="Menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="badge" data-lang-key="badge">🚀 Toko Game Terpercaya</div>
-        <h1 data-lang-key="heroTitle">Level Up <span class="highlight">Gaming</span> Kamu Sekarang</h1>
-        <p data-lang-key="heroDesc">
-            Cheat aman, akun murah, topup instan, joki terpercaya, dan akses apps premium — semua dalam satu tempat.
-            Harga bersahabat, proses cepat, garansi terjamin.
-        </p>
-        <div class="hero-buttons">
-            <a href="#layanan" class="btn-primary" data-lang-key="btnLayanan"><i class="fa-solid fa-fire"></i> Lihat Layanan</a>
-            <a href="https://wa.me/6281234567890" class="btn-secondary" target="_blank" rel="noopener" data-lang-key="btnOrder">
-                <i class="fa-brands fa-whatsapp"></i> Order Langsung
-            </a>
-        </div>
-    </section>
+    <main id="app-container" class="flex-grow pt-28 pb-12 px-4 max-w-7xl mx-auto w-full">
+        <div id="view-home" class="animate-fade-in">
+            <section class="text-center py-16 md:py-24">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-xs font-medium mb-6 text-blue-500 border-blue-500/20">
+                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span></span>
+                    System Operational
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[var(--text-main)] to-gray-500">Elevate Your Game.</h1>
+                <p class="text-lg text-[var(--text-muted)] max-w-2xl mx-auto mb-10">Premium enhancements, secure accounts, and top-tier boosting services. Experience seamless performance with instant delivery and unmatched support.</p>
+                <div class="relative max-w-xl mx-auto">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--text-muted)]"></i>
+                    <input type="text" id="search-input" placeholder="Search games, products, or tags..." class="w-full pl-12 pr-4 py-4 rounded-2xl glass-input text-sm shadow-sm">
+                </div>
+            </section>
 
-    <!-- Features -->
-    <div class="features-strip">
-        <div class="feature-item"><i class="fa-solid fa-shield-halved"></i> <span data-lang-key="feature1">Garansi Uang Kembali</span></div>
-        <div class="feature-item"><i class="fa-solid fa-bolt"></i> <span data-lang-key="feature2">Proses Instan</span></div>
-        <div class="feature-item"><i class="fa-solid fa-headset"></i> <span data-lang-key="feature3">Support 24/7</span></div>
-        <div class="feature-item"><i class="fa-solid fa-lock"></i> <span data-lang-key="feature4">Pembayaran Aman</span></div>
+            <section id="games" class="mb-12">
+                <h2 class="text-xl font-semibold tracking-tight mb-4">Trending Games</h2>
+                <div class="flex gap-3 overflow-x-auto pb-4 hide-scroll" id="game-filters"></div>
+            </section>
+
+            <section>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="product-grid"></div>
+            </section>
+
+            <section id="faq" class="mt-24 mb-12">
+                <h2 class="text-3xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <div class="glass-panel rounded-2xl p-6"><h3 class="text-lg font-semibold mb-2">⚠️ Apakah menggunakan cheat berisiko?</h3><p class="text-[var(--text-muted)] text-sm">Ya, semua cheat memiliki risiko. Meskipun produk kami menggunakan bypass mutakhir dan diuji secara berkala, pengembang game terus memperbarui anti‑cheat. Kami selalu memberi label status (Undetected/Updating) dan menyarankan untuk tidak menggunakan cheat di akun utama. Gunakan dengan bijak dan patuhi aturan komunitas game.</p></div>
+                    <div class="glass-panel rounded-2xl p-6"><h3 class="text-lg font-semibold mb-2">🔒 Apakah data pembayaran saya aman?</h3><p class="text-[var(--text-muted)] text-sm">Kami tidak menyimpan detail kartu kredit atau kredensial perbankan. Semua transaksi diproses melalui gateway pihak ketiga yang terenkripsi (QRIS, Crypto, PayPal). Untuk pembayaran manual, admin kami hanya memverifikasi bukti transfer tanpa mengakses informasi sensitif.</p></div>
+                    <div class="glass-panel rounded-2xl p-6"><h3 class="text-lg font-semibold mb-2">🔄 Bagaimana jika cheat terdeteksi setelah saya beli?</h3><p class="text-[var(--text-muted)] text-sm">Kami memberikan garansi penggantian lisensi atau refund sebagian jika produk terdeteksi dalam 3 hari setelah pembelian (syarat & ketentuan berlaku). Setiap produk memiliki status real‑time, dan kami segera merilis update jika deteksi terjadi. Hubungi Discord kami untuk klaim.</p></div>
+                    <div class="glass-panel rounded-2xl p-6"><h3 class="text-lg font-semibold mb-2">💳 Metode pembayaran apa yang didukung?</h3><p class="text-[var(--text-muted)] text-sm">Wilayah Indonesia: QRIS (instant), transfer Bank BCA. Global: Cryptocurrency (USDT/BTC, instant), PayPal, dan Kartu Kredit/Debit. Pilih region Anda saat checkout untuk melihat opsi yang tersedia.</p></div>
+                    <div class="glass-panel rounded-2xl p-6"><h3 class="text-lg font-semibold mb-2">⏱️ Berapa lama lisensi aktif setelah pembayaran?</h3><p class="text-[var(--text-muted)] text-sm">Untuk metode instant (QRIS, Crypto), kunci lisensi langsung dikirim ke email Anda setelah konfirmasi. Untuk metode manual (Bank, PayPal), admin kami akan memverifikasi dan mengirimkan dalam 1‑24 jam. Jika melebihi 24 jam, segera hubungi Discord.</p></div>
+                    <div class="glass-panel rounded-2xl p-6"><h3 class="text-lg font-semibold mb-2">🛠️ Apakah tersedia bantuan instalasi?</h3><p class="text-[var(--text-muted)] text-sm">Ya, setiap pembelian dilengkapi panduan PDF dan akses ke channel support Discord. Tim kami siap membantu instalasi via remote cepat jika diperlukan. Pastikan kamu membaca minimum requirements sebelum membeli.</p></div>
+                </div>
+            </section>
+        </div>
+
+        <div id="view-product-modal" class="fixed inset-0 z-[100] flex items-center justify-center px-4 hidden-view">
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeProductModal()"></div>
+            <div class="relative w-full max-w-4xl glass-panel rounded-3xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] animate-slide-up shadow-2xl">
+                <div class="w-full md:w-2/5 h-64 md:h-auto bg-gradient-to-br from-gray-900 to-black relative">
+                    <div class="absolute inset-0 flex items-center justify-center text-white/10 text-9xl"><i class="fas fa-gamepad"></i></div>
+                    <div class="absolute top-4 left-4 flex flex-col gap-2" id="modal-badges"></div>
+                </div>
+                <div class="w-full md:w-3/5 p-6 md:p-8 overflow-y-auto hide-scroll flex flex-col">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span id="modal-game" class="text-xs font-semibold text-blue-500 uppercase tracking-wider"></span>
+                            <h2 id="modal-title" class="text-3xl font-bold mt-1 tracking-tight"></h2>
+                        </div>
+                        <button onclick="closeProductModal()" class="w-8 h-8 rounded-full glass-panel flex items-center justify-center hover:bg-white/10"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6 text-sm text-[var(--text-muted)] border-b border-[var(--glass-border)] pb-4">
+                        <span class="flex items-center gap-1"><span class="status-dot status-undetected"></span> <span id="modal-status">Undetected</span></span>
+                        <span class="flex items-center gap-1"><i class="fas fa-star text-yellow-500"></i> <span id="modal-rating">5.0</span></span>
+                        <span class="flex items-center gap-1"><i class="fas fa-box"></i> Stock: <span id="modal-stock">99+</span></span>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-sm font-semibold mb-3">Select Subscription</h3>
+                        <div class="grid grid-cols-2 gap-3" id="modal-tiers"></div>
+                    </div>
+                    <div class="mb-6 flex-grow">
+                        <div class="flex gap-6 border-b border-[var(--glass-border)] mb-4 text-sm font-medium" id="modal-tab-buttons">
+                            <button class="tab-btn pb-2 border-b-2 border-blue-500 text-[var(--text-main)]" data-tab="details">Details</button>
+                            <button class="tab-btn pb-2 border-b-2 border-transparent text-[var(--text-muted)]" data-tab="compatibility">Compatibility</button>
+                            <button class="tab-btn pb-2 border-b-2 border-transparent text-[var(--text-muted)]" data-tab="changelog">Changelog</button>
+                        </div>
+                        <div id="modal-tab-content" class="text-sm text-[var(--text-muted)] space-y-2 tab-content-fade"></div>
+                    </div>
+                    <div class="mt-auto pt-4 border-t border-[var(--glass-border)] flex items-center gap-4">
+                        <div class="flex-grow">
+                            <p class="text-xs text-[var(--text-muted)] mb-1">Selected Plan</p>
+                            <p class="text-xl font-bold" id="modal-price-display">Select a tier</p>
+                        </div>
+                        <button id="add-to-cart-btn" disabled class="px-8 py-3 rounded-2xl bg-[var(--text-main)] text-[var(--bg-color)] font-semibold shadow-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-language-popup" class="fixed inset-0 z-[110] flex items-center justify-center px-4 hidden-view">
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
+            <div class="relative w-full max-w-md glass-panel rounded-3xl p-8 animate-slide-up text-center border border-white/10">
+                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg"><i class="fas fa-globe text-white text-2xl"></i></div>
+                <h2 class="text-2xl font-bold mb-2">Select Region</h2>
+                <p class="text-sm text-[var(--text-muted)] mb-8">Choose your region to display correct pricing and available payment methods.</p>
+                <div class="space-y-3">
+                    <button onclick="setRegion('id'); closeLanguagePopup();" class="w-full p-4 rounded-2xl border border-[var(--glass-border)] bg-white/5 hover:bg-white/10 flex items-center justify-between"><div class="flex items-center gap-3"><span class="text-2xl">🇮🇩</span><div class="text-left"><p class="font-semibold">Indonesia</p><p class="text-xs text-[var(--text-muted)]">IDR Pricing • QRIS Only</p></div></div><i class="fas fa-chevron-right"></i></button>
+                    <button onclick="setRegion('en'); closeLanguagePopup();" class="w-full p-4 rounded-2xl border border-[var(--glass-border)] bg-white/5 hover:bg-white/10 flex items-center justify-between"><div class="flex items-center gap-3"><span class="text-2xl">🇺🇸</span><div class="text-left"><p class="font-semibold">Global / English</p><p class="text-xs text-[var(--text-muted)]">USD Pricing • Crypto, PayPal, Cards</p></div></div><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <button onclick="closeLanguagePopup()" class="mt-6 text-sm text-[var(--text-muted)] hover:text-[var(--text-main)]">Cancel Checkout</button>
+            </div>
+        </div>
+
+        <div id="view-checkout" class="hidden-view max-w-5xl mx-auto">
+            <button onclick="navigate('home')" class="mb-6 text-sm text-[var(--text-muted)] hover:text-[var(--text-main)]"><i class="fas fa-arrow-left"></i> Back to Store</button>
+            <h1 class="text-3xl font-bold mb-8">Checkout</h1>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="w-full lg:w-2/3 space-y-6">
+                    <div class="glass-panel rounded-3xl p-6">
+                        <div class="flex justify-between items-center mb-4"><h2 class="text-lg font-semibold">Payment Method</h2><span id="checkout-region-badge" class="px-3 py-1 bg-blue-500/10 text-blue-500 rounded-full text-xs font-semibold"></span></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="payment-methods-container"></div>
+                        <div id="manual-payment-warning" class="hidden mt-6 p-4 rounded-2xl bg-yellow-500/10 border border-yellow-500/20 text-yellow-200"></div>
+                    </div>
+                    <div class="glass-panel rounded-3xl p-6"><h2 class="text-lg font-semibold mb-4">Email Address</h2><input type="email" placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl glass-input text-sm"></div>
+                </div>
+                <div class="w-full lg:w-1/3">
+                    <div class="glass-panel rounded-3xl p-6 sticky top-28">
+                        <h2 class="text-lg font-semibold mb-6">Summary</h2>
+                        <div id="checkout-items" class="space-y-4 mb-6 border-b border-[var(--glass-border)] pb-6 max-h-[300px] overflow-y-auto hide-scroll"></div>
+                        <div class="flex justify-between text-sm mb-2"><span>Subtotal</span><span id="checkout-subtotal">-</span></div>
+                        <div class="flex justify-between text-sm mb-6"><span>Processing Fee</span><span id="checkout-fee">Calculated at payment</span></div>
+                        <div class="flex justify-between mb-8"><span class="font-medium text-lg">Total</span><span class="font-bold text-2xl" id="checkout-total">-</span></div>
+                        <button class="w-full py-4 rounded-2xl bg-[var(--text-main)] text-[var(--bg-color)] font-semibold">Pay Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[400px] glass-panel z-[120] transform translate-x-full transition-transform duration-300 flex flex-col border-l border-[var(--glass-border)]">
+        <div class="p-6 flex justify-between items-center border-b border-[var(--glass-border)]">
+            <h2 class="text-xl font-bold"><i class="fas fa-shopping-bag mr-2"></i> Your Cart</h2>
+            <button onclick="toggleCart()" class="w-8 h-8 rounded-full glass-panel flex items-center justify-center hover:bg-white/10"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="flex-grow p-6 overflow-y-auto hide-scroll flex flex-col gap-4" id="cart-items-container">
+            <div class="flex flex-col items-center justify-center h-full text-[var(--text-muted)] opacity-50"><i class="fas fa-ghost text-4xl mb-4"></i><p>Your cart is empty.</p></div>
+        </div>
+        <div class="p-6 border-t border-[var(--glass-border)] bg-[var(--bg-color)]/50 backdrop-blur-md">
+            <button onclick="startCheckout()" id="cart-checkout-btn" class="w-full py-4 rounded-2xl bg-[var(--text-main)] text-[var(--bg-color)] font-semibold disabled:opacity-50 disabled:cursor-not-allowed" disabled>Proceed to Checkout</button>
+        </div>
     </div>
+    <div id="cart-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[115] hidden opacity-0 transition-opacity duration-300" onclick="toggleCart()"></div>
 
-    <!-- Services -->
-    <section class="services-section" id="layanan">
-        <div class="section-header">
-            <span class="label" data-lang-key="sectionLabel">Layanan Kami</span>
-            <h2 data-lang-key="sectionTitle">Pilih Kebutuhan Kamu</h2>
-            <p class="subtitle" data-lang-key="sectionSub">Klik kartu untuk detail lebih lanjut</p>
+    <div id="view-admin" class="fixed inset-0 z-[200] bg-[var(--bg-color)] hidden-view flex overflow-hidden text-sm">
+        <div class="w-64 glass-panel border-r border-[var(--glass-border)] flex flex-col">
+            <div class="p-6 flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-bold">R</div><span class="font-bold tracking-tight text-lg">Console</span></div>
+            <nav class="flex-grow px-4 space-y-1 mt-4">
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/10 text-[var(--text-main)] font-medium"><i class="fas fa-layer-group w-5"></i> Products</a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[var(--text-muted)] hover:bg-white/5"><i class="fas fa-wallet w-5"></i> Payments</a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[var(--text-muted)] hover:bg-white/5"><i class="fas fa-shopping-cart w-5"></i> Orders</a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[var(--text-muted)] hover:bg-white/5"><i class="fas fa-users w-5"></i> Users</a>
+            </nav>
+            <div class="p-4 border-t border-[var(--glass-border)]"><button onclick="navigate('home')" class="flex items-center gap-3 px-4 py-2 rounded-xl text-[var(--text-muted)] hover:text-white w-full"><i class="fas fa-sign-out-alt"></i> Exit Admin</button></div>
         </div>
-
-        <div class="services-grid">
-            <a href="cheat/" class="service-card">
-                <div class="icon-circle"><i class="fa-solid fa-crosshairs"></i></div>
-                <h3 data-lang-key="cheatTitle">Beli Cheat</h3>
-                <p data-lang-key="cheatDesc">Cheat game terbaru & anti-banned. Tersedia untuk berbagai game populer.</p>
-                <span class="card-link"><span data-lang-key="cheatLink">Lihat Cheat</span> <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-            <a href="account/" class="service-card">
-                <div class="icon-circle"><i class="fa-solid fa-user-gear"></i></div>
-                <h3 data-lang-key="akunTitle">Beli Akun</h3>
-                <p data-lang-key="akunDesc">Akun game level tinggi, skin lengkap, rank tinggi — siap pakai.</p>
-                <span class="card-link"><span data-lang-key="akunLink">Lihat Akun</span> <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-            <a href="topup/" class="service-card">
-                <div class="icon-circle"><i class="fa-solid fa-wallet"></i></div>
-                <h3 data-lang-key="topupTitle">Topup Game</h3>
-                <p data-lang-key="topupDesc">Isi diamond, UC, Genesis Crystal, & lainnya. Proses cepat & harga murah.</p>
-                <span class="card-link"><span data-lang-key="topupLink">Topup Sekarang</span> <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-            <a href="joki/" class="service-card">
-                <div class="icon-circle"><i class="fa-solid fa-rocket"></i></div>
-                <h3 data-lang-key="jokiTitle">Joki Game</h3>
-                <p data-lang-key="jokiDesc">Joki rank, level, event, & mission game. Aman, cepat, dan terpercaya.</p>
-                <span class="card-link"><span data-lang-key="jokiLink">Pesan Joki</span> <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-            <a href="premiumapps/" class="service-card">
-                <div class="icon-circle"><i class="fa-solid fa-crown"></i></div>
-                <h3 data-lang-key="appsTitle">Apps Premium</h3>
-                <p data-lang-key="appsDesc">Spotify, Netflix, Canva, YouTube Premium & lainnya. Akses murah meriah.</p>
-                <span class="card-link"><span data-lang-key="appsLink">Lihat Apps</span> <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="kontak">
-        <div class="section-header">
-            <span class="label" data-lang-key="contactLabel">Hubungi Kami</span>
-            <h2 data-lang-key="contactTitle">Pilih Platform</h2>
-            <p class="subtitle" data-lang-key="contactSub">Klik ikon untuk menghubungi admin kami</p>
-        </div>
-        <div class="contact-buttons">
-            <a href="https://discord.gg/yourlink" target="_blank" class="contact-btn discord"><i class="fa-brands fa-discord"></i> Discord</a>
-            <a href="https://wa.me/6281234567890" target="_blank" class="contact-btn whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-            <a href="https://t.me/yourusername" target="_blank" class="contact-btn telegram"><i class="fa-brands fa-telegram"></i> Telegram</a>
-            <a href="https://facebook.com/yourpage" target="_blank" class="contact-btn facebook"><i class="fa-brands fa-facebook"></i> Facebook</a>
-            <a href="mailto:admin@ryuhuu.com" class="contact-btn email"><i class="fa-solid fa-envelope"></i> Email</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>
-            <span data-lang-key="footerText">© 2025 Ryuhuu Store. All rights reserved.</span> |
-            <a href="https://wa.me/6281234567890" target="_blank" rel="noopener">
-                <i class="fa-brands fa-whatsapp"></i> <span data-lang-key="footerWA">WhatsApp</span>
-            </a>
-        </p>
-    </footer>
-
-    <!-- Floating Action Button -->
-    <div class="fab" id="fab">
-        <button class="fab-main" id="fabMain"><i class="fa-solid fa-comments"></i></button>
-        <div class="fab-options" id="fabOptions">
-            <a href="https://discord.gg/yourlink" target="_blank" class="fab-option discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
-            <a href="https://wa.me/6281234567890" target="_blank" class="fab-option whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="https://t.me/yourusername" target="_blank" class="fab-option telegram" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-            <a href="https://facebook.com/yourpage" target="_blank" class="fab-option facebook" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-            <a href="mailto:admin@ryuhuu.com" class="fab-option email" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        <div class="flex-grow overflow-y-auto p-8 hide-scroll relative">
+            <div class="ambient-light light-1 opacity-20"></div>
+            <header class="flex justify-between items-center mb-8"><div><h1 class="text-2xl font-bold tracking-tight">Product Management</h1><p class="text-[var(--text-muted)]">Manage catalog, dynamic pricing, and unlimited tiers.</p></div><button class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-sm font-medium"><i class="fas fa-plus mr-2"></i>Add Product</button></header>
+            <div class="glass-panel rounded-3xl p-6 border border-[var(--glass-border)] max-w-4xl">
+                <div class="flex items-center gap-4 mb-8 border-b border-[var(--glass-border)] pb-4"><div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-xl"><i class="fas fa-ghost"></i></div><div><h2 class="text-lg font-semibold">Editing: Slash (Bypass)</h2><p class="text-[var(--text-muted)] text-xs">Genshin Impact</p></div></div>
+                <div class="space-y-8">
+                    <section>
+                        <div class="flex justify-between items-center mb-4"><h3 class="font-medium">Subscription Tiers</h3><button onclick="adminAddTier()" class="text-xs text-blue-500 hover:text-blue-400 bg-blue-500/10 px-3 py-1.5 rounded-lg">+ Add Custom Tier</button></div>
+                        <div class="space-y-3" id="admin-tier-list">
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-[var(--glass-border)]"><i class="fas fa-grip-vertical text-[var(--text-muted)] cursor-move px-2"></i><input type="text" value="1 Week" class="w-1/4 bg-transparent border-b border-transparent focus:border-blue-500 outline-none text-sm font-medium"><div class="flex-grow flex items-center gap-2"><div class="relative w-1/2"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)]">IDR</span><input type="number" value="75000" class="w-full glass-input rounded-lg py-1.5 pl-10 pr-3 text-sm"></div><div class="relative w-1/2"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)]">USD</span><input type="number" value="15.00" class="w-full glass-input rounded-lg py-1.5 pl-10 pr-3 text-sm"></div></div><button class="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><i class="fas fa-trash"></i></button></div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-[var(--glass-border)]"><i class="fas fa-grip-vertical text-[var(--text-muted)] cursor-move px-2"></i><input type="text" value="1 Month" class="w-1/4 bg-transparent border-b border-transparent focus:border-blue-500 outline-none text-sm font-medium"><div class="flex-grow flex items-center gap-2"><div class="relative w-1/2"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)]">IDR</span><input type="number" value="200000" class="w-full glass-input rounded-lg py-1.5 pl-10 pr-3 text-sm"></div><div class="relative w-1/2"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)]">USD</span><input type="number" value="35.00" class="w-full glass-input rounded-lg py-1.5 pl-10 pr-3 text-sm"></div></div><button class="p-2 text-red-400 hover:bg-red-400/10 rounded-lg"><i class="fas fa-trash"></i></button></div>
+                        </div>
+                    </section>
+                    <section class="grid grid-cols-2 gap-6 pt-6 border-t border-[var(--glass-border)]">
+                        <div class="flex items-center justify-between p-4 rounded-xl bg-white/5 border"><div><h4 class="font-medium text-sm">Status</h4><p class="text-xs text-[var(--text-muted)]">Hide or show in catalog</p></div><div class="w-10 h-5 bg-blue-500 rounded-full relative cursor-pointer"><div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div></div></div>
+                        <div class="flex items-center justify-between p-4 rounded-xl bg-white/5 border"><div><h4 class="font-medium text-sm">Instant Delivery</h4><p class="text-xs text-[var(--text-muted)]">Auto-dispatch keys</p></div><div class="w-10 h-5 bg-blue-500 rounded-full relative cursor-pointer"><div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div></div></div>
+                    </section>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Bahasa
-        const translations = {
-            id: {
-                navHome: 'Home', navLayanan: 'Layanan', navKontak: 'Hubungi Kami',
-                badge: '🚀 Toko Game Terpercaya',
-                heroTitle: 'Level Up <span class="highlight">Gaming</span> Kamu Sekarang',
-                heroDesc: 'Cheat aman, akun murah, topup instan, joki terpercaya, dan akses apps premium — semua dalam satu tempat. Harga bersahabat, proses cepat, garansi terjamin.',
-                btnLayanan: '<i class="fa-solid fa-fire"></i> Lihat Layanan',
-                btnOrder: '<i class="fa-brands fa-whatsapp"></i> Order Langsung',
-                feature1: 'Garansi Uang Kembali', feature2: 'Proses Instan', feature3: 'Support 24/7', feature4: 'Pembayaran Aman',
-                sectionLabel: 'Layanan Kami', sectionTitle: 'Pilih Kebutuhan Kamu', sectionSub: 'Klik kartu untuk detail lebih lanjut',
-                cheatTitle: 'Beli Cheat', cheatDesc: 'Cheat game terbaru & anti-banned. Tersedia untuk berbagai game populer.',
-                cheatLink: 'Lihat Cheat',
-                akunTitle: 'Beli Akun', akunDesc: 'Akun game level tinggi, skin lengkap, rank tinggi — siap pakai.',
-                akunLink: 'Lihat Akun',
-                topupTitle: 'Topup Game', topupDesc: 'Isi diamond, UC, Genesis Crystal, & lainnya. Proses cepat & harga murah.',
-                topupLink: 'Topup Sekarang',
-                jokiTitle: 'Joki Game', jokiDesc: 'Joki rank, level, event, & mission game. Aman, cepat, dan terpercaya.',
-                jokiLink: 'Pesan Joki',
-                appsTitle: 'Apps Premium', appsDesc: 'Spotify, Netflix, Canva, YouTube Premium & lainnya. Akses murah meriah.',
-                appsLink: 'Lihat Apps',
-                contactLabel: 'Hubungi Kami', contactTitle: 'Pilih Platform', contactSub: 'Klik ikon untuk menghubungi admin kami',
-                footerText: '© 2025 Ryuhuu Store. All rights reserved.', footerWA: 'WhatsApp',
-                btnChatAdmin: '<i class="fa-solid fa-address-book"></i> Hubungi Kami'
-            },
-            en: {
-                navHome: 'Home', navLayanan: 'Services', navKontak: 'Contact Us',
-                badge: '🚀 Trusted Game Store',
-                heroTitle: 'Level Up Your <span class="highlight">Gaming</span> Now',
-                heroDesc: 'Safe cheats, cheap accounts, instant topup, trusted boosting, and premium apps access — all in one place. Affordable prices, fast process, guaranteed.',
-                btnLayanan: '<i class="fa-solid fa-fire"></i> View Services',
-                btnOrder: '<i class="fa-brands fa-whatsapp"></i> Order Now',
-                feature1: 'Money Back Guarantee', feature2: 'Instant Process', feature3: '24/7 Support', feature4: 'Secure Payment',
-                sectionLabel: 'Our Services', sectionTitle: 'Choose Your Needs', sectionSub: 'Click card for more details',
-                cheatTitle: 'Buy Cheats', cheatDesc: 'Latest game cheats & anti-banned. Available for various popular games.',
-                cheatLink: 'View Cheats',
-                akunTitle: 'Buy Accounts', akunDesc: 'High-level game accounts, full skins, high rank — ready to use.',
-                akunLink: 'View Accounts',
-                topupTitle: 'Game Topup', topupDesc: 'Refill diamonds, UC, Genesis Crystal, & more. Fast process & cheap prices.',
-                topupLink: 'Topup Now',
-                jokiTitle: 'Game Boosting', jokiDesc: 'Rank boosting, level, events, & missions. Safe, fast, and reliable.',
-                jokiLink: 'Order Boosting',
-                appsTitle: 'Premium Apps', appsDesc: 'Spotify, Netflix, Canva, YouTube Premium & more. Affordable access.',
-                appsLink: 'View Apps',
-                contactLabel: 'Contact Us', contactTitle: 'Choose Platform', contactSub: 'Click icon to contact our admin',
-                footerText: '© 2025 Ryuhuu Store. All rights reserved.', footerWA: 'WhatsApp',
-                btnChatAdmin: '<i class="fa-solid fa-address-book"></i> Contact Us'
-            }
-        };
+        // ========== DATABASE ==========
+        const GAMES = ["Genshin Impact","Wuthering Waves","Solo Leveling Arise","Honkai Star Rail","Zenless Zone Zero","Where Winds Meet","Mongil Star Dive","Valorant","Marvel Rivals","Stella Sora Global","Blue Archive","Strinova","Etheria Restart","Girls Frontline 2","Tower of Fantasy","GTA V FiveM","Overfield","Arknights Endfield","Seven Deadly Sins Origin","Blue Protocol Star Resonance","Solo Leveling Arise OVERDRIVE","Snowbreak Containment Zone","My Hero Ultra Rumble","Infinity Nikki","Duet Night Abyss","Counter Strike 2","Special Force 2","Avatar Star","Identity V"];
+        const standardTiers = [{ id:'t1', name:'1 Week', priceIDR:75000, priceUSD:15 },{ id:'t2', name:'1 Month', priceIDR:200000, priceUSD:35 },{ id:'t3', name:'Lifetime', priceIDR:1500000, priceUSD:150 }];
+        const privateTier = [{ id:'priv', name:'Monthly Private', priceIDR:500000, priceUSD:75 }];
+        const PRODUCTS = [
+            { id:'p_gi_slash', name:'Slash (Bypass)', game:'Genshin Impact', tags:['Bypass','Safe'], tiers:standardTiers, status:'Undetected', bg:'from-blue-600 to-cyan-500' },
+            { id:'p_gi_shika', name:'Shika', game:'Genshin Impact', tags:['Lite'], tiers:standardTiers, status:'Undetected', bg:'from-purple-500 to-pink-500' },
+            { id:'p_gi_antiaddict', name:'Antiaddict', game:'Genshin Impact', tags:['Anti-Ban'], tiers:standardTiers, status:'Undetected', bg:'from-green-500 to-emerald-600' },
+            { id:'p_gi_shibal', name:'Shibal', game:'Genshin Impact', tags:['Balanced'], tiers:standardTiers, status:'Undetected', bg:'from-yellow-500 to-orange-500' },
+            { id:'p_gi_unicore', name:'Unicore', game:'Genshin Impact', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-indigo-500 to-purple-600' },
+            { id:'p_ww_slash', name:'Slash', game:'Wuthering Waves', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-teal-500 to-cyan-600' },
+            { id:'p_ww_privateb', name:'Private B', game:'Wuthering Waves', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-gray-700 to-gray-900' },
+            { id:'p_ww_uniwaves', name:'Uniwaves', game:'Wuthering Waves', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-cyan-600 to-blue-700' },
+            { id:'p_sla_slash', name:'Slash', game:'Solo Leveling Arise', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-rose-600 to-pink-700' },
+            { id:'p_sla_privateb', name:'Private B', game:'Solo Leveling Arise', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-stone-600 to-neutral-700' },
+            { id:'p_sla_lumen', name:'Lumen SLA', game:'Solo Leveling Arise', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-violet-600 to-purple-800' },
+            { id:'p_hsr_slash', name:'Slash (Bypass)', game:'Honkai Star Rail', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-sky-500 to-indigo-600' },
+            { id:'p_hsr_shibal', name:'Shibal', game:'Honkai Star Rail', tags:['Balanced'], tiers:standardTiers, status:'Undetected', bg:'from-amber-500 to-yellow-600' },
+            { id:'p_hsr_unistar', name:'Unistar', game:'Honkai Star Rail', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-fuchsia-500 to-pink-600' },
+            { id:'p_hsr_minty', name:'Minty-SR', game:'Honkai Star Rail', tags:['Quality'], tiers:standardTiers, status:'Undetected', bg:'from-emerald-500 to-teal-600' },
+            { id:'p_zzz_slash', name:'Slash (Bypass)', game:'Zenless Zone Zero', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-orange-600 to-red-600' },
+            { id:'p_zzz_unizone', name:'Unizone', game:'Zenless Zone Zero', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-lime-500 to-green-600' },
+            { id:'p_zzz_minty', name:'Minty-ZZZ', game:'Zenless Zone Zero', tags:['Quality'], tiers:standardTiers, status:'Undetected', bg:'from-cyan-500 to-blue-500' },
+            { id:'p_wwm_lumen', name:'Lumen WWM', game:'Where Winds Meet', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-slate-600 to-gray-700' },
+            { id:'p_msd_slash', name:'Slash', game:'Mongil Star Dive', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-red-500 to-rose-600' },
+            { id:'p_msd_lumen', name:'Lumen-MSD', game:'Mongil Star Dive', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-indigo-500 to-blue-600' },
+            { id:'p_msd_unistardive', name:'Unistardive', game:'Mongil Star Dive', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-purple-500 to-violet-600' },
+            { id:'p_val_hooked', name:'Hooked', game:'Valorant', tags:['Private Slot','Aimbot'], tiers:[{ id:'hm', name:'Monthly', priceIDR:800000, priceUSD:80 }], status:'Safe', bg:'from-red-700 to-rose-800' },
+            { id:'p_mr_predator', name:'Predator', game:'Marvel Rivals', tags:['Aimbot'], tiers:standardTiers, status:'Undetected', bg:'from-gray-800 to-black' },
+            { id:'p_ssg_slash', name:'Slash', game:'Stella Sora Global', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-yellow-400 to-orange-500' },
+            { id:'p_ssg_soroka', name:'Soroka', game:'Stella Sora Global', tags:['Premium'], tiers:standardTiers, status:'Undetected', bg:'from-blue-400 to-cyan-500' },
+            { id:'p_ba_slash', name:'Slash', game:'Blue Archive', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-sky-400 to-indigo-500' },
+            { id:'p_ba_privateb', name:'Private B', game:'Blue Archive', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-gray-600 to-slate-700' },
+            { id:'p_str_privateb', name:'Private B', game:'Strinova', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-violet-700 to-purple-900' },
+            { id:'p_er_unietheria', name:'Unietheria', game:'Etheria Restart', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-teal-400 to-emerald-500' },
+            { id:'p_gf2_slash', name:'Slash', game:'Girls Frontline 2', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-pink-500 to-rose-600' },
+            { id:'p_tof_toofli', name:'Toofli', game:'Tower of Fantasy', tags:['Custom'], tiers:standardTiers, status:'Undetected', bg:'from-cyan-600 to-blue-700' },
+            { id:'p_fivem_unitheft', name:'Unitheft', game:'GTA V FiveM', tags:['Lua Executor'], tiers:standardTiers, status:'Undetected', bg:'from-green-600 to-emerald-700' },
+            { id:'p_of_korobka', name:'Korobka', game:'Overfield', tags:['Premium'], tiers:standardTiers, status:'Undetected', bg:'from-orange-500 to-amber-600' },
+            { id:'p_ae_slash', name:'Slash', game:'Arknights Endfield', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-slate-500 to-gray-600' },
+            { id:'p_ae_shibal', name:'Shibal', game:'Arknights Endfield', tags:['Balanced'], tiers:standardTiers, status:'Undetected', bg:'from-lime-500 to-green-500' },
+            { id:'p_7ds_lumen', name:'Lumen-DS', game:'Seven Deadly Sins Origin', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-rose-500 to-pink-600' },
+            { id:'p_7ds_privateb', name:'Private B', game:'Seven Deadly Sins Origin', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-stone-700 to-neutral-800' },
+            { id:'p_bp_lumen', name:'Lumen BP', game:'Blue Protocol Star Resonance', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-blue-600 to-indigo-700' },
+            { id:'p_slao_lumen', name:'Lumen SLAO', game:'Solo Leveling Arise OVERDRIVE', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-purple-700 to-indigo-800' },
+            { id:'p_scz_unisnowbreak', name:'Unisnowbreak', game:'Snowbreak Containment Zone', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-cyan-500 to-sky-600' },
+            { id:'p_scz_privateb', name:'Private B', game:'Snowbreak Containment Zone', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-gray-700 to-slate-800' },
+            { id:'p_mhur_lumen', name:'Lumen-MHUR', game:'My Hero Ultra Rumble', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-yellow-500 to-orange-600' },
+            { id:'p_mhur_privateb', name:'Private B', game:'My Hero Ultra Rumble', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-red-600 to-rose-700' },
+            { id:'p_nk_privatea', name:'Private A', game:'Infinity Nikki', tags:['Private Slot'], tiers:[{ id:'privA', name:'Monthly Private', priceIDR:750000, priceUSD:100 }], status:'Safe', bg:'from-pink-300 to-purple-400' },
+            { id:'p_dna_slash', name:'Slash', game:'Duet Night Abyss', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-indigo-600 to-purple-700' },
+            { id:'p_dna_privateb', name:'Private B', game:'Duet Night Abyss', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-gray-800 to-black' },
+            { id:'p_cs2_predator', name:'Predator', game:'Counter Strike 2', tags:['Aimbot'], tiers:standardTiers, status:'Undetected', bg:'from-red-800 to-rose-900' },
+            { id:'p_cs2_nixware', name:'Nixware', game:'Counter Strike 2', tags:['HvH'], tiers:standardTiers, status:'Undetected', bg:'from-blue-900 to-indigo-900' },
+            { id:'p_sf2_privateb', name:'Private B', game:'Special Force 2', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-yellow-700 to-amber-800' },
+            { id:'p_as_privateb', name:'Private B', game:'Avatar Star', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-violet-600 to-fuchsia-700' },
+            { id:'p_idv_uniidentity', name:'Uni-Identity', game:'Identity V', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-teal-600 to-cyan-700' }
+        ];
+        const PAYMENT_METHODS = [
+            { id:'pm_qris', name:'QRIS Auto', type:'local', instant:true, icon:'fa-qrcode', color:'text-pink-500' },
+            { id:'pm_bca', name:'Bank BCA', type:'local', instant:false, icon:'fa-university', color:'text-blue-500' },
+            { id:'pm_crypto', name:'Crypto (USDT/BTC)', type:'global', instant:true, icon:'fa-bitcoin', color:'text-yellow-500' },
+            { id:'pm_paypal', name:'PayPal', type:'global', instant:false, icon:'fa-paypal', color:'text-blue-400', manualWarning:true },
+            { id:'pm_card', name:'Credit/Debit Card', type:'global', instant:false, icon:'fa-credit-card', color:'text-gray-300', manualWarning:true }
+        ];
 
-        let currentLang = localStorage.getItem('lang') || 'id';
-        const langToggle = document.getElementById('langToggle');
-        const langLabel = document.getElementById('langLabel');
+        // ========== STATE ==========
+        let appState = { view:'home', cart:[], selectedRegion:'id', activeGameFilter:'All' };
+        let searchTerm = '';
+        let currentProduct = null;
+        let selectedTier = null;
 
-        function applyLanguage(lang) {
-            document.querySelectorAll('[data-lang-key]').forEach(el => {
-                const key = el.getAttribute('data-lang-key');
-                if (translations[lang][key] !== undefined) {
-                    if (key === 'heroTitle' || key.startsWith('btn') || key === 'cheatLink' || key === 'akunLink' || key === 'topupLink' || key === 'jokiLink' || key === 'appsLink' || key === 'cheatDesc' || key === 'akunDesc' || key === 'topupDesc' || key === 'jokiDesc' || key === 'appsDesc' || key === 'heroDesc' || key === 'sectionSub' || key === 'contactSub' || key === 'footerText' || key === 'footerWA' || key === 'feature1' || key === 'feature2' || key === 'feature3' || key === 'feature4' || key === 'badge' || key === 'sectionLabel' || key === 'sectionTitle' || key === 'contactLabel' || key === 'contactTitle') {
-                        el.innerHTML = translations[lang][key];
-                    } else {
-                        el.innerText = translations[lang][key];
-                    }
+        const formatIDR = v => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(v);
+        const formatUSD = v => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(v);
+        const currentPrice = t => appState.selectedRegion === 'id' ? t.priceIDR : t.priceUSD;
+        const formatCurrentPrice = t => appState.selectedRegion === 'id' ? formatIDR(currentPrice(t)) : formatUSD(currentPrice(t));
+
+        // ========== INIT ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGameFilters();
+            renderProducts();
+            document.getElementById('search-input').addEventListener('input', e => { searchTerm = e.target.value; renderProducts(); });
+            
+            // Tab click handler dengan perbaikan garis biru
+            document.getElementById('modal-tab-buttons').addEventListener('click', (e) => {
+                if (e.target.classList.contains('tab-btn')) {
+                    // Reset semua tombol
+                    document.querySelectorAll('#modal-tab-buttons .tab-btn').forEach(b => {
+                        b.classList.remove('border-blue-500', 'text-[var(--text-main)]');
+                        b.classList.add('border-transparent', 'text-[var(--text-muted)]');
+                    });
+                    // Aktifkan tombol yang dipilih
+                    e.target.classList.remove('border-transparent');
+                    e.target.classList.add('border-blue-500', 'text-[var(--text-main)]');
+                    
+                    // Animasi konten
+                    const tabContent = document.getElementById('modal-tab-content');
+                    tabContent.classList.remove('tab-content-fade');
+                    void tabContent.offsetWidth;
+                    tabContent.innerHTML = getTabContent(e.target.dataset.tab);
+                    tabContent.classList.add('tab-content-fade');
                 }
             });
-            // Update tombol highlight khusus jika ada
-            const heroTitle = document.querySelector('[data-lang-key="heroTitle"]');
-            if (heroTitle) heroTitle.innerHTML = translations[lang].heroTitle;
+            
+            // Add to Cart global listener
+            document.getElementById('add-to-cart-btn').addEventListener('click', addToCart);
+        });
 
-            langLabel.textContent = lang.toUpperCase();
-            localStorage.setItem('lang', lang);
-            currentLang = lang;
+        function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+        function navigate(view) {
+            const views = { home: document.getElementById('view-home'), checkout: document.getElementById('view-checkout'), admin: document.getElementById('view-admin') };
+            Object.values(views).forEach(el => el.classList.add('hidden-view'));
+            const target = views[view];
+            target.classList.remove('hidden-view');
+            target.classList.remove('animate-fade-in'); void target.offsetWidth; target.classList.add('animate-fade-in');
+            appState.view = view;
+            if (view === 'checkout') renderCheckout();
+            window.scrollTo(0,0);
         }
 
-        langToggle.addEventListener('click', () => {
-            const newLang = currentLang === 'id' ? 'en' : 'id';
-            applyLanguage(newLang);
-        });
+        function toggleRegion() {
+            appState.selectedRegion = appState.selectedRegion === 'id' ? 'en' : 'id';
+            document.getElementById('region-toggle-btn').innerHTML = appState.selectedRegion === 'id' ? '🇮🇩' : '🇺🇸';
+            renderProducts();
+            if (!document.getElementById('view-product-modal').classList.contains('hidden-view')) {
+                renderModalTiers();
+                if (selectedTier) document.getElementById('modal-price-display').innerText = formatCurrentPrice(selectedTier);
+            }
+            updateCartUI();
+        }
 
-        // Terapkan bahasa saat load
-        applyLanguage(currentLang);
+        function renderGameFilters() {
+            const container = document.getElementById('game-filters');
+            container.innerHTML = `<button onclick="filterGame('All')" class="whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium ${appState.activeGameFilter==='All'?'bg-[var(--text-main)] text-[var(--bg-color)] shadow-md':'glass-panel text-[var(--text-muted)]'}">All Games</button>`;
+            GAMES.forEach(game => {
+                const active = appState.activeGameFilter === game;
+                container.innerHTML += `<button onclick="filterGame('${game}')" class="whitespace-nowrap px-4 py-2 rounded-xl text-sm font-medium ${active?'bg-[var(--text-main)] text-[var(--bg-color)] shadow-md':'glass-panel text-[var(--text-muted)]'}">${game}</button>`;
+            });
+        }
+        function filterGame(game) { appState.activeGameFilter = game; renderGameFilters(); renderProducts(); }
 
-        // Hamburger menu
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        hamburger.addEventListener('click', () => navLinks.classList.toggle('show'));
-        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('show')));
+        function renderProducts() {
+            const container = document.getElementById('product-grid');
+            container.innerHTML = '';
+            let filtered = PRODUCTS;
+            if (appState.activeGameFilter !== 'All') filtered = filtered.filter(p => p.game === appState.activeGameFilter);
+            if (searchTerm.trim() !== '') {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(term) || p.game.toLowerCase().includes(term) || p.tags.some(t => t.toLowerCase().includes(term)));
+            }
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center py-20 text-[var(--text-muted)]">No products found.</div>';
+                return;
+            }
+            filtered.forEach((p, i) => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel rounded-3xl overflow-hidden group cursor-pointer hover:-translate-y-1 transition-all duration-300 animate-slide-up border border-[var(--glass-border)]';
+                card.style.animationDelay = `${i*0.05}s`;
+                card.onclick = () => openProductModal(p.id);
+                card.innerHTML = `
+                    <div class="h-32 bg-gradient-to-br ${p.bg} relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent"></div>
+                        <i class="fas fa-crosshairs text-4xl text-white/50"></i>
+                        <div class="absolute top-3 left-3 flex gap-1">${p.tags.map(t=>`<span class="px-2 py-1 bg-black/40 backdrop-blur-md rounded-md text-[10px] font-bold text-white uppercase">${t}</span>`).join('')}</div>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs font-semibold text-blue-500 uppercase tracking-wider mb-1">${p.game}</p>
+                        <h3 class="text-lg font-bold mb-3">${p.name}</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="flex items-center gap-1 text-xs"><span class="status-dot ${p.status==='Undetected'?'status-undetected':'bg-yellow-500'}"></span>${p.status}</span>
+                            <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[var(--text-main)] group-hover:text-[var(--bg-color)]"><i class="fas fa-arrow-right text-xs"></i></div>
+                        </div>
+                    </div>`;
+                container.appendChild(card);
+            });
+        }
 
-        // Floating button
-        const fabMain = document.getElementById('fabMain');
-        const fabOptions = document.getElementById('fabOptions');
-        fabMain.addEventListener('click', () => fabOptions.classList.toggle('show'));
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.fab')) fabOptions.classList.remove('show');
-        });
+        function openProductModal(id) {
+            currentProduct = PRODUCTS.find(p => p.id === id);
+            selectedTier = null;
+            document.getElementById('modal-game').innerText = currentProduct.game;
+            document.getElementById('modal-title').innerText = currentProduct.name;
+            document.getElementById('modal-status').innerText = currentProduct.status;
+            document.getElementById('modal-badges').innerHTML = currentProduct.tags.map(t => `<span class="px-3 py-1 bg-black/40 backdrop-blur-md rounded-lg text-xs font-bold text-white uppercase">${t}</span>`).join('');
+            renderModalTiers();
+            document.getElementById('modal-price-display').innerText = 'Select a tier';
+            document.getElementById('add-to-cart-btn').disabled = true;
+            
+            // Inisialisasi ulang tab
+            document.querySelectorAll('#modal-tab-buttons .tab-btn').forEach(b => {
+                b.classList.remove('border-blue-500', 'text-[var(--text-main)]');
+                b.classList.add('border-transparent', 'text-[var(--text-muted)]');
+            });
+            const defaultTab = document.querySelector('#modal-tab-buttons .tab-btn[data-tab="details"]');
+            defaultTab.classList.remove('border-transparent');
+            defaultTab.classList.add('border-blue-500', 'text-[var(--text-main)]');
+            
+            const tabContent = document.getElementById('modal-tab-content');
+            tabContent.classList.remove('tab-content-fade');
+            void tabContent.offsetWidth;
+            tabContent.innerHTML = getTabContent('details');
+            tabContent.classList.add('tab-content-fade');
+            
+            document.getElementById('view-product-modal').classList.remove('hidden-view');
+        }
+
+        function renderModalTiers() {
+            document.getElementById('modal-tiers').innerHTML = currentProduct.tiers.map((tier, idx) => `
+                <button onclick="selectTier(${idx})" class="p-3 rounded-xl border border-[var(--glass-border)] bg-white/5 hover:border-blue-500 transition-colors flex justify-between items-center">
+                    <span class="text-sm font-semibold">${tier.name}</span>
+                    <span class="text-xs font-bold text-[var(--text-main)]">${formatCurrentPrice(tier)}</span>
+                </button>
+            `).join('');
+        }
+
+        function closeProductModal() { document.getElementById('view-product-modal').classList.add('hidden-view'); selectedTier = null; }
+
+        function selectTier(idx) {
+            selectedTier = currentProduct.tiers[idx];
+            document.querySelectorAll('#modal-tiers button').forEach((btn, i) => {
+                if (i === idx) { btn.classList.add('border-blue-500','bg-blue-500/10'); btn.classList.remove('border-[var(--glass-border)]','bg-white/5'); }
+                else { btn.classList.remove('border-blue-500','bg-blue-500/10'); btn.classList.add('border-[var(--glass-border)]','bg-white/5'); }
+            });
+            document.getElementById('modal-price-display').innerText = formatCurrentPrice(selectedTier);
+            document.getElementById('add-to-cart-btn').disabled = false;
+        }
+
+        function getTabContent(tab) {
+            if (tab === 'details') return `<p>Premium features with bypass algorithms and streamproof overlays.</p><ul class="list-disc pl-4 mt-2"><li>Aimbot & ESP</li><li>Memory Bypass</li></ul>`;
+            if (tab === 'compatibility') return `<p>Windows 10/11, .NET 4.8, Visual C++ Redist. Not compatible with VM.</p>`;
+            if (tab === 'changelog') return `<p><strong>v3.2.1</strong> – Bypass stability<br><strong>v3.2.0</strong> – New ESP</p>`;
+            return '';
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            if (sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                updateCartUI();
+            } else {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        function addToCart() {
+            if (!currentProduct || !selectedTier) return;
+            appState.cart.push({ product: currentProduct, tier: selectedTier, cartId: Date.now() });
+            updateCartCount();
+            closeProductModal();
+            toggleCart();
+        }
+
+        function removeFromCart(cartId) { appState.cart = appState.cart.filter(i => i.cartId !== cartId); updateCartCount(); updateCartUI(); }
+        function updateCartCount() { const badge = document.getElementById('cart-count'); badge.innerText = appState.cart.length; badge.classList.toggle('hidden', appState.cart.length === 0); }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const btn = document.getElementById('cart-checkout-btn');
+            if (appState.cart.length === 0) {
+                container.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-[var(--text-muted)] opacity-50"><i class="fas fa-ghost text-4xl mb-4"></i><p>Your cart is empty.</p></div>';
+                btn.disabled = true;
+                return;
+            }
+            btn.disabled = false;
+            container.innerHTML = appState.cart.map(item => `
+                <div class="flex gap-4 p-4 rounded-2xl border border-[var(--glass-border)] bg-white/5">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br ${item.product.bg} flex items-center justify-center"><i class="fas fa-crosshairs text-white/50"></i></div>
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-sm">${item.product.name}</h4>
+                        <p class="text-[10px] text-[var(--text-muted)]">${item.product.game}</p>
+                        <div class="flex justify-between items-center"><span class="text-xs bg-white/10 px-2 py-0.5 rounded">${item.tier.name}</span><span class="text-sm font-bold">${formatCurrentPrice(item.tier)}</span></div>
+                    </div>
+                    <button onclick="removeFromCart(${item.cartId})" class="text-[var(--text-muted)] hover:text-red-400"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function startCheckout() { if (appState.cart.length === 0) return; toggleCart(); document.getElementById('view-language-popup').classList.remove('hidden-view'); }
+        function closeLanguagePopup() { document.getElementById('view-language-popup').classList.add('hidden-view'); }
+
+        function setRegion(region) {
+            appState.selectedRegion = region;
+            document.getElementById('region-toggle-btn').innerHTML = region === 'id' ? '🇮🇩' : '🇺🇸';
+            closeLanguagePopup();
+            renderCheckout();
+            navigate('checkout');
+        }
+
+        function renderCheckout() {
+            const isID = appState.selectedRegion === 'id';
+            document.getElementById('checkout-region-badge').innerText = isID ? '🇮🇩 Indonesia' : '🌐 Global';
+            let subtotal = 0;
+            document.getElementById('checkout-items').innerHTML = appState.cart.map(item => {
+                const price = currentPrice(item.tier);
+                subtotal += price;
+                return `<div class="flex justify-between text-sm"><span>${item.product.name} (${item.tier.name})</span><span>${formatCurrentPrice(item.tier)}</span></div>`;
+            }).join('');
+            document.getElementById('checkout-subtotal').innerText = isID ? formatIDR(subtotal) : formatUSD(subtotal);
+            document.getElementById('checkout-total').innerText = isID ? formatIDR(subtotal) : formatUSD(subtotal);
+            const payments = PAYMENT_METHODS.filter(p => p.type === (isID ? 'local' : 'global'));
+            document.getElementById('payment-methods-container').innerHTML = payments.map((pm, idx) => `
+                <label class="cursor-pointer"><input type="radio" name="payment" class="peer hidden" ${idx===0?'checked':''} onchange="handlePaymentChange('${pm.id}')">
+                <div class="p-4 rounded-2xl border border-[var(--glass-border)] bg-white/5 peer-checked:border-blue-500 peer-checked:bg-blue-500/10 flex items-center gap-3">
+                    <i class="fas ${pm.icon} text-xl ${pm.color}"></i>
+                    <div><p class="font-semibold text-sm">${pm.name}</p><p class="text-[10px] text-[var(--text-muted)]">${pm.instant?'Instant ⚡':'Manual'}</p></div>
+                </div></label>
+            `).join('');
+            if (payments.length) handlePaymentChange(payments[0].id);
+        }
+
+        function handlePaymentChange(pmId) {
+            const method = PAYMENT_METHODS.find(m => m.id === pmId);
+            const warning = document.getElementById('manual-payment-warning');
+            if (method && method.manualWarning) {
+                warning.classList.remove('hidden');
+                warning.innerHTML = `<div class="flex gap-3"><i class="fas fa-exclamation-triangle mt-1"></i><div><h4 class="font-semibold text-sm">Manual Confirmation</h4><p class="text-xs mt-1">Contact admin via Discord after transfer.</p></div></div>`;
+            } else {
+                warning.classList.add('hidden');
+            }
+        }
+
+        function adminAddTier() {
+            const list = document.getElementById('admin-tier-list');
+            const row = document.createElement('div');
+            row.className = "flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-[var(--glass-border)] animate-fade-in";
+            row.innerHTML = `<i class="fas fa-grip-vertical text-[var(--text-muted)] cursor-move px-2"></i><input type="text" value="New Tier" class="w-1/4 bg-transparent border-b border-transparent focus:border-blue-500 outline-none text-sm font-medium"><div class="flex-grow flex items-center gap-2"><div class="relative w-1/2"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)]">IDR</span><input type="number" value="0" class="w-full glass-input rounded-lg py-1.5 pl-10 pr-3 text-sm"></div><div class="relative w-1/2"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)]">USD</span><input type="number" value="0.00" class="w-full glass-input rounded-lg py-1.5 pl-10 pr-3 text-sm"></div></div><button class="p-2 text-red-400 hover:bg-red-400/10 rounded-lg" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>`;
+            list.appendChild(row);
+        }
     </script>
 </body>
 </html>
