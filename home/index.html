@@ -88,6 +88,25 @@
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
         .status-undetected { background-color: #10b981; box-shadow: 0 0 10px #10b981; }
         .tab-content-fade { animation: fadeIn 0.2s ease-out; }
+
+        /* ========== OPTIMASI LOW-END ========== */
+        @media (max-width: 768px) {
+            .glass-panel {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: rgba(3, 7, 18, 0.9) !important;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .ambient-light {
+                display: none;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
@@ -356,7 +375,6 @@
             { id:'pm_card', name:'Credit/Debit Card', type:'global', instant:false, icon:'fa-credit-card', color:'text-gray-300', manualWarning:true }
         ];
 
-        // ========== STATE ==========
         let appState = { view:'home', cart:[], selectedRegion:'id', activeGameFilter:'All' };
         let searchTerm = '';
         let currentProduct = null;
@@ -367,25 +385,18 @@
         const currentPrice = t => appState.selectedRegion === 'id' ? t.priceIDR : t.priceUSD;
         const formatCurrentPrice = t => appState.selectedRegion === 'id' ? formatIDR(currentPrice(t)) : formatUSD(currentPrice(t));
 
-        // ========== INIT ==========
         document.addEventListener('DOMContentLoaded', () => {
             renderGameFilters();
             renderProducts();
             document.getElementById('search-input').addEventListener('input', e => { searchTerm = e.target.value; renderProducts(); });
-            
-            // Tab click handler dengan perbaikan garis biru
             document.getElementById('modal-tab-buttons').addEventListener('click', (e) => {
                 if (e.target.classList.contains('tab-btn')) {
-                    // Reset semua tombol
                     document.querySelectorAll('#modal-tab-buttons .tab-btn').forEach(b => {
-                        b.classList.remove('border-blue-500', 'text-[var(--text-main)]');
-                        b.classList.add('border-transparent', 'text-[var(--text-muted)]');
+                        b.classList.remove('border-blue-500','text-[var(--text-main)]');
+                        b.classList.add('border-transparent','text-[var(--text-muted)]');
                     });
-                    // Aktifkan tombol yang dipilih
                     e.target.classList.remove('border-transparent');
-                    e.target.classList.add('border-blue-500', 'text-[var(--text-main)]');
-                    
-                    // Animasi konten
+                    e.target.classList.add('border-blue-500','text-[var(--text-main)]');
                     const tabContent = document.getElementById('modal-tab-content');
                     tabContent.classList.remove('tab-content-fade');
                     void tabContent.offsetWidth;
@@ -393,8 +404,6 @@
                     tabContent.classList.add('tab-content-fade');
                 }
             });
-            
-            // Add to Cart global listener
             document.getElementById('add-to-cart-btn').addEventListener('click', addToCart);
         });
 
@@ -477,22 +486,18 @@
             renderModalTiers();
             document.getElementById('modal-price-display').innerText = 'Select a tier';
             document.getElementById('add-to-cart-btn').disabled = true;
-            
-            // Inisialisasi ulang tab
             document.querySelectorAll('#modal-tab-buttons .tab-btn').forEach(b => {
-                b.classList.remove('border-blue-500', 'text-[var(--text-main)]');
-                b.classList.add('border-transparent', 'text-[var(--text-muted)]');
+                b.classList.remove('border-blue-500','text-[var(--text-main)]');
+                b.classList.add('border-transparent','text-[var(--text-muted)]');
             });
             const defaultTab = document.querySelector('#modal-tab-buttons .tab-btn[data-tab="details"]');
             defaultTab.classList.remove('border-transparent');
-            defaultTab.classList.add('border-blue-500', 'text-[var(--text-main)]');
-            
+            defaultTab.classList.add('border-blue-500','text-[var(--text-main)]');
             const tabContent = document.getElementById('modal-tab-content');
             tabContent.classList.remove('tab-content-fade');
             void tabContent.offsetWidth;
             tabContent.innerHTML = getTabContent('details');
             tabContent.classList.add('tab-content-fade');
-            
             document.getElementById('view-product-modal').classList.remove('hidden-view');
         }
 
