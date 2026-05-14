@@ -310,9 +310,11 @@
 
     <script>
         // ========== DATABASE ==========
-        const GAMES = ["Genshin Impact","Wuthering Waves","Solo Leveling Arise","Honkai Star Rail","Zenless Zone Zero","Where Winds Meet","Mongil Star Dive","Valorant","Marvel Rivals","Stella Sora Global","Blue Archive","Strinova","Etheria Restart","Girls Frontline 2","Tower of Fantasy","GTA V FiveM","Overfield","Arknights Endfield","Seven Deadly Sins Origin","Blue Protocol Star Resonance","Solo Leveling Arise OVERDRIVE","Snowbreak Containment Zone","My Hero Ultra Rumble","Infinity Nikki","Duet Night Abyss","Counter Strike 2","Special Force 2","Avatar Star","Identity V"];
+        const GAMES = ["Genshin Impact","Wuthering Waves","Solo Leveling Arise","Honkai Star Rail","Zenless Zone Zero","Where Winds Meet","Mongil Star Dive","Valorant","Marvel Rivals","Stella Sora Global","Blue Archive","Strinova","Etheria Restart","Girls Frontline 2","Tower of Fantasy","GTA V FiveM","Overfield","Arknights Endfield","Seven Deadly Sins Origin","Blue Protocol Star Resonance","Solo Leveling Arise OVERDRIVE","Snowbreak Containment Zone","My Hero Ultra Rumble","Infinity Nikki","Duet Night Abyss","Counter Strike 2","Special Force 2","Avatar Star","Identity V","Neverness to Everness"];
         const standardTiers = [{ id:'t1', name:'1 Week', priceIDR:75000, priceUSD:15 },{ id:'t2', name:'1 Month', priceIDR:200000, priceUSD:35 },{ id:'t3', name:'Lifetime', priceIDR:1500000, priceUSD:150 }];
         const privateTier = [{ id:'priv', name:'Monthly Private', priceIDR:500000, priceUSD:75 }];
+        const contactAdminTier = [{ id:'contact', name:'Hubungi Admin', priceIDR:0, priceUSD:0 }];
+
         const PRODUCTS = [
             { id:'p_gi_slash', name:'Slash (Bypass)', game:'Genshin Impact', tags:['Bypass','Safe'], tiers:standardTiers, status:'Undetected', bg:'from-blue-600 to-cyan-500' },
             { id:'p_gi_shika', name:'Shika', game:'Genshin Impact', tags:['Lite'], tiers:standardTiers, status:'Undetected', bg:'from-purple-500 to-pink-500' },
@@ -320,40 +322,83 @@
             { id:'p_gi_shibal', name:'Shibal', game:'Genshin Impact', tags:['Balanced'], tiers:standardTiers, status:'Undetected', bg:'from-yellow-500 to-orange-500' },
             { id:'p_gi_unicore', name:'Unicore', game:'Genshin Impact', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-indigo-500 to-purple-600' },
             { id:'p_ww_slash', name:'Slash', game:'Wuthering Waves', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-teal-500 to-cyan-600' },
-            { id:'p_ww_privateb', name:'Private B', game:'Wuthering Waves', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-gray-700 to-gray-900' },
-            { id:'p_ww_uniwaves', name:'Uniwaves', game:'Wuthering Waves', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-cyan-600 to-blue-700' },
+            { id:'p_ww_privateb', name:'Private B', game:'Wuthering Waves', tags:['Private Slot'], tiers:contactAdminTier, status:'Safe', bg:'from-gray-700 to-gray-900' },
+            { id:'p_ww_uniwaves', name:'Uniwaves', game:'Wuthering Waves', tags:['Exclusive'], tiers:[
+                { id:'u1d', name:'1 Hari', priceIDR:54000, priceUSD:3 },
+                { id:'u7d', name:'7 Hari', priceIDR:108000, priceUSD:6 },
+                { id:'u15d', name:'15 Hari', priceIDR:180000, priceUSD:10 },
+                { id:'u30d', name:'30 Hari', priceIDR:270000, priceUSD:15 }
+            ], status:'Undetected', bg:'from-cyan-600 to-blue-700' },
             { id:'p_sla_slash', name:'Slash', game:'Solo Leveling Arise', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-rose-600 to-pink-700' },
-            { id:'p_sla_privateb', name:'Private B', game:'Solo Leveling Arise', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-stone-600 to-neutral-700' },
-            { id:'p_sla_lumen', name:'Lumen SLA', game:'Solo Leveling Arise', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-violet-600 to-purple-800' },
+            { id:'p_sla_privateb', name:'Private B', game:'Solo Leveling Arise', tags:['Private Slot'], tiers:contactAdminTier, status:'Safe', bg:'from-stone-600 to-neutral-700' },
+            { id:'p_sla_lumen', name:'Lumen SLA', game:'Solo Leveling Arise', tags:['Lumen'], tiers:[
+                { id:'l3d', name:'3 Hari', priceIDR:90000, priceUSD:5 },
+                { id:'l7d', name:'7 Hari', priceIDR:162000, priceUSD:9 },
+                { id:'l30d', name:'30 Hari', priceIDR:288000, priceUSD:16 }
+            ], status:'Undetected', bg:'from-violet-600 to-purple-800' },
             { id:'p_hsr_slash', name:'Slash (Bypass)', game:'Honkai Star Rail', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-sky-500 to-indigo-600' },
             { id:'p_hsr_shibal', name:'Shibal', game:'Honkai Star Rail', tags:['Balanced'], tiers:standardTiers, status:'Undetected', bg:'from-amber-500 to-yellow-600' },
-            { id:'p_hsr_unistar', name:'Unistar', game:'Honkai Star Rail', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-fuchsia-500 to-pink-600' },
-            { id:'p_hsr_minty', name:'Minty-SR', game:'Honkai Star Rail', tags:['Quality'], tiers:standardTiers, status:'Undetected', bg:'from-emerald-500 to-teal-600' },
+            { id:'p_hsr_unistar', name:'Unistar', game:'Honkai Star Rail', tags:['Exclusive'], tiers:[
+                { id:'us1d', name:'1 Hari', priceIDR:36000, priceUSD:2 },
+                { id:'us7d', name:'7 Hari', priceIDR:90000, priceUSD:5 },
+                { id:'us15d', name:'15 Hari', priceIDR:108000, priceUSD:6 },
+                { id:'us30d', name:'30 Hari', priceIDR:144000, priceUSD:8 }
+            ], status:'Undetected', bg:'from-fuchsia-500 to-pink-600' },
+            { id:'p_hsr_minty', name:'Minty-SR', game:'Honkai Star Rail', tags:['Quality'], tiers:[
+                { id:'m3d', name:'3 Hari', priceIDR:36000, priceUSD:2 },
+                { id:'m7d', name:'7 Hari', priceIDR:72000, priceUSD:4 },
+                { id:'m30d', name:'30 Hari', priceIDR:126000, priceUSD:7 }
+            ], status:'Undetected', bg:'from-emerald-500 to-teal-600' },
             { id:'p_zzz_slash', name:'Slash (Bypass)', game:'Zenless Zone Zero', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-orange-600 to-red-600' },
-            { id:'p_zzz_unizone', name:'Unizone', game:'Zenless Zone Zero', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-lime-500 to-green-600' },
-            { id:'p_zzz_minty', name:'Minty-ZZZ', game:'Zenless Zone Zero', tags:['Quality'], tiers:standardTiers, status:'Undetected', bg:'from-cyan-500 to-blue-500' },
+            { id:'p_zzz_unizone', name:'Unizone', game:'Zenless Zone Zero', tags:['Exclusive'], tiers:contactAdminTier, status:'Undetected', bg:'from-lime-500 to-green-600' },
+            { id:'p_zzz_minty', name:'Minty-ZZZ', game:'Zenless Zone Zero', tags:['Quality'], tiers:[
+                { id:'mz3d', name:'3 Hari', priceIDR:54000, priceUSD:3 },
+                { id:'mz7d', name:'7 Hari', priceIDR:90000, priceUSD:5 },
+                { id:'mz30d', name:'30 Hari', priceIDR:180000, priceUSD:10 }
+            ], status:'Undetected', bg:'from-cyan-500 to-blue-500' },
             { id:'p_wwm_lumen', name:'Lumen WWM', game:'Where Winds Meet', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-slate-600 to-gray-700' },
             { id:'p_msd_slash', name:'Slash', game:'Mongil Star Dive', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-red-500 to-rose-600' },
-            { id:'p_msd_lumen', name:'Lumen-MSD', game:'Mongil Star Dive', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-indigo-500 to-blue-600' },
-            { id:'p_msd_unistardive', name:'Unistardive', game:'Mongil Star Dive', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-purple-500 to-violet-600' },
+            { id:'p_msd_lumen', name:'Lumen-MSD', game:'Mongil Star Dive', tags:['Lumen'], tiers:[
+                { id:'lmsd3d', name:'3 Hari', priceIDR:72000, priceUSD:4 },
+                { id:'lmsd7d', name:'7 Hari', priceIDR:126000, priceUSD:7 },
+                { id:'lmsd30d', name:'30 Hari', priceIDR:198000, priceUSD:11 }
+            ], status:'Undetected', bg:'from-indigo-500 to-blue-600' },
+            { id:'p_msd_unistardive', name:'Unistardive', game:'Mongil Star Dive', tags:['Exclusive'], tiers:[
+                { id:'ud1d', name:'1 Hari', priceIDR:54000, priceUSD:3 },
+                { id:'ud7d', name:'7 Hari', priceIDR:90000, priceUSD:5 },
+                { id:'ud15d', name:'15 Hari', priceIDR:126000, priceUSD:7 },
+                { id:'ud30d', name:'30 Hari', priceIDR:180000, priceUSD:10 }
+            ], status:'Undetected', bg:'from-purple-500 to-violet-600' },
             { id:'p_val_hooked', name:'Hooked', game:'Valorant', tags:['Private Slot','Aimbot'], tiers:[{ id:'hm', name:'Monthly', priceIDR:800000, priceUSD:80 }], status:'Safe', bg:'from-red-700 to-rose-800' },
             { id:'p_mr_predator', name:'Predator', game:'Marvel Rivals', tags:['Aimbot'], tiers:standardTiers, status:'Undetected', bg:'from-gray-800 to-black' },
             { id:'p_ssg_slash', name:'Slash', game:'Stella Sora Global', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-yellow-400 to-orange-500' },
-            { id:'p_ssg_soroka', name:'Soroka', game:'Stella Sora Global', tags:['Premium'], tiers:standardTiers, status:'Undetected', bg:'from-blue-400 to-cyan-500' },
+            { id:'p_ssg_soroka', name:'Soroka', game:'Stella Sora Global', tags:['Premium'], tiers:[
+                { id:'sk1d', name:'1 Hari', priceIDR:36000, priceUSD:2 },
+                { id:'sk7d', name:'7 Hari', priceIDR:72000, priceUSD:4 },
+                { id:'sk30d', name:'30 Hari', priceIDR:90000, priceUSD:5 }
+            ], status:'Undetected', bg:'from-blue-400 to-cyan-500' },
             { id:'p_ba_slash', name:'Slash', game:'Blue Archive', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-sky-400 to-indigo-500' },
             { id:'p_ba_privateb', name:'Private B', game:'Blue Archive', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-gray-600 to-slate-700' },
             { id:'p_str_privateb', name:'Private B', game:'Strinova', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-violet-700 to-purple-900' },
             { id:'p_er_unietheria', name:'Unietheria', game:'Etheria Restart', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-teal-400 to-emerald-500' },
             { id:'p_gf2_slash', name:'Slash', game:'Girls Frontline 2', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-pink-500 to-rose-600' },
-            { id:'p_tof_toofli', name:'Toofli', game:'Tower of Fantasy', tags:['Custom'], tiers:standardTiers, status:'Undetected', bg:'from-cyan-600 to-blue-700' },
+            { id:'p_tof_toofli', name:'Toofli', game:'Tower of Fantasy', tags:['Custom'], tiers:[
+                { id:'tf1d', name:'1 Hari', priceIDR:36000, priceUSD:2 },
+                { id:'tf7d', name:'7 Hari', priceIDR:72000, priceUSD:4 },
+                { id:'tf30d', name:'30 Hari', priceIDR:90000, priceUSD:5 }
+            ], status:'Undetected', bg:'from-cyan-600 to-blue-700' },
             { id:'p_fivem_unitheft', name:'Unitheft', game:'GTA V FiveM', tags:['Lua Executor'], tiers:standardTiers, status:'Undetected', bg:'from-green-600 to-emerald-700' },
-            { id:'p_of_korobka', name:'Korobka', game:'Overfield', tags:['Premium'], tiers:standardTiers, status:'Undetected', bg:'from-orange-500 to-amber-600' },
+            { id:'p_of_korobka', name:'Korobka', game:'Overfield', tags:['Premium'], tiers:[
+                { id:'k1d', name:'1 Hari', priceIDR:36000, priceUSD:2 },
+                { id:'k7d', name:'7 Hari', priceIDR:72000, priceUSD:4 },
+                { id:'k30d', name:'30 Hari', priceIDR:90000, priceUSD:5 }
+            ], status:'Undetected', bg:'from-orange-500 to-amber-600' },
             { id:'p_ae_slash', name:'Slash', game:'Arknights Endfield', tags:['Bypass'], tiers:standardTiers, status:'Undetected', bg:'from-slate-500 to-gray-600' },
             { id:'p_ae_shibal', name:'Shibal', game:'Arknights Endfield', tags:['Balanced'], tiers:standardTiers, status:'Undetected', bg:'from-lime-500 to-green-500' },
             { id:'p_7ds_lumen', name:'Lumen-DS', game:'Seven Deadly Sins Origin', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-rose-500 to-pink-600' },
             { id:'p_7ds_privateb', name:'Private B', game:'Seven Deadly Sins Origin', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-stone-700 to-neutral-800' },
             { id:'p_bp_lumen', name:'Lumen BP', game:'Blue Protocol Star Resonance', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-blue-600 to-indigo-700' },
-            { id:'p_slao_lumen', name:'Lumen SLAO', game:'Solo Leveling Arise OVERDRIVE', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-purple-700 to-indigo-800' },
+            { id:'p_slao_lumen', name:'Lumen SLAO', game:'Solo Leveling Arise OVERDRIVE', tags:['Lumen'], tiers:contactAdminTier, status:'Undetected', bg:'from-purple-700 to-indigo-800' },
             { id:'p_scz_unisnowbreak', name:'Unisnowbreak', game:'Snowbreak Containment Zone', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-cyan-500 to-sky-600' },
             { id:'p_scz_privateb', name:'Private B', game:'Snowbreak Containment Zone', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-gray-700 to-slate-800' },
             { id:'p_mhur_lumen', name:'Lumen-MHUR', game:'My Hero Ultra Rumble', tags:['Lumen'], tiers:standardTiers, status:'Undetected', bg:'from-yellow-500 to-orange-600' },
@@ -365,8 +410,68 @@
             { id:'p_cs2_nixware', name:'Nixware', game:'Counter Strike 2', tags:['HvH'], tiers:standardTiers, status:'Undetected', bg:'from-blue-900 to-indigo-900' },
             { id:'p_sf2_privateb', name:'Private B', game:'Special Force 2', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-yellow-700 to-amber-800' },
             { id:'p_as_privateb', name:'Private B', game:'Avatar Star', tags:['Private Slot'], tiers:privateTier, status:'Safe', bg:'from-violet-600 to-fuchsia-700' },
-            { id:'p_idv_uniidentity', name:'Uni-Identity', game:'Identity V', tags:['Exclusive'], tiers:standardTiers, status:'Undetected', bg:'from-teal-600 to-cyan-700' }
+            { id:'p_idv_uniidentity', name:'Uni-Identity', game:'Identity V', tags:['Exclusive'], tiers:[
+                { id:'ui1d', name:'1 Hari', priceIDR:90000, priceUSD:5 },
+                { id:'ui7d', name:'7 Hari', priceIDR:162000, priceUSD:9 },
+                { id:'ui30d', name:'30 Hari', priceIDR:342000, priceUSD:19 }
+            ], status:'Undetected', bg:'from-teal-600 to-cyan-700' },
+            { id:'p_nte_minty', name:'Minty-NTE', game:'Neverness to Everness', tags:['Quality'], tiers:[
+                { id:'mnt3d', name:'3 Days', priceIDR:54000, priceUSD:3 },
+                { id:'mnt7d', name:'7 Days', priceIDR:108000, priceUSD:6 },
+                { id:'mnt30d', name:'30 Days', priceIDR:216000, priceUSD:12 }
+            ], status:'Undetected', bg:'from-emerald-500 to-teal-600' },
+            { id:'p_nte_lumen', name:'Lumen-NTE', game:'Neverness to Everness', tags:['Lumen'], tiers:[
+                { id:'lnt1d', name:'1 Day', priceIDR:54000, priceUSD:3 },
+                { id:'lnt7d', name:'7 Days', priceIDR:108000, priceUSD:6 },
+                { id:'lnt30d', name:'30 Days', priceIDR:270000, priceUSD:15 }
+            ], status:'Undetected', bg:'from-purple-600 to-indigo-700' },
+            { id:'p_nte_slash', name:'Slash-NTE', game:'Neverness to Everness', tags:['Bypass'], tiers:[
+                { id:'snt3d', name:'3 Day', priceIDR:40000, priceUSD:2.22 },
+                { id:'snt7d', name:'7 Days', priceIDR:60000, priceUSD:3.33 },
+                { id:'snt30d', name:'30 Days', priceIDR:120000, priceUSD:6.67 }
+            ], status:'Undetected', bg:'from-blue-600 to-cyan-500' }
         ];
+
+        // ========== GLOBAL HARGA SLASH & SHIBAL ==========
+        const slashTiers = [
+            { id:'s3d', name:'3 Hari', priceIDR:40000, priceUSD:2.22 },
+            { id:'s7d', name:'7 Hari', priceIDR:60000, priceUSD:3.33 },
+            { id:'s30d', name:'30 Hari', priceIDR:120000, priceUSD:6.67 },
+            { id:'s120d', name:'120 Hari', priceIDR:470000, priceUSD:26.11 }
+        ];
+        const shibalTiers = [
+            { id:'shibal_invite', name:'Invite Code', priceIDR:75000, priceUSD:4.17 }
+        ];
+
+        PRODUCTS.forEach(product => {
+            if (product.name.toLowerCase().startsWith('slash')) {
+                product.tiers = slashTiers;
+            } else if (product.name.toLowerCase() === 'shibal') {
+                product.tiers = shibalTiers;
+            }
+        });
+
+        // Harga spesial hanya untuk Genshin Impact (tidak tertimpa oleh loop di atas)
+        PRODUCTS.find(p => p.id === 'p_gi_shika').tiers = [
+            { id:'sh_beta_lifetime', name:'Beta Lifetime', priceIDR:180000, priceUSD:10.00 },
+            { id:'sh_alpha_3d', name:'Alpha 3 Hari', priceIDR:63000, priceUSD:3.50 },
+            { id:'sh_alpha_7d', name:'Alpha 7 Hari', priceIDR:126000, priceUSD:7.00 },
+            { id:'sh_alpha_30d', name:'Alpha 30 Hari', priceIDR:270000, priceUSD:15.00 },
+            { id:'sh_alpha_lifetime', name:'Alpha Lifetime', priceIDR:1260000, priceUSD:70.00 }
+        ];
+        PRODUCTS.find(p => p.id === 'p_gi_unicore').tiers = [
+            { id:'u1d', name:'1 Hari', priceIDR:78000, priceUSD:4.33 },
+            { id:'u7d', name:'7 Hari', priceIDR:145000, priceUSD:8.06 },
+            { id:'u30d', name:'30 Hari', priceIDR:320000, priceUSD:17.78 },
+            { id:'u_lifetime', name:'Lifetime', priceIDR:4670000, priceUSD:259.44 }
+        ];
+        PRODUCTS.find(p => p.id === 'p_gi_antiaddict').tiers = [
+            { id:'aa1d', name:'1 Day', priceIDR:54000, priceUSD:3 },
+            { id:'aa3d', name:'3 Days', priceIDR:72000, priceUSD:4 },
+            { id:'aa7d', name:'7 Days', priceIDR:126000, priceUSD:7 },
+            { id:'aa30d', name:'30 Days', priceIDR:324000, priceUSD:18 }
+        ];
+
         const PAYMENT_METHODS = [
             { id:'pm_qris', name:'QRIS Auto', type:'local', instant:true, icon:'fa-qrcode', color:'text-pink-500' },
             { id:'pm_bca', name:'Bank BCA', type:'local', instant:false, icon:'fa-university', color:'text-blue-500' },
@@ -485,7 +590,13 @@
             document.getElementById('modal-badges').innerHTML = currentProduct.tags.map(t => `<span class="px-3 py-1 bg-black/40 backdrop-blur-md rounded-lg text-xs font-bold text-white uppercase">${t}</span>`).join('');
             renderModalTiers();
             document.getElementById('modal-price-display').innerText = 'Select a tier';
-            document.getElementById('add-to-cart-btn').disabled = true;
+            const addBtn = document.getElementById('add-to-cart-btn');
+            addBtn.disabled = true;
+            // Special handling for contact admin products
+            if (currentProduct.tiers.length === 1 && currentProduct.tiers[0].priceIDR === 0) {
+                addBtn.disabled = true;
+                document.getElementById('modal-price-display').innerText = 'Hubungi Admin';
+            }
             document.querySelectorAll('#modal-tab-buttons .tab-btn').forEach(b => {
                 b.classList.remove('border-blue-500','text-[var(--text-main)]');
                 b.classList.add('border-transparent','text-[var(--text-muted)]');
@@ -502,12 +613,14 @@
         }
 
         function renderModalTiers() {
-            document.getElementById('modal-tiers').innerHTML = currentProduct.tiers.map((tier, idx) => `
-                <button onclick="selectTier(${idx})" class="p-3 rounded-xl border border-[var(--glass-border)] bg-white/5 hover:border-blue-500 transition-colors flex justify-between items-center">
+            document.getElementById('modal-tiers').innerHTML = currentProduct.tiers.map((tier, idx) => {
+                const isContact = (tier.priceIDR === 0);
+                const priceDisplay = isContact ? 'Hubungi Admin' : formatCurrentPrice(tier);
+                return `<button onclick="selectTier(${idx})" class="p-3 rounded-xl border border-[var(--glass-border)] bg-white/5 hover:border-blue-500 transition-colors flex justify-between items-center">
                     <span class="text-sm font-semibold">${tier.name}</span>
-                    <span class="text-xs font-bold text-[var(--text-main)]">${formatCurrentPrice(tier)}</span>
-                </button>
-            `).join('');
+                    <span class="text-xs font-bold text-[var(--text-main)]">${priceDisplay}</span>
+                </button>`;
+            }).join('');
         }
 
         function closeProductModal() { document.getElementById('view-product-modal').classList.add('hidden-view'); selectedTier = null; }
@@ -518,8 +631,9 @@
                 if (i === idx) { btn.classList.add('border-blue-500','bg-blue-500/10'); btn.classList.remove('border-[var(--glass-border)]','bg-white/5'); }
                 else { btn.classList.remove('border-blue-500','bg-blue-500/10'); btn.classList.add('border-[var(--glass-border)]','bg-white/5'); }
             });
-            document.getElementById('modal-price-display').innerText = formatCurrentPrice(selectedTier);
-            document.getElementById('add-to-cart-btn').disabled = false;
+            const priceDisplay = (selectedTier.priceIDR === 0) ? 'Hubungi Admin' : formatCurrentPrice(selectedTier);
+            document.getElementById('modal-price-display').innerText = priceDisplay;
+            document.getElementById('add-to-cart-btn').disabled = (selectedTier.priceIDR === 0);
         }
 
         function getTabContent(tab) {
@@ -545,7 +659,7 @@
         }
 
         function addToCart() {
-            if (!currentProduct || !selectedTier) return;
+            if (!currentProduct || !selectedTier || selectedTier.priceIDR === 0) return;
             appState.cart.push({ product: currentProduct, tier: selectedTier, cartId: Date.now() });
             updateCartCount();
             closeProductModal();
