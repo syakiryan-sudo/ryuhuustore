@@ -6,7 +6,7 @@
     <title>Shika Setup Guide & FAQ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-main: #0B0F19;
@@ -40,7 +40,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
         }
 
         h1 {
@@ -57,6 +57,43 @@
         header p {
             color: var(--text-muted);
             font-size: 1.1rem;
+        }
+
+        /* Language Switcher Styles */
+        .lang-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent-cyan);
+            color: #FFF;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border: none;
+            color: #FFF;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
         }
 
         h2 {
@@ -82,6 +119,45 @@
             padding: 30px;
             margin-bottom: 40px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Requirements Tag Styles */
+        .req-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .req-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            color: #FFF;
+            transition: all 0.3s ease;
+        }
+
+        .req-tag:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.05);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .req-tag.essential {
+            border-color: rgba(236, 72, 153, 0.3);
+            color: var(--accent-pink);
+        }
+
+        .req-tag.essential:hover {
+            border-color: var(--accent-pink);
+            background: rgba(236, 72, 153, 0.05);
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.15);
         }
 
         /* Timeline/Steps Styles */
@@ -245,21 +321,85 @@
             margin-left: 10px;
             display: inline-block;
         }
+        
+        /* LANGUAGE VISIBILITY CONTROL */
+        [data-lang] {
+            display: none !important;
+        }
+        
+        body.lang-id [data-lang="id"] { display: block !important; }
+        body.lang-id span[data-lang="id"] { display: inline-block !important; }
+        body.lang-id div[data-lang="id"] { display: grid !important; }
+        body.lang-id ol[data-lang="id"] { display: block !important; }
+        
+        body.lang-en [data-lang="en"] { display: block !important; }
+        body.lang-en span[data-lang="en"] { display: inline-block !important; }
+        body.lang-en div[data-lang="en"] { display: grid !important; }
+        body.lang-en ol[data-lang="en"] { display: block !important; }
+
+        body.lang-zh [data-lang="zh"] { display: block !important; }
+        body.lang-zh span[data-lang="zh"] { display: inline-block !important; }
+        body.lang-zh div[data-lang="zh"] { display: grid !important; }
+        body.lang-zh ol[data-lang="zh"] { display: block !important; }
+
+        body.lang-ar [data-lang="ar"] { display: block !important; text-align: right; }
+        body.lang-ar span[data-lang="ar"] { display: inline-block !important; }
+        body.lang-ar div[data-lang="ar"] { display: grid !important; }
+        body.lang-ar ol[data-lang="ar"] { display: block !important; }
+        body.lang-ar .steps-list { padding-left: 0; padding-right: 20px; }
+        body.lang-ar .steps-list::before { left: auto; right: 0; }
+        body.lang-ar .step-item::before { left: auto; right: -25px; }
+
+        body.lang-ru [data-lang="ru"] { display: block !important; }
+        body.lang-ru span[data-lang="ru"] { display: inline-block !important; }
+        body.lang-ru div[data-lang="ru"] { display: grid !important; }
+        body.lang-ru ol[data-lang="ru"] { display: block !important; }
     </style>
 </head>
-<body>
+<body class="lang-id">
 
     <div class="container">
         
         <header>
             <h1>Shika Hub</h1>
-            <p>Setup Guide & Launcher FAQ</p>
+            <p data-lang="id">Setup Guide & Launcher FAQ</p>
+            <p data-lang="en">Setup Guide & Launcher FAQ</p>
+            <p data-lang="zh">安装指南 & 启动器常见问题</p>
+            <p data-lang="ar">دليل الإعداد والأسئلة الشائعة للمشغل</p>
+            <p data-lang="ru">Руководство по настройке и FAQ по лаунчеру</p>
         </header>
 
-        <!-- SETUP GUIDE -->
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('id', event)">Indonesia</button>
+            <button class="lang-btn" onclick="setLang('en', event)">English / Global</button>
+            <button class="lang-btn" onclick="setLang('zh', event)">简体中文 (China)</button>
+            <button class="lang-btn" onclick="setLang('ar', event)">العربية (Arab)</button>
+            <button class="lang-btn" onclick="setLang('ru', event)">Русский (Russia)</button>
+        </div>
+
         <section>
-            <h2>Installation Guide</h2>
-            <ol class="steps-list">
+            <h2 data-lang="id">System Requirements</h2>
+            <h2 data-lang="en">System Requirements</h2>
+            <h2 data-lang="zh">系统配置要求</h2>
+            <h2 data-lang="ar">متطلبات النظام</h2>
+            <h2 data-lang="ru">Системные требования</h2>
+            
+            <div class="req-grid">
+                <div class="req-tag essential">Eyes</div>
+                <div class="req-tag essential">Brain</div>
+                <a href="https://aka.ms/vs/17/release/vc_redist.x64.exe" target="_blank" class="req-tag" style="text-decoration: none; display: block;">VC Redist X64</a>
+                <a href="https://dotnet.microsoft.com/en-us/download/dotnet-framework" target="_blank" class="req-tag" style="text-decoration: none; display: block;">.NET Framework</a>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-lang="id">Installation Guide</h2>
+            <h2 data-lang="en">Installation Guide</h2>
+            <h2 data-lang="zh">安装教程</h2>
+            <h2 data-lang="ar">دليل التثبيت</h2>
+            <h2 data-lang="ru">Инструкция по установке</h2>
+            
+            <ol class="steps-list" data-lang="id">
                 <li class="step-item">
                     <div class="step-title">Registrasi Akun</div>
                     <p>Buka & daftarkan akun baru Anda di <a href="https://shikahub.org/" target="_blank">shikahub.org</a></p>
@@ -292,65 +432,374 @@
                     <p>Jalankan game Anda. Sistem otomatis berjalan.</p>
                 </li>
             </ol>
+
+            <ol class="steps-list" data-lang="en">
+                <li class="step-item">
+                    <div class="step-title">Register Account</div>
+                    <p>Open and register a new account at <a href="https://shikahub.org/" target="_blank">shikahub.org</a></p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Login</div>
+                    <p>Log in using the credentials you just created.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Activate Key</div>
+                    <p>Input and redeem the license key you purchased in the account dashboard.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Download Launcher</div>
+                    <p>Go to the downloads page: <a href="https://shikahub.org/en/dashboard/downloads" target="_blank">shikahub.org/en/dashboard/downloads</a></p>
+                    <div class="note-box">
+                        <strong>NOTE:</strong> You cannot access the download link if you do not follow the steps from the very beginning (Register & Activate Key).
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Run as Admin</div>
+                    <p>Extract the file, right-click the downloaded launcher, and select <strong>Run as administrator</strong>.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Run Shika</div>
+                    <p>Select and launch the Shika option inside the loader menu.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Run the Game</div>
+                    <p>Start your game. The system will automatically inject.</p>
+                </li>
+            </ol>
+
+            <ol class="steps-list" data-lang="zh">
+                <li class="step-item">
+                    <div class="step-title">注册账号</div>
+                    <p>打开并注册新账号： <a href="https://shikahub.org/" target="_blank">shikahub.org</a></p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">登录系统</div>
+                    <p>使用刚才注册的账号信息登录网站。</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">激活卡密 (Key)</div>
+                    <p>在个人中心控制台输入并激活你购买的授权卡密。</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">下载启动器</div>
+                    <p>前往下载页面： <a href="https://shikahub.org/en/dashboard/downloads" target="_blank">shikahub.org/en/dashboard/downloads</a></p>
+                    <div class="note-box">
+                        <strong>注意：</strong> 如果你不按照顺序进行（注册和激活卡密），你将无法访问该下载链接。
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">管理员运行</div>
+                    <p>解压文件，右键点击下载的启动器应用程序，选择 <strong>以管理员身份运行</strong>。</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">启动 Shika</div>
+                    <p>在加载器菜单中选择并运行 Shika 功能。</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">启动游戏</div>
+                    <p>打开并运行游戏，程序将自动生效。</p>
+                </li>
+            </ol>
+
+            <ol class="steps-list" data-lang="ar">
+                <li class="step-item">
+                    <div class="step-title">تسجيل الحساب</div>
+                    <p>افتح وسجل حسابًا جديدًا عبر الرابط: <a href="https://shikahub.org/" target="_blank">shikahub.org</a></p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">تسجيل الدخول</div>
+                    <p>قم بتسجيل الدخول باستخدام البيانات التي أنشأتها للتو.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">تفعيل المفتاح (Key)</div>
+                    <p>أدخل مفتاح الترخيص الذي اشتريته في لوحة التحكم لتفعيله.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">تحميل المشغل</div>
+                    <p>انتقل إلى صفحة التحميل: <a href="https://shikahub.org/en/dashboard/downloads" target="_blank">shikahub.org/en/dashboard/downloads</a></p>
+                    <div class="note-box">
+                        <strong>ملاحظة مهمة:</strong> لن تتمكن من الوصول إلى صفحة التحميل إذا لم تتبع الخطوات من البداية (التسجيل والتفعيل).
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">التشغيل كمسؤول</div>
+                    <p>فك الضغط عن الملف، انقر بزر الماوس الأيمن على تطبيق المشغل، ثم اختر **Run as administrator**.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">تشغيل Shika</div>
+                    <p>اختر وقم بتشغيل قائمة Shika من داخل برنامج اللودر.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">تشغيل اللعبة</div>
+                    <p>أخيرًا، افتح وشغّل اللعبة الخاصة بك. تم الإعداد بنجاح.</p>
+                </li>
+            </ol>
+
+            <ol class="steps-list" data-lang="ru">
+                <li class="step-item">
+                    <div class="step-title">Регистрация аккаунта</div>
+                    <p>Перейдите и зарегистрируйте новый аккаунт на сайте: <a href="https://shikahub.org/" target="_blank">shikahub.org</a></p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Вход (Login)</div>
+                    <p>Войдите в систему, используя учетные данные, которые вы только что создали.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Активация ключа</div>
+                    <p>Введите купленный лицензионный ключ в поле активации в личном кабинете.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Скачивание лаунчера</div>
+                    <p>Перейдите на страницу загрузки: <a href="https://shikahub.org/en/dashboard/downloads" target="_blank">shikahub.org/en/dashboard/downloads</a></p>
+                    <div class="note-box">
+                        <strong>ВАЖНО:</strong> Вы не сможете получить доступ к ссылке на скачивание, если не выполните шаги с самого начала (регистрация и активация ключа).
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Запуск от админа</div>
+                    <p>Распакуйте архив, нажмите правой кнопкой мыши на лаунчер и выберите <strong>Запуск от имени администратора</strong>.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Запуск Shika</div>
+                    <p>Выберите и запустите Shika в меню открывшегося лоадера.</p>
+                </li>
+                <li class="step-item">
+                    <div class="step-title">Запуск игры</div>
+                    <p>Запустите игру. Система автоматически начнет работу.</p>
+                </li>
+            </ol>
         </section>
 
-        <!-- HELP & SUPPORT -->
         <section>
-            <h2>Support & Status</h2>
+            <h2 data-lang="id">Support & Status</h2>
+            <h2 data-lang="en">Support & Status</h2>
+            <h2 data-lang="zh">支持 & 服务器状态</h2>
+            <h2 data-lang="ar">الدعم والحالة</h2>
+            <h2 data-lang="ru">Поддержка и статус</h2>
+            
             <div class="info-grid">
-                <div class="info-card">
+                <!-- INDONESIA -->
+                <div class="info-card" data-lang="id">
                     <h4>Server Status</h4>
                     <p>Pantau status server (Work / Maintenance) secara real-time.</p>
                     <a href="https://shikahub.org/en/status" target="_blank" class="btn btn-status">Cek Status</a>
                 </div>
-                <div class="info-card">
+                <div class="info-card" data-lang="id">
                     <h4>Butuh Bantuan?</h4>
-                    <p>Buka tiket komplain via Web Discord resmi jika ada isu valid.</p>
+                    <p>Buka tiket komplain via Web / Discord resmi jika ada isu valid.</p>
                     <a href="https://shikahub.org/en/dashboard/tickets" target="_blank" class="btn">Buka Tiket</a>
+                </div>
+
+                <!-- ENGLISH -->
+                <div class="info-card" data-lang="en">
+                    <h4>Server Status</h4>
+                    <p>Monitor server status (Working / Maintenance) in real-time.</p>
+                    <a href="https://shikahub.org/en/status" target="_blank" class="btn btn-status">Check Status</a>
+                </div>
+                <div class="info-card" data-lang="en">
+                    <h4>Need Help?</h4>
+                    <p>Create a support ticket via Discord or directly on the website panel.</p>
+                    <a href="https://shikahub.org/en/dashboard/tickets" target="_blank" class="btn">Create Ticket</a>
+                </div>
+
+                <!-- CHINA -->
+                <div class="info-card" data-lang="zh">
+                    <h4>服务器状态</h4>
+                    <p>实时监控运行状态（正常运行 / 维护中）。</p>
+                    <a href="https://shikahub.org/en/status" target="_blank" class="btn btn-status">查看状态</a>
+                </div>
+                <div class="info-card" data-lang="zh">
+                    <h4>需要帮助？</h4>
+                    <p>如有任何技术问题，可通过官方 Discord 或网站提交工单。</p>
+                    <a href="https://shikahub.org/en/dashboard/tickets" target="_blank" class="btn">提交工单</a>
+                </div>
+
+                <!-- ARAB -->
+                <div class="info-card" data-lang="ar">
+                    <h4>حالة السيرفر</h4>
+                    <p>تابع حالة السيرفر (يعمل / صيانة) في الوقت الفعلي.</p>
+                    <a href="https://shikahub.org/en/status" target="_blank" class="btn btn-status">فحص الحالة</a>
+                </div>
+                <div class="info-card" data-lang="ar">
+                    <h4>تحتاج مساعدة؟</h4>
+                    <p>افتح تذكرة دعم فني عبر ديسكورد أو لوحة الموقع مباشرة.</p>
+                    <a href="https://shikahub.org/en/dashboard/tickets" target="_blank" class="btn">فتح تذكرة</a>
+                </div>
+
+                <!-- RUSSIA -->
+                <div class="info-card" data-lang="ru">
+                    <h4>Статус сервера</h4>
+                    <p>Проверяйте статус работы сервера (Работает / Техработы) в реальном времени.</p>
+                    <a href="https://shikahub.org/en/status" target="_blank" class="btn btn-status">Проверить статус</a>
+                </div>
+                <div class="info-card" data-lang="ru">
+                    <h4>Нужна помощь?</h4>
+                    <p>Создайте тикет поддержки в Discord или прямо на панели сайта.</p>
+                    <a href="https://shikahub.org/en/dashboard/tickets" target="_blank" class="btn">Создать тикет</a>
                 </div>
             </div>
         </section>
 
-        <!-- FAQ ISSUES -->
         <section>
             <h2>Launcher FAQ <span class="wip-tag">WIP</span></h2>
             
-            <div class="faq-item">
-                <div class="faq-question">HWID Mismatch Message</div>
-                <div class="faq-answer">Coba reset HWID Anda langsung via panel website. Jika limit habis atau gagal, silakan buat tiket aduan di menu dashboard web.</div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Launcher Won't Start (Error 0xc067 / Sejenisnya)</div>
-                <div class="faq-answer">
-                    <p>• Disarankan menggunakan Windows 11 versi terbaru (25H2).</p>
-                    <p>• Jika belum aktif, buka Windows PowerShell lalu jalankan perintah: <code>irm get.activated.win | iex</code> untuk aktivasi gratis.</p>
-                    <p>• Jika masih crash, buka tiket di web sertakan screenshot error code agar tim dev bisa cek manual. Alternatif lain: Coba buka paksa terus-menerus.</p>
+            <!-- INDONESIA -->
+            <div data-lang="id">
+                <div class="faq-item">
+                    <div class="faq-question">HWID Mismatch Message</div>
+                    <div class="faq-answer">Coba reset HWID Anda langsung via panel website. Jika limit habis atau gagal, silakan buat tiket aduan di menu dashboard web.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Launcher Won't Start (Error 0xc067 / Sejenisnya)</div>
+                    <div class="faq-answer">
+                        <p>• Disarankan menggunakan Windows 11 versi terbaru (25H2).</p>
+                        <p>• Jika belum aktif, buka Windows PowerShell lalu jalankan perintah: <code>irm get.activated.win | iex</code> untuk aktivasi gratis.</p>
+                        <p>• Jika masih crash, buka tiket di web sertakan screenshot error code agar tim dev bisa cek manual. Alternatif lain: Coba buka paksa terus-menerus.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Page Infinite Load (Situs Muter Terus)</div>
+                    <div class="faq-answer">Hal ini normal terjadi jika session login habis (auto log-out). Solusinya, kembali ke homepage utama <a href="https://shikahub.org/" target="_blank" style="color: var(--accent-cyan);">shikahub.org</a> atau klik logo Shika di ujung kiri atas untuk login ulang.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Proses Migrasi Akun (Migrating)</div>
+                    <div class="faq-answer">Pemberian role migrasi sepenuhnya diatur dev. Klik tombol migrasi di web, jika tertulis "Already Registered", Anda cukup memastikan akun Shikahub sudah link dengan akun Discord Anda. Sisa sub otomatis terkonversi setelah sinkronisasi beres.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Kode Verifikasi Email Tidak Masuk</div>
+                    <div class="faq-answer">Pastikan untuk memeriksa folder <strong>Spam</strong> atau <strong>Promosi</strong> pada email yang Anda daftarkan.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Autorisation Error: Empty Response from token endpoint</div>
+                    <div class="faq-answer">Hapus file konfigurasi usang <code>cfg.ini</code> pada direktori komputer Anda berikut: <br><code>%LOCALAPPDATA%/shika/launcher</code></div>
                 </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question">Page Infinite Load (Situs Muter Terus)</div>
-                <div class="faq-answer">Hal ini normal terjadi jika session login habis (auto log-out). Solusinya, kembali ke homepage utama <a href="https://shikahub.org/" target="_blank" style="color: var(--accent-cyan);">shikahub.org</a> atau klik logo Shika di ujung kiri atas untuk login ulang.</div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Proses Migrasi Akun (Migrating)</div>
-                <div class="faq-answer">
-                    Pemberian role migrasi sepenuhnya diatur dev. Klik tombol migrasi di web, jika tertulis "Already Registered", Anda cukup memastikan akun Shikahub sudah link dengan akun Discord Anda. Sisa sub otomatis terkonversi setelah sinkronisasi beres.
+            <!-- ENGLISH -->
+            <div data-lang="en">
+                <div class="faq-item">
+                    <div class="faq-question">HWID Mismatch Message</div>
+                    <div class="faq-answer">Try to reset your HWID over the website dashboard. If that doesn't work, please create a support ticket on the website!</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Launcher Won't Start (Error 0xc067 or similar)</div>
+                    <div class="faq-answer">
+                        <p>• You can try to use Windows 11 25H2 newest version (you can activate windows for free by using <code>irm get.activated.win | iex</code> on Windows PowerShell!).</p>
+                        <p>• If it doesn't work, make a ticket on the website and send them your error code so they can look further into it.</p>
+                        <p>• Otherwise, just try opening it again and again; the devs didn't give us any other info on it!</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Page Infinite Load</div>
+                    <div class="faq-answer">When you try to access the dashboard and you are logged out (you can be logged out from time to time, that's normal), it will infinitely load. Access <a href="https://shikahub.org/" target="_blank" style="color: var(--accent-cyan);">shikahub.org</a> to go to the main page or click the top-left Shika logo to log back in.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Migrating Process</div>
+                    <div class="faq-answer">You get pings when you have the migration role; how it's assigned or removed is up to the devs. To start migration, click the button. If it says "already registered", you don't need to do anything else besides ensuring your shikahub account is linked to your Discord account. The subscription will be granted automatically.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Verification Code Not Received</div>
+                    <div class="faq-answer">When you don't get a code to verify your registration on shikahub.org, please make sure to check your <strong>Spam folder</strong>!</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Autorisation Error: Empty Response from token endpoint</div>
+                    <div class="faq-answer">Delete <code>cfg.ini</code> located at: <br><code>%LOCALAPPDATA%/shika/launcher</code></div>
                 </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question">Kode Verifikasi Email Tidak Masuk</div>
-                <div class="faq-answer">Pastikan untuk memeriksa folder <strong>Spam</strong> atau <strong>Promosi</strong> pada email yang Anda daftarkan.</div>
+            <!-- CHINA -->
+            <div data-lang="zh">
+                <div class="faq-item">
+                    <div class="faq-question">HWID 不匹配错误 (HWID Mismatch)</div>
+                    <div class="faq-answer">请尝试直接在官方网站控制台重置您的 HWID。如果次数不够或失败，请在网站内提交工单处理。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">启动器无法打开 (错误代码 0xc067 或类似错误)</div>
+                    <div class="faq-answer">
+                        <p>• 建议升级并使用最新版本的 Windows 11 (25H2)。</p>
+                        <p>• 如果系统未激活，可以打开 Windows PowerShell 并运行以下命令进行免费激活： <code>irm get.activated.win | iex</code></p>
+                        <p>• 如果问题依旧，请在官网提交工单并附上错误代码截图，以便开发团队协助排查。或者：尝试连续多次强制打开。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">网页无限加载 (Page Infinite Load)</div>
+                    <div class="faq-answer">如果您的登录状态过期（自动登出），就会出现这种情况，属于正常现象。请直接访问主页 <a href="https://shikahub.org/" target="_blank" style="color: var(--accent-cyan);">shikahub.org</a> 或点击左上角的 Shika 图标重新登录。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">账户迁移相关 (Migrating)</div>
+                    <div class="faq-answer">迁移身份组的分配完全由开发人员决定。点击网站上的迁移按钮，如果显示“Already Registered”（已注册），您只需要确保您的 Shikahub 账号已经成功绑定了 Discord 账号，剩余时间会自动完成同步转换。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">未收到邮箱验证码</div>
+                    <div class="faq-answer">如果您在注册时没有收到验证码，请务必检查您邮箱的 <strong>垃圾邮件箱 (Spam)</strong> 或广告邮件箱。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">授权错误 (Autorisation Error: Empty Response...)</div>
+                    <div class="faq-answer">请删除您电脑中残留的旧配置文件 <code>cfg.ini</code>，路径如下： <br><code>%LOCALAPPDATA%/shika/launcher</code></div>
+                </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question">Autorisation Error: Empty Response from token endpoint</div>
-                <div class="faq-answer">
-                    Hapus file konfigurasi usang <code>cfg.ini</code> pada direktori komputer Anda berikut: <br>
-                    <code>%LOCALAPPDATA%/shika/launcher</code>
+            <!-- ARAB -->
+            <div data-lang="ar">
+                <div class="faq-item">
+                    <div class="faq-question">رسالة خطأ عدم تطابق HWID</div>
+                    <div class="faq-answer">جرّب إعادة تعيين HWID الخاص بك مباشرةً عبر لوحة تحكم الموقع. إذا انتهى الحد المسموح أو فشلت العملية, يرجى فتح تذكرة دعم في الموقع.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">المشغل لا يفتح (رمز الخطأ 0xc067 أو ما شابه)</div>
+                    <div class="faq-answer">
+                        <p>• يُنصح باستخدام أحدث إصدار من نظام التشغيل Windows 11 (25H2).</p>
+                        <p>• إذا لم يكن الويندوز نشطاً، افتح Windows PowerShell وشغّل الأمر التالي لتنشيطه مجاناً: <code>irm get.activated.win | iex</code></p>
+                        <p>• إذا استمرت المشكلة، افتح تذكرة في الموقع وأرسل لقطة شاشة لرمز الخطأ لفحصه من قبل المطورين. أو: حاول فتحه مراراً وتكراراً.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">الصفحة تستمر في التحميل دون توقف (Infinite Load)</div>
+                    <div class="faq-answer">هذا أمر طبيعي إذا انتهت جلسة تسجيل الدخول (تسجيل خروج تلقائي). الحل هو العودة للموقع الرئيسي <a href="https://shikahub.org/" target="_blank" style="color: var(--accent-cyan);">shikahub.org</a> أو الضغط على شعار Shika أعلى اليسار لتسجيل الدخول مجدداً.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">عملية نقل الحساب (Migrating)</div>
+                    <div class="faq-answer">إعطاء رتبة النقل يعود للمطورين. اضغط على زر الهجرة في الموقع، وإذا ظهر لك "Already Registered"، فكل ما عليك فعله هو التأكد من ربط حسابك في Shikahub بحساب ديسكورد، وسيتم تحويل المدة المتبقية تلقائياً.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">لم يصلني رمز تفعيل البريد الإلكتروني</div>
+                    <div class="faq-answer">إذا لم تصلك رسالة التفعيل عند التسجيل، يرجى التحقق من مجلد <strong>البريد المهمل (Spam)</strong> في إيميلك.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">خطأ في التفويض (Empty Response from token endpoint)</div>
+                    <div class="faq-answer">احذف ملف الإعدادات القديم <code>cfg.ini</code> من المسار التالي في جهازك: <br><code>%LOCALAPPDATA%/shika/launcher</code></div>
+                </div>
+            </div>
+
+            <!-- RUSSIA -->
+            <div data-lang="ru">
+                <div class="faq-item">
+                    <div class="faq-question">Ошибка HWID Mismatch</div>
+                    <div class="faq-answer">Попробуйте сбросить HWID прямо через панель на сайте. Если лимит исчерпан или выдает ошибку, создайте тикет поддержки на веб-панели.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Лаунчер не запускается (Ошибка 0xc067 или похожая)</div>
+                    <div class="faq-answer">
+                        <p>• Рекомендуется использовать самую свежую версию Windows 11 (25H2).</p>
+                        <p>• Если Windows не активирована, откройте Windows PowerShell и выполните команду для бесплатной активации: <code>irm get.activated.win | iex</code></p>
+                        <p>• Если лаунчер все равно вылетает, создайте тикет на сайте и прикрепите скриншот ошибки. В качестве альтернативы: попробуйте запускать лоадер несколько раз подряд.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Страница бесконечно загружается (Infinite Load)</div>
+                    <div class="faq-answer">Это нормально, если сессия авторизации истекла (автоматический разлогин). Для решения просто перейдите на главную страницу <a href="https://shikahub.org/" target="_blank">shikahub.org</a> или нажмите на логотип Shika в левом верхнем углу, чтобы войти заново.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Процесс миграции аккаунта (Migrating)</div>
+                    <div class="faq-answer">Выдача роли миграции полностью контролируется разработчиками. Нажмите кнопку миграции на сайте; если написано «Already Registered», вам не нужно ничего делать, кроме как убедиться, что ваш аккаунт Shikahub связан с вашим Discord. Подписка перенесется автоматически.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Не приходит код верификации на почту</div>
+                    <div class="faq-answer">Если код не приходит при регистрации, обязательно проверьте папку <strong>Спам (Spam)</strong> или «Промоакции» в вашем почтовом ящике.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Ошибка авторизации (Empty Response from token endpoint)</div>
+                    <div class="faq-answer">Удалите устаревший файл конфигурации <code>cfg.ini</code> по следующему пути на вашем ПК: <br><code>%LOCALAPPDATA%/shika/launcher</code></div>
                 </div>
             </div>
 
@@ -358,5 +807,18 @@
 
     </div>
 
+    <script>
+        function setLang(langCode, event) {
+            // Ganti class body utama
+            document.body.className = 'lang-' + langCode;
+            
+            // Atur highlight tombol neon
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Kasih class active ke tombol yang diklik
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 </body>
 </html>
