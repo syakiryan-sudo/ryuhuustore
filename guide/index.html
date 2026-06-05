@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryuhuu Store - Guide Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0B0F19;
+            --bg-card: #151D30;
+            --accent-purple: #8B5CF6;
+            --accent-cyan: #06B6D4;
+            --accent-pink: #EC4899;
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+            --glow: rgba(139, 92, 246, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .hub-container {
+            width: 100%;
+            max-width: 650px;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Language Switcher Styles */
+        .lang-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent-cyan);
+            color: #FFF;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border: none;
+            color: #FFF;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
+        }
+
+        .grid-guides {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 500px) {
+            .grid-guides {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .guide-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.15);
+        }
+
+        .guide-card:hover::before {
+            opacity: 1;
+        }
+
+        .guide-card.shibal-ys:hover {
+            border-color: var(--accent-pink);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.15);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        .guide-card:hover .icon-box {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .guide-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #FFF;
+            z-index: 1;
+        }
+
+        .guide-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            z-index: 1;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.5px;
+        }
+
+        /* LANGUAGE VISIBILITY CONTROL */
+        [data-lang] {
+            display: none !important;
+        }
+        
+        body.lang-id [data-lang="id"] { display: block !important; }
+        body.lang-id span[data-lang="id"] { display: inline-block !important; }
+        
+        body.lang-en [data-lang="en"] { display: block !important; }
+        body.lang-en span[data-lang="en"] { display: inline-block !important; }
+
+        body.lang-zh [data-lang="zh"] { display: block !important; }
+        body.lang-zh span[data-lang="zh"] { display: inline-block !important; }
+
+        body.lang-ar [data-lang="ar"] { display: block !important; }
+        body.lang-ar span[data-lang="ar"] { display: inline-block !important; }
+        body.lang-ar .grid-guides { direction: rtl; }
+
+        body.lang-ru [data-lang="ru"] { display: block !important; }
+        body.lang-ru span[data-lang="ru"] { display: inline-block !important; }
+    </style>
+</head>
+<body class="lang-id">
+
+    <div class="hub-container">
+        <header>
+            <h1>Ryuhuu Store</h1>
+            <p data-lang="id">Pilih panduan setup berkas digital Anda di bawah ini</p>
+            <p data-lang="en">Select your digital asset setup guide below</p>
+            <p data-lang="zh">请在下方选择您的数字资产安装指南</p>
+            <p data-lang="ar">اختر دليل إعداد الملفات الرقمية الخاص بك أدناه</p>
+            <p data-lang="ru">Выберите руководство по настройке цифровых файлов ниже</p>
+        </header>
+
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('id', event)">Indonesia</button>
+            <button class="lang-btn" onclick="setLang('en', event)">English</button>
+            <button class="lang-btn" onclick="setLang('zh', event)">简体中文</button>
+            <button class="lang-btn" onclick="setLang('ar', event)">العربية</button>
+            <button class="lang-btn" onclick="setLang('ru', event)">Русский</button>
+        </div>
+
+        <div class="grid-guides">
+            <!-- ShibalYS Card -->
+            <a href="shibal-ys.html" class="guide-card shibal-ys">
+                <div class="icon-box" style="color: var(--accent-pink);">🦊</div>
+                <div class="guide-title">ShibalYS Guide</div>
+                
+                <div class="guide-desc" data-lang="id">Setup, konfigurasi, dan FAQ ShibalYS</div>
+                <div class="guide-desc" data-lang="en">Setup, configuration, and ShibalYS FAQ</div>
+                <div class="guide-desc" data-lang="zh">ShibalYS 安装、配置与常见问题解答</div>
+                <div class="guide-desc" data-lang="ar">الإعداد والتكوين والأسئلة الشائعة لـ ShibalYS</div>
+                <div class="guide-desc" data-lang="ru">Настройка, конфигурация и FAQ по ShibalYS</div>
+            </a>
+
+            <!-- Shika Card -->
+            <a href="shika.html" class="guide-card">
+                <div class="icon-box" style="color: var(--accent-cyan);">🦌</div>
+                <div class="guide-title">Shika Hub</div>
+                
+                <div class="guide-desc" data-lang="id">Panduan instalasi dan FAQ Launcher Shika</div>
+                <div class="guide-desc" data-lang="en">Installation guide and Shika Launcher FAQ</div>
+                <div class="guide-desc" data-lang="zh">Shika 启动器安装指南与常见问题</div>
+                <div class="guide-desc" data-lang="ar">دليل التثبيت والأسئلة الشائعة لمشغل Shika</div>
+                <div class="guide-desc" data-lang="ru">Руководство по установке и FAQ по лаунчеру Shika</div>
+            </a>
+        </div>
+
+        <footer>
+            &copy; 2026 Ryuhuu Store. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        function setLang(langCode, event) {
+            // Mengubah class pada body untuk memicu CSS Selector [data-lang]
+            document.body.className = 'lang-' + langCode;
+            
+            // Mengatur status aktif tombol menu bahasa
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Memberikan class active pada tombol yang dipilih
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
