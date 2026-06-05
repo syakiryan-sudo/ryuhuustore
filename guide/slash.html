@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLASH 2.0 Setup Guide & FAQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0B0F19;
+            --bg-card: #151D30;
+            --accent-purple: #8B5CF6;
+            --accent-cyan: #06B6D4;
+            --accent-pink: #EC4899;
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+            --glow: rgba(139, 92, 246, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #06B6D4, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent-cyan);
+            color: #FFF;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border: none;
+            color: #FFF;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FFF;
+        }
+
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-pink), transparent);
+        }
+
+        section {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Key Box Style */
+        .key-container {
+            background: #0B0F19;
+            border: 1px dashed var(--accent-cyan);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #FFF;
+            letter-spacing: 1px;
+            word-break: break-all;
+            margin-top: 10px;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+        }
+
+        /* List Freebies */
+        .freebies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .freebie-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .freebie-item::before {
+            content: '✦';
+            color: var(--accent-cyan);
+        }
+
+        /* Alert/Note Box */
+        .note-box {
+            background: rgba(236, 72, 153, 0.1);
+            border-left: 4px solid var(--accent-pink);
+            padding: 15px 20px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .note-box.info-box {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 4px solid var(--accent-cyan);
+            margin-bottom: 20px;
+        }
+
+        .note-box ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .note-box li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .note-box li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-pink);
+            font-weight: bold;
+        }
+
+        .note-box.info-box li::before {
+            color: var(--accent-cyan);
+        }
+
+        .note-box li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Grid Actions / Buttons */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            color: #FFF;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .btn-guide {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .btn-discord {
+            background: #5865F2;
+        }
+
+        .btn-claim {
+            background: linear-gradient(135deg, #EC4899, #8B5CF6);
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.2);
+        }
+
+        .btn-review {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .btn-review:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #FFF;
+        }
+
+        /* LANGUAGE VISIBILITY CONTROL */
+        [data-lang] {
+            display: none !important;
+        }
+        
+        body.lang-id [data-lang="id"] { display: block !important; }
+        body.lang-id span[data-lang="id"] { display: inline-block !important; }
+        body.lang-id div[data-lang="id"] { display: block !important; }
+        
+        body.lang-en [data-lang="en"] { display: block !important; }
+        body.lang-en span[data-lang="en"] { display: inline-block !important; }
+        body.lang-en div[data-lang="en"] { display: block !important; }
+
+        body.lang-zh [data-lang="zh"] { display: block !important; }
+        body.lang-zh span[data-lang="zh"] { display: inline-block !important; }
+        body.lang-zh div[data-lang="zh"] { display: block !important; }
+
+        body.lang-ar [data-lang="ar"] { display: block !important; text-align: right; }
+        body.lang-ar span[data-lang="ar"] { display: inline-block !important; }
+        body.lang-ar div[data-lang="ar"] { display: block !important; }
+        body.lang-ar h2::after { background: linear-gradient(to left, var(--accent-pink), transparent); }
+        body.lang-ar .note-box { border-left: none; border-right: 4px solid var(--accent-pink); border-radius: 12px 0 0 12px; }
+        body.lang-ar .note-box.info-box { border-left: none; border-right: 4px solid var(--accent-cyan); border-radius: 12px 0 0 12px; }
+        body.lang-ar .note-box li { padding-left: 0; padding-right: 15px; }
+        body.lang-ar .note-box li::before { left: auto; right: 0; }
+        body.lang-ar .freebie-item { direction: rtl; }
+
+        body.lang-ru [data-lang="ru"] { display: block !important; }
+        body.lang-ru span[data-lang="ru"] { display: inline-block !important; }
+        body.lang-ru div[data-lang="ru"] { display: block !important; }
+    </style>
+</head>
+<body class="lang-id">
+
+    <div class="container">
+        
+        <header>
+            <h1>SLASH 2.0</h1>
+            <p data-lang="id">Product Key & Panduan Penggunaan</p>
+            <p data-lang="en">Product Key & Activation Guide</p>
+            <p data-lang="zh">激活密钥与使用指南</p>
+            <p data-lang="ar">مفتاح المنتج ودليل الاستخدام</p>
+            <p data-lang="ru">Ключ продукта и руководство по активации</p>
+        </header>
+
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('id', event)">Indonesia</button>
+            <button class="lang-btn" onclick="setLang('en', event)">English</button>
+            <button class="lang-btn" onclick="setLang('zh', event)">简体中文</button>
+            <button class="lang-btn" onclick="setLang('ar', event)">العربية</button>
+            <button class="lang-btn" onclick="setLang('ru', event)">Русский</button>
+        </div>
+
+        <!-- SECTION 1: KEY -->
+        <section>
+            <h2 data-lang="id">⚔️ Kunci Lisensi Anda (30 Hari)</h2>
+            <h2 data-lang="en">⚔️ Your License Key (30 Days)</h2>
+            <h2 data-lang="zh">⚔️ 您的授权密钥 (30天)</h2>
+            <h2 data-lang="ar">⚔️ مفتاح الترخيص الخاص بك (30 يومًا)</h2>
+            <h2 data-lang="ru">⚔️ Ваш лицензионный ключ (30 дней)</h2>
+            
+            <div class="key-container">SLASHX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+        </section>
+
+        <!-- SECTION 2: GUIDE & COMMUNITY -->
+        <section>
+            <h2 data-lang="id">📌 Panduan & Komunitas</h2>
+            <h2 data-lang="en">📌 Guide & Community</h2>
+            <h2 data-lang="zh">📌 指南与社区</h2>
+            <h2 data-lang="ar">📌 الدليل والمجتمع</h2>
+            <h2 data-lang="ru">📌 Руководство и сообщество</h2>
+            
+            <div class="action-grid">
+                <a href="https://guide-from-ryuhuu.gitbook.io/slash2.0" target="_blank" class="btn btn-guide">
+                    📖 <span data-lang="id">Buka Panduan Lengkap (Step-by-Step)</span>
+                    <span data-lang="en">Open Full Step-by-Step Guide</span>
+                    <span data-lang="zh">打开完整步骤指南 (图文)</span>
+                    <span data-lang="ar">افتح دليل الاستخدام خطوة بخطوة</span>
+                    <span data-lang="ru">Открыть полное пошаговое руководство</span>
+                </a>
+                
+                <a href="https://discord.gg/k9Qb3Cxnsd" target="_blank" class="btn btn-discord">
+                    🌐 <span data-lang="id">Gabung Discord Hub (Update & Event)</span>
+                    <span data-lang="en">Join Discord Hub (Updates & Events)</span>
+                    <span data-lang="zh">加入 Discord 枢纽 (更新与活动)</span>
+                    <span data-lang="ar">انضم إلى مجتمع الديسكورد للتحديثات</span>
+                    <span data-lang="ru">Вступить в Discord (Обновления и ивенты)</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION 3: FREEBIES -->
+        <section>
+            <h2 data-lang="id">🎁 Bonus Alat / Bypass Gratis</h2>
+            <h2 data-lang="en">🎁 Included Freebies & Bypass Tools</h2>
+            <h2 data-lang="zh">🎁 包含的免费赠品 / Bypass 工具</h2>
+            <h2 data-lang="ar">🎁 الأدوات المجانية والميزات المضمنة</h2>
+            <h2 data-lang="ru">🎁 Бесплатные бонусы и утилиты</h2>
+
+            <div class="note-box info-box">
+                <ul data-lang="id">
+                    <li><strong>Catatan Pembeli:</strong> Seluruh bonus game gratis (*freebies*) di bawah baru dapat diakses setelah kunci lisensi utama Anda telah diklaim/diaktivasi untuk game <strong>Wuthering Waves (WuWa)</strong> atau <strong>SLASH</strong>.</li>
+                </ul>
+                <ul data-lang="en">
+                    <li><strong>Buyer's Note:</strong> All freebies listed below can only be accessed once your primary license key has been successfully claimed/activated for <strong>Wuthering Waves (WuWa)</strong> or <strong>SLASH</strong>.</li>
+                </ul>
+                <ul data-lang="zh">
+                    <li><strong>买家提示：</strong> 只有当您的主授权密钥成功激活/应用到 <strong>《鸣潮》(WuWa)</strong> 或 <strong>SLASH</strong> 之后，下方的所有免费工具与赠品才可开放正常访问。</li>
+                </ul>
+                <ul data-lang="ar">
+                    <li><strong>ملاحظة للمشتري:</strong> لا يمكن الوصول إلى جميع الأدوات المجانية والميزات المذكورة أدناه إلا بعد تفعيل/مطالبة مفتاح الترخيص الأساسي الخاص بك للعبة <strong>Wuthering Waves (WuWa)</strong> أو <strong>SLASH</strong>.</li>
+                </ul>
+                <ul data-lang="ru">
+                    <li><strong>Примечание покупателя:</strong> Все бесплатные бонусы и утилиты ниже станут доступны только ПОСЛЕ того, как ваш основной лицензионный ключ будет успешно активирован для <strong>Wuthering Waves (WuWa)</strong> или <strong>SLASH</strong>.</li>
+                </ul>
+            </div>
+
+            <div class="freebies-grid">
+                <div class="freebie-item">GFL 2 Haoplay & Sunborn</div>
+                <div class="freebie-item">Genshin Bypass</div>
+                <div class="freebie-item">ZZZ Bypass</div>
+                <div class="freebie-item">Blue Archive (Global / JP)</div>
+                <div class="freebie-item">Stella Sora (Global / JP / KR)</div>
+                <div class="freebie-item">Duet Night Abyss</div>
+                <div class="freebie-item">Arknights: Endfield</div>
+                <div class="freebie-item">Mongil: Star Dive</div>
+                <div class="freebie-item">NTE (Neverness to Everness)</div>
+            </div>
+
+            <a href="https://discord.com/channels/1265657372563607574/1394219621594169355/1394220574561144914" target="_blank" class="btn btn-claim">
+                🔥 <span data-lang="id">Klaim Bonus via Discord</span>
+                <span data-lang="en">Claim Your Freebies Here</span>
+                <span data-lang="zh">在此处领取您的免费工具</span>
+                <span data-lang="ar">مطالبة بالأدوات المجانية من هنا</span>
+                <span data-lang="ru">Забрать бонусы в Discord</span>
+            </a>
+        </section>
+
+        <!-- SECTION 4: REVIEW & NOTE -->
+        <section>
+            <h2 data-lang="id">⚠️ Catatan Penting & Dukungan</h2>
+            <h2 data-lang="en">⚠️ Important Notes & Support</h2>
+            <h2 data-lang="zh">⚠️ 重要提示与支持</h2>
+            <h2 data-lang="ar">⚠️ ملاحظات هامة والدعم</h2>
+            <h2 data-lang="ru">⚠️ Важные примечания и поддержка</h2>
+
+            <div class="note-box" style="margin-bottom: 25px;">
+                <ul data-lang="id">
+                    <li>Satu kunci lisensi hanya berlaku untuk <strong>satu pengguna / PC</strong>.</li>
+                    <li><strong>JANGAN</strong> membagikan kunci Anda (tidak akan bisa digunakan lagi jika hangus).</li>
+                    <li>Wajib membaca panduan di atas secara saksama sebelum bertanya ke bantuan support.</li>
+                </ul>
+                <ul data-lang="en">
+                    <li><strong>One user per key</strong> only.</li>
+                    <li>Do <strong>NOT</strong> share your key (it won’t work again after being used).</li>
+                    <li>Read the guide first before asking for support (saves everyone time).</li>
+                </ul>
+                <ul data-lang="zh">
+                    <li>每个密钥仅限<strong>单台设备/单个用户</strong>使用。</li>
+                    <li><strong>请勿</strong>分享您的密钥（一旦使用或泄露将彻底失效）。</li>
+                    <li>在寻求技术支持前，请务必先仔细阅读使用指南。</li>
+                </ul>
+                <ul data-lang="ar">
+                    <li>مفتاح الترخيص مخصص <strong>لمستخدم واحد فقط</strong>.</li>
+                    <li><strong>لا تشارك</strong> المفتاح الخاص بك مع الآخرين (لن يعمل مرة أخرى بعد الاستخدام).</li>
+                    <li>يرجى قراءة الدليل أولاً قبل طلب الدعم الفني لحفظ وقت الجميع.</li>
+                </ul>
+                <ul data-lang="ru">
+                    <li>Один ключ строго на <strong>одного пользователя / ПК</strong>.</li>
+                    <li><strong>НЕ</strong> делитесь своим ключом (он перестанет работать при повторном использовании).</li>
+                    <li>Пожалуйста, изучите гайд перед обращением в саппорт (это сэкономит общее время).</li>
+                </ul>
+            </div>
+
+            <a href="https://discord.com/channels/1265657372563607574/1269645315078750238" target="_blank" class="btn btn-review">
+                💖 <span data-lang="id">Puas? Berikan Review / Emoji di Sini</span>
+                <span data-lang="en">Satisfied? Leave a Review or Emoji Here</span>
+                <span data-lang="zh">满意吗？请在此处留下简短评价或表情</span>
+                <span data-lang="ar">هل أعجبتك الخدمة؟ اترك تقييمًا أو إيموجي هنا</span>
+                <span data-lang="ru">Понравилось? Оставьте отзыв или эмодзи здесь</span>
+            </a>
+        </section>
+
+    </div>
+
+    <script>
+        function setLang(langCode, event) {
+            document.body.className = 'lang-' + langCode;
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
