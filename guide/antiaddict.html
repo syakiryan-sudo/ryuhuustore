@@ -66,8 +66,13 @@
             animation: pulse-icon 3s ease-in-out infinite;
         }
         @keyframes pulse-icon {
-            0%, 100% { filter: drop-shadow(0 0 18px rgba(240, 96, 64, 0.4)); }
-            50% { filter: drop-shadow(0 0 32px rgba(240, 96, 64, 0.75)); }
+            0%,
+            100% {
+                filter: drop-shadow(0 0 18px rgba(240, 96, 64, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 32px rgba(240, 96, 64, 0.75));
+            }
         }
         .header h1 {
             font-size: 1.65rem;
@@ -266,6 +271,51 @@
             text-decoration: underline;
         }
 
+        /* Link Cards Grid */
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        .link-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all var(--transition);
+            text-decoration: none;
+            color: var(--text);
+            gap: 8px;
+        }
+        .link-card:hover {
+            border-color: var(--accent);
+            background: rgba(200, 75, 49, 0.06);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(200, 75, 49, 0.12);
+        }
+        .link-card .link-icon {
+            font-size: 1.6rem;
+        }
+        .link-card .link-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #e8e8f0;
+        }
+        .link-card .link-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .link-card.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: not-allowed;
+            filter: grayscale(0.6);
+        }
+
         /* Rules / Safety (Red) */
         .rules-list {
             list-style: none;
@@ -405,378 +455,599 @@
         }
 
         /* Language visibility */
-        [data-lang] { display: none !important; }
-        body.lang-id [data-lang="id"] { display: block !important; }
-        body.lang-id span[data-lang="id"] { display: inline-block !important; }
-        body.lang-id ol[data-lang="id"] { display: flex !important; flex-direction: column; gap: 0.9rem; }
-        body.lang-id ul[data-lang="id"] { display: flex !important; flex-direction: column; gap: 0.65rem; }
-        body.lang-id div[data-lang="id"] { display: block !important; }
+        [data-lang] {
+            display: none !important;
+        }
+        body.lang-id [data-lang="id"] {
+            display: block !important;
+        }
+        body.lang-id span[data-lang="id"] {
+            display: inline-block !important;
+        }
+        body.lang-id ol[data-lang="id"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+        body.lang-id ul[data-lang="id"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        body.lang-id div[data-lang="id"] {
+            display: block !important;
+        }
+        body.lang-id a[data-lang="id"] {
+            display: flex !important;
+        }
 
-        body.lang-en [data-lang="en"] { display: block !important; }
-        body.lang-en span[data-lang="en"] { display: inline-block !important; }
-        body.lang-en ol[data-lang="en"] { display: flex !important; flex-direction: column; gap: 0.9rem; }
-        body.lang-en ul[data-lang="en"] { display: flex !important; flex-direction: column; gap: 0.65rem; }
-        body.lang-en div[data-lang="en"] { display: block !important; }
+        body.lang-en [data-lang="en"] {
+            display: block !important;
+        }
+        body.lang-en span[data-lang="en"] {
+            display: inline-block !important;
+        }
+        body.lang-en ol[data-lang="en"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+        body.lang-en ul[data-lang="en"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        body.lang-en div[data-lang="en"] {
+            display: block !important;
+        }
+        body.lang-en a[data-lang="en"] {
+            display: flex !important;
+        }
 
-        body.lang-zh [data-lang="zh"] { display: block !important; }
-        body.lang-zh span[data-lang="zh"] { display: inline-block !important; }
-        body.lang-zh ol[data-lang="zh"] { display: flex !important; flex-direction: column; gap: 0.9rem; }
-        body.lang-zh ul[data-lang="zh"] { display: flex !important; flex-direction: column; gap: 0.65rem; }
-        body.lang-zh div[data-lang="zh"] { display: block !important; }
+        body.lang-zh [data-lang="zh"] {
+            display: block !important;
+        }
+        body.lang-zh span[data-lang="zh"] {
+            display: inline-block !important;
+        }
+        body.lang-zh ol[data-lang="zh"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+        body.lang-zh ul[data-lang="zh"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        body.lang-zh div[data-lang="zh"] {
+            display: block !important;
+        }
+        body.lang-zh a[data-lang="zh"] {
+            display: flex !important;
+        }
 
-        body.lang-ar [data-lang="ar"] { display: block !important; text-align: right; direction: rtl; }
-        body.lang-ar span[data-lang="ar"] { display: inline-block !important; }
-        body.lang-ar ol[data-lang="ar"] { display: flex !important; flex-direction: column; gap: 0.9rem; padding-right: 0; }
-        body.lang-ar ul[data-lang="ar"] { display: flex !important; flex-direction: column; gap: 0.65rem; }
-        body.lang-ar div[data-lang="ar"] { display: block !important; }
-        body.lang-ar .rules-list li, body.lang-ar .tips-list li { border-left: none; border-right: 3px solid var(--red); }
-        body.lang-ar .tips-list li { border-right: 3px solid var(--yellow); }
-        body.lang-ar .license-box::before { left: auto; right: 0; border-radius: 3px 0 0 3px; }
-        body.lang-ar .card-header { flex-direction: row-reverse; }
-        body.lang-ar .faq-question { flex-direction: row-reverse; }
-        body.lang-ar .faq-answer { padding-left: 0; padding-right: 1.8rem; }
+        body.lang-ar [data-lang="ar"] {
+            display: block !important;
+            text-align: right;
+            direction: rtl;
+        }
+        body.lang-ar span[data-lang="ar"] {
+            display: inline-block !important;
+        }
+        body.lang-ar ol[data-lang="ar"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.9rem;
+            padding-right: 0;
+        }
+        body.lang-ar ul[data-lang="ar"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        body.lang-ar div[data-lang="ar"] {
+            display: block !important;
+        }
+        body.lang-ar a[data-lang="ar"] {
+            display: flex !important;
+        }
+        body.lang-ar .rules-list li,
+        body.lang-ar .tips-list li {
+            border-left: none;
+            border-right: 3px solid var(--red);
+        }
+        body.lang-ar .tips-list li {
+            border-right: 3px solid var(--yellow);
+        }
+        body.lang-ar .license-box::before {
+            left: auto;
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        body.lang-ar .card-header {
+            flex-direction: row-reverse;
+        }
+        body.lang-ar .faq-question {
+            flex-direction: row-reverse;
+        }
+        body.lang-ar .faq-answer {
+            padding-left: 0;
+            padding-right: 1.8rem;
+        }
 
-        body.lang-ru [data-lang="ru"] { display: block !important; }
-        body.lang-ru span[data-lang="ru"] { display: inline-block !important; }
-        body.lang-ru ol[data-lang="ru"] { display: flex !important; flex-direction: column; gap: 0.9rem; }
-        body.lang-ru ul[data-lang="ru"] { display: flex !important; flex-direction: column; gap: 0.65rem; }
-        body.lang-ru div[data-lang="ru"] { display: block !important; }
+        body.lang-ru [data-lang="ru"] {
+            display: block !important;
+        }
+        body.lang-ru span[data-lang="ru"] {
+            display: inline-block !important;
+        }
+        body.lang-ru ol[data-lang="ru"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+        body.lang-ru ul[data-lang="ru"] {
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        body.lang-ru div[data-lang="ru"] {
+            display: block !important;
+        }
+        body.lang-ru a[data-lang="ru"] {
+            display: flex !important;
+        }
 
         @media (max-width: 520px) {
-            body { padding: 1rem 0.5rem; }
-            .card { padding: 1.2rem 1rem; }
-            .license-box { flex-direction: column; align-items: stretch; text-align: center; }
-            .license-box::before { width: 100%; height: 3px; top: 0; left: 0; border-radius: 0 0 3px 3px; }
-            .copy-btn { align-self: center; }
-            .header h1 { font-size: 1.35rem; }
-            .lang-btn { padding: 5px 10px; font-size: 0.75rem; }
+            body {
+                padding: 1rem 0.5rem;
+            }
+            .card {
+                padding: 1.2rem 1rem;
+            }
+            .license-box {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .license-box::before {
+                width: 100%;
+                height: 3px;
+                top: 0;
+                left: 0;
+                border-radius: 0 0 3px 3px;
+            }
+            .copy-btn {
+                align-self: center;
+            }
+            .header h1 {
+                font-size: 1.35rem;
+            }
+            .lang-btn {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
 <body class="lang-id">
 
-<div class="container">
+    <div class="container">
 
-    <!-- Header -->
-    <div class="header">
-        <span class="logo-icon">🛡️</span>
-        <h1>Antiaddict</h1>
-        <p class="subtitle" data-lang="id">Panduan Profesional & FAQ</p>
-        <p class="subtitle" data-lang="en">Professional Guide & FAQ</p>
-        <p class="subtitle" data-lang="zh">专业指南与常见问题</p>
-        <p class="subtitle" data-lang="ar">الدليل الاحترافي والأسئلة الشائعة</p>
-        <p class="subtitle" data-lang="ru">Профессиональное руководство и FAQ</p>
+        <!-- Header -->
+        <div class="header">
+            <span class="logo-icon">🛡️</span>
+            <h1>Antiaddict</h1>
+            <p class="subtitle" data-lang="id">Panduan Profesional & FAQ</p>
+            <p class="subtitle" data-lang="en">Professional Guide & FAQ</p>
+            <p class="subtitle" data-lang="zh">专业指南与常见问题</p>
+            <p class="subtitle" data-lang="ar">الدليل الاحترافي والأسئلة الشائعة</p>
+            <p class="subtitle" data-lang="ru">Профессиональное руководство и FAQ</p>
+        </div>
+
+        <!-- Language Switcher -->
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('id', event)">🇮🇩 Indonesia</button>
+            <button class="lang-btn" onclick="setLang('en', event)">🇬🇧 English</button>
+            <button class="lang-btn" onclick="setLang('zh', event)">🇨🇳 简体中文</button>
+            <button class="lang-btn" onclick="setLang('ar', event)">🇸🇦 العربية</button>
+            <button class="lang-btn" onclick="setLang('ru', event)">🇷🇺 Русский</button>
+        </div>
+
+        <!-- License Key -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">🔑</span>
+                <span data-lang="id">Kunci Lisensi</span>
+                <span data-lang="en">License Key</span>
+                <span data-lang="zh">授权密钥</span>
+                <span data-lang="ar">مفتاح الترخيص</span>
+                <span data-lang="ru">Лицензионный ключ</span>
+            </div>
+            <div class="license-box">
+                <code class="license-text" id="licenseKey">ANTIADDICT-XXXXXXXXXXXXXXXXXXXXXX</code>
+                <button class="copy-btn" id="copyBtn" onclick="copyLicense()">
+                    <span data-lang="id">📋 Salin</span>
+                    <span data-lang="en">📋 Copy</span>
+                    <span data-lang="zh">📋 复制</span>
+                    <span data-lang="ar">📋 نسخ</span>
+                    <span data-lang="ru">📋 Копировать</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Link Card Section -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">🔗</span>
+                <span data-lang="id">Tautan Penting</span>
+                <span data-lang="en">Important Links</span>
+                <span data-lang="zh">重要链接</span>
+                <span data-lang="ar">روابط مهمة</span>
+                <span data-lang="ru">Важные ссылки</span>
+            </div>
+            <div class="link-grid">
+                <a href="https://discord.gg/KShdAKcQSh" target="_blank" class="link-card" data-lang="id">
+                    <span class="link-icon">💬</span>
+                    <span class="link-label">Discord Server</span>
+                    <span class="link-desc">Gabung komunitas</span>
+                </a>
+                <a href="https://discord.gg/KShdAKcQSh" target="_blank" class="link-card" data-lang="en">
+                    <span class="link-icon">💬</span>
+                    <span class="link-label">Discord Server</span>
+                    <span class="link-desc">Join the community</span>
+                </a>
+                <a href="https://discord.gg/KShdAKcQSh" target="_blank" class="link-card" data-lang="zh">
+                    <span class="link-icon">💬</span>
+                    <span class="link-label">Discord 服务器</span>
+                    <span class="link-desc">加入社区</span>
+                </a>
+                <a href="https://discord.gg/KShdAKcQSh" target="_blank" class="link-card" data-lang="ar">
+                    <span class="link-icon">💬</span>
+                    <span class="link-label">سيرفر ديسكورد</span>
+                    <span class="link-desc">انضم إلى المجتمع</span>
+                </a>
+                <a href="https://discord.gg/KShdAKcQSh" target="_blank" class="link-card" data-lang="ru">
+                    <span class="link-icon">💬</span>
+                    <span class="link-label">Discord сервер</span>
+                    <span class="link-desc">Присоединиться</span>
+                </a>
+
+                <a href="https://antiaddict.dpdns.org/register" target="_blank" class="link-card" data-lang="id">
+                    <span class="link-icon">📝</span>
+                    <span class="link-label">Registrasi</span>
+                    <span class="link-desc">Hubungkan akun</span>
+                </a>
+                <a href="https://antiaddict.dpdns.org/register" target="_blank" class="link-card" data-lang="en">
+                    <span class="link-icon">📝</span>
+                    <span class="link-label">Register</span>
+                    <span class="link-desc">Link your account</span>
+                </a>
+                <a href="https://antiaddict.dpdns.org/register" target="_blank" class="link-card" data-lang="zh">
+                    <span class="link-icon">📝</span>
+                    <span class="link-label">注册</span>
+                    <span class="link-desc">绑定账户</span>
+                </a>
+                <a href="https://antiaddict.dpdns.org/register" target="_blank" class="link-card" data-lang="ar">
+                    <span class="link-icon">📝</span>
+                    <span class="link-label">التسجيل</span>
+                    <span class="link-desc">اربط حسابك</span>
+                </a>
+                <a href="https://antiaddict.dpdns.org/register" target="_blank" class="link-card" data-lang="ru">
+                    <span class="link-icon">📝</span>
+                    <span class="link-label">Регистрация</span>
+                    <span class="link-desc">Привязать аккаунт</span>
+                </a>
+
+                <div class="link-card disabled" data-lang="id">
+                    <span class="link-icon">⬇️</span>
+                    <span class="link-label">Download</span>
+                    <span class="link-desc">Akses setelah /link-key</span>
+                </div>
+                <div class="link-card disabled" data-lang="en">
+                    <span class="link-icon">⬇️</span>
+                    <span class="link-label">Download</span>
+                    <span class="link-desc">Access after /link-key</span>
+                </div>
+                <div class="link-card disabled" data-lang="zh">
+                    <span class="link-icon">⬇️</span>
+                    <span class="link-label">下载</span>
+                    <span class="link-desc">/link-key 后解锁</span>
+                </div>
+                <div class="link-card disabled" data-lang="ar">
+                    <span class="link-icon">⬇️</span>
+                    <span class="link-label">تحميل</span>
+                    <span class="link-desc">الوصول بعد /link-key</span>
+                </div>
+                <div class="link-card disabled" data-lang="ru">
+                    <span class="link-icon">⬇️</span>
+                    <span class="link-label">Скачать</span>
+                    <span class="link-desc">Доступ после /link-key</span>
+                </div>
+
+                <a href="#" class="link-card" data-lang="id">
+                    <span class="link-icon">🛒</span>
+                    <span class="link-label">ryuhuu store</span>
+                    <span class="link-desc">Pembelian & reseller</span>
+                </a>
+                <a href="#" class="link-card" data-lang="en">
+                    <span class="link-icon">🛒</span>
+                    <span class="link-label">ryuhuu store</span>
+                    <span class="link-desc">Purchase & reseller</span>
+                </a>
+                <a href="#" class="link-card" data-lang="zh">
+                    <span class="link-icon">🛒</span>
+                    <span class="link-label">ryuhuu store</span>
+                    <span class="link-desc">购买与经销商</span>
+                </a>
+                <a href="#" class="link-card" data-lang="ar">
+                    <span class="link-icon">🛒</span>
+                    <span class="link-label">ryuhuu store</span>
+                    <span class="link-desc">الشراء والموزعين</span>
+                </a>
+                <a href="#" class="link-card" data-lang="ru">
+                    <span class="link-icon">🛒</span>
+                    <span class="link-label">ryuhuu store</span>
+                    <span class="link-desc">Покупка и реселлер</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Activation Steps -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">⚙️</span>
+                <span data-lang="id">Cara Aktivasi</span>
+                <span data-lang="en">Activation Guide</span>
+                <span data-lang="zh">激活教程</span>
+                <span data-lang="ar">طريقة التفعيل</span>
+                <span data-lang="ru">Инструкция по активации</span>
+            </div>
+            <ol class="steps-list" data-lang="id">
+                <li><span class="step-num">1</span><span class="step-content"><strong>Join Discord:</strong> Masuk ke server <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
+                <li><span class="step-num">2</span><span class="step-content"><strong>Registrasi:</strong> Buka <a href="https://antiaddict.dpdns.org/register" target="_blank">Link Registrasi</a> untuk menghubungkan akun Discord Anda.</span></li>
+                <li><span class="step-num">3</span><span class="step-content"><strong>Input Key:</strong> Masukkan kode lisensi di atas ke dalam situs tersebut.</span></li>
+                <li><span class="step-num">4</span><span class="step-content"><strong>Sync & Download:</strong> Ketik <code class="inline-code">/link-key</code> di channel <code class="inline-code">#link-key</code> untuk membuka akses download.</span></li>
+            </ol>
+            <ol class="steps-list" data-lang="en">
+                <li><span class="step-num">1</span><span class="step-content"><strong>Join Discord:</strong> Join the server at <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
+                <li><span class="step-num">2</span><span class="step-content"><strong>Register:</strong> Open the <a href="https://antiaddict.dpdns.org/register" target="_blank">Registration Link</a> to link your Discord account.</span></li>
+                <li><span class="step-num">3</span><span class="step-content"><strong>Input Key:</strong> Enter the license code shown above into the website.</span></li>
+                <li><span class="step-num">4</span><span class="step-content"><strong>Sync & Download:</strong> Type <code class="inline-code">/link-key</code> in the <code class="inline-code">#link-key</code> channel to unlock the download.</span></li>
+            </ol>
+            <ol class="steps-list" data-lang="zh">
+                <li><span class="step-num">1</span><span class="step-content"><strong>加入 Discord:</strong> 加入服务器 <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
+                <li><span class="step-num">2</span><span class="step-content"><strong>注册账号:</strong> 打开 <a href="https://antiaddict.dpdns.org/register" target="_blank">注册链接</a> 绑定 Discord 账号。</span></li>
+                <li><span class="step-num">3</span><span class="step-content"><strong>输入密钥:</strong> 输入上方授权密钥。</span></li>
+                <li><span class="step-num">4</span><span class="step-content"><strong>同步 & 下载:</strong> 在频道 <code class="inline-code">#link-key</code> 中输入 <code class="inline-code">/link-key</code> 解锁下载。</span></li>
+            </ol>
+            <ol class="steps-list" data-lang="ar">
+                <li><span class="step-num">1</span><span class="step-content"><strong>انضم إلى ديسكورد:</strong> <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
+                <li><span class="step-num">2</span><span class="step-content"><strong>التسجيل:</strong> افتح <a href="https://antiaddict.dpdns.org/register" target="_blank">رابط التسجيل</a> لربط حساب ديسكورد.</span></li>
+                <li><span class="step-num">3</span><span class="step-content"><strong>إدخال المفتاح:</strong> أدخل رمز الترخيص أعلاه في الموقع.</span></li>
+                <li><span class="step-num">4</span><span class="step-content"><strong>المزامنة والتحميل:</strong> اكتب <code class="inline-code">/link-key</code> في قناة <code class="inline-code">#link-key</code> لفتح التحميل.</span></li>
+            </ol>
+            <ol class="steps-list" data-lang="ru">
+                <li><span class="step-num">1</span><span class="step-content"><strong>Войти в Discord:</strong> Присоединитесь к серверу <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
+                <li><span class="step-num">2</span><span class="step-content"><strong>Регистрация:</strong> Откройте <a href="https://antiaddict.dpdns.org/register" target="_blank">ссылку для регистрации</a> и привяжите Discord.</span></li>
+                <li><span class="step-num">3</span><span class="step-content"><strong>Ввод ключа:</strong> Введите лицензионный ключ на сайте.</span></li>
+                <li><span class="step-num">4</span><span class="step-content"><strong>Синхронизация и загрузка:</strong> Введите <code class="inline-code">/link-key</code> в канале <code class="inline-code">#link-key</code> для доступа к загрузке.</span></li>
+            </ol>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">❓</span>
+                <span data-lang="id">Pertanyaan Umum (FAQ)</span>
+                <span data-lang="en">Frequently Asked Questions</span>
+                <span data-lang="zh">常见问题</span>
+                <span data-lang="ar">الأسئلة الشائعة</span>
+                <span data-lang="ru">Часто задаваемые вопросы</span>
+            </div>
+            <!-- Q1 -->
+            <div class="faq-item">
+                <div class="faq-question" data-lang="id">Seberapa aman ini?</div>
+                <div class="faq-question" data-lang="en">How safe is this?</div>
+                <div class="faq-question" data-lang="zh">这有多安全？</div>
+                <div class="faq-question" data-lang="ar">ما مدى أمان هذا؟</div>
+                <div class="faq-question" data-lang="ru">Насколько это безопасно?</div>
+                <div class="faq-answer" data-lang="id">antiaddict. adalah salah satu cheat paling aman di pasaran. Kami terus memperbarui bypass anti-cheat sisi klien. Ingatlah bahwa banned manual (paling umum), banned server-side anti-cheat (jarang), dan kesalahan pengembang (sedikit kurang umum) dapat terjadi.</div>
+                <div class="faq-answer" data-lang="en">antiaddict. is one of the safest cheats on the market. We strive to keep our client-side anti-cheat bypass up-to-date. Keep in mind that manual bans (most common), server-side anti-cheat bans (rare), and developer mistakes (slightly less common) can occur.</div>
+                <div class="faq-answer" data-lang="zh">antiaddict. 是市场上最安全的作弊工具之一。我们努力保持客户端反作弊绕过更新。请注意，手动封禁（最常见）、服务器端反作弊封禁（罕见）以及开发者失误（较不常见）仍有可能发生。</div>
+                <div class="faq-answer" data-lang="ar">antiaddict. هو واحد من أكثر الغشاشين أمانًا في السوق. نحن نسعى جاهدين للحفاظ على تحديث تجاوز مكافحة الغش من جانب العميل. ضع في اعتبارك أن الحظر اليدوي (الأكثر شيوعًا) ، وحظر مكافحة الغش من جانب الخادم (نادر) ، وأخطاء المطور (أقل شيوعًا بقليل) يمكن أن تحدث.</div>
+                <div class="faq-answer" data-lang="ru">antiaddict. — один из самых безопасных читов на рынке. Мы стараемся поддерживать обход античита на стороне клиента в актуальном состоянии. Имейте в виду, что ручные баны (наиболее частые), баны серверного античита (редкие) и ошибки разработчиков (чуть менее частые) могут случаться.</div>
+            </div>
+            <!-- Q2 -->
+            <div class="faq-item">
+                <div class="faq-question" data-lang="id">Saya baru membeli, bagaimana cara mulai?</div>
+                <div class="faq-question" data-lang="en">I just bought the software, how do I start using?</div>
+                <div class="faq-question" data-lang="zh">我刚购买了软件，如何开始使用？</div>
+                <div class="faq-question" data-lang="ar">لقد اشتريت البرنامج للتو ، كيف أبدأ في استخدامه؟</div>
+                <div class="faq-question" data-lang="ru">Я только что купил программу, как начать пользоваться?</div>
+                <div class="faq-answer" data-lang="id">Buka <a href="https://antiaddict.dpdns.org/register" target="_blank">halaman registrasi antiaddict.</a> untuk menautkan akun Discord dan kunci Anda. Jika sudah menautkan akun sebelumnya, buka <code class="inline-code">#link-key</code> dan jalankan <code class="inline-code">/link-key</code> untuk mengakses saluran unduhan.</div>
+                <div class="faq-answer" data-lang="en">Head to <a href="https://antiaddict.dpdns.org/register" target="_blank">the antiaddict. registration page</a> to link your Discord account and key. If you had linked your account prior to joining the server, go to <code class="inline-code">#link-key</code> and run <code class="inline-code">/link-key</code> to access the download channel.</div>
+                <div class="faq-answer" data-lang="zh">前往 <a href="https://antiaddict.dpdns.org/register" target="_blank">antiaddict. 注册页面</a> 绑定您的 Discord 账户和密钥。如果之前已绑定账户，请到频道 <code class="inline-code">#link-key</code> 输入 <code class="inline-code">/link-key</code> 访问下载频道。</div>
+                <div class="faq-answer" data-lang="ar">توجه إلى <a href="https://antiaddict.dpdns.org/register" target="_blank">صفحة تسجيل antiaddict.</a> لربط حساب Discord والمفتاح الخاص بك. إذا كنت قد ربطت حسابك مسبقًا ، فانتقل إلى <code class="inline-code">#link-key</code> وقم بتشغيل <code class="inline-code">/link-key</code> للوصول إلى قناة التحميل.</div>
+                <div class="faq-answer" data-lang="ru">Перейдите на <a href="https://antiaddict.dpdns.org/register" target="_blank">страницу регистрации antiaddict.</a> чтобы привязать аккаунт Discord и ключ. Если вы привязали аккаунт ранее, зайдите в <code class="inline-code">#link-key</code> и выполните <code class="inline-code">/link-key</code> для доступа к каналу загрузки.</div>
+            </div>
+            <!-- Q3 crypto -->
+            <div class="faq-item">
+                <div class="faq-question" data-lang="id">Saya tidak punya crypto!</div>
+                <div class="faq-question" data-lang="en">I don't have crypto!</div>
+                <div class="faq-question" data-lang="zh">我没有加密货币！</div>
+                <div class="faq-question" data-lang="ar">ليس لدي عملات رقمية!</div>
+                <div class="faq-question" data-lang="ru">У меня нет криптовалюты!</div>
+                <div class="faq-answer" data-lang="id">Beli di <strong>ryuhuu store</strong> atau DM aku untuk menemukan pembayaran lokal di areamu.</div>
+                <div class="faq-answer" data-lang="en">Buy at <strong>ryuhuu store</strong> or DM me to find local payment methods in your area.</div>
+                <div class="faq-answer" data-lang="zh">在 <strong>ryuhuu store</strong> 购买，或私信我获取你所在地区的本地支付方式。</div>
+                <div class="faq-answer" data-lang="ar">اشترِ من <strong>ryuhuu store</strong> أو راسلني خاصًا للعثور على طرق دفع محلية في منطقتك.</div>
+                <div class="faq-answer" data-lang="ru">Покупайте в <strong>ryuhuu store</strong> или напишите мне в личные сообщения, чтобы найти местные способы оплаты в вашем регионе.</div>
+            </div>
+            <!-- Q4 -->
+            <div class="faq-item">
+                <div class="faq-question" data-lang="id">Apakah ada fitur [xxx]?</div>
+                <div class="faq-question" data-lang="en">Do you have [insert] feature?</div>
+                <div class="faq-question" data-lang="zh">你们有[某某]功能吗？</div>
+                <div class="faq-question" data-lang="ar">هل لديكم ميزة [كذا]؟</div>
+                <div class="faq-question" data-lang="ru">У вас есть функция [такая-то]?</div>
+                <div class="faq-answer" data-lang="id">Kami masih dalam tahap beta, jadi mungkin belum ada yang kamu cari. Beri tahu kami dan kami akan segera mewujudkannya.</div>
+                <div class="faq-answer" data-lang="en">We're still in the beta testing phase so you may not find what you want. Let us know and we will have it up soon™.</div>
+                <div class="faq-answer" data-lang="zh">我们仍处于测试阶段，可能还没有你想要的功能。告诉我们，我们会尽快推出。</div>
+                <div class="faq-answer" data-lang="ar">ما زلنا في مرحلة الاختبار التجريبي لذا قد لا تجد ما تريده. أعلمنا وسنوفره قريبًا.</div>
+                <div class="faq-answer" data-lang="ru">Мы всё ещё на стадии бета-тестирования, так что нужной функции может не быть. Дайте нам знать, и мы скоро её добавим.</div>
+            </div>
+            <!-- Q5 -->
+            <div class="faq-item">
+                <div class="faq-question" data-lang="id">Tombol apa untuk membuka overlay?</div>
+                <div class="faq-question" data-lang="en">What is the key to open the overlay?</div>
+                <div class="faq-question" data-lang="zh">打开覆盖层的快捷键是什么？</div>
+                <div class="faq-question" data-lang="ar">ما هو مفتاح فتح النافذة العلوية؟</div>
+                <div class="faq-question" data-lang="ru">Какая клавиша открывает оверлей?</div>
+                <div class="faq-answer" data-lang="id">'Overlay' sebenarnya bukan overlay biasa — saat ini menu cheat adalah jendela terpisah dari game. Nantinya kamu bisa menggunakan <strong>F1</strong> untuk membuka overlay.</div>
+                <div class="faq-answer" data-lang="en">The 'overlay' is not very much of an overlay — as of now, the cheat menu is a separate window from the game. In the future, you will be able to use <strong>F1</strong> to open the overlay.</div>
+                <div class="faq-answer" data-lang="zh">“覆盖层”其实不算覆盖层——目前作弊菜单是与游戏分离的窗口。将来你可以按 <strong>F1</strong> 打开覆盖层。</div>
+                <div class="faq-answer" data-lang="ar">"النافذة العلوية" ليست نافذة علوية حقيقية حاليًا — قائمة الغش هي نافذة منفصلة عن اللعبة. في المستقبل ستتمكن من استخدام <strong>F1</strong> لفتحها.</div>
+                <div class="faq-answer" data-lang="ru">«Оверлей» сейчас не совсем оверлей — меню чита представляет собой отдельное окно от игры. В будущем вы сможете использовать <strong>F1</strong> для открытия оверлея.</div>
+            </div>
+        </div>
+
+        <!-- Safety Guide & Tips -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">⛔</span>
+                <span data-lang="id">Panduan Keamanan & Tips</span>
+                <span data-lang="en">Safety Guide & Tips</span>
+                <span data-lang="zh">安全指南与提示</span>
+                <span data-lang="ar">دليل الأمان والنصائح</span>
+                <span data-lang="ru">Руководство по безопасности и советы</span>
+            </div>
+            <div class="warning-box" data-lang="id">⚠️ Kita berada di era gelap dengan anti-cheat kelas enterprise yang sangat baik, di mana apa pun bisa membuatmu terkena banned; hati-hati.</div>
+            <div class="warning-box" data-lang="en">⚠️ We are in a dark-era with a really good enterprise-grade anti-cheat where anything can ban you; be careful.</div>
+            <div class="warning-box" data-lang="zh">⚠️ 我们正处于一个拥有强大企业级反作弊的黑暗时代，任何操作都可能导致封禁，请小心。</div>
+            <div class="warning-box" data-lang="ar">⚠️ نحن في عصر مظلم مع مضاد غش قوي على مستوى المؤسسات حيث يمكن لأي شيء أن يحظرك ؛ كن حذرًا.</div>
+            <div class="warning-box" data-lang="ru">⚠️ Мы находимся в тёмной эре с действительно хорошим античитом корпоративного уровня, где что угодно может забанить вас; будьте осторожны.</div>
+
+            <ul class="rules-list" data-lang="id">
+                <li><span class="rule-icon">⚠️</span><span><strong>Jangan pernah mengubah nama file launcher.</strong> Biarkan tetap <code class="inline-code">antiaddict.exe</code>. Anti-cheat akan menandai file yang diubah namanya.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>Jangan pernah menggunakan alat, cheat, atau mod lain bersamaan dengan antiaddict.</strong> Termasuk mod skin atau sejenisnya. Anti-cheat dapat dan akan menandaimu — perlindungan kami hanya mencakup antiaddict.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>Selalu luncurkan game melalui HoYoPlay Launcher</strong> (launcher resmi). Jangan meluncurkannya secara manual atau menggunakan alat lain.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>Restart PC setelah menggunakan antiaddict.</strong> Jika kamu akan bermain tanpanya. Jangan pernah bermain tanpa antiaddict setelah menjalankannya <strong>sebelum kamu merestart komputermu.</strong> antiaddict. akan meninggalkan jejak (terbuka oleh sistem operasi ke anti-cheat) <strong>hingga kamu merestart</strong>, membuatmu rentan terhadap deteksi meskipun tidak menggunakan apa pun.</span></li>
+            </ul>
+            <ul class="rules-list" data-lang="en">
+                <li><span class="rule-icon">⚠️</span><span><strong>Never rename the launcher executable.</strong> Keep it to <code class="inline-code">antiaddict.exe</code>. The anti-cheat will flag renamed files.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>Never use any other tools, cheats or mods together with antiaddict.</strong> This includes skin or related mods. The anti-cheat can and will flag you — our protection only extends to antiaddict.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>Always launch the game using the HoYoPlay Launcher</strong> (the official launcher). Don't launch it manually or using another tool.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>Restart your PC after using antiaddict.</strong> if you are going to play without it. Never play without antiaddict after running it <strong>before you restart your computer.</strong> antiaddict. will leave behind a trace (exposed by the operating system to the anti-cheat) <strong>until you restart</strong>, leaving you vulnerable to detections even though you aren't using anything.</span></li>
+            </ul>
+            <ul class="rules-list" data-lang="zh">
+                <li><span class="rule-icon">⚠️</span><span><strong>不要重命名启动器文件。</strong> 保持为 <code class="inline-code">antiaddict.exe</code>。反作弊会标记已重命名的文件。</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>不要同时使用其他任何工具、作弊或模组与 antiaddict。</strong> 包括皮肤模组。反作弊会标记你——我们的保护仅适用于 antiaddict。</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>始终使用 HoYoPlay Launcher</strong>（官方启动器）启动游戏。不要手动或使用其他工具启动。</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>使用 antiaddict 后重启电脑。</strong> 如果你打算在不使用它的情况下玩游戏。在运行 antiaddict 后，<strong>在重启电脑之前</strong>绝对不要不使用 antiaddict 玩游戏。antiaddict. 会留下痕迹（操作系统暴露给反作弊）<strong>直到你重启</strong>，即使你没有使用任何东西，也会容易被检测到。</span></li>
+            </ul>
+            <ul class="rules-list" data-lang="ar">
+                <li><span class="rule-icon">⚠️</span><span><strong>لا تقم أبدًا بإعادة تسمية ملف المشغل.</strong> اتركه كما هو <code class="inline-code">antiaddict.exe</code>. سيقوم مضاد الغش بوضع علامة على الملفات المعاد تسميتها.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>لا تستخدم أبدًا أي أدوات أو غش أو مودات أخرى مع antiaddict.</strong> وهذا يشمل مودات الجلود. يمكن لمضاد الغش وسيقوم بوضع علامة عليك - حمايتنا تمتد فقط إلى antiaddict.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>قم دائمًا بتشغيل اللعبة باستخدام HoYoPlay Launcher</strong> (المشغل الرسمي). لا تقم بتشغيلها يدويًا أو باستخدام أداة أخرى.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>أعد تشغيل جهاز الكمبيوتر بعد استخدام antiaddict.</strong> إذا كنت ستلعب بدونها. لا تلعب أبدًا بدون antiaddict بعد تشغيلها <strong>قبل إعادة تشغيل جهاز الكمبيوتر الخاص بك.</strong> ستترك antiaddict. أثرًا (مكشوفًا بواسطة نظام التشغيل لمضاد الغش) <strong>حتى تقوم بإعادة التشغيل</strong>، مما يجعلك عرضة للاكتشاف حتى لو لم تكن تستخدم أي شيء.</span></li>
+            </ul>
+            <ul class="rules-list" data-lang="ru">
+                <li><span class="rule-icon">⚠️</span><span><strong>Никогда не переименовывайте исполняемый файл лаунчера.</strong> Оставьте <code class="inline-code">antiaddict.exe</code>. Античит пометит переименованные файлы.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>Никогда не используйте другие инструменты, читы или моды вместе с antiaddict.</strong> Включая скин-моды. Античит может и пометит вас — наша защита распространяется только на antiaddict.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>Всегда запускайте игру через HoYoPlay Launcher</strong> (официальный лаунчер). Не запускайте вручную или с помощью другого инструмента.</span></li>
+                <li><span class="rule-icon">⚠️</span><span><strong>Перезагружайте ПК после использования antiaddict.</strong> Если собираетесь играть без него. Никогда не играйте без antiaddict после его запуска <strong>до перезагрузки компьютера.</strong> antiaddict. оставляет след (открытый операционной системой античиту) <strong>до перезагрузки</strong>, что делает вас уязвимым для обнаружения, даже если вы ничего не используете.</span></li>
+            </ul>
+
+            <div style="margin: 1rem 0 0.5rem; font-weight: 700; color: #e0e0eb;">
+                <span data-lang="id">⛔ Fitur Berisiko (gunakan dengan hati-hati)</span>
+                <span data-lang="en">⛔ Risky Features (use with caution)</span>
+                <span data-lang="zh">⛔ 高风险功能（谨慎使用）</span>
+                <span data-lang="ar">⛔ ميزات عالية الخطورة (استخدم بحذر)</span>
+                <span data-lang="ru">⛔ Рискованные функции (используйте с осторожностью)</span>
+            </div>
+            <ul class="tips-list">
+                <li><span class="tip-icon">⚠️</span> Chest Teleport</li>
+                <li><span class="tip-icon">⚠️</span> Map Teleport</li>
+                <li><span class="tip-icon">⚠️</span> Quest Teleport</li>
+                <li><span class="tip-icon">⚠️</span> Material Gatherer</li>
+                <li><span class="tip-icon">⚠️</span> Monster Teleport</li>
+                <li><span class="tip-icon">⚠️</span> Auto Oculi</li>
+            </ul>
+
+            <div style="margin: 1rem 0 0.5rem; font-weight: 700; color: #e0e0eb;">
+                <span data-lang="id">💡 Tips Tambahan</span>
+                <span data-lang="en">💡 Additional Tips</span>
+                <span data-lang="zh">💡 额外提示</span>
+                <span data-lang="ar">💡 نصائح إضافية</span>
+                <span data-lang="ru">💡 Дополнительные советы</span>
+            </div>
+            <ul class="tips-list" data-lang="id">
+                <li><span class="tip-icon">🎯</span><span><strong>Gunakan seminimal mungkin.</strong> Jangan berlebihan dengan modul pertarungan seperti Kill Aura.</span></li>
+                <li><span class="tip-icon">🔍</span><span><strong>Jika tiba-tiba terputus</strong> (kode putus 4001-10xxx) atau sering reconnect, berhentilah bermain sementara — mungkin anti-cheat sedang menandaimu.</span></li>
+                <li><span class="tip-icon">⏱️</span><span><strong>Jangan terlalu gila dengan AutoQuest.</strong> Ada kemungkinan kecil terkena time-lock. Jika itu terjadi, hubungi dukungan sebelum menghubungi layanan pelanggan miHoYo.</span></li>
+            </ul>
+            <ul class="tips-list" data-lang="en">
+                <li><span class="tip-icon">🎯</span><span><strong>Keep everything at minimal.</strong> Don't go overboard with combat modules like Kill Aura.</span></li>
+                <li><span class="tip-icon">🔍</span><span><strong>If you suddenly get disconnected</strong> (4001-10xxx disconnect code) or really frequent reconnections, stop playing for a while — it may be anti-cheat flagging you.</span></li>
+                <li><span class="tip-icon">⏱️</span><span><strong>Don't go too crazy with AutoQuest.</strong> There's a small chance of getting time-locked. If that happens, contact support before emailing miHoYo customer service.</span></li>
+            </ul>
+            <ul class="tips-list" data-lang="zh">
+                <li><span class="tip-icon">🎯</span><span><strong>一切从简。</strong> 不要过度使用 Kill Aura 等战斗模块。</span></li>
+                <li><span class="tip-icon">🔍</span><span><strong>如果突然断开连接</strong>（错误码 4001-10xxx）或频繁重连，请暂停游戏——反作弊可能正在标记你。</span></li>
+                <li><span class="tip-icon">⏱️</span><span><strong>不要过度使用 AutoQuest。</strong> 有小概率被时间锁定。如果发生这种情况，在联系 miHoYo 客服之前先联系支持。</span></li>
+            </ul>
+            <ul class="tips-list" data-lang="ar">
+                <li><span class="tip-icon">🎯</span><span><strong>اجعل كل شيء عند الحد الأدنى.</strong> لا تبالغ في وحدات القتال مثل Kill Aura.</span></li>
+                <li><span class="tip-icon">🔍</span><span><strong>إذا انقطع اتصالك فجأة</strong> (رمز الانقطاع 4001-10xxx) أو عمليات إعادة الاتصال المتكررة ، توقف عن اللعب لفترة - قد يكون مضاد الغش يضع علامة عليك.</span></li>
+                <li><span class="tip-icon">⏱️</span><span><strong>لا تبالغ في AutoQuest.</strong> هناك فرصة ضئيلة للحصول على قفل الوقت. إذا حدث ذلك ، اتصل بالدعم قبل مراسلة خدمة عملاء miHoYo.</span></li>
+            </ul>
+            <ul class="tips-list" data-lang="ru">
+                <li><span class="tip-icon">🎯</span><span><strong>Держите всё на минимуме.</strong> Не увлекайтесь боевыми модулями, такими как Kill Aura.</span></li>
+                <li><span class="tip-icon">🔍</span><span><strong>Если вас внезапно отключило</strong> (код отключения 4001-10xxx) или частые переподключения, прекратите игру на некоторое время — возможно, античит помечает вас.</span></li>
+                <li><span class="tip-icon">⏱️</span><span><strong>Не сходите с ума с AutoQuest.</strong> Есть небольшой шанс получить временную блокировку. В таком случае свяжитесь с поддержкой, прежде чем писать в службу поддержки miHoYo.</span></li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <p class="footer-note">
+            <span data-lang="id">🧑‍💻 Pembuat guide: <strong>ryuhuu store</strong></span>
+            <span data-lang="en">🧑‍💻 Guide by: <strong>ryuhuu store</strong></span>
+            <span data-lang="zh">🧑‍💻 指南作者： <strong>ryuhuu store</strong></span>
+            <span data-lang="ar">🧑‍💻 الدليل من إعداد: <strong>ryuhuu store</strong></span>
+            <span data-lang="ru">🧑‍💻 Гайд от: <strong>ryuhuu store</strong></span>
+        </p>
     </div>
 
-    <!-- Language Switcher -->
-    <div class="lang-switcher">
-        <button class="lang-btn active" onclick="setLang('id', event)">🇮🇩 Indonesia</button>
-        <button class="lang-btn" onclick="setLang('en', event)">🇬🇧 English</button>
-        <button class="lang-btn" onclick="setLang('zh', event)">🇨🇳 简体中文</button>
-        <button class="lang-btn" onclick="setLang('ar', event)">🇸🇦 العربية</button>
-        <button class="lang-btn" onclick="setLang('ru', event)">🇷🇺 Русский</button>
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span data-lang="id">✅ Kode tersalin!</span>
+        <span data-lang="en">✅ Code copied!</span>
+        <span data-lang="zh">✅ 已复制！</span>
+        <span data-lang="ar">✅ تم النسخ!</span>
+        <span data-lang="ru">✅ Скопировано!</span>
     </div>
 
-    <!-- License Key -->
-    <div class="card">
-        <div class="card-header">
-            <span class="icon">🔑</span>
-            <span data-lang="id">Kunci Lisensi</span>
-            <span data-lang="en">License Key</span>
-            <span data-lang="zh">授权密钥</span>
-            <span data-lang="ar">مفتاح الترخيص</span>
-            <span data-lang="ru">Лицензионный ключ</span>
-        </div>
-        <div class="license-box">
-            <code class="license-text" id="licenseKey">ANTIADDICT-XXXXXXXXXXXXXXXXXXXXXX</code>
-            <button class="copy-btn" id="copyBtn" onclick="copyLicense()">
-                <span data-lang="id">📋 Salin</span>
-                <span data-lang="en">📋 Copy</span>
-                <span data-lang="zh">📋 复制</span>
-                <span data-lang="ar">📋 نسخ</span>
-                <span data-lang="ru">📋 Копировать</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Activation Steps -->
-    <div class="card">
-        <div class="card-header">
-            <span class="icon">⚙️</span>
-            <span data-lang="id">Cara Aktivasi</span>
-            <span data-lang="en">Activation Guide</span>
-            <span data-lang="zh">激活教程</span>
-            <span data-lang="ar">طريقة التفعيل</span>
-            <span data-lang="ru">Инструкция по активации</span>
-        </div>
-        <ol class="steps-list" data-lang="id">
-            <li><span class="step-num">1</span><span class="step-content"><strong>Join Discord:</strong> Masuk ke server <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
-            <li><span class="step-num">2</span><span class="step-content"><strong>Registrasi:</strong> Buka <a href="https://antiaddict.dpdns.org/register" target="_blank">Link Registrasi</a> untuk menghubungkan akun Discord Anda.</span></li>
-            <li><span class="step-num">3</span><span class="step-content"><strong>Input Key:</strong> Masukkan kode lisensi di atas ke dalam situs tersebut.</span></li>
-            <li><span class="step-num">4</span><span class="step-content"><strong>Sync & Download:</strong> Ketik <code class="inline-code">/link-key</code> di channel <code class="inline-code">#link-key</code> untuk membuka akses download.</span></li>
-        </ol>
-        <ol class="steps-list" data-lang="en">
-            <li><span class="step-num">1</span><span class="step-content"><strong>Join Discord:</strong> Join the server at <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
-            <li><span class="step-num">2</span><span class="step-content"><strong>Register:</strong> Open the <a href="https://antiaddict.dpdns.org/register" target="_blank">Registration Link</a> to link your Discord account.</span></li>
-            <li><span class="step-num">3</span><span class="step-content"><strong>Input Key:</strong> Enter the license code shown above into the website.</span></li>
-            <li><span class="step-num">4</span><span class="step-content"><strong>Sync & Download:</strong> Type <code class="inline-code">/link-key</code> in the <code class="inline-code">#link-key</code> channel to unlock the download.</span></li>
-        </ol>
-        <ol class="steps-list" data-lang="zh">
-            <li><span class="step-num">1</span><span class="step-content"><strong>加入 Discord:</strong> 加入服务器 <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
-            <li><span class="step-num">2</span><span class="step-content"><strong>注册账号:</strong> 打开 <a href="https://antiaddict.dpdns.org/register" target="_blank">注册链接</a> 绑定 Discord 账号。</span></li>
-            <li><span class="step-num">3</span><span class="step-content"><strong>输入密钥:</strong> 输入上方授权密钥。</span></li>
-            <li><span class="step-num">4</span><span class="step-content"><strong>同步 & 下载:</strong> 在频道 <code class="inline-code">#link-key</code> 中输入 <code class="inline-code">/link-key</code> 解锁下载。</span></li>
-        </ol>
-        <ol class="steps-list" data-lang="ar">
-            <li><span class="step-num">1</span><span class="step-content"><strong>انضم إلى ديسكورد:</strong> <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
-            <li><span class="step-num">2</span><span class="step-content"><strong>التسجيل:</strong> افتح <a href="https://antiaddict.dpdns.org/register" target="_blank">رابط التسجيل</a> لربط حساب ديسكورد.</span></li>
-            <li><span class="step-num">3</span><span class="step-content"><strong>إدخال المفتاح:</strong> أدخل رمز الترخيص أعلاه في الموقع.</span></li>
-            <li><span class="step-num">4</span><span class="step-content"><strong>المزامنة والتحميل:</strong> اكتب <code class="inline-code">/link-key</code> في قناة <code class="inline-code">#link-key</code> لفتح التحميل.</span></li>
-        </ol>
-        <ol class="steps-list" data-lang="ru">
-            <li><span class="step-num">1</span><span class="step-content"><strong>Войти в Discord:</strong> Присоединитесь к серверу <a href="https://discord.gg/KShdAKcQSh" target="_blank">https://discord.gg/KShdAKcQSh</a></span></li>
-            <li><span class="step-num">2</span><span class="step-content"><strong>Регистрация:</strong> Откройте <a href="https://antiaddict.dpdns.org/register" target="_blank">ссылку для регистрации</a> и привяжите Discord.</span></li>
-            <li><span class="step-num">3</span><span class="step-content"><strong>Ввод ключа:</strong> Введите лицензионный ключ на сайте.</span></li>
-            <li><span class="step-num">4</span><span class="step-content"><strong>Синхронизация и загрузка:</strong> Введите <code class="inline-code">/link-key</code> в канале <code class="inline-code">#link-key</code> для доступа к загрузке.</span></li>
-        </ol>
-    </div>
-
-    <!-- FAQ -->
-    <div class="card">
-        <div class="card-header">
-            <span class="icon">❓</span>
-            <span data-lang="id">Pertanyaan Umum (FAQ)</span>
-            <span data-lang="en">Frequently Asked Questions</span>
-            <span data-lang="zh">常见问题</span>
-            <span data-lang="ar">الأسئلة الشائعة</span>
-            <span data-lang="ru">Часто задаваемые вопросы</span>
-        </div>
-
-        <!-- Q1 -->
-        <div class="faq-item">
-            <div class="faq-question" data-lang="id">Seberapa aman ini?</div>
-            <div class="faq-question" data-lang="en">How safe is this?</div>
-            <div class="faq-question" data-lang="zh">这有多安全？</div>
-            <div class="faq-question" data-lang="ar">ما مدى أمان هذا؟</div>
-            <div class="faq-question" data-lang="ru">Насколько это безопасно?</div>
-            <div class="faq-answer" data-lang="id">antiaddict. adalah salah satu cheat paling aman di pasaran. Kami terus memperbarui bypass anti-cheat sisi klien. Ingatlah bahwa banned manual (paling umum), banned server-side anti-cheat (jarang), dan kesalahan pengembang (sedikit kurang umum) dapat terjadi.</div>
-            <div class="faq-answer" data-lang="en">antiaddict. is one of the safest cheats on the market. We strive to keep our client-side anti-cheat bypass up-to-date. Keep in mind that manual bans (most common), server-side anti-cheat bans (rare), and developer mistakes (slightly less common) can occur.</div>
-            <div class="faq-answer" data-lang="zh">antiaddict. 是市场上最安全的作弊工具之一。我们努力保持客户端反作弊绕过更新。请注意，手动封禁（最常见）、服务器端反作弊封禁（罕见）以及开发者失误（较不常见）仍有可能发生。</div>
-            <div class="faq-answer" data-lang="ar">antiaddict. هو واحد من أكثر الغشاشين أمانًا في السوق. نحن نسعى جاهدين للحفاظ على تحديث تجاوز مكافحة الغش من جانب العميل. ضع في اعتبارك أن الحظر اليدوي (الأكثر شيوعًا) ، وحظر مكافحة الغش من جانب الخادم (نادر) ، وأخطاء المطور (أقل شيوعًا بقليل) يمكن أن تحدث.</div>
-            <div class="faq-answer" data-lang="ru">antiaddict. — один из самых безопасных читов на рынке. Мы стараемся поддерживать обход античита на стороне клиента в актуальном состоянии. Имейте в виду, что ручные баны (наиболее частые), баны серверного античита (редкие) и ошибки разработчиков (чуть менее частые) могут случаться.</div>
-        </div>
-
-        <!-- Q2 -->
-        <div class="faq-item">
-            <div class="faq-question" data-lang="id">Saya baru membeli, bagaimana cara mulai?</div>
-            <div class="faq-question" data-lang="en">I just bought the software, how do I start using?</div>
-            <div class="faq-question" data-lang="zh">我刚购买了软件，如何开始使用？</div>
-            <div class="faq-question" data-lang="ar">لقد اشتريت البرنامج للتو ، كيف أبدأ في استخدامه؟</div>
-            <div class="faq-question" data-lang="ru">Я только что купил программу, как начать пользоваться?</div>
-            <div class="faq-answer" data-lang="id">Buka <a href="https://antiaddict.dpdns.org/register" target="_blank">halaman registrasi antiaddict.</a> untuk menautkan akun Discord dan kunci Anda. Jika sudah menautkan akun sebelumnya, buka <code class="inline-code">#link-key</code> dan jalankan <code class="inline-code">/link-key</code> untuk mengakses saluran unduhan.</div>
-            <div class="faq-answer" data-lang="en">Head to <a href="https://antiaddict.dpdns.org/register" target="_blank">the antiaddict. registration page</a> to link your Discord account and key. If you had linked your account prior to joining the server, go to <code class="inline-code">#link-key</code> and run <code class="inline-code">/link-key</code> to access the download channel.</div>
-            <div class="faq-answer" data-lang="zh">前往 <a href="https://antiaddict.dpdns.org/register" target="_blank">antiaddict. 注册页面</a> 绑定您的 Discord 账户和密钥。如果之前已绑定账户，请到频道 <code class="inline-code">#link-key</code> 输入 <code class="inline-code">/link-key</code> 访问下载频道。</div>
-            <div class="faq-answer" data-lang="ar">توجه إلى <a href="https://antiaddict.dpdns.org/register" target="_blank">صفحة تسجيل antiaddict.</a> لربط حساب Discord والمفتاح الخاص بك. إذا كنت قد ربطت حسابك مسبقًا ، فانتقل إلى <code class="inline-code">#link-key</code> وقم بتشغيل <code class="inline-code">/link-key</code> للوصول إلى قناة التحميل.</div>
-            <div class="faq-answer" data-lang="ru">Перейдите на <a href="https://antiaddict.dpdns.org/register" target="_blank">страницу регистрации antiaddict.</a> чтобы привязать аккаунт Discord и ключ. Если вы привязали аккаунт ранее, зайдите в <code class="inline-code">#link-key</code> и выполните <code class="inline-code">/link-key</code> для доступа к каналу загрузки.</div>
-        </div>
-
-        <!-- Q3 crypto -->
-        <div class="faq-item">
-            <div class="faq-question" data-lang="id">Saya tidak punya crypto!</div>
-            <div class="faq-question" data-lang="en">I don't have crypto!</div>
-            <div class="faq-question" data-lang="zh">我没有加密货币！</div>
-            <div class="faq-question" data-lang="ar">ليس لدي عملات رقمية!</div>
-            <div class="faq-question" data-lang="ru">У меня нет криптовалюты!</div>
-            <div class="faq-answer" data-lang="id">Beli di <strong>ryuhuu store</strong> atau DM aku untuk menemukan pembayaran lokal di areamu.</div>
-            <div class="faq-answer" data-lang="en">Buy at <strong>ryuhuu store</strong> or DM me to find local payment methods in your area.</div>
-            <div class="faq-answer" data-lang="zh">在 <strong>ryuhuu store</strong> 购买，或私信我获取你所在地区的本地支付方式。</div>
-            <div class="faq-answer" data-lang="ar">اشترِ من <strong>ryuhuu store</strong> أو راسلني خاصًا للعثور على طرق دفع محلية في منطقتك.</div>
-            <div class="faq-answer" data-lang="ru">Покупайте в <strong>ryuhuu store</strong> или напишите мне в личные сообщения, чтобы найти местные способы оплаты в вашем регионе.</div>
-        </div>
-
-        <!-- Q4 -->
-        <div class="faq-item">
-            <div class="faq-question" data-lang="id">Apakah ada fitur [xxx]?</div>
-            <div class="faq-question" data-lang="en">Do you have [insert] feature?</div>
-            <div class="faq-question" data-lang="zh">你们有[某某]功能吗？</div>
-            <div class="faq-question" data-lang="ar">هل لديكم ميزة [كذا]؟</div>
-            <div class="faq-question" data-lang="ru">У вас есть функция [такая-то]?</div>
-            <div class="faq-answer" data-lang="id">Kami masih dalam tahap beta, jadi mungkin belum ada yang kamu cari. Beri tahu kami dan kami akan segera mewujudkannya.</div>
-            <div class="faq-answer" data-lang="en">We're still in the beta testing phase so you may not find what you want. Let us know and we will have it up soon™.</div>
-            <div class="faq-answer" data-lang="zh">我们仍处于测试阶段，可能还没有你想要的功能。告诉我们，我们会尽快推出。</div>
-            <div class="faq-answer" data-lang="ar">ما زلنا في مرحلة الاختبار التجريبي لذا قد لا تجد ما تريده. أعلمنا وسنوفره قريبًا.</div>
-            <div class="faq-answer" data-lang="ru">Мы всё ещё на стадии бета-тестирования, так что нужной функции может не быть. Дайте нам знать, и мы скоро её добавим.</div>
-        </div>
-
-        <!-- Q5 -->
-        <div class="faq-item">
-            <div class="faq-question" data-lang="id">Tombol apa untuk membuka overlay?</div>
-            <div class="faq-question" data-lang="en">What is the key to open the overlay?</div>
-            <div class="faq-question" data-lang="zh">打开覆盖层的快捷键是什么？</div>
-            <div class="faq-question" data-lang="ar">ما هو مفتاح فتح النافذة العلوية؟</div>
-            <div class="faq-question" data-lang="ru">Какая клавиша открывает оверлей?</div>
-            <div class="faq-answer" data-lang="id">'Overlay' sebenarnya bukan overlay biasa — saat ini menu cheat adalah jendela terpisah dari game. Nantinya kamu bisa menggunakan <strong>F1</strong> untuk membuka overlay.</div>
-            <div class="faq-answer" data-lang="en">The 'overlay' is not very much of an overlay — as of now, the cheat menu is a separate window from the game. In the future, you will be able to use <strong>F1</strong> to open the overlay.</div>
-            <div class="faq-answer" data-lang="zh">“覆盖层”其实不算覆盖层——目前作弊菜单是与游戏分离的窗口。将来你可以按 <strong>F1</strong> 打开覆盖层。</div>
-            <div class="faq-answer" data-lang="ar">"النافذة العلوية" ليست نافذة علوية حقيقية حاليًا — قائمة الغش هي نافذة منفصلة عن اللعبة. في المستقبل ستتمكن من استخدام <strong>F1</strong> لفتحها.</div>
-            <div class="faq-answer" data-lang="ru">«Оверлей» сейчас не совсем оверлей — меню чита представляет собой отдельное окно от игры. В будущем вы сможете использовать <strong>F1</strong> для открытия оверлея.</div>
-        </div>
-    </div>
-
-    <!-- Safety Guide & Tips -->
-    <div class="card">
-        <div class="card-header">
-            <span class="icon">⛔</span>
-            <span data-lang="id">Panduan Keamanan & Tips</span>
-            <span data-lang="en">Safety Guide & Tips</span>
-            <span data-lang="zh">安全指南与提示</span>
-            <span data-lang="ar">دليل الأمان والنصائح</span>
-            <span data-lang="ru">Руководство по безопасности и советы</span>
-        </div>
-
-        <div class="warning-box" data-lang="id">⚠️ Kita berada di era gelap dengan anti-cheat kelas enterprise yang sangat baik, di mana apa pun bisa membuatmu terkena banned; hati-hati.</div>
-        <div class="warning-box" data-lang="en">⚠️ We are in a dark-era with a really good enterprise-grade anti-cheat where anything can ban you; be careful.</div>
-        <div class="warning-box" data-lang="zh">⚠️ 我们正处于一个拥有强大企业级反作弊的黑暗时代，任何操作都可能导致封禁，请小心。</div>
-        <div class="warning-box" data-lang="ar">⚠️ نحن في عصر مظلم مع مضاد غش قوي على مستوى المؤسسات حيث يمكن لأي شيء أن يحظرك ؛ كن حذرًا.</div>
-        <div class="warning-box" data-lang="ru">⚠️ Мы находимся в тёмной эре с действительно хорошим античитом корпоративного уровня, где что угодно может забанить вас; будьте осторожны.</div>
-
-        <ul class="rules-list" data-lang="id">
-            <li><span class="rule-icon">⚠️</span><span><strong>Jangan pernah mengubah nama file launcher.</strong> Biarkan tetap <code class="inline-code">antiaddict.exe</code>. Anti-cheat akan menandai file yang diubah namanya.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>Jangan pernah menggunakan alat, cheat, atau mod lain bersamaan dengan antiaddict.</strong> Termasuk mod skin atau sejenisnya. Anti-cheat dapat dan akan menandaimu — perlindungan kami hanya mencakup antiaddict.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>Selalu luncurkan game melalui HoYoPlay Launcher</strong> (launcher resmi). Jangan meluncurkannya secara manual atau menggunakan alat lain.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>Restart PC setelah menggunakan antiaddict.</strong> Jika kamu akan bermain tanpanya. Jangan pernah bermain tanpa antiaddict setelah menjalankannya <strong>sebelum kamu merestart komputermu.</strong> antiaddict. akan meninggalkan jejak (terbuka oleh sistem operasi ke anti-cheat) <strong>hingga kamu merestart</strong>, membuatmu rentan terhadap deteksi meskipun tidak menggunakan apa pun.</span></li>
-        </ul>
-        <ul class="rules-list" data-lang="en">
-            <li><span class="rule-icon">⚠️</span><span><strong>Never rename the launcher executable.</strong> Keep it to <code class="inline-code">antiaddict.exe</code>. The anti-cheat will flag renamed files.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>Never use any other tools, cheats or mods together with antiaddict.</strong> This includes skin or related mods. The anti-cheat can and will flag you — our protection only extends to antiaddict.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>Always launch the game using the HoYoPlay Launcher</strong> (the official launcher). Don't launch it manually or using another tool.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>Restart your PC after using antiaddict.</strong> if you are going to play without it. Never play without antiaddict after running it <strong>before you restart your computer.</strong> antiaddict. will leave behind a trace (exposed by the operating system to the anti-cheat) <strong>until you restart</strong>, leaving you vulnerable to detections even though you aren't using anything.</span></li>
-        </ul>
-        <ul class="rules-list" data-lang="zh">
-            <li><span class="rule-icon">⚠️</span><span><strong>不要重命名启动器文件。</strong> 保持为 <code class="inline-code">antiaddict.exe</code>。反作弊会标记已重命名的文件。</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>不要同时使用其他任何工具、作弊或模组与 antiaddict。</strong> 包括皮肤模组。反作弊会标记你——我们的保护仅适用于 antiaddict。</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>始终使用 HoYoPlay Launcher</strong>（官方启动器）启动游戏。不要手动或使用其他工具启动。</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>使用 antiaddict 后重启电脑。</strong> 如果你打算在不使用它的情况下玩游戏。在运行 antiaddict 后，<strong>在重启电脑之前</strong>绝对不要不使用 antiaddict 玩游戏。antiaddict. 会留下痕迹（操作系统暴露给反作弊）<strong>直到你重启</strong>，即使你没有使用任何东西，也会容易被检测到。</span></li>
-        </ul>
-        <ul class="rules-list" data-lang="ar">
-            <li><span class="rule-icon">⚠️</span><span><strong>لا تقم أبدًا بإعادة تسمية ملف المشغل.</strong> اتركه كما هو <code class="inline-code">antiaddict.exe</code>. سيقوم مضاد الغش بوضع علامة على الملفات المعاد تسميتها.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>لا تستخدم أبدًا أي أدوات أو غش أو مودات أخرى مع antiaddict.</strong> وهذا يشمل مودات الجلود. يمكن لمضاد الغش وسيقوم بوضع علامة عليك - حمايتنا تمتد فقط إلى antiaddict.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>قم دائمًا بتشغيل اللعبة باستخدام HoYoPlay Launcher</strong> (المشغل الرسمي). لا تقم بتشغيلها يدويًا أو باستخدام أداة أخرى.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>أعد تشغيل جهاز الكمبيوتر بعد استخدام antiaddict.</strong> إذا كنت ستلعب بدونها. لا تلعب أبدًا بدون antiaddict بعد تشغيلها <strong>قبل إعادة تشغيل جهاز الكمبيوتر الخاص بك.</strong> ستترك antiaddict. أثرًا (مكشوفًا بواسطة نظام التشغيل لمضاد الغش) <strong>حتى تقوم بإعادة التشغيل</strong>، مما يجعلك عرضة للاكتشاف حتى لو لم تكن تستخدم أي شيء.</span></li>
-        </ul>
-        <ul class="rules-list" data-lang="ru">
-            <li><span class="rule-icon">⚠️</span><span><strong>Никогда не переименовывайте исполняемый файл лаунчера.</strong> Оставьте <code class="inline-code">antiaddict.exe</code>. Античит пометит переименованные файлы.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>Никогда не используйте другие инструменты, читы или моды вместе с antiaddict.</strong> Включая скин-моды. Античит может и пометит вас — наша защита распространяется только на antiaddict.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>Всегда запускайте игру через HoYoPlay Launcher</strong> (официальный лаунчер). Не запускайте вручную или с помощью другого инструмента.</span></li>
-            <li><span class="rule-icon">⚠️</span><span><strong>Перезагружайте ПК после использования antiaddict.</strong> Если собираетесь играть без него. Никогда не играйте без antiaddict после его запуска <strong>до перезагрузки компьютера.</strong> antiaddict. оставляет след (открытый операционной системой античиту) <strong>до перезагрузки</strong>, что делает вас уязвимым для обнаружения, даже если вы ничего не используете.</span></li>
-        </ul>
-
-        <div style="margin: 1rem 0 0.5rem; font-weight: 700; color: #e0e0eb;">
-            <span data-lang="id">⛔ Fitur Berisiko (gunakan dengan hati-hati)</span>
-            <span data-lang="en">⛔ Risky Features (use with caution)</span>
-            <span data-lang="zh">⛔ 高风险功能（谨慎使用）</span>
-            <span data-lang="ar">⛔ ميزات عالية الخطورة (استخدم بحذر)</span>
-            <span data-lang="ru">⛔ Рискованные функции (используйте с осторожностью)</span>
-        </div>
-        <ul class="tips-list">
-            <li><span class="tip-icon">⚠️</span> Chest Teleport</li>
-            <li><span class="tip-icon">⚠️</span> Map Teleport</li>
-            <li><span class="tip-icon">⚠️</span> Quest Teleport</li>
-            <li><span class="tip-icon">⚠️</span> Material Gatherer</li>
-            <li><span class="tip-icon">⚠️</span> Monster Teleport</li>
-            <li><span class="tip-icon">⚠️</span> Auto Oculi</li>
-        </ul>
-
-        <div style="margin: 1rem 0 0.5rem; font-weight: 700; color: #e0e0eb;">
-            <span data-lang="id">💡 Tips Tambahan</span>
-            <span data-lang="en">💡 Additional Tips</span>
-            <span data-lang="zh">💡 额外提示</span>
-            <span data-lang="ar">💡 نصائح إضافية</span>
-            <span data-lang="ru">💡 Дополнительные советы</span>
-        </div>
-        <ul class="tips-list" data-lang="id">
-            <li><span class="tip-icon">🎯</span><span><strong>Gunakan seminimal mungkin.</strong> Jangan berlebihan dengan modul pertarungan seperti Kill Aura.</span></li>
-            <li><span class="tip-icon">🔍</span><span><strong>Jika tiba-tiba terputus</strong> (kode putus 4001-10xxx) atau sering reconnect, berhentilah bermain sementara — mungkin anti-cheat sedang menandaimu.</span></li>
-            <li><span class="tip-icon">⏱️</span><span><strong>Jangan terlalu gila dengan AutoQuest.</strong> Ada kemungkinan kecil terkena time-lock. Jika itu terjadi, hubungi dukungan sebelum menghubungi layanan pelanggan miHoYo.</span></li>
-        </ul>
-        <ul class="tips-list" data-lang="en">
-            <li><span class="tip-icon">🎯</span><span><strong>Keep everything at minimal.</strong> Don't go overboard with combat modules like Kill Aura.</span></li>
-            <li><span class="tip-icon">🔍</span><span><strong>If you suddenly get disconnected</strong> (4001-10xxx disconnect code) or really frequent reconnections, stop playing for a while — it may be anti-cheat flagging you.</span></li>
-            <li><span class="tip-icon">⏱️</span><span><strong>Don't go too crazy with AutoQuest.</strong> There's a small chance of getting time-locked. If that happens, contact support before emailing miHoYo customer service.</span></li>
-        </ul>
-        <ul class="tips-list" data-lang="zh">
-            <li><span class="tip-icon">🎯</span><span><strong>一切从简。</strong> 不要过度使用 Kill Aura 等战斗模块。</span></li>
-            <li><span class="tip-icon">🔍</span><span><strong>如果突然断开连接</strong>（错误码 4001-10xxx）或频繁重连，请暂停游戏——反作弊可能正在标记你。</span></li>
-            <li><span class="tip-icon">⏱️</span><span><strong>不要过度使用 AutoQuest。</strong> 有小概率被时间锁定。如果发生这种情况，在联系 miHoYo 客服之前先联系支持。</span></li>
-        </ul>
-        <ul class="tips-list" data-lang="ar">
-            <li><span class="tip-icon">🎯</span><span><strong>اجعل كل شيء عند الحد الأدنى.</strong> لا تبالغ في وحدات القتال مثل Kill Aura.</span></li>
-            <li><span class="tip-icon">🔍</span><span><strong>إذا انقطع اتصالك فجأة</strong> (رمز الانقطاع 4001-10xxx) أو عمليات إعادة الاتصال المتكررة ، توقف عن اللعب لفترة - قد يكون مضاد الغش يضع علامة عليك.</span></li>
-            <li><span class="tip-icon">⏱️</span><span><strong>لا تبالغ في AutoQuest.</strong> هناك فرصة ضئيلة للحصول على قفل الوقت. إذا حدث ذلك ، اتصل بالدعم قبل مراسلة خدمة عملاء miHoYo.</span></li>
-        </ul>
-        <ul class="tips-list" data-lang="ru">
-            <li><span class="tip-icon">🎯</span><span><strong>Держите всё на минимуме.</strong> Не увлекайтесь боевыми модулями, такими как Kill Aura.</span></li>
-            <li><span class="tip-icon">🔍</span><span><strong>Если вас внезапно отключило</strong> (код отключения 4001-10xxx) или частые переподключения, прекратите игру на некоторое время — возможно, античит помечает вас.</span></li>
-            <li><span class="tip-icon">⏱️</span><span><strong>Не сходите с ума с AutoQuest.</strong> Есть небольшой шанс получить временную блокировку. В таком случае свяжитесь с поддержкой, прежде чем писать в службу поддержки miHoYo.</span></li>
-        </ul>
-    </div>
-
-    <!-- Footer -->
-    <p class="footer-note">
-        <span data-lang="id">🧑‍💻 Pembuat guide: <strong>ryuhuu store</strong></span>
-        <span data-lang="en">🧑‍💻 Guide by: <strong>ryuhuu store</strong></span>
-        <span data-lang="zh">🧑‍💻 指南作者： <strong>ryuhuu store</strong></span>
-        <span data-lang="ar">🧑‍💻 الدليل من إعداد: <strong>ryuhuu store</strong></span>
-        <span data-lang="ru">🧑‍💻 Гайд от: <strong>ryuhuu store</strong></span>
-    </p>
-</div>
-
-<!-- Toast -->
-<div class="toast" id="toast">
-    <span data-lang="id">✅ Kode tersalin!</span>
-    <span data-lang="en">✅ Code copied!</span>
-    <span data-lang="zh">✅ 已复制！</span>
-    <span data-lang="ar">✅ تم النسخ!</span>
-    <span data-lang="ru">✅ Скопировано!</span>
-</div>
-
-<script>
-    function setLang(langCode, event) {
-        document.body.className = 'lang-' + langCode;
-        const buttons = document.querySelectorAll('.lang-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        if (event && event.currentTarget) {
-            event.currentTarget.classList.add('active');
-        } else {
-            const targetBtn = document.querySelector(`.lang-btn[onclick*="'${langCode}'"]`);
-            if (targetBtn) targetBtn.classList.add('active');
+    <script>
+        function setLang(langCode, event) {
+            document.body.className = 'lang-' + langCode;
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            } else {
+                const targetBtn = document.querySelector(`.lang-btn[onclick*="'${langCode}'"]`);
+                if (targetBtn) targetBtn.classList.add('active');
+            }
         }
-    }
 
-    function copyLicense() {
-        const licenseText = document.getElementById('licenseKey').textContent;
-        const copyBtn = document.getElementById('copyBtn');
-        const toast = document.getElementById('toast');
+        function copyLicense() {
+            const licenseText = document.getElementById('licenseKey').textContent;
+            const copyBtn = document.getElementById('copyBtn');
+            const toast = document.getElementById('toast');
 
-        navigator.clipboard.writeText(licenseText).then(() => {
-            copyBtn.classList.add('copied');
-            const originalHTML = copyBtn.innerHTML;
-            copyBtn.innerHTML = '✅ Tersalin!';
-            toast.classList.add('show');
-            setTimeout(() => {
-                copyBtn.innerHTML = originalHTML;
-                copyBtn.classList.remove('copied');
-                toast.classList.remove('show');
-            }, 2200);
-        }).catch(() => {
-            const textarea = document.createElement('textarea');
-            textarea.value = licenseText;
-            textarea.style.position = 'fixed';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
+            navigator.clipboard.writeText(licenseText).then(() => {
                 copyBtn.classList.add('copied');
                 const originalHTML = copyBtn.innerHTML;
                 copyBtn.innerHTML = '✅ Tersalin!';
@@ -786,13 +1057,31 @@
                     copyBtn.classList.remove('copied');
                     toast.classList.remove('show');
                 }, 2200);
-            } catch (err) {
-                alert('Gagal menyalin / Copy failed. Silakan salin secara manual.');
-            }
-            document.body.removeChild(textarea);
-        });
-    }
-</script>
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = licenseText;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '✅ Tersalin!';
+                    toast.classList.add('show');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalHTML;
+                        copyBtn.classList.remove('copied');
+                        toast.classList.remove('show');
+                    }, 2200);
+                } catch (err) {
+                    alert('Gagal menyalin / Copy failed. Silakan salin secara manual.');
+                }
+                document.body.removeChild(textarea);
+            });
+        }
+    </script>
 
 </body>
 </html>
