@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Link Generator - Kirim Pesan Tanpa Simpan Kontak</title>
+    <meta name="description" content="Generator link WhatsApp gratis. Kirim pesan WhatsApp tanpa perlu menyimpan nomor kontak. Lengkap dengan QR Code, riwayat, dan dukungan kode negara.">
+    <meta name="keywords" content="whatsapp link generator, wa.me, kirim whatsapp tanpa simpan kontak, qr code whatsapp, link whatsapp">
+    <meta name="author" content="WA Link Generator">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://walink-generator.vercel.app/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="WhatsApp Link Generator - Kirim Pesan Tanpa Simpan Kontak">
+    <meta property="og:description" content="Buat link WhatsApp instan, lengkap dengan QR Code. Tidak perlu simpan nomor kontak. Gratis & mudah digunakan.">
+    <meta property="og:image" content="https://walink-generator.vercel.app/og-image.png">
+    <meta property="og:url" content="https://walink-generator.vercel.app/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WhatsApp Link Generator - Kirim Pesan Tanpa Simpan Kontak">
+    <meta name="twitter:description" content="Buat link WhatsApp instan, lengkap dengan QR Code. Tidak perlu simpan nomor kontak. Gratis & mudah digunakan.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💬</text></svg>">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="/" class="logo" aria-label="WhatsApp Link Generator Home">
+                <span class="logo-icon">💬</span>
+                <span class="logo-text">WA<span class="logo-highlight">Link</span></span>
+            </a>
+            <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Ubah tema">
+                <span class="toggle-icon">🌙</span>
+                <span class="toggle-label">Dark Mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1 class="hero-title">WhatsApp Link Generator</h1>
+                <p class="hero-subtitle">
+                    Kirim pesan WhatsApp ke nomor mana pun <strong>tanpa perlu menyimpan kontak</strong>.
+                    Cukup masukkan nomor, buat link, dan bagikan!
+                </p>
+            </section>
+
+            <!-- Generator Card -->
+            <div class="card generator-card">
+                <!-- Country Code + Phone Input -->
+                <div class="input-row">
+                    <div class="input-group country-group">
+                        <label for="countryCode" class="input-label">Kode Negara</label>
+                        <select id="countryCode" class="select-input" aria-label="Pilih kode negara">
+                            <!-- Diisi oleh JavaScript -->
+                        </select>
+                    </div>
+                    <div class="input-group phone-group">
+                        <label for="phoneNumber" class="input-label">Nomor WhatsApp</label>
+                        <input
+                            type="tel"
+                            id="phoneNumber"
+                            class="text-input"
+                            placeholder="Contoh: 81234567890"
+                            autocomplete="tel"
+                            aria-label="Masukkan nomor WhatsApp"
+                            maxlength="18"
+                        >
+                    </div>
+                </div>
+
+                <!-- Message Input -->
+                <div class="input-group message-group">
+                    <label for="messageText" class="input-label">
+                        Pesan <span class="label-optional">(opsional)</span>
+                    </label>
+                    <textarea
+                        id="messageText"
+                        class="text-input message-input"
+                        placeholder="Tulis pesan otomatis di sini..."
+                        rows="3"
+                        maxlength="500"
+                        aria-label="Tulis pesan opsional"
+                    ></textarea>
+                    <span class="char-count" id="charCount">0 / 500</span>
+                </div>
+
+                <!-- Generated Link Preview -->
+                <div class="link-preview" id="linkPreviewContainer" style="display: none;">
+                    <label class="input-label">Link WhatsApp</label>
+                    <div class="link-preview-box">
+                        <span class="link-text" id="generatedLink">https://wa.me/62</span>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                <div class="error-message" id="errorMessage" style="display: none;" role="alert">
+                    <span class="error-icon">⚠️</span>
+                    <span class="error-text" id="errorText"></span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="button-group">
+                    <button id="openWhatsApp" class="btn btn-primary" aria-label="Buka WhatsApp">
+                        <span class="btn-icon">💬</span>
+                        <span>Buka WhatsApp</span>
+                    </button>
+                    <button id="copyLink" class="btn btn-secondary" aria-label="Salin link">
+                        <span class="btn-icon">📋</span>
+                        <span>Salin Link</span>
+                    </button>
+                    <button id="resetButton" class="btn btn-ghost" aria-label="Reset form">
+                        <span class="btn-icon">🔄</span>
+                        <span>Reset</span>
+                    </button>
+                </div>
+
+                <!-- QR Code Section -->
+                <div class="qr-section" id="qrSection" style="display: none;">
+                    <div class="qr-divider">
+                        <span>atau pindai QR Code</span>
+                    </div>
+                    <div class="qr-container">
+                        <img
+                            id="qrCodeImage"
+                            src=""
+                            alt="QR Code WhatsApp Link"
+                            class="qr-image"
+                            loading="lazy"
+                        >
+                        <p class="qr-hint">Pindai dengan kamera ponsel untuk membuka WhatsApp</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <section class="history-section" id="historySection">
+                <div class="history-header">
+                    <h2 class="history-title">📜 Riwayat Terakhir</h2>
+                    <button id="clearHistory" class="btn btn-sm btn-ghost" aria-label="Hapus semua riwayat" style="display: none;">
+                        Hapus Semua
+                    </button>
+                </div>
+                <div class="history-list" id="historyList">
+                    <p class="history-empty" id="historyEmpty">Belum ada riwayat. Nomor yang pernah digunakan akan muncul di sini.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">
+                Dibuat dengan ❤️ &nbsp;|&nbsp; WhatsApp Link Generator &copy; <span id="currentYear"></span>
+            </p>
+            <p class="footer-disclaimer">
+                Aplikasi ini tidak berafiliasi dengan WhatsApp Inc. WhatsApp adalah merek dagang terdaftar dari Meta Platforms, Inc.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
