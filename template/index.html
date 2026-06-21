@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Pricelist - Ryuhuu Store</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #1e1f22;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #dcddde;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1000px;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #949ba4;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+    }
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #2b2d31;
+      padding: 12px 18px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      border: 1px solid #404249;
+      flex-wrap: wrap;
+    }
+    .filter-bar label {
+      font-weight: 600;
+      color: #b5bac1;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.4px;
+    }
+    select {
+      background: #1e1f22;
+      border: 1px solid #404249;
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      outline: none;
+      min-width: 200px;
+    }
+    select:focus {
+      border-color: #5865f2;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: #2b2d31;
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid #404249;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s;
+    }
+    .card:hover {
+      border-color: #5865f2;
+    }
+    .card-header {
+      margin-bottom: 12px;
+    }
+    .card-header .category {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .game-badge {
+      background: #5865f2;
+      color: white;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .kurs-section {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #232428;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .kurs-section label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #b5bac1;
+      white-space: nowrap;
+    }
+    .kurs-section input {
+      background: #1e1f22;
+      border: 1px solid #404249;
+      color: #ffffff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-family: 'Consolas', 'Courier New', monospace;
+      width: 90px;
+      outline: none;
+    }
+    .kurs-section input:focus {
+      border-color: #5865f2;
+    }
+    .kurs-fixed {
+      color: #faa61a;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .price-list {
+      list-style: none;
+      margin: 0 0 12px 0;
+      flex: 1;
+    }
+    .price-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid #3f4147;
+      font-size: 0.85rem;
+    }
+    .price-list li:last-child {
+      border-bottom: none;
+    }
+    .duration {
+      font-weight: 600;
+      color: #dcddde;
+    }
+    .prices {
+      text-align: right;
+      color: #b5bac1;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.8rem;
+    }
+    .prices span {
+      margin-left: 6px;
+    }
+    .usd {
+      color: #faa61a;
+    }
+    .idr {
+      color: #43b581;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #404249;
+      margin: 10px 0;
+    }
+    .key-guide-section {
+      background: #232428;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 8px 0;
+    }
+    .key-guide-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #b5bac1;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 6px;
+    }
+    .input-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+      align-items: center;
+    }
+    .input-row label {
+      font-size: 0.7rem;
+      color: #949ba4;
+      width: 35px;
+      flex-shrink: 0;
+    }
+    .input-row input {
+      background: #1e1f22;
+      border: 1px solid #404249;
+      color: #ffffff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-family: 'Consolas', 'Courier New', monospace;
+      flex: 1;
+      outline: none;
+    }
+    .input-row input:focus {
+      border-color: #5865f2;
+    }
+    .btn-copy {
+      background: #5865f2;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+    }
+    .btn-copy:hover {
+      background: #4752c4;
+    }
+    .btn-copy:active {
+      background: #3c45a5;
+    }
+    .btn-copy-price {
+      background: #4e545c;
+      margin-bottom: 4px;
+    }
+    .btn-copy-price:hover {
+      background: #5d636b;
+    }
+    .footer-note {
+      text-align: center;
+      margin-top: 32px;
+      color: #72767d;
+      font-size: 0.8rem;
+    }
+    @media (max-width: 500px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📦 MASTER PRICELIST</h1>
+    <p class="subtitle">Default Kurs 20.000 • Fixed untuk Slash & Shibal • Isi Kode & Guide lalu Salin</p>
+
+    <div class="filter-bar">
+      <label>🎮 Filter Game:</label>
+      <select id="gameFilter">
+        <option value="all">Semua Game</option>
+      </select>
+    </div>
+
+    <div id="productGrid" class="product-grid"></div>
+    <p class="footer-note">
+      💡 <strong>Kurs</strong> langsung mengubah harga IDR (default 20.000). Simpan otomatis.<br>
+      Klik <strong>Salin Harga</strong> untuk daftar harga, atau <strong>Salin Kode</strong> untuk template invite code + guide.
+    </p>
+  </div>
+
+  <script>
+    // ======================= DATA MASTER PRICELIST =======================
+    // Properti "kurs" = null -> kurs bisa diubah (input)
+    // "kurs" = "Fixed / Manual" -> tampil teks, tidak bisa diubah, pakai idr asli
+    const defaultPricelistData = [
+      { kategori: "Antiaddict", game: "Genshin Impact", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,50" },
+        { label: "3 Days", usd: "$4,00" },
+        { label: "7 Days", usd: "$7,00" },
+        { label: "30 Days", usd: "$18,00" }
+      ]},
+      { kategori: "Shika", game: "Genshin Impact", kurs: null, produk: [
+        { label: "[3 DAYS] ALPHA", usd: "$3,50" },
+        { label: "[7 DAYS] ALPHA", usd: "$7,00" },
+        { label: "[LIFETIME] BETA", usd: "$10,00" },
+        { label: "[30 DAYS] ALPHA", usd: "$15,00" },
+        { label: "[LIFETIME] ALPHA", usd: "$70,00" }
+      ]},
+      { kategori: "Slash", game: null, kurs: "Fixed / Manual", produk: [
+        { label: "3 Day", usd: "$4,00", idr: "Rp40.000" },
+        { label: "7 Days", usd: "$6,00", idr: "Rp60.000" },
+        { label: "1 Month", usd: "$10,00", idr: "Rp120.000" }
+      ]},
+      { kategori: "Uni-NTE", game: "Neverness to Everness", kurs: null, produk: [
+        { label: "1 Day", usd: "$4,00" },
+        { label: "7 Days", usd: "$8,00" },
+        { label: "30 Days", usd: "$19,00" }
+      ]},
+      { kategori: "Minty-NTE", game: "Neverness to Everness", kurs: null, produk: [
+        { label: "3 Days", usd: "$2,00" },
+        { label: "7 Days", usd: "$6,00" },
+        { label: "30 Days", usd: "$12,00" }
+      ]},
+      { kategori: "Lumen-NTE", game: "Neverness to Everness", kurs: null, produk: [
+        { label: "1 Day", usd: "$3,00" },
+        { label: "7 Days", usd: "$6,00" },
+        { label: "30 Days", usd: "$15,00" }
+      ]},
+      { kategori: "Toofli", game: "Tower of Fantasy", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "7 Days", usd: "$4,00" },
+        { label: "30 Days", usd: "$5,00" }
+      ]},
+      { kategori: "Unistardive", game: "Mongil Star Dive", kurs: null, produk: [
+        { label: "1 Day", usd: "$3,00" },
+        { label: "7 Days", usd: "$5,00" },
+        { label: "15 Days", usd: "$7,00" },
+        { label: "30 Days", usd: "$10,00" }
+      ]},
+      { kategori: "Lumen-MSD", game: "Mongil Star Dive", kurs: null, produk: [
+        { label: "3 Day", usd: "$4,00" },
+        { label: "7 Days", usd: "$7,00" },
+        { label: "30 Days", usd: "$11,00" }
+      ]},
+      { kategori: "Korobka", game: "Overfield", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "7 Days", usd: "$4,00" },
+        { label: "30 Days", usd: "$5,00" }
+      ]},
+      { kategori: "Konoka", game: "Blue Archive", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "7 Days", usd: "$4,00" },
+        { label: "30 Days", usd: "$5,00" }
+      ]},
+      { kategori: "Soroka", game: "Stella Sora", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "7 Days", usd: "$4,00" },
+        { label: "30 Days", usd: "$5,00" }
+      ]},
+      { kategori: "Uni-endfield", game: "Arknights Endfield", kurs: null, produk: [
+        { label: "1 Day", usd: "$3,00" },
+        { label: "7 Days", usd: "$6,00" },
+        { label: "30 Days", usd: "$15,00" }
+      ]},
+      { kategori: "Minty-AE", game: "Arknights Endfield", kurs: null, produk: [
+        { label: "3 Days", usd: "$3,00" },
+        { label: "7 Days", usd: "$5,00" },
+        { label: "30 Days", usd: "$10,00" }
+      ]},
+      { kategori: "Lumen-AE", game: "Arknights Endfield", kurs: null, produk: [
+        { label: "3 Day", usd: "$5,00" },
+        { label: "7 Days", usd: "$9,00" },
+        { label: "30 Days", usd: "$16,00" }
+      ]},
+      { kategori: "Uniwaves", game: "Wuthering Waves", kurs: null, produk: [
+        { label: "1 Day", usd: "$3,00" },
+        { label: "7 Days", usd: "$6,00" },
+        { label: "15 Days", usd: "$10,00" },
+        { label: "30 Days", usd: "$15,00" }
+      ]},
+      { kategori: "Uni-Identity", game: "Identity V", kurs: null, produk: [
+        { label: "1 Day", usd: "$5,00" },
+        { label: "7 Days", usd: "$9,00" },
+        { label: "30 Days", usd: "$19,00" }
+      ]},
+      { kategori: "Unicore", game: "Genshin Impact", kurs: null, produk: [
+        { label: "1 Day", usd: "$5,00" },
+        { label: "7 Days", usd: "$9,00" },
+        { label: "15 Days", usd: "$11,00" },
+        { label: "30 Days", usd: "$19,00" }
+      ]},
+      { kategori: "Unistar", game: "Honkai Star Rail", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "7 Days", usd: "$5,00" },
+        { label: "15 Days", usd: "$6,00" },
+        { label: "30 Days", usd: "$8,00" }
+      ]},
+      { kategori: "Unizone", game: "Zenless Zone Zero", kurs: null, produk: [
+        { label: "1 Day", usd: "$3,00" },
+        { label: "7 Days", usd: "$6,00" },
+        { label: "15 Days", usd: "$9,00" },
+        { label: "30 Days", usd: "$15,00" }
+      ]},
+      { kategori: "Uni-DeadlySins", game: "Seven Deadly Sins Origin", kurs: null, produk: [
+        { label: "1 Day", usd: "$3,00" },
+        { label: "7 Days", usd: "$5,00" },
+        { label: "15 Days", usd: "$7,00" },
+        { label: "30 Days", usd: "$10,00" }
+      ]},
+      { kategori: "Minty-SR", game: "Honkai Star Rail", kurs: null, produk: [
+        { label: "3 Days", usd: "$2,00" },
+        { label: "7 Days", usd: "$4,00" },
+        { label: "30 Days", usd: "$7,00" }
+      ]},
+      { kategori: "Minty-ZZZ", game: "Zenless Zone Zero", kurs: null, produk: [
+        { label: "3 Days", usd: "$2,00" },
+        { label: "7 Days", usd: "$4,00" },
+        { label: "30 Days", usd: "$7,00" }
+      ]},
+      { kategori: "Lumen-DS", game: "Seven Deadly Sins Origin", kurs: null, produk: [
+        { label: "3 Days", usd: "$5,00" },
+        { label: "7 Days", usd: "$9,00" },
+        { label: "30 Days", usd: "$15,00" }
+      ]},
+      { kategori: "Lumen-WWM", game: "Where Winds Meet", kurs: null, produk: [
+        { label: "1 Day", usd: "$6,00" },
+        { label: "30 Days", usd: "$25,00" }
+      ]},
+      { kategori: "Minty-DNA", game: "Duet Night Abyss", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "3 Days", usd: "$3,00" },
+        { label: "7 Days", usd: "$5,00" },
+        { label: "30 Days", usd: "$9,00" }
+      ]},
+      { kategori: "Uni-DNA", game: "Duet Night Abyss", kurs: null, produk: [
+        { label: "1 Day", usd: "$3,00" },
+        { label: "7 Days", usd: "$5,00" },
+        { label: "30 Days", usd: "$10,00" }
+      ]},
+      { kategori: "Lumen: BP", game: "Blue Protocol", kurs: null, produk: [
+        { label: "3 Days", usd: "$5,00" },
+        { label: "7 Days", usd: "$10,00" },
+        { label: "30 Days", usd: "$17,00" },
+        { label: "90 Days", usd: "$50,00" }
+      ]},
+      { kategori: "Lumen: SLA", game: "Solo Leveling Arise", kurs: null, produk: [
+        { label: "1 Day", usd: "$5,00" },
+        { label: "7 Days", usd: "$10,00" },
+        { label: "30 Days", usd: "$17,00" },
+        { label: "90 Days", usd: "$50,00" }
+      ]},
+      { kategori: "Lumen: SLAO", game: "Solo Leveling Arise", kurs: null, produk: [
+        { label: "1 Day", usd: "$6,00" },
+        { label: "7 Days", usd: "$12,00" },
+        { label: "30 Days", usd: "$25,00" },
+        { label: "90 Days", usd: "$60,00" }
+      ]},
+      { kategori: "Unietheria", game: "Etheria Restart", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "7 Days", usd: "$4,00" },
+        { label: "30 Days", usd: "$9,00" }
+      ]},
+      { kategori: "Unisnowbreak", game: "Snowbreak Containment Zone", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "7 Days", usd: "$3,00" },
+        { label: "30 Days", usd: "$6,00" }
+      ]},
+      { kategori: "Lumen-MHUR", game: "My Hero Ultra Rumble", kurs: null, produk: [
+        { label: "1 Day", usd: "$8,00" },
+        { label: "7 Days", usd: "$20,00" },
+        { label: "30 Days", usd: "$31,00" }
+      ]},
+      { kategori: "Predator (Apex)", game: "Marvel Rivals", kurs: null, produk: [
+        { label: "1 Day", usd: "$4,00" },
+        { label: "7 Days", usd: "$8,00" },
+        { label: "30 Days", usd: "$17,00" }
+      ]},
+      { kategori: "Predator (CS2)", game: "Counter Strike 2", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "7 Days", usd: "$4,00" },
+        { label: "30 Days", usd: "$6,00" }
+      ]},
+      { kategori: "Nixware", game: "Counter Strike 2", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "14 Days", usd: "$4,00" },
+        { label: "30 Days", usd: "$6,00" }
+      ]},
+      { kategori: "Anko", game: "Neverness to Everness", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "3 Days", usd: "$3,00" },
+        { label: "7 Days", usd: "$6,00" },
+        { label: "30 Days", usd: "$10,00" }
+      ]},
+      { kategori: "Kinu", game: "Zenless Zone Zero", kurs: null, produk: [
+        { label: "1 Day", usd: "$2,00" },
+        { label: "3 Days", usd: "$3,00" },
+        { label: "7 Days", usd: "$6,00" },
+        { label: "30 Days", usd: "$10,00" }
+      ]},
+      { kategori: "Shibal", game: "Genshin Impact", kurs: "Fixed / Manual", produk: [
+        { label: "Invite Code", usd: "$8,00", idr: "Rp75.000" }
+      ]}
+    ];
+
+    // ==================== LOCAL STORAGE ====================
+    const DEFAULT_KURS = "20000";
+    const DEFAULT_LINK = "https://www.ryuhuustore.com/guide";
+
+    function getKurs(kategori) {
+      return localStorage.getItem(`kurs_${kategori}`) || DEFAULT_KURS;
+    }
+    function saveKurs(kategori, value) {
+      localStorage.setItem(`kurs_${kategori}`, value);
+    }
+    function getKeyGuideData(kategori) {
+      const saved = localStorage.getItem(`keyguide_${kategori}`);
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          return {
+            code: data.code || '',
+            link: data.link || DEFAULT_LINK
+          };
+        } catch(e) {}
+      }
+      return { code: '', link: DEFAULT_LINK };
+    }
+    function saveKeyGuideData(kategori, data) {
+      localStorage.setItem(`keyguide_${kategori}`, JSON.stringify(data));
+    }
+
+    // ==================== FORMAT ====================
+    function parseUsd(usdString) {
+      return parseFloat(usdString.replace('$','').replace(',','.')) || 0;
+    }
+    function formatIDR(amount) {
+      return 'Rp' + Math.round(amount).toLocaleString('id-ID');
+    }
+
+    // ==================== BUILD GAME FILTER ====================
+    const gameSet = new Set();
+    defaultPricelistData.forEach(item => {
+      if (item.game) gameSet.add(item.game);
+    });
+    const gameList = Array.from(gameSet).sort();
+    const gameFilterSelect = document.getElementById('gameFilter');
+    gameList.forEach(game => {
+      const option = document.createElement('option');
+      option.value = game;
+      option.textContent = game;
+      gameFilterSelect.appendChild(option);
+    });
+
+    // ==================== RENDER PRODUCTS ====================
+    const productGrid = document.getElementById('productGrid');
+
+    function renderProducts(filterGame = 'all') {
+      productGrid.innerHTML = '';
+      const filtered = filterGame === 'all' 
+        ? defaultPricelistData 
+        : defaultPricelistData.filter(item => item.game === filterGame);
+
+      if (filtered.length === 0) {
+        productGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#949ba4;">Tidak ada produk untuk game ini.</p>';
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        // Header (kategori + badge game)
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'card-header';
+        const categorySpan = document.createElement('span');
+        categorySpan.className = 'category';
+        categorySpan.textContent = item.kategori;
+        if (item.game) {
+          const badge = document.createElement('span');
+          badge.className = 'game-badge';
+          badge.textContent = item.game;
+          categorySpan.appendChild(badge);
+        }
+        headerDiv.appendChild(categorySpan);
+        card.appendChild(headerDiv);
+
+        // Bagian Kurs
+        const kursDiv = document.createElement('div');
+        kursDiv.className = 'kurs-section';
+        const kursLabel = document.createElement('label');
+        kursLabel.textContent = 'Kurs (Rp/USD):';
+
+        if (item.kurs === "Fixed / Manual") {
+          // Tampilkan teks fixed
+          const fixedText = document.createElement('span');
+          fixedText.className = 'kurs-fixed';
+          fixedText.textContent = "Fixed / Manual";
+          kursDiv.appendChild(kursLabel);
+          kursDiv.appendChild(fixedText);
+        } else {
+          // Input kurs
+          const kursInput = document.createElement('input');
+          kursInput.type = 'number';
+          kursInput.value = getKurs(item.kategori);
+          kursDiv.appendChild(kursLabel);
+          kursDiv.appendChild(kursInput);
+        }
+        card.appendChild(kursDiv);
+
+        // Price list
+        const ul = document.createElement('ul');
+        ul.className = 'price-list';
+
+        const isFixed = item.kurs === "Fixed / Manual";
+
+        item.produk.forEach(p => {
+          const li = document.createElement('li');
+          const usdValue = parseUsd(p.usd);
+          
+          const durationSpan = document.createElement('span');
+          durationSpan.className = 'duration';
+          durationSpan.textContent = p.label;
+          
+          const pricesSpan = document.createElement('span');
+          pricesSpan.className = 'prices';
+          
+          const usdSpan = document.createElement('span');
+          usdSpan.className = 'usd';
+          usdSpan.textContent = p.usd;
+          
+          const idrSpan = document.createElement('span');
+          idrSpan.className = 'idr';
+          if (isFixed) {
+            // Pakai idr bawaan
+            idrSpan.textContent = p.idr || 'Rp -';
+          } else {
+            idrSpan.classList.add('idr-value');
+            idrSpan.dataset.usd = usdValue;
+            const kursInput = kursDiv.querySelector('input');
+            const kurs = kursInput ? (parseFloat(kursInput.value) || 0) : 0;
+            idrSpan.textContent = kurs > 0 ? formatIDR(usdValue * kurs) : 'Rp -';
+          }
+          
+          pricesSpan.appendChild(usdSpan);
+          pricesSpan.appendChild(idrSpan);
+          li.appendChild(durationSpan);
+          li.appendChild(pricesSpan);
+          ul.appendChild(li);
+        });
+        card.appendChild(ul);
+
+        // Tombol Salin Harga
+        const btnCopyPrice = document.createElement('button');
+        btnCopyPrice.className = 'btn-copy btn-copy-price';
+        btnCopyPrice.innerHTML = '📋 Salin Harga';
+        btnCopyPrice.addEventListener('click', () => {
+          const updatedProduk = [];
+          const idrSpans = ul.querySelectorAll('.idr, .idr-value');
+          idrSpans.forEach((span, idx) => {
+            updatedProduk.push({
+              label: item.produk[idx].label,
+              usd: item.produk[idx].usd,
+              idr: span.textContent
+            });
+          });
+          const tempItem = { ...item, produk: updatedProduk };
+          const priceText = buildPriceTemplate(tempItem);
+          copyToClipboard(priceText, btnCopyPrice, '📋 Salin Harga');
+        });
+        card.appendChild(btnCopyPrice);
+
+        // Event listener kurs jika bukan fixed
+        if (!isFixed) {
+          const kursInput = kursDiv.querySelector('input');
+          kursInput.addEventListener('input', function() {
+            const kurs = parseFloat(this.value) || 0;
+            saveKurs(item.kategori, this.value);
+            const idrSpans = ul.querySelectorAll('.idr-value');
+            idrSpans.forEach(span => {
+              const usd = parseFloat(span.dataset.usd);
+              span.textContent = kurs > 0 ? formatIDR(usd * kurs) : 'Rp -';
+            });
+          });
+        }
+
+        // Divider
+        const divider = document.createElement('hr');
+        divider.className = 'divider';
+        card.appendChild(divider);
+
+        // Key & Guide Section
+        const keySection = document.createElement('div');
+        keySection.className = 'key-guide-section';
+
+        const keyLabel = document.createElement('div');
+        keyLabel.className = 'key-guide-label';
+        keyLabel.textContent = '🔑 Invite Code & Guide';
+        keySection.appendChild(keyLabel);
+
+        const savedData = getKeyGuideData(item.kategori);
+
+        // Input Kode
+        const rowCode = document.createElement('div');
+        rowCode.className = 'input-row';
+        rowCode.innerHTML = '<label>Kode</label>';
+        const inputCode = document.createElement('input');
+        inputCode.type = 'text';
+        inputCode.value = savedData.code;
+        inputCode.addEventListener('input', () => {
+          savedData.code = inputCode.value;
+          saveKeyGuideData(item.kategori, savedData);
+        });
+        rowCode.appendChild(inputCode);
+        keySection.appendChild(rowCode);
+
+        // Input Link
+        const rowLink = document.createElement('div');
+        rowLink.className = 'input-row';
+        rowLink.innerHTML = '<label>Link</label>';
+        const inputLink = document.createElement('input');
+        inputLink.type = 'text';
+        inputLink.value = savedData.link;
+        inputLink.addEventListener('input', () => {
+          savedData.link = inputLink.value;
+          saveKeyGuideData(item.kategori, savedData);
+        });
+        rowLink.appendChild(inputLink);
+        keySection.appendChild(rowLink);
+
+        // Tombol Salin Kode
+        const btnCopyKey = document.createElement('button');
+        btnCopyKey.className = 'btn-copy';
+        btnCopyKey.innerHTML = '📋 Salin Kode';
+        btnCopyKey.addEventListener('click', () => {
+          const keyText = buildKeyTemplate(item.kategori, savedData.code, savedData.link);
+          if (!savedData.code && !savedData.link) {
+            alert('Isi dulu kode atau link!');
+            return;
+          }
+          copyToClipboard(keyText, btnCopyKey, '📋 Salin Kode');
+        });
+        keySection.appendChild(btnCopyKey);
+
+        card.appendChild(keySection);
+        productGrid.appendChild(card);
+      });
+    }
+
+    // ==================== TEMPLATE BUILDER ====================
+    function buildPriceTemplate(item) {
+      let lines = [];
+      let title = `## 🛒 **${item.kategori}**`;
+      if (item.game) title += ` - ${item.game}`;
+      lines.push(title);
+      lines.push('');
+      item.produk.forEach(p => {
+        lines.push(`- **${p.label}:** ${p.usd} / ${p.idr}`);
+      });
+      return lines.join('\n');
+    }
+
+    function buildKeyTemplate(kategori, code, link) {
+      return `## ⚔️ **${kategori} Code**\n\`\`\`\n${code}\n\`\`\`\n${link}`;
+    }
+
+    // ==================== UTILS ====================
+    function copyToClipboard(text, button, originalHTML) {
+      navigator.clipboard.writeText(text).then(() => {
+        button.innerHTML = '✅ Tersalin!';
+        button.disabled = true;
+        setTimeout(() => {
+          button.innerHTML = originalHTML;
+          button.disabled = false;
+        }, 2000);
+      }).catch(err => {
+        alert('Gagal menyalin, coba lagi.');
+        console.error(err);
+      });
+    }
+
+    // ==================== EVENT LISTENER FILTER ====================
+    gameFilterSelect.addEventListener('change', (e) => {
+      renderProducts(e.target.value);
+    });
+
+    // Render awal
+    renderProducts('all');
+  </script>
+</body>
+</html>
