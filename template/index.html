@@ -68,6 +68,51 @@
     select:focus {
       border-color: #5865f2;
     }
+    .search-container {
+      display: flex;
+      align-items: center;
+      background: #1e1f22;
+      border: 1px solid #404249;
+      border-radius: 8px;
+      padding: 0 8px;
+      flex: 1;
+      min-width: 220px;
+      transition: border-color 0.2s;
+    }
+    .search-container:focus-within {
+      border-color: #5865f2;
+    }
+    .search-container input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 0.9rem;
+      padding: 8px 4px;
+      width: 100%;
+      font-family: inherit;
+    }
+    .search-container input::placeholder {
+      color: #72767d;
+      font-size: 0.85rem;
+    }
+    .search-container button {
+      background: transparent;
+      border: none;
+      color: #b5bac1;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, background 0.2s;
+    }
+    .search-container button:hover {
+      color: #ffffff;
+      background: #404249;
+    }
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -259,6 +304,13 @@
       .product-grid {
         grid-template-columns: 1fr;
       }
+      .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-container {
+        min-width: 100%;
+      }
     }
   </style>
 </head>
@@ -272,6 +324,11 @@
       <select id="gameFilter">
         <option value="all">Semua Game</option>
       </select>
+
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="🔍 Cari produk, kategori, game..." autocomplete="off">
+        <button id="clearSearchBtn" title="Hapus pencarian">✕</button>
+      </div>
     </div>
 
     <div id="productGrid" class="product-grid"></div>
@@ -283,8 +340,6 @@
 
   <script>
     // ======================= DATA MASTER PRICELIST =======================
-    // Properti "kurs" = null -> kurs bisa diubah (input)
-    // "kurs" = "Fixed / Manual" -> tampil teks, tidak bisa diubah, pakai idr asli
     const defaultPricelistData = [
       { kategori: "Antiaddict", game: "Genshin Impact", kurs: null, produk: [
         { label: "1 Day", usd: "$2,50" },
@@ -299,6 +354,13 @@
         { label: "[30 DAYS] ALPHA", usd: "$15,00" },
         { label: "[LIFETIME] ALPHA", usd: "$70,00" }
       ]},
+      // ========== LOTUS (GI) – BARU ==========
+      { kategori: "Lotus", game: "Genshin Impact", kurs: null, produk: [
+        { label: "1 Day", usd: "$3,00" },
+        { label: "7 Days", usd: "$5,00" },
+        { label: "30 Days", usd: "$6,00" }
+      ]},
+      // ======================================
       { kategori: "Slash", game: null, kurs: "Fixed / Manual", produk: [
         { label: "3 Day", usd: "$4,00", idr: "Rp40.000" },
         { label: "7 Days", usd: "$6,00", idr: "Rp60.000" },
@@ -544,17 +606,34 @@
       gameFilterSelect.appendChild(option);
     });
 
+    // ==================== STATE ====================
+    let currentGameFilter = 'all';
+    let currentSearchQuery = '';
+
     // ==================== RENDER PRODUCTS ====================
     const productGrid = document.getElementById('productGrid');
 
-    function renderProducts(filterGame = 'all') {
+    function productMatchesSearch(item, query) {
+      if (!query) return true;
+      const q = query.toLowerCase();
+      if (item.kategori.toLowerCase().includes(q)) return true;
+      if (item.game && item.game.toLowerCase().includes(q)) return true;
+      return item.produk.some(p => p.label.toLowerCase().includes(q));
+    }
+
+    function renderProducts(filterGame = 'all', searchQuery = '') {
       productGrid.innerHTML = '';
-      const filtered = filterGame === 'all' 
+      
+      let filtered = filterGame === 'all' 
         ? defaultPricelistData 
         : defaultPricelistData.filter(item => item.game === filterGame);
 
+      if (searchQuery) {
+        filtered = filtered.filter(item => productMatchesSearch(item, searchQuery));
+      }
+
       if (filtered.length === 0) {
-        productGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#949ba4;">Tidak ada produk untuk game ini.</p>';
+        productGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#949ba4;">Tidak ada produk yang cocok.</p>';
         return;
       }
 
@@ -562,7 +641,6 @@
         const card = document.createElement('div');
         card.className = 'card';
 
-        // Header (kategori + badge game)
         const headerDiv = document.createElement('div');
         headerDiv.className = 'card-header';
         const categorySpan = document.createElement('span');
@@ -577,21 +655,18 @@
         headerDiv.appendChild(categorySpan);
         card.appendChild(headerDiv);
 
-        // Bagian Kurs
         const kursDiv = document.createElement('div');
         kursDiv.className = 'kurs-section';
         const kursLabel = document.createElement('label');
         kursLabel.textContent = 'Kurs (Rp/USD):';
 
         if (item.kurs === "Fixed / Manual") {
-          // Tampilkan teks fixed
           const fixedText = document.createElement('span');
           fixedText.className = 'kurs-fixed';
           fixedText.textContent = "Fixed / Manual";
           kursDiv.appendChild(kursLabel);
           kursDiv.appendChild(fixedText);
         } else {
-          // Input kurs
           const kursInput = document.createElement('input');
           kursInput.type = 'number';
           kursInput.value = getKurs(item.kategori);
@@ -600,10 +675,8 @@
         }
         card.appendChild(kursDiv);
 
-        // Price list
         const ul = document.createElement('ul');
         ul.className = 'price-list';
-
         const isFixed = item.kurs === "Fixed / Manual";
 
         item.produk.forEach(p => {
@@ -624,7 +697,6 @@
           const idrSpan = document.createElement('span');
           idrSpan.className = 'idr';
           if (isFixed) {
-            // Pakai idr bawaan
             idrSpan.textContent = p.idr || 'Rp -';
           } else {
             idrSpan.classList.add('idr-value');
@@ -642,7 +714,6 @@
         });
         card.appendChild(ul);
 
-        // Tombol Salin Harga
         const btnCopyPrice = document.createElement('button');
         btnCopyPrice.className = 'btn-copy btn-copy-price';
         btnCopyPrice.innerHTML = '📋 Salin Harga';
@@ -662,7 +733,6 @@
         });
         card.appendChild(btnCopyPrice);
 
-        // Event listener kurs jika bukan fixed
         if (!isFixed) {
           const kursInput = kursDiv.querySelector('input');
           kursInput.addEventListener('input', function() {
@@ -676,12 +746,10 @@
           });
         }
 
-        // Divider
         const divider = document.createElement('hr');
         divider.className = 'divider';
         card.appendChild(divider);
 
-        // Key & Guide Section
         const keySection = document.createElement('div');
         keySection.className = 'key-guide-section';
 
@@ -692,7 +760,6 @@
 
         const savedData = getKeyGuideData(item.kategori);
 
-        // Input Kode
         const rowCode = document.createElement('div');
         rowCode.className = 'input-row';
         rowCode.innerHTML = '<label>Kode</label>';
@@ -706,7 +773,6 @@
         rowCode.appendChild(inputCode);
         keySection.appendChild(rowCode);
 
-        // Input Link
         const rowLink = document.createElement('div');
         rowLink.className = 'input-row';
         rowLink.innerHTML = '<label>Link</label>';
@@ -720,7 +786,6 @@
         rowLink.appendChild(inputLink);
         keySection.appendChild(rowLink);
 
-        // Tombol Salin Kode
         const btnCopyKey = document.createElement('button');
         btnCopyKey.className = 'btn-copy';
         btnCopyKey.innerHTML = '📋 Salin Kode';
@@ -739,7 +804,6 @@
       });
     }
 
-    // ==================== TEMPLATE BUILDER ====================
     function buildPriceTemplate(item) {
       let lines = [];
       let title = `## 🛒 **${item.kategori}**`;
@@ -756,7 +820,6 @@
       return `## ⚔️ **${kategori} Code**\n\`\`\`\n${code}\n\`\`\`\n${link}`;
     }
 
-    // ==================== UTILS ====================
     function copyToClipboard(text, button, originalHTML) {
       navigator.clipboard.writeText(text).then(() => {
         button.innerHTML = '✅ Tersalin!';
@@ -771,13 +834,26 @@
       });
     }
 
-    // ==================== EVENT LISTENER FILTER ====================
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+
     gameFilterSelect.addEventListener('change', (e) => {
-      renderProducts(e.target.value);
+      currentGameFilter = e.target.value;
+      renderProducts(currentGameFilter, currentSearchQuery);
     });
 
-    // Render awal
-    renderProducts('all');
+    searchInput.addEventListener('input', function() {
+      currentSearchQuery = this.value.trim();
+      renderProducts(currentGameFilter, currentSearchQuery);
+    });
+
+    clearSearchBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      currentSearchQuery = '';
+      renderProducts(currentGameFilter, currentSearchQuery);
+    });
+
+    renderProducts('all', '');
   </script>
 </body>
 </html>
