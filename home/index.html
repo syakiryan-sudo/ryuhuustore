@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ryuhuu Store | Digital Product Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ===== RINGAN: tanpa blur, tanpa animasi berat ===== */
+        :root {
+            --bg-color: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --panel-bg: rgba(255, 255, 255, 0.92);
+            --panel-border: rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+        .dark {
+            --bg-color: #0a0f1a;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --panel-bg: rgba(20, 30, 50, 0.92);
+            --panel-border: rgba(255, 255, 255, 0.06);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background 0.2s, color 0.2s;
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            box-shadow: var(--shadow);
+            border-radius: 1rem;
+        }
+        .glass-input {
+            background: rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--panel-border);
+            color: var(--text-main);
+            border-radius: 0.75rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        .dark .glass-input { background: rgba(255, 255, 255, 0.05); }
+        .glass-input:focus { outline: 2px solid #3b82f6; border-color: transparent; }
+        .hidden-view { display: none !important; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+        .status-undetected { background-color: #10b981; }
+        .tab-content-fade { animation: fadeIn 0.15s ease-out; }
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+        .hide-scroll::-webkit-scrollbar { width: 4px; }
+        .hide-scroll::-webkit-scrollbar-thumb { background: var(--panel-border); border-radius: 10px; }
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--panel-border);
+            background: var(--panel-bg);
+            transition: background 0.15s;
+        }
+        .language-option:hover { background: rgba(59, 130, 246, 0.1); }
+        /* Checkout compact */
+        .checkout-compact .glass-panel { padding: 0.75rem 1rem !important; }
+        .checkout-compact .gap-8 { gap: 0.75rem !important; }
+        .checkout-compact .space-y-6 > * + * { margin-top: 0.75rem !important; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Floating Hubungi Admin -->
+    <div class="fixed bottom-6 right-6 z-[90] flex flex-col items-end space-y-2">
+        <div id="contact-popup" class="hidden glass-panel p-4 mb-2 w-64 text-sm space-y-2 shadow-lg">
+            <a href="https://wa.me/6285117065033" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 p-2 rounded-lg hover:bg-black/5"><i class="fab fa-whatsapp text-green-600"></i> WhatsApp</a>
+            <a href="https://t.me/ryuhuuz" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 p-2 rounded-lg hover:bg-black/5"><i class="fab fa-telegram text-blue-500"></i> Telegram</a>
+            <a href="https://discord.com/users/1120396377839648780" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 p-2 rounded-lg hover:bg-black/5"><i class="fab fa-discord text-indigo-500"></i> Discord</a>
+            <a href="mailto:ryuhuustore@gmail.com" class="flex items-center gap-2 p-2 rounded-lg hover:bg-black/5"><i class="fas fa-envelope text-yellow-600"></i> Email</a>
+        </div>
+        <button onclick="toggleContactPopup()" class="w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-500 shadow-lg flex items-center justify-center text-white text-xl transition hover:scale-105"><i class="fas fa-headset"></i></button>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 px-4 py-3" id="navbar">
+        <div class="max-w-7xl mx-auto glass-panel rounded-full px-5 py-2 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-slate-800 flex items-center justify-center text-white font-bold text-sm shadow overflow-hidden border border-white/20"><span>R</span></div>
+                <span class="font-semibold text-lg tracking-tight" data-lang="brand">Ryuhuu Store</span>
+            </div>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--text-muted)]">
+                <a href="#" onclick="navigate('home'); return false;" class="hover:text-[var(--text-main)]" data-lang="store">Store</a>
+                <a href="#games" class="hover:text-[var(--text-main)]" data-lang="games">Games</a>
+                <a href="#faq" class="hover:text-[var(--text-main)]" data-lang="faq">FAQ</a>
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-main)] flex items-center gap-2"><i class="fab fa-discord text-[#5865F2]"></i> <span data-lang="community">Community</span></a>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleRegion()" class="w-9 h-9 rounded-full glass-panel flex items-center justify-center hover:bg-black/5 text-sm font-bold" id="region-toggle-btn">🇮🇩</button>
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full glass-panel flex items-center justify-center hover:bg-black/5">
+                    <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                    <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                </button>
+                <button onclick="toggleCart()" class="relative w-9 h-9 rounded-full glass-panel flex items-center justify-center hover:bg-black/5">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 bg-blue-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main id="app-container" class="flex-grow pt-24 pb-8 px-4 max-w-7xl mx-auto w-full">
+
+        <!-- Home View -->
+        <div id="view-home">
+            <section class="text-center py-12 md:py-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-xs font-medium mb-4 text-blue-600 border border-blue-600/20">
+                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span></span>
+                    <span data-lang="system_status">System Operational</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tighter leading-[1.1] pb-2 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[var(--text-main)] to-gray-500" data-lang="hero_title">Elevate Your Game.</h1>
+                <p class="text-md text-[var(--text-muted)] max-w-2xl mx-auto mb-6" data-lang="hero_desc">Ryuhuu Store menyediakan produk digital pilihan dengan proses order cepat, pembayaran fleksibel, dan dukungan admin yang responsif.</p>
+                <div class="relative max-w-xl mx-auto">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--text-muted)]"></i>
+                    <input type="text" id="search-input" data-lang-placeholder="search_placeholder" placeholder="Cari game, produk, atau tag..." class="w-full pl-10 pr-4 py-3 rounded-xl glass-input text-sm" />
+                </div>
+            </section>
+
+            <section id="games" class="mb-8">
+                <h2 class="text-xl font-semibold tracking-tight mb-3" data-lang="trending_games">Available Products</h2>
+                <div class="flex flex-wrap gap-2 max-h-48 overflow-y-auto pr-1" id="game-filters"></div>
+            </section>
+
+            <section>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="product-grid"></div>
+            </section>
+
+            <section id="faq" class="mt-16 mb-8">
+                <h2 class="text-2xl font-bold tracking-tight mb-6 text-center" data-lang="faq_title">Frequently Asked Questions</h2>
+                <div class="max-w-3xl mx-auto space-y-3" id="faq-container"></div>
+            </section>
+
+            <section id="policy" class="mt-12 mb-8">
+                <h2 class="text-2xl font-bold tracking-tight mb-3 text-center" data-lang="policy_title">Kebijakan Toko</h2>
+                <p class="text-sm text-[var(--text-muted)] max-w-2xl mx-auto text-center mb-6" data-lang="policy_desc">Informasi penting mengenai proses pemesanan, pembayaran, dan layanan pelanggan.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="policy-container"></div>
+            </section>
+        </div>
+
+        <!-- Product Modal -->
+        <div id="view-product-modal" class="fixed inset-0 z-[100] flex items-center justify-center px-4 hidden-view">
+            <div class="absolute inset-0 bg-black/50" onclick="closeProductModal()"></div>
+            <div class="relative w-full max-w-4xl glass-panel rounded-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] shadow-2xl">
+                <div class="w-full md:w-2/5 h-56 md:h-auto bg-gradient-to-br from-gray-800 to-black relative">
+                    <div class="absolute inset-0 flex items-center justify-center text-white/10 text-7xl"><i class="fas fa-gamepad"></i></div>
+                    <div class="absolute top-4 left-4 flex flex-col gap-2" id="modal-badges"></div>
+                </div>
+                <div class="w-full md:w-3/5 p-5 md:p-6 overflow-y-auto hide-scroll flex flex-col">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span id="modal-game" class="text-xs font-semibold text-blue-600 uppercase tracking-wider"></span>
+                            <h2 id="modal-title" class="text-2xl font-bold mt-1 tracking-tight"></h2>
+                        </div>
+                        <button onclick="closeProductModal()" class="w-8 h-8 rounded-full glass-panel flex items-center justify-center hover:bg-black/5"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="flex items-center gap-4 mb-4 text-sm text-[var(--text-muted)] border-b border-[var(--panel-border)] pb-3">
+                        <span class="flex items-center gap-1"><span class="status-dot status-undetected"></span> <span id="modal-status">Available</span></span>
+                        <span class="flex items-center gap-1"><i class="fas fa-star text-yellow-500"></i> <span id="modal-rating">5.0</span></span>
+                        <span class="flex items-center gap-1"><i class="fas fa-box"></i> Stok: <span id="modal-stock">99+</span></span>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold mb-2" data-lang="select_subscription">Pilih Langganan</h3>
+                        <div class="grid grid-cols-2 gap-2" id="modal-tiers"></div>
+                    </div>
+                    <div class="mb-4 flex-grow">
+                        <div class="flex gap-4 border-b border-[var(--panel-border)] mb-3 text-sm font-medium" id="modal-tab-buttons">
+                            <button class="tab-btn pb-1 border-b-2 border-blue-600 text-[var(--text-main)]" data-tab="details" data-lang="details_tab">Detail</button>
+                            <button class="tab-btn pb-1 border-b-2 border-transparent text-[var(--text-muted)]" data-tab="feature" data-lang="feature_tab">Guide</button>
+                            <button class="tab-btn pb-1 border-b-2 border-transparent text-[var(--text-muted)]" data-tab="support" data-lang="support_tab">Support</button>
+                        </div>
+                        <div id="modal-tab-content" class="text-sm text-[var(--text-muted)] space-y-2 tab-content-fade"></div>
+                    </div>
+                    <div class="mt-auto pt-3 border-t border-[var(--panel-border)] flex items-center gap-4">
+                        <div class="flex-grow">
+                            <p class="text-xs text-[var(--text-muted)] mb-0.5" data-lang="selected_plan">Paket Terpilih</p>
+                            <p class="text-xl font-bold" id="modal-price-display">Pilih tier</p>
+                        </div>
+                        <button id="add-to-cart-btn" disabled class="px-6 py-2.5 rounded-xl bg-[var(--text-main)] text-[var(--bg-color)] font-semibold shadow hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed" data-lang="add_to_cart">Tambah</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Popup -->
+        <div id="view-language-popup" class="fixed inset-0 z-[110] flex items-center justify-center px-4 hidden-view">
+            <div class="absolute inset-0 bg-black/60" onclick="closeLanguagePopup()"></div>
+            <div class="relative w-full max-w-3xl glass-panel rounded-2xl p-6 md:p-8 text-center max-h-[88vh] overflow-y-auto hide-scroll border border-white/10">
+                <div class="w-14 h-14 mx-auto bg-gradient-to-br from-blue-600 to-slate-800 rounded-2xl flex items-center justify-center mb-4 shadow"><i class="fas fa-globe text-white text-xl"></i></div>
+                <h2 class="text-2xl font-bold mb-2" data-lang="select_region">Pilih Bahasa & Pembayaran</h2>
+                <p class="text-sm text-[var(--text-muted)] mb-6" data-lang="select_region_desc">Pilih bahasa tampilan. Indonesia/Malaysia menggunakan QRIS manual, region global diarahkan ke SellAuth untuk crypto/card.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    <button onclick="selectLanguage('id')" class="language-option"><span class="text-2xl">🇮🇩</span><div class="text-left"><p class="font-semibold">Indonesia</p><p class="text-xs text-[var(--text-muted)]">IDR • QRIS</p></div><i class="fas fa-chevron-right ml-auto"></i></button>
+                    <button onclick="selectLanguage('my')" class="language-option"><span class="text-2xl">🇲🇾</span><div class="text-left"><p class="font-semibold">Malaysia</p><p class="text-xs text-[var(--text-muted)]">IDR • QRIS</p></div><i class="fas fa-chevron-right ml-auto"></i></button>
+                    <button onclick="selectLanguage('en')" class="language-option"><span class="text-2xl">🇺🇸</span><div class="text-left"><p class="font-semibold">English</p><p class="text-xs text-[var(--text-muted)]">USD • SellAuth</p></div><i class="fas fa-chevron-right ml-auto"></i></button>
+                    <button onclick="selectLanguage('fil')" class="language-option"><span class="text-2xl">🇵🇭</span><div class="text-left"><p class="font-semibold">Filipino</p><p class="text-xs text-[var(--text-muted)]">USD • SellAuth</p></div><i class="fas fa-chevron-right ml-auto"></i></button>
+                    <button onclick="selectLanguage('zh')" class="language-option"><span class="text-2xl">🇨🇳</span><div class="text-left"><p class="font-semibold">中文</p><p class="text-xs text-[var(--text-muted)]">USD • SellAuth</p></div><i class="fas fa-chevron-right ml-auto"></i></button>
+                    <button onclick="selectLanguage('ar')" class="language-option"><span class="text-2xl">🇸🇦</span><div class="text-left"><p class="font-semibold">العربية</p><p class="text-xs text-[var(--text-muted)]">USD • SellAuth</p></div><i class="fas fa-chevron-right ml-auto"></i></button>
+                    <button onclick="selectLanguage('vi')" class="language-option"><span class="text-2xl">🇻🇳</span><div class="text-left"><p class="font-semibold">Tiếng Việt</p><p class="text-xs text-[var(--text-muted)]">USD • SellAuth</p></div><i class="fas fa-chevron-right ml-auto"></i></button>
+                    <button onclick="selectLanguage('ko')" class="language-option"><span class="text-2xl">🇰🇷</span><div class="text-left"><p class="font-semibold">한국어</p><p class="text-xs text-[var(--text-muted)]">USD • SellAuth</p></div><i class="fas fa-chevron-right ml-auto"></i></button>
+                    <button onclick="selectLanguage('hi')" class="language-option"><span class="text-2xl">🇮🇳</span><div class="text-left"><p class="font-semibold">हिन्दी</p><p class="text-xs text-[var(--text-muted)]">USD • SellAuth</p></div><i class="fas fa-chevron-right ml-auto"></i></button>
+                </div>
+                <button onclick="closeLanguagePopup()" class="mt-4 text-sm text-[var(--text-muted)] hover:text-[var(--text-main)]" data-lang="cancel">Batal</button>
+            </div>
+        </div>
+
+        <!-- ===== CHECKOUT COMPACT ===== -->
+        <div id="view-checkout" class="hidden-view max-w-7xl mx-auto checkout-compact">
+            <button onclick="navigate('home')" class="mb-3 text-sm text-[var(--text-muted)] hover:text-[var(--text-main)]"><i class="fas fa-arrow-left"></i> <span data-lang="back_store">Kembali</span></button>
+            <h1 class="text-2xl font-bold mb-3" data-lang="checkout">Checkout</h1>
+            <div class="flex flex-col lg:flex-row gap-3">
+                <!-- Kiri -->
+                <div class="w-full lg:w-1/2 space-y-3">
+                    <div class="glass-panel p-3">
+                        <h2 class="text-md font-semibold mb-1" data-lang="customer_info">Informasi Pelanggan</h2>
+                        <input type="text" id="customer-name" data-lang-placeholder="name_placeholder" placeholder="Nickname Discord wajib" class="glass-input text-sm mb-1" />
+                        <input type="text" id="customer-email" data-lang-placeholder="contact_placeholder" placeholder="WhatsApp / Email opsional" class="glass-input text-sm" />
+                        <p class="text-xs text-[var(--text-muted)] mt-1" data-lang="customer_note">Minimal isi nickname Discord.</p>
+                    </div>
+                    <div class="glass-panel p-3">
+                        <div class="flex justify-between items-center mb-1"><h2 class="text-md font-semibold" data-lang="payment_method">Metode Pembayaran</h2><span id="checkout-region-badge" class="px-2 py-0.5 bg-blue-600/10 text-blue-600 rounded-full text-xs font-semibold"></span></div>
+                        <div class="grid grid-cols-2 gap-1" id="payment-methods-container"></div>
+                        <div id="manual-payment-warning" class="hidden mt-2 p-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20 text-xs"></div>
+                    </div>
+                </div>
+                <!-- Kanan -->
+                <div class="w-full lg:w-1/2 space-y-3">
+                    <div class="glass-panel p-3">
+                        <h2 class="text-md font-semibold mb-1" data-lang="order_summary">Ringkasan Pesanan</h2>
+                        <div id="checkout-items" class="space-y-1 mb-2 max-h-32 overflow-y-auto hide-scroll text-sm"></div>
+                        <div class="flex justify-between text-sm"><span data-lang="subtotal">Subtotal</span><span id="checkout-subtotal">-</span></div>
+                        <div class="flex justify-between text-sm"><span>Diskon</span><span id="discount-display" class="text-green-500 hidden">-</span></div>
+                        <div class="flex justify-between text-sm"><span data-lang="tips">Tips</span><input type="number" id="tips-input" placeholder="0" class="w-16 text-right bg-transparent border-b border-[var(--panel-border)] text-sm" onchange="updateCheckoutTotal()" value="0" /></div>
+                        <div class="flex justify-between my-1"><span class="font-medium">Total</span><span class="font-bold text-xl" id="checkout-total">-</span></div>
+                        <div class="flex gap-1 items-center mt-1 pt-1 border-t border-[var(--panel-border)]">
+                            <input type="text" id="discount-input" placeholder="Kode" class="flex-1 px-2 py-1.5 rounded-lg glass-input text-sm" />
+                            <button id="apply-discount-btn" onclick="applyDiscount()" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold text-sm">Apply</button>
+                            <button id="remove-discount-btn" onclick="removeDiscount()" class="px-2 py-1.5 rounded-lg bg-red-500/20 text-red-500 hidden text-sm">Batal</button>
+                        </div>
+                        <button id="pay-button" class="w-full py-2.5 rounded-xl bg-[var(--text-main)] text-[var(--bg-color)] font-semibold mt-2 text-sm" onclick="processCheckout()" data-lang="pay_now">Buat Order</button>
+                    </div>
+                </div>
+            </div>
+            <!-- QRIS Panel -->
+            <div id="qris-panel" class="w-full glass-panel p-4 hidden flex flex-col items-center mt-3">
+                <h2 class="text-xl font-bold" data-lang="qris_payment">QRIS Payment</h2>
+                <p class="text-sm text-[var(--text-muted)]" data-lang="scan_qris">Scan QRIS di bawah</p>
+                <img id="qris-image" src="qris_static.png" alt="QRIS" class="w-40 h-40 rounded-xl border-2 border-blue-600 my-2 bg-white p-2" />
+                <div class="text-center">
+                    <p class="text-xs uppercase text-[var(--text-muted)]">Order ID</p>
+                    <p class="text-sm font-bold text-blue-500" id="order-id-display">-</p>
+                    <p class="text-2xl font-bold text-yellow-500" id="qris-total-display">Rp 0</p>
+                    <p class="text-xs text-[var(--text-muted)]" data-lang="ensure_nominal">Transfer sesuai nominal.</p>
+                    <p class="text-xs text-[var(--text-muted)]" id="payment-method-display">-</p>
+                </div>
+                <div class="w-full border-t border-[var(--panel-border)] pt-3 mt-2">
+                    <h3 class="text-md font-semibold flex items-center gap-2"><i class="fas fa-upload"></i> <span data-lang="upload_proof">Upload Bukti</span></h3>
+                    <input type="file" id="proof-file" class="block w-full text-sm file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white" />
+                    <button id="upload-proof-btn" class="mt-2 w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold disabled:opacity-50 text-sm" onclick="uploadProof()" disabled data-lang="upload_proof_btn">Lampirkan Bukti</button>
+                </div>
+                <div id="invoice-section" class="w-full hidden mt-3 border-t border-[var(--panel-border)] pt-3 text-center">
+                    <p class="text-green-500 font-semibold"><i class="fas fa-check-circle"></i> <span data-lang="payment_verified">Pembayaran Selesai</span></p>
+                    <p id="order-id-confirmation" class="text-sm font-bold text-blue-500"></p>
+                    <button id="download-invoice-btn" class="mt-2 w-full py-2 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold text-sm" onclick="downloadInvoicePDF()"><i class="fas fa-download"></i> <span data-lang="download_invoice">Download Invoice</span></button>
+                    <div id="invoice-preview-card" class="hidden"></div>
+                    <div class="mt-2 p-3 rounded-lg bg-blue-600/10 border border-blue-600/20 text-left text-sm">
+                        <p class="font-semibold text-blue-500" data-lang="contact_us">Kontak admin:</p>
+                        <p><i class="fab fa-whatsapp text-green-500"></i> <a href="https://wa.me/6285117065033" target="_blank" class="text-blue-500 hover:underline">+62 851-1706-5033</a></p>
+                        <p><i class="fab fa-discord text-indigo-500"></i> <a href="https://discord.com/users/1120396377839648780" target="_blank" class="text-blue-500 hover:underline">ryuhuu.</a></p>
+                        <p class="text-xs text-[var(--text-muted)] mt-1" data-lang="send_invoice">Kirim Order ID & bukti ke admin. Estimasi respond <strong>paling lambat 10 jam</strong>.</p>
+                        <div class="mt-2 flex gap-2">
+                            <a id="whatsapp-confirm-btn" href="#" target="_blank" class="flex-1 py-1.5 rounded-lg bg-green-600 hover:bg-green-500 text-white text-center font-semibold text-sm"><i class="fab fa-whatsapp"></i> WA</a>
+                            <a id="discord-confirm-btn" href="#" target="_blank" class="flex-1 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-center font-semibold text-sm"><i class="fab fa-discord"></i> Discord</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[380px] glass-panel z-[120] transform translate-x-full transition-transform duration-200 flex flex-col border-l border-[var(--panel-border)]">
+        <div class="p-4 flex justify-between items-center border-b border-[var(--panel-border)]">
+            <h2 class="text-xl font-bold"><i class="fas fa-shopping-bag mr-2"></i> <span data-lang="your_cart">Keranjang</span></h2>
+            <button onclick="toggleCart()" class="w-8 h-8 rounded-full glass-panel flex items-center justify-center hover:bg-black/5"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="flex-grow p-4 overflow-y-auto hide-scroll flex flex-col gap-3" id="cart-items-container">
+            <div class="flex flex-col items-center justify-center h-full text-[var(--text-muted)] opacity-50"><i class="fas fa-ghost text-3xl mb-2"></i><p data-lang="empty_cart">Kosong.</p></div>
+        </div>
+        <div class="p-4 border-t border-[var(--panel-border)] bg-[var(--bg-color)] space-y-2">
+            <button onclick="startCheckout()" id="cart-checkout-btn" class="w-full py-3 rounded-xl bg-[var(--text-main)] text-[var(--bg-color)] font-semibold disabled:opacity-50 disabled:cursor-not-allowed" disabled data-lang="proceed_checkout">Checkout</button>
+            <button onclick="clearCart()" id="cart-clear-btn" class="w-full py-2 rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed text-sm" disabled><i class="fas fa-trash"></i> Kosongkan</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="fixed inset-0 bg-black/40 z-[115] hidden opacity-0 transition-opacity duration-200" onclick="toggleCart()"></div>
+
+    <script>
+        // ============================================================
+        // DATA PRODUK (TETAP SAMA)
+        // ============================================================
+        const GAMES = [
+            "Genshin Impact", "Wuthering Waves", "Solo Leveling Arise",
+            "Honkai Star Rail", "Zenless Zone Zero", "Where Winds Meet",
+            "Mongil Star Dive", "Valorant", "Marvel Rivals",
+            "Stella Sora Global", "Blue Archive", "Strinova",
+            "Etheria Restart", "Girls Frontline 2", "Tower of Fantasy",
+            "GTA V FiveM", "Overfield", "Arknights Endfield",
+            "Seven Deadly Sins Origin", "Blue Protocol Star Resonance",
+            "Solo Leveling Arise OVERDRIVE", "Snowbreak Containment Zone",
+            "My Hero Ultra Rumble", "Infinity Nikki", "Duet Night Abyss",
+            "Counter Strike 2", "Special Force 2", "Avatar Star",
+            "Identity V", "Neverness to Everness"
+        ];
+
+        const PRODUCTS = [
+            { id: "p_gi_slash", name: "Slash (Bypass)", game: "Genshin Impact", tags: ["Bypass", "Safe"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-blue-600 to-cyan-500" },
+            { id: "p_gi_shika", name: "Shika", game: "Genshin Impact", tags: ["Lite"], tiers: [{ id: "3_days_alpha_1",
+                    name: "3 Days Alpha", priceIDR: 70000, priceUSD: 3.5 }, { id: "7_days_alpha_2", name: "7 Days Alpha",
+                    priceIDR: 140000, priceUSD: 7 }, { id: "30_days_alpha_4", name: "30 Days Alpha", priceIDR: 300000,
+                    priceUSD: 15 }, { id: "lifetime_alpha_5", name: "Lifetime Alpha", priceIDR: 1400000, priceUSD: 70 },
+                { id: "lifetime_beta_3", name: "Lifetime Beta", priceIDR: 200000, priceUSD: 10 }], status: "Available",
+                bg: "from-purple-500 to-pink-500" },
+            { id: "p_gi_antiaddict", name: "Antiaddict", game: "Genshin Impact", tags: ["Anti-Ban"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 50000, priceUSD: 2.5 }, { id: "3_days_2", name: "3 Days", priceIDR: 80000,
+                    priceUSD: 4 }, { id: "7_days_3", name: "7 Days", priceIDR: 140000, priceUSD: 7 },
+                { id: "30_days_4", name: "30 Days", priceIDR: 360000, priceUSD: 18 }], status: "Available",
+                bg: "from-green-500 to-emerald-600" },
+            { id: "p_gi_shibal", name: "Shibal", game: "Genshin Impact", tags: ["Balanced"], tiers: [{ id: "invite_code_1",
+                    name: "Invite Code", priceIDR: 75000, priceUSD: 8 }], status: "Available",
+                bg: "from-yellow-500 to-orange-500" },
+            { id: "p_gi_unicore", name: "Unicore", game: "Genshin Impact", tags: ["Exclusive"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 95000, priceUSD: 5 }, { id: "7_days_2", name: "7 Days", priceIDR: 171000,
+                    priceUSD: 9 }, { id: "15_days_3", name: "15 Days", priceIDR: 209000, priceUSD: 11 },
+                { id: "30_days_4", name: "30 Days", priceIDR: 361000, priceUSD: 19 }], status: "Available",
+                bg: "from-indigo-500 to-purple-600" },
+            { id: "p_gi_lotus", name: "Lotus", game: "Genshin Impact", tags: ["Premium"], tiers: [{ id: "1d", name: "1 Day",
+                    priceIDR: 60000, priceUSD: 3 }, { id: "7d", name: "7 Days", priceIDR: 100000, priceUSD: 5 },
+                { id: "30d", name: "30 Days", priceIDR: 140000, priceUSD: 7 }], status: "Available",
+                bg: "from-purple-400 to-pink-500" },
+            { id: "p_gi_minty_mobile", name: "Minty (Mobile)", game: "Genshin Impact", tags: ["Mobile", "Premium"],
+                tiers: [{ id: "1d_minty", name: "1 Day", priceIDR: 100000, priceUSD: 5 }, { id: "7d_minty",
+                    name: "7 Days", priceIDR: 160000, priceUSD: 8 }, { id: "30d_minty", name: "30 Days", priceIDR: 260000,
+                    priceUSD: 13 }], status: "Available", bg: "from-green-400 to-cyan-500" },
+            { id: "p_ww_slash", name: "Slash", game: "Wuthering Waves", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-teal-500 to-cyan-600" },
+            { id: "p_ww_privateb", name: "Private B", game: "Wuthering Waves", tags: ["Private Slot"],
+                tiers: [{ id: "contact", name: "Hubungi Admin", priceIDR: 0, priceUSD: 0 }], status: "Available",
+                bg: "from-gray-700 to-gray-900" },
+            { id: "p_ww_uniwaves", name: "Uniwaves", game: "Wuthering Waves", tags: ["Exclusive"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 57000, priceUSD: 3 }, { id: "7_days_2", name: "7 Days", priceIDR: 114000,
+                    priceUSD: 6 }, { id: "15_days_3", name: "15 Days", priceIDR: 190000, priceUSD: 10 },
+                { id: "30_days_4", name: "30 Days", priceIDR: 285000, priceUSD: 15 }], status: "Available",
+                bg: "from-cyan-600 to-blue-700" },
+            { id: "p_sla_slash", name: "Slash", game: "Solo Leveling Arise", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-rose-600 to-pink-700" },
+            { id: "p_sla_privateb", name: "Private B", game: "Solo Leveling Arise", tags: ["Private Slot"],
+                tiers: [{ id: "contact", name: "Hubungi Admin", priceIDR: 0, priceUSD: 0 }], status: "Available",
+                bg: "from-stone-600 to-neutral-700" },
+            { id: "p_sla_lumen", name: "Lumen SLA", game: "Solo Leveling Arise", tags: ["Lumen"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 95000, priceUSD: 5 }, { id: "7_days_2", name: "7 Days", priceIDR: 190000,
+                    priceUSD: 10 }, { id: "30_days_3", name: "30 Days", priceIDR: 323000, priceUSD: 17 },
+                { id: "90_days_4", name: "90 Days", priceIDR: 950000, priceUSD: 50 }], status: "Available",
+                bg: "from-violet-600 to-purple-800" },
+            { id: "p_hsr_slash", name: "Slash (Bypass)", game: "Honkai Star Rail", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-sky-500 to-indigo-600" },
+            { id: "p_hsr_shibal", name: "Shibal", game: "Honkai Star Rail", tags: ["Balanced"],
+                tiers: [{ id: "shibal_invite", name: "Invite Code", priceIDR: 75000, priceUSD: 4.17 }],
+                status: "Available", bg: "from-amber-500 to-yellow-600" },
+            { id: "p_hsr_unistar", name: "Unistar", game: "Honkai Star Rail", tags: ["Exclusive"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days", priceIDR: 95000,
+                    priceUSD: 5 }, { id: "15_days_3", name: "15 Days", priceIDR: 114000, priceUSD: 6 },
+                { id: "30_days_4", name: "30 Days", priceIDR: 152000, priceUSD: 8 }], status: "Available",
+                bg: "from-fuchsia-500 to-pink-600" },
+            { id: "p_hsr_minty", name: "Minty-SR", game: "Honkai Star Rail", tags: ["Quality"], tiers: [{ id: "3_days_1",
+                    name: "3 Days", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days", priceIDR: 76000,
+                    priceUSD: 4 }, { id: "30_days_3", name: "30 Days", priceIDR: 133000, priceUSD: 7 }],
+                status: "Available", bg: "from-emerald-500 to-teal-600" },
+            { id: "p_zzz_slash", name: "Slash (Bypass)", game: "Zenless Zone Zero", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-orange-600 to-red-600" },
+            { id: "p_zzz_unizone", name: "Unizone", game: "Zenless Zone Zero", tags: ["Exclusive"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 57000, priceUSD: 3 }, { id: "7_days_2", name: "7 Days", priceIDR: 114000,
+                    priceUSD: 6 }, { id: "15_days_3", name: "15 Days", priceIDR: 171000, priceUSD: 9 },
+                { id: "30_days_4", name: "30 Days", priceIDR: 285000, priceUSD: 15 }], status: "Available",
+                bg: "from-lime-500 to-green-600" },
+            { id: "p_zzz_minty", name: "Minty-ZZZ", game: "Zenless Zone Zero", tags: ["Quality"], tiers: [{ id: "3_days_1",
+                    name: "3 Days", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days", priceIDR: 76000,
+                    priceUSD: 4 }, { id: "30_days_3", name: "30 Days", priceIDR: 133000, priceUSD: 7 }],
+                status: "Available", bg: "from-cyan-500 to-blue-500" },
+            { id: "p_zzz_kinu", name: "Kinu", game: "Zenless Zone Zero", tags: ["Premium"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "3_days_2", name: "3 Days", priceIDR: 57000,
+                    priceUSD: 3 }, { id: "7_days_3", name: "7 Days", priceIDR: 114000, priceUSD: 6 },
+                { id: "30_days_4", name: "30 Days", priceIDR: 190000, priceUSD: 10 }], status: "Available",
+                bg: "from-violet-600 to-purple-900" },
+            { id: "p_nte_kinu", name: "Kinu", game: "Neverness to Everness", tags: ["Premium"], tiers: [{ id: "1d_kinu_nte",
+                    name: "1 Day", priceIDR: 40000, priceUSD: 2 }, { id: "3d_kinu_nte", name: "3 Days", priceIDR: 60000,
+                    priceUSD: 3 }, { id: "7d_kinu_nte", name: "7 Days", priceIDR: 120000, priceUSD: 6 },
+                { id: "30d_kinu_nte", name: "30 Days", priceIDR: 200000, priceUSD: 10 }], status: "Available",
+                bg: "from-indigo-400 to-purple-500" },
+            { id: "p_nte_anko", name: "Anko", game: "Arknights Endfield", tags: ["Premium"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 40000, priceUSD: 2 }, { id: "3_days_2", name: "3 Days", priceIDR: 60000,
+                    priceUSD: 3 }, { id: "7_days_3", name: "7 Days", priceIDR: 120000, priceUSD: 6 },
+                { id: "30_days_4", name: "30 Days", priceIDR: 200000, priceUSD: 10 }], status: "Available",
+                bg: "from-blue-600 to-indigo-700" },
+            { id: "p_wwm_lumen", name: "Lumen WWM", game: "Where Winds Meet", tags: ["Lumen"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 114000, priceUSD: 6 }, { id: "30_days_2", name: "30 Days", priceIDR: 475000,
+                    priceUSD: 25 }], status: "Available", bg: "from-slate-600 to-gray-700" },
+            { id: "p_msd_slash", name: "Slash", game: "Mongil Star Dive", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-red-500 to-rose-600" },
+            { id: "p_msd_lumen", name: "Lumen-MSD", game: "Mongil Star Dive", tags: ["Lumen"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 76000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 133000,
+                    priceUSD: 7 }, { id: "30_days_3", name: "30 Days", priceIDR: 209000, priceUSD: 11 }],
+                status: "Available", bg: "from-indigo-500 to-blue-600" },
+            { id: "p_msd_unistardive", name: "Unistardive", game: "Mongil Star Dive", tags: ["Exclusive"], tiers: [
+                { id: "1_day_1", name: "1 Day", priceIDR: 57000, priceUSD: 3 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 95000, priceUSD: 5 }, { id: "15_days_3", name: "15 Days", priceIDR: 133000,
+                        priceUSD: 7 }, { id: "30_days_4", name: "30 Days", priceIDR: 190000, priceUSD: 10 }
+                ], status: "Available", bg: "from-purple-500 to-violet-600" },
+            { id: "p_val_hooked", name: "Hooked", game: "Valorant", tags: ["Private Slot", "Aimbot"],
+                tiers: [{ id: "hm", name: "Monthly", priceIDR: 800000, priceUSD: 80 }], status: "Available",
+                bg: "from-red-700 to-rose-800" },
+            { id: "p_mr_predator", name: "Predator (Apex)", game: "Marvel Rivals", tags: ["Aimbot"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 76000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 152000,
+                    priceUSD: 8 }, { id: "30_days_3", name: "30 Days", priceIDR: 323000, priceUSD: 17 }],
+                status: "Available", bg: "from-gray-800 to-black" },
+            { id: "p_ssg_slash", name: "Slash", game: "Stella Sora Global", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-yellow-400 to-orange-500" },
+            { id: "p_ssg_soroka", name: "Soroka", game: "Stella Sora Global", tags: ["Premium"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days", priceIDR: 76000,
+                    priceUSD: 4 }, { id: "30_days_3", name: "30 Days", priceIDR: 95000, priceUSD: 5 }],
+                status: "Available", bg: "from-blue-400 to-cyan-500" },
+            { id: "p_ba_slash", name: "Slash", game: "Blue Archive", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-sky-400 to-indigo-500" },
+            { id: "p_ba_privateb", name: "Private B", game: "Blue Archive", tags: ["Private Slot"],
+                tiers: [{ id: "priv", name: "Monthly Private", priceIDR: 500000, priceUSD: 75 }], status: "Available",
+                bg: "from-gray-600 to-slate-700" },
+            { id: "p_ba_konoka", name: "Konoka", game: "Blue Archive", tags: ["Premium"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days", priceIDR: 76000,
+                    priceUSD: 4 }, { id: "30_days_3", name: "30 Days", priceIDR: 95000, priceUSD: 5 }],
+                status: "Available", bg: "from-lime-500 to-green-500" },
+            { id: "p_str_privateb", name: "Private B", game: "Strinova", tags: ["Private Slot"],
+                tiers: [{ id: "priv", name: "Monthly Private", priceIDR: 500000, priceUSD: 75 }], status: "Available",
+                bg: "from-violet-700 to-purple-900" },
+            { id: "p_er_unietheria", name: "Unietheria", game: "Etheria Restart", tags: ["Exclusive"], tiers: [
+                { id: "1_day_1", name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 76000, priceUSD: 4 }, { id: "30_days_3", name: "30 Days", priceIDR: 171000,
+                        priceUSD: 9 }], status: "Available", bg: "from-teal-400 to-emerald-500" },
+            { id: "p_gf2_slash", name: "Slash", game: "Girls Frontline 2", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-pink-500 to-rose-600" },
+            { id: "p_tof_toofli", name: "Toofli", game: "Tower of Fantasy", tags: ["Custom"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days", priceIDR: 76000,
+                    priceUSD: 4 }, { id: "30_days_3", name: "30 Days", priceIDR: 95000, priceUSD: 5 }],
+                status: "Available", bg: "from-cyan-600 to-blue-700" },
+            { id: "p_fivem_unitheft", name: "Unitheft", game: "GTA V FiveM", tags: ["Lua Executor"], tiers: [{ id: "t1",
+                    name: "1 Week", priceIDR: 75000, priceUSD: 15 }, { id: "t2", name: "1 Month", priceIDR: 200000,
+                    priceUSD: 35 }, { id: "t3", name: "Lifetime", priceIDR: 1500000, priceUSD: 150 }],
+                status: "Available", bg: "from-green-600 to-emerald-700" },
+            { id: "p_of_korobka", name: "Korobka", game: "Overfield", tags: ["Premium"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days", priceIDR: 76000,
+                    priceUSD: 4 }, { id: "30_days_3", name: "30 Days", priceIDR: 95000, priceUSD: 5 }],
+                status: "Available", bg: "from-orange-500 to-amber-600" },
+            { id: "p_ae_slash", name: "Slash", game: "Arknights Endfield", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-slate-500 to-gray-600" },
+            { id: "p_ae_shibal", name: "Shibal", game: "Arknights Endfield", tags: ["Balanced"],
+                tiers: [{ id: "shibal_invite", name: "Invite Code", priceIDR: 75000, priceUSD: 4.17 }],
+                status: "Available", bg: "from-lime-500 to-green-500" },
+            { id: "p_ae_uni_endfield", name: "Uni-Endfield", game: "Arknights Endfield", tags: ["Exclusive"], tiers: [
+                { id: "1_day_1", name: "1 Day", priceIDR: 57000, priceUSD: 3 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 114000, priceUSD: 6 }, { id: "30_days_3", name: "30 Days", priceIDR: 285000,
+                        priceUSD: 15 }], status: "Available", bg: "from-violet-600 to-purple-900" },
+            { id: "p_ae_minty", name: "Minty-AE", game: "Arknights Endfield", tags: ["Quality"], tiers: [{ id: "3_days_1",
+                    name: "3 Days", priceIDR: 57000, priceUSD: 3 }, { id: "7_days_2", name: "7 Days", priceIDR: 95000,
+                    priceUSD: 5 }, { id: "30_days_3", name: "30 Days", priceIDR: 190000, priceUSD: 10 }],
+                status: "Available", bg: "from-red-800 to-rose-900" },
+            { id: "p_ae_lumen", name: "Lumen-AE", game: "Arknights Endfield", tags: ["Lumen"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 95000, priceUSD: 5 }, { id: "7_days_2", name: "7 Days", priceIDR: 171000,
+                    priceUSD: 9 }, { id: "30_days_3", name: "30 Days", priceIDR: 304000, priceUSD: 16 }],
+                status: "Available", bg: "from-blue-600 to-cyan-500" },
+            { id: "p_7ds_lumen", name: "Lumen-DS", game: "Seven Deadly Sins Origin", tags: ["Lumen"], tiers: [{ id: "3_days_1",
+                    name: "3 Days", priceIDR: 95000, priceUSD: 5 }, { id: "7_days_2", name: "7 Days", priceIDR: 171000,
+                    priceUSD: 9 }, { id: "30_days_3", name: "30 Days", priceIDR: 285000, priceUSD: 15 }],
+                status: "Available", bg: "from-rose-500 to-pink-600" },
+            { id: "p_7ds_privateb", name: "Private B", game: "Seven Deadly Sins Origin", tags: ["Private Slot"],
+                tiers: [{ id: "priv", name: "Monthly Private", priceIDR: 500000, priceUSD: 75 }], status: "Available",
+                bg: "from-stone-700 to-neutral-800" },
+            { id: "p_7ds_uni_deadlysins", name: "Uni-DeadlySins", game: "Seven Deadly Sins Origin", tags: ["Exclusive"],
+                tiers: [{ id: "1_day_1", name: "1 Day", priceIDR: 57000, priceUSD: 3 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 95000, priceUSD: 5 }, { id: "15_days_3", name: "15 Days", priceIDR: 133000,
+                        priceUSD: 7 }, { id: "30_days_4", name: "30 Days", priceIDR: 190000, priceUSD: 10 }
+                ], status: "Available", bg: "from-yellow-400 to-orange-500" },
+            { id: "p_bp_lumen", name: "Lumen BP", game: "Blue Protocol Star Resonance", tags: ["Lumen"], tiers: [
+                { id: "3_days_1", name: "3 Days", priceIDR: 95000, priceUSD: 5 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 190000, priceUSD: 10 }, { id: "30_days_3", name: "30 Days", priceIDR: 323000,
+                        priceUSD: 17 }, { id: "90_days_4", name: "90 Days", priceIDR: 950000, priceUSD: 50 }
+                ], status: "Available", bg: "from-blue-600 to-indigo-700" },
+            { id: "p_slao_lumen", name: "Lumen SLAO", game: "Solo Leveling Arise OVERDRIVE", tags: ["Lumen"], tiers: [
+                { id: "1_day_1", name: "1 Day", priceIDR: 114000, priceUSD: 6 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 228000, priceUSD: 12 }, { id: "30_days_3", name: "30 Days", priceIDR: 475000,
+                        priceUSD: 25 }, { id: "90_days_4", name: "90 Days", priceIDR: 1140000, priceUSD: 60 }
+                ], status: "Available", bg: "from-purple-700 to-indigo-800" },
+            { id: "p_scz_unisnowbreak", name: "Unisnowbreak", game: "Snowbreak Containment Zone", tags: ["Exclusive"],
+                tiers: [{ id: "1_day_1", name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 57000, priceUSD: 3 }, { id: "30_days_3", name: "30 Days", priceIDR: 114000,
+                        priceUSD: 6 }], status: "Available", bg: "from-cyan-500 to-sky-600" },
+            { id: "p_scz_privateb", name: "Private B", game: "Snowbreak Containment Zone", tags: ["Private Slot"],
+                tiers: [{ id: "priv", name: "Monthly Private", priceIDR: 500000, priceUSD: 75 }], status: "Available",
+                bg: "from-gray-700 to-slate-800" },
+            { id: "p_mhur_lumen", name: "Lumen-MHUR", game: "My Hero Ultra Rumble", tags: ["Lumen"], tiers: [
+                { id: "1_day_1", name: "1 Day", priceIDR: 152000, priceUSD: 8 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 380000, priceUSD: 20 }, { id: "30_days_3", name: "30 Days", priceIDR: 589000,
+                        priceUSD: 31 }], status: "Available", bg: "from-yellow-500 to-orange-600" },
+            { id: "p_mhur_privateb", name: "Private B", game: "My Hero Ultra Rumble", tags: ["Private Slot"],
+                tiers: [{ id: "priv", name: "Monthly Private", priceIDR: 500000, priceUSD: 75 }], status: "Available",
+                bg: "from-red-600 to-rose-700" },
+            { id: "p_nk_privatea", name: "Private A", game: "Infinity Nikki", tags: ["Private Slot"],
+                tiers: [{ id: "privA", name: "Monthly Private", priceIDR: 750000, priceUSD: 100 }],
+                status: "Available", bg: "from-pink-300 to-purple-400" },
+            { id: "p_dna_slash", name: "Slash", game: "Duet Night Abyss", tags: ["Bypass"], tiers: [{ id: "3_day_1",
+                    name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days", priceIDR: 60000,
+                    priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000, priceUSD: 10 }],
+                status: "Available", bg: "from-indigo-600 to-purple-700" },
+            { id: "p_dna_privateb", name: "Private B", game: "Duet Night Abyss", tags: ["Private Slot"],
+                tiers: [{ id: "priv", name: "Monthly Private", priceIDR: 500000, priceUSD: 75 }], status: "Available",
+                bg: "from-gray-800 to-black" },
+            { id: "p_dna_minty", name: "Minty-DNA", game: "Duet Night Abyss", tags: ["Quality"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "3_days_2", name: "3 Days", priceIDR: 57000,
+                    priceUSD: 3 }, { id: "7_days_3", name: "7 Days", priceIDR: 95000, priceUSD: 5 },
+                { id: "30_days_4", name: "30 Days", priceIDR: 171000, priceUSD: 9 }], status: "Available",
+                bg: "from-blue-600 to-cyan-500" },
+            { id: "p_dna_uni", name: "Uni-DNA", game: "Duet Night Abyss", tags: ["Exclusive"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 57000, priceUSD: 3 }, { id: "7_days_2", name: "7 Days", priceIDR: 95000,
+                    priceUSD: 5 }, { id: "30_days_3", name: "30 Days", priceIDR: 190000, priceUSD: 10 }],
+                status: "Available", bg: "from-green-500 to-emerald-600" },
+            { id: "p_cs2_predator", name: "Predator (CS2)", game: "Counter Strike 2", tags: ["Aimbot"], tiers: [
+                { id: "1_day_1", name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 76000, priceUSD: 4 }, { id: "30_days_3", name: "30 Days", priceIDR: 114000,
+                        priceUSD: 6 }], status: "Available", bg: "from-red-800 to-rose-900" },
+            { id: "p_cs2_nixware", name: "Nixware", game: "Counter Strike 2", tags: ["HvH"], tiers: [{ id: "1_day_1",
+                    name: "1 Day", priceIDR: 38000, priceUSD: 2 }, { id: "14_days_2", name: "14 Days", priceIDR: 76000,
+                    priceUSD: 4 }, { id: "30_days_3", name: "30 Days", priceIDR: 114000, priceUSD: 6 }],
+                status: "Available", bg: "from-blue-900 to-indigo-900" },
+            { id: "p_sf2_privateb", name: "Private B", game: "Special Force 2", tags: ["Private Slot"],
+                tiers: [{ id: "priv", name: "Monthly Private", priceIDR: 500000, priceUSD: 75 }], status: "Available",
+                bg: "from-yellow-700 to-amber-800" },
+            { id: "p_as_privateb", name: "Private B", game: "Avatar Star", tags: ["Private Slot"],
+                tiers: [{ id: "priv", name: "Monthly Private", priceIDR: 500000, priceUSD: 75 }], status: "Available",
+                bg: "from-violet-600 to-fuchsia-700" },
+            { id: "p_idv_uniidentity", name: "Uni-Identity", game: "Identity V", tags: ["Exclusive"], tiers: [
+                { id: "1_day_1", name: "1 Day", priceIDR: 95000, priceUSD: 5 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 171000, priceUSD: 9 }, { id: "30_days_3", name: "30 Days", priceIDR: 361000,
+                        priceUSD: 19 }], status: "Available", bg: "from-teal-600 to-cyan-700" },
+            { id: "p_nte_minty", name: "Minty-NTE", game: "Neverness to Everness", tags: ["Quality"], tiers: [
+                { id: "3_days_1", name: "3 Days", priceIDR: 38000, priceUSD: 2 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 114000, priceUSD: 6 }, { id: "30_days_3", name: "30 Days", priceIDR: 228000,
+                        priceUSD: 12 }], status: "Available", bg: "from-emerald-500 to-teal-600" },
+            { id: "p_nte_lumen", name: "Lumen-NTE", game: "Neverness to Everness", tags: ["Lumen"], tiers: [
+                { id: "1_day_1", name: "1 Day", priceIDR: 57000, priceUSD: 3 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 114000, priceUSD: 6 }, { id: "30_days_3", name: "30 Days", priceIDR: 285000,
+                        priceUSD: 15 }], status: "Available", bg: "from-purple-600 to-indigo-700" },
+            { id: "p_nte_slash", name: "Slash-NTE", game: "Neverness to Everness", tags: ["Bypass"], tiers: [
+                { id: "3_day_1", name: "3 Day", priceIDR: 40000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 60000, priceUSD: 6 }, { id: "1_month_3", name: "1 Month", priceIDR: 120000,
+                        priceUSD: 10 }], status: "Available", bg: "from-blue-600 to-cyan-500" },
+            { id: "p_nte_uni", name: "Uni-NTE", game: "Neverness to Everness", tags: ["Exclusive"], tiers: [
+                { id: "1_day_1", name: "1 Day", priceIDR: 76000, priceUSD: 4 }, { id: "7_days_2", name: "7 Days",
+                        priceIDR: 152000, priceUSD: 8 }, { id: "30_days_3", name: "30 Days", priceIDR: 361000,
+                        priceUSD: 19 }], status: "Available", bg: "from-indigo-500 to-purple-600" }
+        ];
+
+        const ALL_PAYMENT_METHODS = [
+            { id: 'pm_qris', name: 'QRIS Manual', type: 'local', instant: false, icon: 'fa-qrcode',
+                color: 'text-pink-500', requiresDiscordGuide: false },
+            { id: 'pm_qrph', name: 'QRPH (PH)', type: 'local', instant: false, icon: 'fa-qrcode', color: 'text-blue-400',
+                requiresDiscordGuide: true },
+            { id: 'pm_alipay', name: 'Alipay (CN)', type: 'global', instant: false, icon: 'fa-alipay',
+                color: 'text-blue-500', requiresDiscordGuide: true },
+            { id: 'pm_upi', name: 'UPI (IN)', type: 'global', instant: false, icon: 'fa-credit-card',
+                color: 'text-orange-500', requiresDiscordGuide: true },
+            { id: 'pm_pix', name: 'PIX (BR)', type: 'global', instant: false, icon: 'fa-credit-card',
+                color: 'text-green-500', requiresDiscordGuide: true },
+            { id: 'pm_googlepay', name: 'Google Pay', type: 'global', instant: false, icon: 'fa-google',
+                color: 'text-gray-400', requiresDiscordGuide: true },
+            { id: 'pm_paypal', name: 'PayPal', type: 'global', instant: false, icon: 'fa-paypal', color: 'text-blue-300',
+                requiresDiscordGuide: true },
+            { id: 'pm_wise', name: 'Wise', type: 'global', instant: false, icon: 'fa-globe', color: 'text-green-400',
+                requiresDiscordGuide: true },
+            { id: 'pm_global', name: 'Crypto/Card via SellAuth', type: 'global', instant: true, icon: 'fa-globe',
+                color: 'text-blue-400', redirectUrl: 'https://ryuhuu.mysellauth.com/', requiresDiscordGuide: false }
+        ];
+
+        const DISCOUNT_CODES = { 'SUMMERSALE': { type: 'percentage', value: 5, idr: 0, usd: 0 } };
+
+        // ============================================================
+        // STATE & HELPERS (sama seperti sebelumnya, hanya di-ringkas)
+        // ============================================================
+        let appState = { view: 'home', cart: [], selectedRegion: 'id', activeGameFilter: 'All' };
+        let regionGateActive = false,
+            searchTerm = '',
+            currentProduct = null,
+            selectedTier = null,
+            currentOrderId = '',
+            proofImageData = null,
+            selectedPaymentMethod = 'pm_qris',
+            tipsAmount = 0,
+            discountCode = '',
+            discountAmount = 0,
+            discountType = '',
+            currentOrderSnapshot = null,
+            proofFileMeta = null;
+        const STORE_CONFIG = { name: 'Ryuhuu Store', merchantName: 'Ryuhuu Store', whatsappNumber: '6285117065033',
+            discordUrl: 'https://discord.com/users/1120396377839648780', globalPaymentUrl: 'https://ryuhuu.mysellauth.com/',
+            responseEstimate: 'Paling lambat 10 jam' };
+        const formatIDR = v => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR',
+            maximumFractionDigits: 0 }).format(v);
+        const formatUSD = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(v);
+        const localLanguages = ['id', 'my'];
+        const usesLocalCurrency = () => localLanguages.includes(appState.selectedRegion);
+        const currentPrice = t => usesLocalCurrency() ? t.priceIDR : t.priceUSD;
+        const formatCurrentPrice = t => usesLocalCurrency() ? formatIDR(currentPrice(t)) : formatUSD(currentPrice(t));
+        const formatPrice = (amount) => usesLocalCurrency() ? formatIDR(amount) : formatUSD(amount);
+
+        function escapeHTML(v) { return String(v ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;').replaceAll("'", '&#039;'); }
+
+        function makeCartId() { return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() :
+                `cart-${Date.now()}-${Math.random().toString(36).slice(2)}`; }
+
+        function createOrderId() { const stamp = new Date().toISOString().slice(2, 10).replaceAll('-', '');
+            const random = Math.random().toString(36).slice(2, 8).toUpperCase(); return `RYH-${stamp}-${random}`; }
+
+        function getPaymentMethodName(pmId = selectedPaymentMethod) { const found = ALL_PAYMENT_METHODS.find(m => m.id ===
+                pmId); return found ? found.name : pmId; }
+
+        function isPrivateProduct(product) { return product.tiers.some(t => t.priceIDR === 0 || t.name.toLowerCase().includes(
+                'hubungi')); }
+
+        function getCartSubtotal() { return appState.cart.reduce((sum, item) => sum + Number(currentPrice(item.tier) || 0),
+                0); }
+
+        function getCartTotal() {
+            const subtotal = getCartSubtotal();
+            let discount = 0;
+            if (discountType === 'percentage') { const percent = DISCOUNT_CODES[discountCode]?.value || 0;
+                discount = subtotal * (percent / 100); } else if (discountType === 'fixed') { discount = Math.min(
+                    discountAmount, subtotal); }
+            return subtotal + tipsAmount - discount;
+        }
+
+        function saveCartState() { try { const payload = appState.cart.map(item => ({ productId: item.product.id, tierId: item
+                        .tier.id, cartId: item.cartId }));
+                localStorage.setItem('ryuhuu_cart_v2', JSON.stringify(payload)); } catch (e) { console.warn(e); } }
+
+        function loadCartState() {
+            try { const saved = JSON.parse(localStorage.getItem('ryuhuu_cart_v2') || '[]');
+                appState.cart = saved.map(row => { const product = PRODUCTS.find(p => p.id === row.productId);
+                    const tier = product?.tiers.find(t => t.id === row.tierId); if (!product || !tier) return null; return {
+                        product, tier, cartId: row.cartId || makeCartId() }; }).filter(Boolean); } catch (e) { appState
+                    .cart = []; }
+        }
+
+        function updateCartCount() { const badge = document.getElementById('cart-count');
+            badge.innerText = appState.cart.length;
+            badge.classList.toggle('hidden', appState.cart.length === 0); }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const btn = document.getElementById('cart-checkout-btn');
+            const clearBtn = document.getElementById('cart-clear-btn');
+            if (appState.cart.length === 0) { container.innerHTML =
+                    `<div class="flex flex-col items-center justify-center h-full text-[var(--text-muted)] opacity-50"><i class="fas fa-ghost text-3xl mb-2"></i><p data-lang="empty_cart">Kosong.</p></div>`;
+                btn.disabled = true; if (clearBtn) clearBtn.disabled = true; return; }
+            btn.disabled = false; if (clearBtn) clearBtn.disabled = false;
+            container.innerHTML = appState.cart.map(item =>
+                `<div class="flex gap-3 p-3 rounded-xl border border-[var(--panel-border)] bg-white/5"><div class="w-12 h-12 rounded-lg bg-gradient-to-br ${escapeHTML(item.product.bg)} flex items-center justify-center"><i class="fas fa-crosshairs text-white/50"></i></div><div class="flex-grow"><h4 class="font-bold text-sm">${escapeHTML(item.product.name)}</h4><p class="text-[10px] text-[var(--text-muted)]">${escapeHTML(item.product.game)}</p><div class="flex justify-between items-center"><span class="text-xs bg-white/10 px-2 py-0.5 rounded">${escapeHTML(item.tier.name)}</span><span class="text-sm font-bold">${formatCurrentPrice(item.tier)}</span></div></div><button type="button" data-remove-cart-id="${escapeHTML(item.cartId)}" class="shrink-0 w-8 h-8 rounded-lg bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center"><i class="fas fa-trash text-sm"></i></button></div>`
+                ).join('');
+            container.querySelectorAll('[data-remove-cart-id]').forEach(b => { b.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    removeFromCart(this.dataset.removeCartId); }); });
+            applyLanguage(appState.selectedRegion);
+        }
+
+        function removeFromCart(cartId) { appState.cart = appState.cart.filter(i => String(i.cartId) !== String(cartId));
+            saveCartState();
+            updateCartCount();
+            updateCartUI(); if (appState.view === 'checkout') renderCheckout(); }
+
+        function clearCart() { if (appState.cart.length === 0) return;
+            appState.cart = [];
+            saveCartState();
+            updateCartCount();
+            updateCartUI(); if (appState.view === 'checkout') renderCheckout(); }
+
+        function addToCart() { if (!currentProduct || !selectedTier || selectedTier.priceIDR === 0) return;
+            appState.cart.push({ product: currentProduct, tier: selectedTier, cartId: makeCartId() });
+            saveCartState();
+            updateCartCount();
+            closeProductModal();
+            toggleCart(); }
+
+        // ============================================================
+        // DISKON
+        // ============================================================
+        function applyDiscount() {
+            const input = document.getElementById('discount-input');
+            const code = input.value.trim().toUpperCase();
+            if (!code) return;
+            const discount = DISCOUNT_CODES[code];
+            if (!discount) { alert('Kode diskon tidak valid.'); return; }
+            discountCode = code;
+            const subtotal = getCartSubtotal();
+            if (discount.type === 'percentage') { discountType = 'percentage';
+                discountAmount = subtotal * (discount.value / 100); } else { discountType = 'fixed';
+                discountAmount = usesLocalCurrency() ? (discount.idr || 0) : (discount.usd || 0); }
+            document.getElementById('discount-input').disabled = true;
+            document.getElementById('apply-discount-btn').disabled = true;
+            document.getElementById('remove-discount-btn').classList.remove('hidden');
+            updateCheckoutTotal();
+            alert(`Kode ${code} berhasil! Diskon ${discountType === 'percentage' ? discount.value+'%' : formatPrice(discountAmount)}`);
+        }
+
+        function removeDiscount() { discountCode = '';
+            discountAmount = 0;
+            discountType = '';
+            document.getElementById('discount-input').disabled = false;
+            document.getElementById('apply-discount-btn').disabled = false;
+            document.getElementById('remove-discount-btn').classList.add('hidden');
+            updateCheckoutTotal(); }
+
+        // ============================================================
+        // CHECKOUT
+        // ============================================================
+        function renderCheckout() {
+            removeDiscount();
+            const isLocal = usesLocalCurrency();
+            const regionNames = { id: '🇮🇩 ID', my: '🇲🇾 MY', en: '🌐 EN', fil: '🇵🇭 PH', zh: '🇨🇳 CN', ar: '🇸🇦 AR',
+                vi: '🇻🇳 VN', ko: '🇰🇷 KR', hi: '🇮🇳 IN' };
+            document.getElementById('checkout-region-badge').innerText = regionNames[appState.selectedRegion] || '🌐';
+            let subtotal = 0;
+            document.getElementById('checkout-items').innerHTML = appState.cart.map(item => { const price = currentPrice(
+                    item.tier);
+                subtotal += price; return `<div class="flex justify-between text-sm gap-4"><span>${escapeHTML(item.product.name)} (${escapeHTML(item.tier.name)})</span><span class="font-semibold">${formatCurrentPrice(item.tier)}</span></div>`; })
+                .join('');
+            document.getElementById('checkout-subtotal').innerText = formatPrice(subtotal);
+            let methods = ALL_PAYMENT_METHODS;
+            if (!(isLocal && (appState.selectedRegion === 'id' || appState.selectedRegion === 'my'))) { methods =
+                    ALL_PAYMENT_METHODS.filter(m => m.id !== 'pm_qris'); }
+            if (methods.length === 0) methods = ALL_PAYMENT_METHODS.filter(m => m.id === 'pm_global');
+            const container = document.getElementById('payment-methods-container');
+            container.innerHTML = methods.map((pm, idx) =>
+                `<label class="cursor-pointer"><input type="radio" name="payment" class="peer hidden" ${idx===0?'checked':''} onchange="handlePaymentChange('${pm.id}')"><div class="p-1.5 rounded-lg border border-[var(--panel-border)] bg-white/5 peer-checked:border-blue-600 peer-checked:bg-blue-600/10 flex items-center gap-2 text-sm"><i class="fab ${pm.icon} text-base ${pm.color}"></i><div><p class="font-semibold text-xs">${pm.name}</p><p class="text-[8px] text-[var(--text-muted)]">${pm.requiresDiscordGuide ? 'Discord' : (pm.instant ? 'Redirect' : 'Manual')}</p></div></div></label>`
+                ).join('');
+            if (methods.length) { selectedPaymentMethod = methods[0].id;
+                handlePaymentChange(selectedPaymentMethod); }
+            updateCheckoutTotal();
+        }
+
+        function handlePaymentChange(pmId) {
+            selectedPaymentMethod = pmId;
+            const method = ALL_PAYMENT_METHODS.find(m => m.id === pmId);
+            const warning = document.getElementById('manual-payment-warning');
+            const qrisPanel = document.getElementById('qris-panel');
+            const payBtn = document.getElementById('pay-button');
+            if (!method) return;
+            qrisPanel.classList.add('hidden');
+            warning.classList.remove('hidden');
+            if (method.requiresDiscordGuide) {
+                const title = t('payment_guide_title', 'Panduan Belum Tersedia');
+                const body = t('payment_guide_body', 'Guide untuk {method} di server komunitas kami.').replace('{method}',
+                    method.name);
+                const joinText = t('payment_guide_join', 'Join Discord');
+                warning.innerHTML =
+                    `<div class="flex gap-2"><i class="fab fa-discord text-indigo-500 text-xl"></i><div><h4 class="font-semibold text-sm">${title}</h4><p class="text-xs">${body}</p><a href="https://discord.com/users/1120396377839648780" target="_blank" class="mt-1 inline-block px-3 py-1 rounded-lg bg-indigo-600 text-white text-xs font-semibold"><i class="fab fa-discord"></i> ${joinText}</a></div></div>`;
+                payBtn.textContent = t('pay_now', 'Buat Order');
+            } else if (method.id === 'pm_qris') { qrisPanel.classList.remove('hidden');
+                warning.innerHTML =
+                    `<div class="flex gap-2"><i class="fas fa-info-circle text-blue-500"></i><div><p class="text-xs">Transfer sesuai nominal.</p></div></div>`;
+                payBtn.textContent = t('pay_now', 'Buat Order'); } else if (method.id === 'pm_global') { warning
+                    .innerHTML =
+                    `<div class="flex gap-2"><i class="fas fa-external-link-alt text-blue-500"></i><div><p class="text-xs">Payment via <strong>${STORE_CONFIG.globalPaymentUrl}</strong></p></div></div>`;
+                payBtn.textContent = 'Open SellAuth'; } else { warning.innerHTML =
+                    `<div class="flex gap-2"><i class="fas fa-info-circle"></i><div><p class="text-xs">Manual confirm. Hubungi admin.</p></div></div>`;
+                payBtn.textContent = t('pay_now', 'Buat Order'); }
+        }
+
+        function processCheckout() {
+            if (appState.cart.length === 0) return;
+            updateCheckoutTotal();
+            const name = document.getElementById('customer-name').value.trim();
+            if (!name) { alert('Isi nickname Discord dulu.'); return; }
+            const method = ALL_PAYMENT_METHODS.find(m => m.id === selectedPaymentMethod);
+            if (method?.id === 'pm_global') { window.open(STORE_CONFIG.globalPaymentUrl, '_blank', 'noopener,noreferrer');
+                return; }
+            if (method?.requiresDiscordGuide) { alert(
+                    `Untuk metode ${method.name}, join Discord kami.\n\nKlik OK untuk buka Discord.`);
+                window.open('https://discord.com/users/1120396377839648780', '_blank'); return; }
+            if (getCartTotal() <= 0) { alert('Total invalid.'); return; }
+            currentOrderSnapshot = buildOrderSnapshot();
+            currentOrderId = currentOrderSnapshot.id;
+            document.getElementById('order-id-display').innerText = currentOrderId;
+            document.getElementById('qris-total-display').innerText = formatPrice(currentOrderSnapshot.total);
+            document.getElementById('payment-method-display').innerText =
+                `Merchant: ${STORE_CONFIG.merchantName} • Metode: ${getPaymentMethodName()}`;
+            document.getElementById('qris-panel').classList.remove('hidden');
+            document.getElementById('proof-file').value = '';
+            document.getElementById('upload-proof-btn').disabled = true;
+            document.getElementById('invoice-section').classList.add('hidden');
+            proofImageData = null;
+            proofFileMeta = null;
+            updateOrderActionLinks();
+            document.getElementById('qris-panel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function buildOrderSnapshot() {
+            const name = document.getElementById('customer-name').value.trim();
+            const contact = document.getElementById('customer-email').value.trim();
+            const subtotal = getCartSubtotal();
+            let discount = 0;
+            if (discountType === 'percentage') { const percent = DISCOUNT_CODES[discountCode]?.value || 0;
+                discount = subtotal * (percent / 100); } else if (discountType === 'fixed') { discount = Math.min(
+                    discountAmount, subtotal); }
+            const total = subtotal + tipsAmount - discount;
+            return { id: createOrderId(), createdAt: new Date(), customerName: name, customerContact: contact,
+                region: appState.selectedRegion, paymentMethod: getPaymentMethodName(), subtotal, tips: tipsAmount,
+                discount, total, currency: usesLocalCurrency() ? 'IDR' : 'USD', items: appState.cart.map(item => ({
+                    productName: item.product.name, game: item.product.game, tierName: item.tier.name,
+                    price: currentPrice(item.tier) })) };
+        }
+
+        function updateOrderActionLinks() {
+            if (!currentOrderSnapshot) return;
+            const message = buildOrderMessage();
+            const encoded = encodeURIComponent(message);
+            const waBtn = document.getElementById('whatsapp-confirm-btn');
+            const dcBtn = document.getElementById('discord-confirm-btn');
+            const orderInfo = document.getElementById('order-id-confirmation');
+            if (waBtn) waBtn.href = `https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encoded}`;
+            if (dcBtn) dcBtn.href = STORE_CONFIG.discordUrl;
+            if (orderInfo) orderInfo.textContent = `Order ID: ${currentOrderSnapshot.id}`;
+        }
+
+        function buildOrderMessage() {
+            if (!currentOrderSnapshot) return '';
+            const order = currentOrderSnapshot;
+            const items = order.items.map((item, idx) =>
+                `${idx + 1}. ${item.productName} - ${item.game} - ${item.tierName} (${formatPrice(item.price)})`).join(
+                '\n');
+            return [
+                `Halo admin ${STORE_CONFIG.name}, saya ingin konfirmasi pembayaran order.`,
+                '', `Order ID: ${order.id}`, `Discord Nickname: ${order.customerName}`,
+                `Kontak: ${order.customerContact || '-'}`, `Merchant: ${STORE_CONFIG.merchantName}`,
+                `Estimasi: ${STORE_CONFIG.responseEstimate}`, `Region: ${order.region.toUpperCase()}`,
+                `Metode: ${order.paymentMethod}`, '', 'Item:', items, '',
+                `Subtotal: ${formatPrice(order.subtotal)}`, `Tips: ${formatPrice(order.tips)}`,
+                `Diskon: ${formatPrice(order.discount)}`, `Total: ${formatPrice(order.total)}`, '',
+                'Saya sudah bayar dan siapkan bukti.'
+            ].join('\n');
+        }
+
+        // ============================================================
+        // UPLOAD & INVOICE
+        // ============================================================
+        function uploadProof() {
+            if (!currentOrderSnapshot) { alert('Buat order dulu.'); return; }
+            const file = document.getElementById('proof-file').files[0];
+            if (!file) { alert('Pilih file bukti.'); return; }
+            proofFileMeta = { name: file.name, type: file.type || 'unknown', size: file.size || 0 };
+            if (file.type && file.type.startsWith('image/')) { const reader = new FileReader();
+                reader.onload = function(e) { proofImageData = e.target.result;
+                    showInvoiceAfterProof(); };
+                reader.readAsDataURL(file); } else { proofImageData = null;
+                showInvoiceAfterProof(); }
+        }
+
+        function showInvoiceAfterProof() {
+            document.getElementById('invoice-section').classList.remove('hidden');
+            document.getElementById('upload-proof-btn').disabled = true;
+            updateOrderActionLinks();
+            renderInvoicePreview();
+            setTimeout(() => downloadInvoicePDF(), 500);
+        }
+
+        function renderInvoicePreview() {
+            const container = document.getElementById('invoice-preview-card');
+            if (!container || !currentOrderSnapshot) return;
+            const order = currentOrderSnapshot;
+            const createdAt = order.createdAt instanceof Date ? order.createdAt : new Date(order.createdAt);
+            const dateLabel = `${createdAt.toLocaleDateString('id-ID')} • ${createdAt.toLocaleTimeString('id-ID')}`;
+            const itemRows = order.items.map((item, idx) =>
+                    `<div class="grid grid-cols-[24px_1fr_auto] gap-2 px-3 py-2 border-t border-[var(--panel-border)] items-start"><div class="text-xs text-[var(--text-muted)]">${idx+1}</div><div><p class="font-semibold text-sm">${escapeHTML(item.productName)}</p><p class="text-xs text-[var(--text-muted)]">${escapeHTML(item.game)} • ${escapeHTML(item.tierName)}</p></div><div class="text-sm font-semibold">${formatPrice(item.price)}</div></div>`
+                ).join('');
+            const infoRows = [
+                ['Order ID', order.id],
+                ['Status', 'Selesai'],
+                ['Discord', order.customerName],
+                ['Kontak', order.customerContact || '-'],
+                ['Tanggal', dateLabel],
+                ['Metode', order.paymentMethod]
+            ].map(([label, value]) =>
+                    `<div class="grid grid-cols-[100px_1fr] gap-3 px-3 py-1.5 border-t border-[var(--panel-border)]"><div class="text-xs font-semibold uppercase text-[var(--text-muted)]">${label}</div><div class="text-sm">${escapeHTML(String(value||'-'))}</div></div>`
+                ).join('');
+            container.classList.remove('hidden');
+            container.innerHTML =
+                `<div class="text-left">${infoRows}<div class="px-3 py-2 border-t border-[var(--panel-border)] bg-black/5"><p class="text-xs font-semibold">Item</p></div>${itemRows}<div class="border-t border-[var(--panel-border)] bg-black/5 px-3 py-3 space-y-1"><div class="flex justify-between text-sm"><span class="text-[var(--text-muted)]">Subtotal</span><span>${formatPrice(order.subtotal)}</span></div><div class="flex justify-between text-sm"><span class="text-[var(--text-muted)]">Tips</span><span>${formatPrice(order.tips)}</span></div><div class="flex justify-between text-sm"><span class="text-[var(--text-muted)]">Diskon</span><span>${formatPrice(order.discount)}</span></div><div class="flex justify-between font-bold pt-1 border-t border-[var(--panel-border)]"><span>Total</span><span class="text-blue-500">${formatPrice(order.total)}</span></div></div></div>`;
+        }
+
+        async function downloadInvoicePDF() {
+            if (!currentOrderSnapshot || appState.cart.length === 0) return;
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+            const order = currentOrderSnapshot;
+            const now = order.createdAt instanceof Date ? order.createdAt : new Date(order.createdAt);
+            const dateStr = now.toLocaleDateString('id-ID');
+            const timeStr = now.toLocaleTimeString('id-ID');
+            const pageWidth = 210,
+                pageHeight = 297,
+                margin = 15,
+                contentWidth = pageWidth - (margin * 2);
+            let y = 20;
+            const ensureSpace = (n = 10) => { if (y + n > pageHeight - 18) { pdf.addPage();
+                    y = 18; } };
+            const drawSectionTitle = (title) => { ensureSpace(12);
+                pdf.setFillColor(245, 247, 250);
+                pdf.roundedRect(margin, y, contentWidth, 10, 2, 2, 'F');
+                pdf.setTextColor(41, 53, 72);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setFontSize(11);
+                pdf.text(title, margin + 4, y + 6.5);
+                y += 14; };
+            const drawKeyValue = (label, value) => { const labelX = margin + 4,
+                    valueX = margin + 52,
+                    valueWidth = contentWidth - 58,
+                    valueLines = pdf.splitTextToSize(String(value || '-'), valueWidth),
+                    rowHeight = Math.max(8, valueLines.length * 4.8 + 2.5);
+                ensureSpace(rowHeight + 1);
+                pdf.setDrawColor(232, 236, 241);
+                pdf.roundedRect(margin, y - 1, contentWidth, rowHeight, 1.5, 1.5);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setFontSize(10);
+                pdf.setTextColor(85, 99, 117);
+                pdf.text(label, labelX, y + 4.5);
+                pdf.setFont('helvetica', 'normal');
+                pdf.setTextColor(28, 37, 54);
+                pdf.text(valueLines, valueX, y + 4.5);
+                y += rowHeight + 2; };
+            // Header
+            pdf.setFillColor(37, 99, 235);
+            pdf.roundedRect(margin, y, contentWidth, 28, 4, 4, 'F');
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(20);
+            pdf.text('RYUHUU STORE', margin + 6, y + 11);
+            pdf.setFontSize(10);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text('Digital Product Invoice', margin + 6, y + 17);
+            pdf.text('Status: Selesai', margin + 6, y + 22.5);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(11);
+            pdf.text(order.id, pageWidth - margin - 6, y + 13, { align: 'right' });
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(9);
+            pdf.text(`${dateStr} • ${timeStr}`, pageWidth - margin - 6, y + 19, { align: 'right' });
+            y += 36;
+            drawSectionTitle('Informasi Order');
+            drawKeyValue('Order ID', order.id);
+            drawKeyValue('Status', 'Selesai');
+            drawKeyValue('Discord', order.customerName);
+            drawKeyValue('Kontak', order.customerContact || '-');
+            drawKeyValue('Region', order.region.toUpperCase());
+            drawKeyValue('Metode', order.paymentMethod);
+            drawKeyValue('Merchant', STORE_CONFIG.merchantName);
+            drawKeyValue('Estimasi', STORE_CONFIG.responseEstimate);
+            drawSectionTitle('Rincian Item');
+            ensureSpace(12);
+            pdf.setFillColor(239, 244, 255);
+            pdf.roundedRect(margin, y, contentWidth, 9, 2, 2, 'F');
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(9);
+            pdf.setTextColor(52, 64, 84);
+            pdf.text('No', margin + 4, y + 5.8);
+            pdf.text('Produk', margin + 16, y + 5.8);
+            pdf.text('Game / Durasi', margin + 104, y + 5.8);
+            pdf.text('Harga', pageWidth - margin - 4, y + 5.8, { align: 'right' });
+            y += 11;
+            order.items.forEach((item, idx) => { const productLines = pdf.splitTextToSize(item.productName, 78);
+                const metaLines = pdf.splitTextToSize(`${item.game} • ${item.tierName}`, 48);
+                const rowHeight = Math.max(productLines.length, metaLines.length) * 4.8 + 4;
+                ensureSpace(rowHeight + 1);
+                pdf.setDrawColor(232, 236, 241);
+                pdf.roundedRect(margin, y - 1, contentWidth, rowHeight, 1.5, 1.5);
+                pdf.setFont('helvetica', 'normal');
+                pdf.setFontSize(9);
+                pdf.setTextColor(28, 37, 54);
+                pdf.text(String(idx + 1), margin + 4, y + 4.5);
+                pdf.text(productLines, margin + 16, y + 4.5);
+                pdf.setTextColor(85, 99, 117);
+                pdf.text(metaLines, margin + 104, y + 4.5);
+                pdf.setTextColor(28, 37, 54);
+                pdf.text(formatPrice(item.price), pageWidth - margin - 4, y + 4.5, { align: 'right' });
+                y += rowHeight + 2; });
+            drawSectionTitle('Ringkasan');
+            const drawTotalRow = (label, value, emphasized = false) => { ensureSpace(9);
+                pdf.setFont('helvetica', emphasized ? 'bold' : 'normal');
+                pdf.setFontSize(emphasized ? 12 : 10);
+                pdf.setTextColor(emphasized ? 37 : 85, emphasized ? 99 : 99, emphasized ? 235 : 117);
+                pdf.text(label, margin + 110, y);
+                pdf.text(formatPrice(value), pageWidth - margin - 4, y, { align: 'right' });
+                y += emphasized ? 9 : 7; };
+            drawTotalRow('Subtotal', order.subtotal);
+            drawTotalRow('Tips', order.tips);
+            drawTotalRow('Diskon', order.discount);
+            pdf.setDrawColor(232, 236, 241);
+            pdf.line(margin + 110, y - 3, pageWidth - margin, y - 3);
+            drawTotalRow('TOTAL', order.total, true);
+            drawSectionTitle('Catatan');
+            pdf.setFont('helvetica', 'normal');
+            pdf.setTextColor(90, 102, 119);
+            pdf.setFontSize(9);
+            const noteLines = pdf.splitTextToSize(
+                'Invoice ini bukti order. Aktivasi setelah admin cek detail & bukti.', contentWidth - 8);
+            ensureSpace(noteLines.length * 4.5 + 6);
+            pdf.text(noteLines, margin + 4, y);
+            y += noteLines.length * 4.5 + 4;
+            pdf.setTextColor(59, 130, 246);
+            pdf.text('WA: +62 851-1706-5033 | Discord: ryuhuu.', margin + 4, y);
+            if (proofImageData) {
+                pdf.addPage();
+                y = 20;
+                pdf.setFillColor(37, 99, 235);
+                pdf.roundedRect(margin, y, contentWidth, 16, 4, 4, 'F');
+                pdf.setTextColor(255, 255, 255);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setFontSize(15);
+                pdf.text('Lampiran Bukti', margin + 6, y + 10);
+                y += 24;
+                pdf.setTextColor(28, 37, 54);
+                pdf.setFont('helvetica', 'normal');
+                pdf.setFontSize(10);
+                if (proofFileMeta) { pdf.text(`File: ${proofFileMeta.name}`, margin, y);
+                    y += 6;
+                    pdf.text(`Type: ${proofFileMeta.type||'unknown'}`, margin, y);
+                    y += 8; }
+                try { const imageType = proofImageData.startsWith('data:image/png') ? 'PNG' : 'JPEG';
+                    pdf.setDrawColor(220, 224, 230);
+                    pdf.roundedRect(margin, y, contentWidth, 170, 3, 3);
+                    pdf.addImage(proofImageData, imageType, margin + 5, y + 5, contentWidth - 10, 160); } catch (e) { pdf
+                        .setTextColor(200, 0, 0);
+                    pdf.text('Preview gagal. Kirim file ke admin.', margin, y); }
+            }
+            pdf.save(`invoice-${order.id}.pdf`);
+        }
+
+        function updateCheckoutTotal() {
+            const rawTips = Number(document.getElementById('tips-input').value);
+            tipsAmount = Math.max(0, Number.isFinite(rawTips) ? rawTips : 0);
+            document.getElementById('tips-input').value = tipsAmount;
+            const subtotal = getCartSubtotal();
+            let discount = 0;
+            if (discountType === 'percentage') { const percent = DISCOUNT_CODES[discountCode]?.value || 0;
+                discount = subtotal * (percent / 100); } else if (discountType === 'fixed') { discount = Math.min(
+                    discountAmount, subtotal); }
+            const total = subtotal + tipsAmount - discount;
+            document.getElementById('checkout-subtotal').innerText = formatPrice(subtotal);
+            document.getElementById('checkout-total').innerText = formatPrice(total);
+            const discountEl = document.getElementById('discount-display');
+            if (discount > 0) { discountEl.innerText = `- ${formatPrice(discount)}`;
+                discountEl.classList.remove('hidden'); } else { discountEl.classList.add('hidden'); }
+        }
+
+        // ============================================================
+        // NAVIGASI
+        // ============================================================
+        function navigate(view) {
+            const views = { home: document.getElementById('view-home'), checkout: document.getElementById('view-checkout') };
+            Object.values(views).forEach(el => el.classList.add('hidden-view'));
+            const target = views[view];
+            target.classList.remove('hidden-view');
+            target.classList.remove('animate-fade-in');
+            void target.offsetWidth;
+            target.classList.add('animate-fade-in');
+            appState.view = view;
+            if (view === 'checkout') { renderCheckout();
+                document.getElementById('qris-panel').classList.add('hidden');
+                proofImageData = null; }
+            window.scrollTo(0, 0);
+        }
+
+        function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            if (sidebar.classList.contains('translate-x-full')) { sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                updateCartUI(); } else { sidebar.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 200); }
+        }
+
+        function startCheckout() { if (appState.cart.length === 0) return;
+            toggleCart(); if (!localStorage.getItem('ryuhuu_selected_region')) { showRegionGate(); return; }
+            navigate('checkout'); }
+
+        function showRegionGate() { regionGateActive = true;
+            document.getElementById('view-language-popup').classList.remove('hidden-view'); const cancelBtn = document
+                .querySelector('[data-lang="cancel"]')?.closest('button'); if (cancelBtn) cancelBtn.classList.add('hidden'); }
+
+        function toggleRegion() { regionGateActive = false; const cancelBtn = document.querySelector('[data-lang="cancel"]')
+                ?.closest('button'); if (cancelBtn) cancelBtn.classList.remove('hidden');
+            document.getElementById('view-language-popup').classList.remove('hidden-view'); }
+
+        function closeLanguagePopup(force = false) { if (regionGateActive && !force && !localStorage.getItem(
+                'ryuhuu_selected_region')) return;
+            regionGateActive = false;
+            document.getElementById('view-language-popup').classList.add('hidden-view'); const cancelBtn = document
+                .querySelector('[data-lang="cancel"]')?.closest('button'); if (cancelBtn) cancelBtn.classList.remove(
+                'hidden'); }
+
+        function toggleContactPopup() { document.getElementById('contact-popup').classList.toggle('hidden'); }
+
+        function setRegion(region) {
+            appState.selectedRegion = region;
+            const flags = { id: '🇮🇩', my: '🇲🇾', en: '🇺🇸', fil: '🇵🇭', zh: '🇨🇳', ar: '🇸🇦', vi: '🇻🇳', ko: '🇰🇷', hi: '🇮🇳' };
+            document.getElementById('region-toggle-btn').innerHTML = flags[region] || '🌐';
+            document.documentElement.lang = region === 'my' ? 'ms' : region;
+            document.documentElement.dir = region === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('ryuhuu_selected_region', region);
+            applyLanguage(region);
+            renderProducts();
+            updateCartUI();
+            if (appState.view === 'checkout') renderCheckout();
+            if (currentProduct) { renderModalTiers(); if (selectedTier) document.getElementById('modal-price-display')
+                    .innerText = selectedTier.priceIDR === 0 ? 'DM untuk beli' : formatCurrentPrice(selectedTier); }
+        }
+
+        function selectLanguage(region) { setRegion(region);
+            localStorage.setItem('ryuhuu_region_selected', '1');
+            closeLanguagePopup(true); }
+
+        // ============================================================
+        // RENDER PRODUK
+        // ============================================================
+        function renderGameFilters() {
+            const container = document.getElementById('game-filters');
+            const makeButton = (value, label) => { const active = appState.activeGameFilter === value; const safeLabel =
+                    escapeHTML(label); return `<button onclick='filterGame(${JSON.stringify(value)})' class="px-3 py-1.5 rounded-lg text-sm font-medium ${active?'bg-blue-600 text-white':'glass-panel text-[var(--text-muted)]'}">${safeLabel}</button>`; };
+            container.innerHTML = makeButton('All', 'Semua') + GAMES.map(g => makeButton(g, g)).join('');
+        }
+
+        function filterGame(game) { appState.activeGameFilter = game;
+            renderGameFilters();
+            renderProducts(); }
+
+        function renderProducts() {
+            const container = document.getElementById('product-grid');
+            container.innerHTML = '';
+            let filtered = PRODUCTS.filter(p => appState.activeGameFilter === 'All' || p.game === appState.activeGameFilter);
+            if (searchTerm.trim()) { const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(term) || p.game.toLowerCase().includes(term) ||
+                    p.tags.some(t => t.toLowerCase().includes(term))); }
+            if (filtered.length === 0) { container.innerHTML =
+                    `<div class="col-span-full text-center py-10 text-[var(--text-muted)]">Tidak ada produk.</div>`; return; }
+            filtered.forEach((p, i) => {
+                const card = document.createElement('div');
+                card.className =
+                    'glass-panel rounded-2xl overflow-hidden group cursor-pointer hover:-translate-y-1 transition border border-[var(--panel-border)]';
+                card.style.animationDelay = `${i*0.03}s`;
+                card.onclick = () => openProductModal(p.id);
+                card.innerHTML =
+                    `<div class="h-24 bg-gradient-to-br ${p.bg} relative flex items-center justify-center"><i class="fas fa-crosshairs text-3xl text-white/50"></i></div><div class="p-4"><p class="text-xs font-semibold text-blue-600 uppercase">${p.game}</p><h3 class="text-md font-bold mb-2">${p.name}</h3><div class="flex justify-between items-center"><span class="flex items-center gap-1 text-xs"><span class="status-dot ${p.status==='Available'?'status-undetected':'bg-yellow-500'}"></span>${p.status}</span><i class="fas fa-arrow-right text-xs opacity-50 group-hover:opacity-100"></i></div></div>`;
+                container.appendChild(card);
+            });
+        }
+
+        // ============================================================
+        // MODAL
+        // ============================================================
+        function openProductModal(id) {
+            currentProduct = PRODUCTS.find(p => p.id === id);
+            selectedTier = null;
+            document.getElementById('modal-game').innerText = currentProduct.game;
+            document.getElementById('modal-title').innerText = currentProduct.name;
+            document.getElementById('modal-status').innerText = currentProduct.status;
+            document.getElementById('modal-badges').innerHTML = '';
+            renderModalTiers();
+            document.getElementById('modal-price-display').innerText = 'Pilih tier';
+            const addBtn = document.getElementById('add-to-cart-btn');
+            addBtn.disabled = true;
+            if (isPrivateProduct(currentProduct)) { addBtn.disabled = true;
+                document.getElementById('modal-price-display').innerText = 'DM untuk beli'; }
+            document.querySelectorAll('#modal-tab-buttons .tab-btn').forEach(b => { b.classList.remove('border-blue-600',
+                    'text-[var(--text-main)]');
+                b.classList.add('border-transparent', 'text-[var(--text-muted)]'); });
+            const defaultTab = document.querySelector('#modal-tab-buttons .tab-btn[data-tab="details"]');
+            defaultTab.classList.remove('border-transparent');
+            defaultTab.classList.add('border-blue-600', 'text-[var(--text-main)]');
+            const tabContent = document.getElementById('modal-tab-content');
+            tabContent.classList.remove('tab-content-fade');
+            void tabContent.offsetWidth;
+            tabContent.innerHTML = getTabContent('details');
+            tabContent.classList.add('tab-content-fade');
+            document.getElementById('view-product-modal').classList.remove('hidden-view');
+        }
+
+        function closeProductModal() { document.getElementById('view-product-modal').classList.add('hidden-view');
+            selectedTier = null; }
+
+        function renderModalTiers() {
+            const isPrivate = isPrivateProduct(currentProduct);
+            document.getElementById('modal-tiers').innerHTML = currentProduct.tiers.map((tier, idx) => {
+                const isContact = (tier.priceIDR === 0);
+                const priceDisplay = isContact ? 'DM' : formatCurrentPrice(tier);
+                return `<button onclick="selectTier(${idx})" class="p-2 rounded-lg border border-[var(--panel-border)] bg-white/5 hover:border-blue-600 transition flex justify-between items-center text-sm ${isContact?'opacity-70':''}"><span class="font-semibold">${tier.name}</span><span class="font-bold">${priceDisplay}</span></button>`;
+            }).join('');
+        }
+
+        function selectTier(idx) {
+            selectedTier = currentProduct.tiers[idx];
+            document.querySelectorAll('#modal-tiers button').forEach((btn, i) => { if (i === idx) { btn.classList.add(
+                        'border-blue-600', 'bg-blue-600/10');
+                    btn.classList.remove('border-[var(--panel-border)]', 'bg-white/5'); } else { btn.classList.remove(
+                        'border-blue-600', 'bg-blue-600/10');
+                    btn.classList.add('border-[var(--panel-border)]', 'bg-white/5'); } });
+            const isContact = (selectedTier.priceIDR === 0);
+            const priceDisplay = isContact ? 'DM untuk beli' : formatCurrentPrice(selectedTier);
+            document.getElementById('modal-price-display').innerText = priceDisplay;
+            const addBtn = document.getElementById('add-to-cart-btn');
+            addBtn.disabled = (isContact || isPrivateProduct(currentProduct));
+        }
+
+        function getTabContent(tab) {
+            if (!currentProduct) return '';
+            const safeName = escapeHTML(currentProduct.name),
+                safeGame = escapeHTML(currentProduct.game);
+            const local = ['id', 'my'].includes(appState.selectedRegion);
+            const isPrivate = isPrivateProduct(currentProduct);
+            let extra = isPrivate ? `<p class="text-blue-500 font-semibold">📩 DM untuk membeli produk ini</p>` : '';
+            if (tab === 'details') {
+                if (local) return `<div class="space-y-2">${extra}<p><strong>${safeName}</strong> untuk <strong>${safeGame}</strong>.</p><ul class="list-disc pl-4 text-xs space-y-1"><li>Lisensi dikirim setelah konfirmasi.</li><li>Aktivasi dibantu admin.</li><li>Harga sesuai region.</li></ul></div>`;
+                return `<div class="space-y-2">${extra}<p><strong>${safeName}</strong> for <strong>${safeGame}</strong>.</p><ul class="list-disc pl-4 text-xs space-y-1"><li>License after confirm.</li><li>Activation by admin.</li><li>Price by region.</li></ul></div>`;
+            }
+            if (tab === 'feature') {
+                if (local) return `<div class="space-y-2"><p class="font-bold text-blue-500">Panduan Order</p><ol class="list-decimal pl-4 text-xs space-y-1"><li>Pilih produk & durasi.</li><li>Add ke keranjang.</li><li>Pilih region.</li><li>Bayar sesuai nominal.</li><li>Upload bukti & download invoice.</li><li>Hubungi admin via WA/Discord.</li></ol></div>`;
+                return `<div class="space-y-2"><p class="font-bold text-blue-500">Order Guide</p><ol class="list-decimal pl-4 text-xs space-y-1"><li>Select product & duration.</li><li>Add to cart.</li><li>Choose region.</li><li>Pay accordingly.</li><li>Upload proof & download invoice.</li><li>Contact admin via WA/Discord.</li></ol></div>`;
+            }
+            if (tab === 'support') {
+                if (local) return `<p>Dukungan via WA/Discord. Estimasi respon <strong>paling lambat 10 jam</strong>.</p>`;
+                return `<p>Support via WA/Discord. Estimate <strong>max 10 hours</strong>.</p>`;
+            }
+            return '';
+        }
+
+        // ============================================================
+        // BAHASA
+        // ============================================================
+        const translations = {
+            id: {
+                brand: 'Ryuhuu Store',
+                store: 'Toko',
+                games: 'Game',
+                faq: 'FAQ',
+                community: 'Komunitas',
+                system_status: 'Operasional',
+                hero_title: 'Upgrade Pengalaman Bermain Anda.',
+                hero_desc: 'Produk digital pilihan dengan proses cepat & admin responsif.',
+                search_placeholder: 'Cari produk...',
+                trending_games: 'Produk Tersedia',
+                faq_title: 'FAQ',
+                policy_title: 'Kebijakan Toko',
+                policy_desc: 'Ketentuan layanan & kebijakan produk.',
+                details_tab: 'Detail',
+                feature_tab: 'Panduan',
+                support_tab: 'Support',
+                select_subscription: 'Pilih Paket',
+                selected_plan: 'Paket Terpilih',
+                add_to_cart: 'Tambah',
+                your_cart: 'Keranjang',
+                empty_cart: 'Kosong.',
+                proceed_checkout: 'Checkout',
+                select_region: 'Pilih Bahasa & Pembayaran',
+                select_region_desc: 'Indonesia/Malaysia pakai QRIS. Global pakai SellAuth.',
+                cancel: 'Batal',
+                checkout: 'Checkout',
+                back_store: 'Kembali',
+                customer_info: 'Informasi Pelanggan',
+                name_placeholder: 'Nickname Discord wajib',
+                contact_placeholder: 'WhatsApp / Email opsional',
+                customer_note: 'Minimal isi nickname Discord.',
+                payment_method: 'Metode Bayar',
+                order_summary: 'Ringkasan',
+                subtotal: 'Subtotal',
+                tips: 'Tips',
+                total: 'Total',
+                pay_now: 'Buat Order',
+                qris_payment: 'QRIS',
+                scan_qris: 'Scan QRIS',
+                ensure_nominal: 'Transfer sesuai nominal.',
+                upload_proof: 'Upload Bukti',
+                proof_note: 'Lampirkan bukti pembayaran.',
+                upload_proof_btn: 'Lampirkan',
+                payment_verified: 'Selesai',
+                proof_accepted: 'Bukti dilampirkan. Download invoice.',
+                contact_us: 'Kontak Admin',
+                send_invoice: 'Kirim Order ID & bukti ke admin. Estimasi <strong>paling lambat 10 jam</strong>.',
+                download_invoice: 'Download Invoice',
+                payment_guide_title: 'Panduan Belum Tersedia',
+                payment_guide_body: 'Guide untuk {method} di server komunitas kami.',
+                payment_guide_join: 'Join Discord'
+            },
+            en: {
+                brand: 'Ryuhuu Store',
+                store: 'Store',
+                games: 'Games',
+                faq: 'FAQ',
+                community: 'Community',
+                system_status: 'Operational',
+                hero_title: 'Upgrade Your Gaming Experience.',
+                hero_desc: 'Digital products with fast process & responsive admin.',
+                search_placeholder: 'Search products...',
+                trending_games: 'Available Products',
+                faq_title: 'FAQ',
+                policy_title: 'Store Policies',
+                policy_desc: 'Terms & product policies.',
+                details_tab: 'Details',
+                feature_tab: 'Guide',
+                support_tab: 'Support',
+                select_subscription: 'Select Package',
+                selected_plan: 'Selected',
+                add_to_cart: 'Add',
+                your_cart: 'Cart',
+                empty_cart: 'Empty.',
+                proceed_checkout: 'Checkout',
+                select_region: 'Choose Language & Payment',
+                select_region_desc: 'ID/MY use QRIS. Global use SellAuth.',
+                cancel: 'Cancel',
+                checkout: 'Checkout',
+                back_store: 'Back',
+                customer_info: 'Customer Info',
+                name_placeholder: 'Discord nickname required',
+                contact_placeholder: 'WhatsApp / Email optional',
+                customer_note: 'Discord nickname required.',
+                payment_method: 'Payment',
+                order_summary: 'Summary',
+                subtotal: 'Subtotal',
+                tips: 'Tips',
+                total: 'Total',
+                pay_now: 'Create Order',
+                qris_payment: 'QRIS',
+                scan_qris: 'Scan QRIS',
+                ensure_nominal: 'Transfer exact amount.',
+                upload_proof: 'Upload Proof',
+                proof_note: 'Attach payment proof.',
+                upload_proof_btn: 'Attach',
+                payment_verified: 'Completed',
+                proof_accepted: 'Proof attached. Download invoice.',
+                contact_us: 'Contact Admin',
+                send_invoice: 'Send Order ID & proof. Estimate <strong>max 10 hours</strong>.',
+                download_invoice: 'Download Invoice',
+                payment_guide_title: 'Guide Not Available',
+                payment_guide_body: 'Guide for {method} in our community server.',
+                payment_guide_join: 'Join Discord'
+            }
+        };
+        translations.my = { ...translations.id };
+        translations.fil = { ...translations.en };
+        translations.zh = { ...translations.en };
+        translations.ar = { ...translations.en };
+        translations.vi = { ...translations.en };
+        translations.ko = { ...translations.en };
+        translations.hi = { ...translations.en };
+
+        function getActiveLang() { return translations[appState.selectedRegion] ? appState.selectedRegion : 'en'; }
+
+        function t(key, fallback = '') {
+            const lang = getActiveLang();
+            return translations[lang]?.[key] || translations.en?.[key] || translations.id?.[key] || fallback || key;
+        }
+
+        function applyLanguage(region) {
+            const lang = translations[region] ? region : 'en';
+            document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (translations[
+                    lang] && translations[lang][key]) el.textContent = translations[lang][key]; });
+            document.querySelectorAll('[data-lang-placeholder]').forEach(el => { const key = el.getAttribute(
+                    'data-lang-placeholder'); if (translations[lang] && translations[lang][key]) el.placeholder =
+                    translations[lang][key]; });
+            renderFAQ();
+            renderPolicies();
+            renderGameFilters();
+        }
+
+        // ============================================================
+        // FAQ & POLICY
+        // ============================================================
+        function renderFAQ() {
+            const lang = getActiveLang();
+            const isID = lang === 'id' || lang === 'my';
+            const faqData = isID ? [
+                { q: 'Cara order?', a: 'Pilih produk, add cart, checkout, bayar, upload bukti, hubungi admin.' },
+                { q: 'Harga lokal vs global?', a: 'ID/MY pakai QRIS (IDR). Global pakai USD via SellAuth.' },
+                { q: 'Proses order berapa lama?', a: 'Estimasi <strong>paling lambat 10 jam</strong> setelah bukti diterima.' },
+                { q: 'Bisa refund?', a: 'Tidak. Penggantian produk maksimal 24 jam.' }
+            ] : [
+                { q: 'How to order?', a: 'Select product, add cart, checkout, pay, upload proof, contact admin.' },
+                { q: 'Local vs global price?', a: 'ID/MY use QRIS (IDR). Global use USD via SellAuth.' },
+                { q: 'Processing time?', a: 'Estimate <strong>max 10 hours</strong> after proof received.' },
+                { q: 'Refund?', a: 'No. Replacement within 24 hours.' }
+            ];
+            document.getElementById('faq-container').innerHTML = faqData.map(f =>
+                `<div class="glass-panel rounded-xl p-4"><h3 class="text-md font-semibold">${f.q}</h3><p class="text-sm text-[var(--text-muted)]">${f.a}</p></div>`
+                ).join('');
+        }
+
+        function renderPolicies() {
+            const lang = getActiveLang();
+            const isID = lang === 'id' || lang === 'my';
+            const policies = isID ? [
+                { title: 'Syarat & Ketentuan',
+                    body: 'Dengan membeli, pelanggan setuju ketentuan toko. Produk digital. QRIS manual. Order diproses setelah admin terima bukti & Order ID.' },
+                { title: 'Refund & Replacement',
+                    body: 'Tidak ada refund uang. Penggantian produk maksimal 24 jam jika belum digunakan.' },
+                { title: 'Privacy',
+                    body: 'Data pelanggan hanya untuk pemrosesan order. Tidak dijual ke pihak ketiga.' }
+            ] : [
+                { title: 'Terms & Conditions',
+                    body: 'By purchasing, you agree to store terms. Digital products. QRIS manual. Orders processed after admin receives proof & Order ID.' },
+                { title: 'Refund & Replacement',
+                    body: 'No cash refund. Replacement within 24 hours if not used.' },
+                { title: 'Privacy', body: 'Customer data only for order processing. Not sold to third parties.' }
+            ];
+            document.getElementById('policy-container').innerHTML = policies.map(p =>
+                `<div class="glass-panel rounded-xl p-4"><h3 class="font-bold text-md">${p.title}</h3><p class="text-sm text-[var(--text-muted)]">${p.body}</p></div>`
+                ).join('');
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCartState();
+            updateCartCount();
+            renderGameFilters();
+            renderProducts();
+            renderFAQ();
+            renderPolicies();
+            document.getElementById('search-input').addEventListener('input', e => { searchTerm = e.target.value;
+                renderProducts(); });
+            document.getElementById('modal-tab-buttons').addEventListener('click', (e) => {
+                if (e.target.classList.contains('tab-btn')) {
+                    document.querySelectorAll('#modal-tab-buttons .tab-btn').forEach(b => { b.classList.remove(
+                            'border-blue-600', 'text-[var(--text-main)]');
+                        b.classList.add('border-transparent', 'text-[var(--text-muted)]'); });
+                    e.target.classList.remove('border-transparent');
+                    e.target.classList.add('border-blue-600', 'text-[var(--text-main)]');
+                    const tabContent = document.getElementById('modal-tab-content');
+                    tabContent.classList.remove('tab-content-fade');
+                    void tabContent.offsetWidth;
+                    tabContent.innerHTML = getTabContent(e.target.dataset.tab);
+                    tabContent.classList.add('tab-content-fade');
+                }
+            });
+            document.getElementById('add-to-cart-btn').addEventListener('click', addToCart);
+            document.getElementById('proof-file')?.addEventListener('change', function() { document.getElementById(
+                    'upload-proof-btn').disabled = !this.files.length; });
+            const storedRegion = localStorage.getItem('ryuhuu_selected_region');
+            if (storedRegion && translations[storedRegion]) { setRegion(storedRegion);
+                closeLanguagePopup(true); } else { setRegion('id');
+                showRegionGate(); }
+        });
+    </script>
+</body>
+</html>
