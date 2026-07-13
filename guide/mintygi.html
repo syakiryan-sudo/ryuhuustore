@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-Loader Guide</title>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface2: #1a1a25;
+            --accent: #c84bff;
+            --accent2: #00d4ff;
+            --accent3: #ff4da6;
+            --gold: #ffb347;
+            --text: #e0e0e0;
+            --text2: #a0a0b8;
+            --border: rgba(255, 255, 255, 0.06);
+            --glow: 0 0 30px rgba(200, 75, 255, 0.3);
+            --glow2: 0 0 30px rgba(0, 212, 255, 0.25);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(ellipse at 20% 0%, rgba(200, 75, 255, 0.06) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 60%, rgba(0, 212, 255, 0.05) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 100%, rgba(255, 77, 166, 0.04) 0%, transparent 55%);
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+            opacity: 0;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 24px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 0 20px;
+            position: relative;
+        }
+        .logo-icon {
+            font-size: 56px;
+            display: inline-block;
+            animation: pulse 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 25px rgba(200, 75, 255, 0.5));
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.08);
+            }
+        }
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #fff 0%, #c084fc 40%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 8px 0 4px;
+        }
+        .header .subtitle {
+            color: var(--text2);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Language Switcher */
+        .lang-switcher-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0 20px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .lang-btn {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            padding: 9px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
+        .lang-btn:hover {
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(200, 75, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--accent), #a030e0);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: var(--glow);
+            font-weight: 700;
+        }
+        .lang-flag {
+            margin-right: 5px;
+            font-size: 1.1em;
+            vertical-align: -1px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 30px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .card:hover::before {
+            opacity: 1;
+        }
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        .card h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.3px;
+        }
+        .card h2 .icon {
+            font-size: 1.5em;
+        }
+        .card.download-card {
+            border-left: 3px solid var(--accent2);
+        }
+        .card.steps-card {
+            border-left: 3px solid var(--accent);
+        }
+        .card.buy-card {
+            border-left: 3px solid var(--gold);
+        }
+        .card.payment-card {
+            border-left: 3px solid var(--accent3);
+        }
+
+        /* Download Button */
+        .dl-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.4px;
+            transition: var(--transition);
+            box-shadow: 0 4px 25px rgba(0, 180, 216, 0.35);
+            margin: 6px 0;
+        }
+        .dl-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(0, 200, 240, 0.5);
+            background: linear-gradient(135deg, #00c8e8, #0088cc);
+        }
+        .dl-btn .dl-icon {
+            font-size: 1.4em;
+        }
+
+        /* Steps */
+        .step-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .step-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--surface2);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .step-list li:hover {
+            border-color: var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .step-num {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #fff;
+            box-shadow: 0 0 18px rgba(200, 75, 255, 0.35);
+        }
+        .step-content strong {
+            display: block;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        .step-content span {
+            color: var(--text2);
+            font-size: 0.9rem;
+        }
+
+        /* Store links */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+        }
+        .store-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--surface2);
+            padding: 16px 18px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .store-link:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 25px rgba(255, 179, 71, 0.2);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+        .store-link.global-link {
+            border-left: 3px solid #00d4ff;
+        }
+        .store-link.local-link {
+            border-left: 3px solid #4caf50;
+        }
+        .store-link.discord-link {
+            border-left: 3px solid #5865f2;
+        }
+        .store-icon {
+            font-size: 2em;
+            flex-shrink: 0;
+        }
+        .store-info small {
+            display: block;
+            color: var(--text2);
+            font-weight: 400;
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+
+        /* Payment methods */
+        .payment-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .payment-tag {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text2);
+            letter-spacing: 0.3px;
+            transition: var(--transition);
+        }
+        .payment-tag:hover {
+            border-color: var(--accent3);
+            color: #fff;
+            box-shadow: 0 0 14px rgba(255, 77, 166, 0.2);
+        }
+        .payment-tag.highlight {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(255, 179, 71, 0.08);
+        }
+
+        /* Divider */
+        .divider {
+            text-align: center;
+            color: var(--text2);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin: 8px 0;
+            opacity: 0.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: var(--text2);
+            font-size: 0.8rem;
+            padding: 20px 0 0;
+            opacity: 0.7;
+        }
+        .footer a {
+            color: var(--accent2);
+            text-decoration: none;
+        }
+
+        /* Glitch text effect */
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch-text:hover {
+            animation: glitch 0.3s ease;
+        }
+        @keyframes glitch {
+            0% {
+                transform: translate(1px, -1px);
+            }
+            25% {
+                transform: translate(-2px, 1px);
+            }
+            50% {
+                transform: translate(2px, 0);
+            }
+            75% {
+                transform: translate(-1px, -2px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px 12px 40px;
+            }
+            .card {
+                padding: 20px 16px;
+            }
+            .store-grid {
+                grid-template-columns: 1fr;
+            }
+            .lang-btn {
+                padding: 7px 11px;
+                font-size: 0.75rem;
+            }
+            .dl-btn {
+                padding: 12px 22px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a3a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a3a50;
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header fade-in">
+            <div class="logo-icon">🚀</div>
+            <h1 class="glitch-text">M-Loader</h1>
+            <p class="subtitle" data-i18n="tagline">Your Gateway to the Game</p>
+        </header>
+
+        <!-- Language Switcher -->
+        <div class="lang-switcher-wrap fade-in" id="langSwitcher">
+            <button class="lang-btn active" data-lang="en"><span class="lang-flag">🇬🇧</span> English</button>
+            <button class="lang-btn" data-lang="id"><span class="lang-flag">🇮🇩</span> Indonesia</button>
+            <button class="lang-btn" data-lang="hi"><span class="lang-flag">🇮🇳</span> हिन्दी</button>
+            <button class="lang-btn" data-lang="ko"><span class="lang-flag">🇰🇷</span> 한국어</button>
+            <button class="lang-btn" data-lang="ru"><span class="lang-flag">🇷🇺</span> Русский</button>
+            <button class="lang-btn" data-lang="zh"><span class="lang-flag">🇨🇳</span> 中文</button>
+            <button class="lang-btn" data-lang="pt"><span class="lang-flag">🇧🇷</span> Português</button>
+        </div>
+
+        <!-- Download Card -->
+        <div class="card download-card fade-in">
+            <h2><span class="icon">📥</span> <span data-i18n="download_title">Download M-Loader</span></h2>
+            <p data-i18n="download_desc">Get the latest version of M-Loader directly from the official link below:</p>
+            <a href="https://apk.kindawindy.today/" target="_blank" rel="noopener noreferrer" class="dl-btn">
+                <span class="dl-icon">⬇️</span> <span data-i18n="download_btn">Download M-Loader APK</span>
+            </a>
+            <p style="margin-top:10px;font-size:0.8rem;color:var(--text2);">
+                🔗 https://apk.kindawindy.today/
+            </p>
+        </div>
+
+        <!-- How to Use Card -->
+        <div class="card steps-card fade-in">
+            <h2><span class="icon">📖</span> <span data-i18n="howto_title">How to Use</span></h2>
+            <ol class="step-list">
+                <li>
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <strong data-i18n="step1_title">Install the mobile M-Loader</strong>
+                        <span data-i18n="step1_desc">Download and install the M-Loader APK via the link above.</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <strong data-i18n="step2_title">Log in with your purchased key</strong>
+                        <span data-i18n="step2_desc">Open the app and enter the license key you purchased.</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <strong data-i18n="step3_title">Install the special version of the game</strong>
+                        <span data-i18n="step3_desc">Go to the "Game Manager" tab and install the special game version.</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <strong data-i18n="step4_title">Click Start & wait for the menu</strong>
+                        <span data-i18n="step4_desc">Tap "Start" and wait for the menu to appear. You're all good! ✅</span>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Buy Key Card -->
+        <div class="card buy-card fade-in">
+            <h2><span class="icon">🔑</span> <span data-i18n="buy_title">Buy Your Key at RyuhuuStore</span></h2>
+            <p data-i18n="buy_desc">Purchase your license key through one of the official stores below:</p>
+            <div class="store-grid">
+                <!-- Global (PayPal/Crypto) -->
+                <a href="https://ryuhuu.mysellauth.com/" target="_blank" rel="noopener noreferrer" class="store-link global-link">
+                    <span class="store-icon">🌍</span>
+                    <div class="store-info">
+                        <span data-i18n="store_global">Global Store</span>
+                        <small>PayPal & Crypto</small>
+                    </div>
+                </a>
+                <!-- Global 2 (Card/Google Pay) - Discord -->
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" rel="noopener noreferrer" class="store-link discord-link">
+                    <span class="store-icon">💳</span>
+                    <div class="store-info">
+                        <span data-i18n="store_global2">Global Store 2</span>
+                        <small data-i18n="store_global2_desc">Card, Google Pay, Gift Card — DM via Discord</small>
+                    </div>
+                </a>
+                <!-- Local (QRIS) -->
+                <a href="https://www.ryuhuustore.com/" target="_blank" rel="noopener noreferrer" class="store-link local-link">
+                    <span class="store-icon">🇮🇩</span>
+                    <div class="store-info">
+                        <span data-i18n="store_local">Local Store (Indonesia)</span>
+                        <small>QRIS</small>
+                    </div>
+                </a>
+                <!-- Other Payments - Discord -->
+                <a href="https://discord.com/users/1120396377839648780" target="_blank" rel="noopener noreferrer" class="store-link discord-link">
+                    <span class="store-icon">💬</span>
+                    <div class="store-info">
+                        <span data-i18n="store_other">Other Payments</span>
+                        <small data-i18n="store_other_desc">Gcash, PIX, UPI, KakaoPay, Wepay, Alipay, QRPH, etc. — DM via Discord</small>
+                    </div>
+                </a>
+            </div>
+            <div class="payment-tags">
+                <span class="payment-tag highlight">PayPal</span>
+                <span class="payment-tag highlight">Crypto</span>
+                <span class="payment-tag">Google Pay</span>
+                <span class="payment-tag">QRIS</span>
+                <span class="payment-tag">Gcash</span>
+                <span class="payment-tag">PIX</span>
+                <span class="payment-tag">UPI</span>
+                <span class="payment-tag">KakaoPay</span>
+                <span class="payment-tag">Wepay</span>
+                <span class="payment-tag">Alipay</span>
+                <span class="payment-tag">QRPH</span>
+                <span class="payment-tag">Gift Card</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer fade-in">
+            <p>© 2024 <a href="https://discord.com/users/1120396377839648780" target="_blank" rel="noopener noreferrer">RyuhuuStore</a> — <span data-i18n="footer_text">Trusted since day one.</span></p>
+        </div>
+    </div>
+
+    <script>
+        // ============ Translations ============
+        const translations = {
+            en: {
+                tagline: 'Your Gateway to the Game',
+                download_title: 'Download M-Loader',
+                download_desc: 'Get the latest version of M-Loader directly from the official link below:',
+                download_btn: 'Download M-Loader APK',
+                howto_title: 'How to Use',
+                step1_title: 'Install the mobile M-Loader',
+                step1_desc: 'Download and install the M-Loader APK via the link above.',
+                step2_title: 'Log in with your purchased key',
+                step2_desc: 'Open the app and enter the license key you purchased.',
+                step3_title: 'Install the special version of the game',
+                step3_desc: 'Go to the "Game Manager" tab and install the special game version.',
+                step4_title: 'Click Start & wait for the menu',
+                step4_desc: 'Tap "Start" and wait for the menu to appear. You\'re all good! ✅',
+                buy_title: 'Buy Your Key at RyuhuuStore',
+                buy_desc: 'Purchase your license key through one of the official stores below:',
+                store_global: 'Global Store',
+                store_global2: 'Global Store 2',
+                store_global2_desc: 'Card, Google Pay, Gift Card — DM via Discord',
+                store_local: 'Local Store (Indonesia)',
+                store_other: 'Other Payments',
+                store_other_desc: 'Gcash, PIX, UPI, KakaoPay, Wepay, Alipay, QRPH, etc. — DM via Discord',
+                footer_text: 'Trusted since day one.',
+            },
+            id: {
+                tagline: 'Gerbang Menuju Game',
+                download_title: 'Unduh M-Loader',
+                download_desc: 'Dapatkan versi terbaru M-Loader langsung dari tautan resmi di bawah:',
+                download_btn: 'Unduh M-Loader APK',
+                howto_title: 'Cara Menggunakan',
+                step1_title: 'Instal M-Loader di ponsel',
+                step1_desc: 'Unduh dan instal APK M-Loader melalui tautan di atas.',
+                step2_title: 'Login dengan kunci yang dibeli',
+                step2_desc: 'Buka aplikasi dan masukkan kunci lisensi yang telah Anda beli.',
+                step3_title: 'Instal versi spesial game',
+                step3_desc: 'Buka tab "Game Manager" dan instal versi spesial game.',
+                step4_title: 'Klik Start & tunggu menu muncul',
+                step4_desc: 'Ketuk "Start" dan tunggu menu muncul. Selesai! ✅',
+                buy_title: 'Beli Kunci di RyuhuuStore',
+                buy_desc: 'Beli kunci lisensi Anda melalui salah satu toko resmi di bawah:',
+                store_global: 'Toko Global',
+                store_global2: 'Toko Global 2',
+                store_global2_desc: 'Kartu, Google Pay, Gift Card — DM via Discord',
+                store_local: 'Toko Lokal (Indonesia)',
+                store_other: 'Pembayaran Lainnya',
+                store_other_desc: 'Gcash, PIX, UPI, KakaoPay, Wepay, Alipay, QRPH, dll. — DM via Discord',
+                footer_text: 'Terpercaya sejak hari pertama.',
+            },
+            hi: {
+                tagline: 'खेल का प्रवेश द्वार',
+                download_title: 'M-Loader डाउनलोड करें',
+                download_desc: 'नीचे दिए गए आधिकारिक लिंक से M-Loader का नवीनतम संस्करण प्राप्त करें:',
+                download_btn: 'M-Loader APK डाउनलोड करें',
+                howto_title: 'उपयोग कैसे करें',
+                step1_title: 'मोबाइल M-Loader इंस्टॉल करें',
+                step1_desc: 'ऊपर दिए गए लिंक के माध्यम से M-Loader APK डाउनलोड और इंस्टॉल करें।',
+                step2_title: 'अपनी खरीदी गई कुंजी से लॉगिन करें',
+                step2_desc: 'ऐप खोलें और अपनी खरीदी गई लाइसेंस कुंजी दर्ज करें।',
+                step3_title: 'गेम का विशेष संस्करण इंस्टॉल करें',
+                step3_desc: '"Game Manager" टैब पर जाएं और विशेष गेम संस्करण इंस्टॉल करें।',
+                step4_title: 'Start पर क्लिक करें और मेनू की प्रतीक्षा करें',
+                step4_desc: '"Start" टैप करें और मेनू आने तक प्रतीक्षा करें। आप तैयार हैं! ✅',
+                buy_title: 'RyuhuuStore पर अपनी कुंजी खरीदें',
+                buy_desc: 'नीचे दिए गए आधिकारिक स्टोर में से किसी एक के माध्यम से अपनी लाइसेंस कुंजी खरीदें:',
+                store_global: 'ग्लोबल स्टोर',
+                store_global2: 'ग्लोबल स्टोर 2',
+                store_global2_desc: 'कार्ड, Google Pay, गिफ्ट कार्ड — Discord के माध्यम से DM करें',
+                store_local: 'स्थानीय स्टोर (इंडोनेशिया)',
+                store_other: 'अन्य भुगतान',
+                store_other_desc: 'Gcash, PIX, UPI, KakaoPay, Wepay, Alipay, QRPH, आदि — Discord के माध्यम से DM करें',
+                footer_text: 'पहले दिन से विश्वसनीय।',
+            },
+            ko: {
+                tagline: '게임으로 가는 관문',
+                download_title: 'M-Loader 다운로드',
+                download_desc: '아래 공식 링크에서 M-Loader 최신 버전을 직접 다운로드하세요:',
+                download_btn: 'M-Loader APK 다운로드',
+                howto_title: '사용 방법',
+                step1_title: '모바일 M-Loader 설치',
+                step1_desc: '위 링크를 통해 M-Loader APK를 다운로드하고 설치하세요.',
+                step2_title: '구매한 키로 로그인',
+                step2_desc: '앱을 열고 구매한 라이선스 키를 입력하세요.',
+                step3_title: '게임 특별 버전 설치',
+                step3_desc: '"Game Manager" 탭으로 이동하여 특별 게임 버전을 설치하세요.',
+                step4_title: 'Start 클릭 후 메뉴 대기',
+                step4_desc: '"Start"를 탭하고 메뉴가 나타날 때까지 기다리세요. 완료! ✅',
+                buy_title: 'RyuhuuStore에서 키 구매',
+                buy_desc: '아래 공식 스토어 중 하나를 통해 라이선스 키를 구매하세요:',
+                store_global: '글로벌 스토어',
+                store_global2: '글로벌 스토어 2',
+                store_global2_desc: '카드, Google Pay, 기프트 카드 — Discord로 DM',
+                store_local: '로컬 스토어 (인도네시아)',
+                store_other: '기타 결제',
+                store_other_desc: 'Gcash, PIX, UPI, KakaoPay, Wepay, Alipay, QRPH 등 — Discord로 DM',
+                footer_text: '첫날부터 신뢰받아 왔습니다.',
+            },
+            ru: {
+                tagline: 'Ваш путь в игру',
+                download_title: 'Скачать M-Loader',
+                download_desc: 'Получите последнюю версию M-Loader напрямую по официальной ссылке ниже:',
+                download_btn: 'Скачать M-Loader APK',
+                howto_title: 'Как использовать',
+                step1_title: 'Установите мобильный M-Loader',
+                step1_desc: 'Скачайте и установите APK M-Loader по ссылке выше.',
+                step2_title: 'Войдите с купленным ключом',
+                step2_desc: 'Откройте приложение и введите приобретенный лицензионный ключ.',
+                step3_title: 'Установите специальную версию игры',
+                step3_desc: 'Перейдите на вкладку "Game Manager" и установите специальную версию игры.',
+                step4_title: 'Нажмите Start и дождитесь меню',
+                step4_desc: 'Нажмите "Start" и дождитесь появления меню. Готово! ✅',
+                buy_title: 'Купить ключ в RyuhuuStore',
+                buy_desc: 'Приобретите лицензионный ключ в одном из официальных магазинов ниже:',
+                store_global: 'Глобальный магазин',
+                store_global2: 'Глобальный магазин 2',
+                store_global2_desc: 'Карта, Google Pay, Подарочная карта — напишите в Discord',
+                store_local: 'Локальный магазин (Индонезия)',
+                store_other: 'Другие способы оплаты',
+                store_other_desc: 'Gcash, PIX, UPI, KakaoPay, Wepay, Alipay, QRPH и др. — напишите в Discord',
+                footer_text: 'Нам доверяют с первого дня.',
+            },
+            zh: {
+                tagline: '进入游戏的大门',
+                download_title: '下载 M-Loader',
+                download_desc: '通过下方官方链接直接获取最新版 M-Loader：',
+                download_btn: '下载 M-Loader APK',
+                howto_title: '使用方法',
+                step1_title: '安装手机版 M-Loader',
+                step1_desc: '通过上方链接下载并安装 M-Loader APK。',
+                step2_title: '使用购买的密钥登录',
+                step2_desc: '打开应用，输入您购买的许可证密钥。',
+                step3_title: '安装特殊版本游戏',
+                step3_desc: '前往"Game Manager"选项卡，安装特殊版本游戏。',
+                step4_title: '点击 Start 等待菜单出现',
+                step4_desc: '点击"Start"，等待菜单出现。一切就绪！✅',
+                buy_title: '在 RyuhuuStore 购买密钥',
+                buy_desc: '通过以下官方商店之一购买您的许可证密钥：',
+                store_global: '全球商店',
+                store_global2: '全球商店 2',
+                store_global2_desc: '银行卡、Google Pay、礼品卡 — 通过 Discord 私信',
+                store_local: '本地商店（印度尼西亚）',
+                store_other: '其他支付方式',
+                store_other_desc: 'Gcash、PIX、UPI、KakaoPay、Wepay、支付宝、QRPH 等 — 通过 Discord 私信',
+                footer_text: '从第一天起就值得信赖。',
+            },
+            pt: {
+                tagline: 'Seu Portal para o Jogo',
+                download_title: 'Baixar M-Loader',
+                download_desc: 'Obtenha a versão mais recente do M-Loader diretamente pelo link oficial abaixo:',
+                download_btn: 'Baixar M-Loader APK',
+                howto_title: 'Como Usar',
+                step1_title: 'Instale o M-Loader no celular',
+                step1_desc: 'Baixe e instale o APK do M-Loader através do link acima.',
+                step2_title: 'Faça login com sua chave comprada',
+                step2_desc: 'Abra o aplicativo e insira a chave de licença que você comprou.',
+                step3_title: 'Instale a versão especial do jogo',
+                step3_desc: 'Vá até a aba "Game Manager" e instale a versão especial do jogo.',
+                step4_title: 'Clique em Start e aguarde o menu',
+                step4_desc: 'Toque em "Start" e aguarde o menu aparecer. Pronto! ✅',
+                buy_title: 'Compre sua Chave na RyuhuuStore',
+                buy_desc: 'Adquira sua chave de licença através de uma das lojas oficiais abaixo:',
+                store_global: 'Loja Global',
+                store_global2: 'Loja Global 2',
+                store_global2_desc: 'Cartão, Google Pay, Gift Card — Envie DM no Discord',
+                store_local: 'Loja Local (Indonésia)',
+                store_other: 'Outros Pagamentos',
+                store_other_desc: 'Gcash, PIX, UPI, KakaoPay, Wepay, Alipay, QRPH, etc. — Envie DM no Discord',
+                footer_text: 'Confiável desde o primeiro dia.',
+            },
+        };
+
+        // ============ Language Switcher Logic ============
+        let currentLang = 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            // Save preference
+            localStorage.setItem('mlang', lang);
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+        }
+
+        // Attach click handlers
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                if (lang) switchLanguage(lang);
+            });
+        });
+
+        // Load saved language or detect browser language
+        const savedLang = localStorage.getItem('mlang');
+        const browserLang = navigator.language.slice(0, 2);
+        const supportedLangs = ['en', 'id', 'hi', 'ko', 'ru', 'zh', 'pt'];
+        let detectedLang = 'en';
+        if (savedLang && supportedLangs.includes(savedLang)) {
+            detectedLang = savedLang;
+        } else if (supportedLangs.includes(browserLang)) {
+            detectedLang = browserLang;
+        }
+        switchLanguage(detectedLang);
+
+        // ============ Particle Background ============
+        const particlesContainer = document.getElementById('particles');
+        const colors = ['#c84bff', '#00d4ff', '#ff4da6', '#ffb347', '#7c3aed', '#fff'];
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 4 + 1.5;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            particle.style.animationDelay = (Math.random() * 15) + 's';
+            particle.style.boxShadow = `0 0 ${size*3}px ${particle.style.background}`;
+            particlesContainer.appendChild(particle);
+        }
+
+        // ============ Intersection Observer for staggered fade-in ============
+        const fadeEls = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+        fadeEls.forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = `opacity 0.5s ${i*0.1}s ease, transform 0.5s ${i*0.1}s ease`;
+            observer.observe(el);
+        });
+
+        // Trigger initial visible ones immediately
+        setTimeout(() => {
+            fadeEls.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        }, 100);
+
+        console.log('🚀 M-Loader Guide — Multi-language ready!');
+        console.log('🌍 Supported: EN | ID | HI | KO | RU | ZH | PT-BR');
+    </script>
+</body>
+</html>
