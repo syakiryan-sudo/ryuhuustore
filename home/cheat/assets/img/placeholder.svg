@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef1f6"/>
+      <stop offset="1" stop-color="#e3e8f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#g)"/>
+  <g fill="none" stroke="#b9c1cf" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="180" y="200" width="240" height="200" rx="20"/>
+    <circle cx="250" cy="265" r="22"/>
+    <path d="M200 380l70-70 60 55 45-40 45 55"/>
+  </g>
+  <text x="300" y="455" font-family="-apple-system,Segoe UI,sans-serif" font-size="26" fill="#a2abba" text-anchor="middle">No image</text>
+</svg>
